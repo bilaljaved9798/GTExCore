@@ -1,0 +1,232 @@
+﻿@using GTExCore.Models
+@model IEnumerable<UserBets>
+
+@{
+    List<UserBets> lstMatchedBets = Model.Where(a => a.isMatched == true).ToList();
+    lstMatchedBets = lstMatchedBets.OrderByDescending(item => item.ID).ToList();
+    List<UserBets> lstUnMatchedBets = Model.Where(a => a.isMatched == false).ToList();
+
+    <div class="user-bets-wrapper" style="background: -webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important;">
+        <div>
+            <h4>My Bets</h4>
+        </div>
+        <input type="hidden" id="lbltotLiabality" value="@ViewData["liabality"]">
+        <input type="hidden" id="lblallLiabality" value="@ViewBag.totliabality">
+        <div class="unmatched-bets">
+            <div class="matched-unmatched-heading">
+                <label>Unmatched Bets </label> <label>@lstUnMatchedBets.Count </label>
+                <button class="btncancelUnmatchedBets" id="btncancelUnmatchedBets"><span>Cancel All </span></button>
+            </div>
+            <div class="bets-header" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important; border-top:0px">
+                <div class="Editcancel">
+                    <button class="btn0983"><i class="fa fa-times"></i></button>
+                </div>
+                <div class="selection" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                    <label style="color:white">Runner </label>
+                </div>
+                <div class="Odd" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                    <label style="color:white">Size</label>
+                </div>
+                <div class="Amount" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                    <label style="color:white">Price</label>
+                </div>
+            </div>
+            @if (lstUnMatchedBets.Count > 0)
+            {
+                foreach (var item in lstUnMatchedBets)
+                {
+                    if (item.BetType == "back")
+                    {
+                        <div class="bets-items back" data-id="@item.ID" data-bettype="@item.BetType" data-selectionid="@item.SelectionID" data-odd="@item.UserOdd" data-amount="@item.Amount" data-betsize="@item.BetSize" data-location="@item.location" data-pendingamount="@item.PendingAmount" data-parentID="@item.ParentID" data-marketbookname="@item.MarketBookname" data-marketbookID="@item.MarketBookID" data-selectionname="@item.SelectionName">
+                            <div class="Editcancel">
+                                <label class="love123344" onclick="deleteuserbet(@item.ID)">X</label>
+                            </div>
+                            <div class="selection">
+                                <label>@item.SelectionName</label>
+                            </div>
+                            <div class="Odd">
+                                <label>@item.UserOdd</label>
+                            </div>
+                            <div class="Amount">
+                                <label id="lblbetamount@(item.ID)">@item.Amount</label>
+                            </div>
+
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="bets-items lay" data-id="@item.ID" data-bettype="@item.BetType" data-selectionid="@item.SelectionID" data-odd="@item.UserOdd" data-amount="@item.Amount" data-betsize="@item.BetSize" data-location="@item.location" data-pendingamount="@item.PendingAmount" data-parentID="@item.ParentID" data-marketbookname="@item.MarketBookname" data-marketbookID="@item.MarketBookID" data-selectionname="@item.SelectionName">
+                            <div class="Editcancel">
+                                <label class="cancelbetbutton love123344" onclick="deleteuserbet(@item.ID)">X</label>
+                            </div>
+                            <div class="selection">
+                                <label>@item.SelectionName</label>
+                            </div>
+                            <div class="Odd">
+                                <label>@item.UserOdd</label>
+                            </div>
+                            <div class="Amount">
+                                <label id="lblbetamount@(item.ID)">@item.Amount</label>
+                            </div>
+
+                        </div>
+                    }
+                }
+            }
+        </div>
+
+        <div class="matched-bets">
+            <div class="matched-unmatched-heading">
+                <label>Matched Bets @lstMatchedBets.Count</label>
+                <button class="buttonview" id="btnShowAllmatchedBets" style="height:29.5px">View All</button>
+            </div>
+
+            <div class="allmatchedbets">
+                <div class="matched-betsViewAll">
+                    <div class="bets-header" style="border-top:0px">
+                        <div class="selection" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                            <label style="color:white">Runner </label>
+                        </div>
+                        <div class="Odd" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                            <label style="color:white"> Size</label>
+                        </div>
+                        <div class="Amount" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important; width: 33% !important;">
+                            <label style="color:white"> Price</label>
+                        </div>
+                    </div>
+                    @foreach (var item in lstMatchedBets)
+                    {
+                        if (item.BetType == "back")
+                        {
+                            <div class="bets-items back" data-id="@item.ID" data-bettype="@item.BetType" data-selectionid="@item.SelectionID" data-odd="@item.UserOdd" data-amount="@item.Amount" data-betsize="@item.BetSize" data-location="@item.location" data-pendingamount="@item.PendingAmount" data-parentID="@item.ParentID">
+                                <div class="selection">
+                                    <label>@item.SelectionName</label>
+                                </div>
+                                <div class="Odd">
+                                    <label>@item.UserOdd</label>
+                                </div>
+                                <div class="Amount">
+                                    <label id="lblbetamount@(item.ID)">@item.Amount</label>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="bets-items lay" data-id="@item.ID" data-bettype="@item.BetType" data-selectionid="@item.SelectionID" data-odd="@item.UserOdd" data-amount="@item.Amount" data-betsize="@item.BetSize" data-location="@item.location" data-pendingamount="@item.PendingAmount" data-parentID="@item.ParentID">
+                                <div class="selection">
+                                    <label>@item.SelectionName</label>
+                                </div>
+                                <div class="Odd">
+                                    <label>@item.UserOdd</label>
+                                </div>
+                                <div class="Amount">
+                                    <label id="lblbetamount@(item.ID)">@item.Amount</label>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#btnShowAllmatchedBets").click(function () {
+                $.ajax({
+                    url: '/UserBet/UserBetsAll',
+                    type: 'GET',
+                    async: true,
+                    complete: function () {
+                    },
+                    success: function (data) {
+                        $("#completedmatcedbetscontent").html(data);
+                        $("#myModalCompletedMatchedBets").modal('show');
+                    }
+                });
+                //$("#completedmatcedbetscontent").html($(".allmatchedbets").html());
+                //$("#myModalCompletedMatchedBets").modal('show');
+            });
+            $("#btncancelUnmatchedBets").click(function () {
+                var categoryname = $("#marketbookCategory" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
+                if (categoryname.indexOf("Cricket") >= 0) {
+                    setTimeout(function () {
+                        var userbetsIDs = [];
+                        $(".unmatched-bets .bets-items").each(function () {
+                            var ID = $(this).attr("data-id");
+                            userbetsIDs.push(ID);
+                        })
+                        if (userbetsIDs.length > 0) {
+
+                            dataurl = '/UserBet/UpdateUnMatchedStatustoComplete';
+                            $.ajax({
+                                url: dataurl,
+                                type: 'POST',
+                                async: false,
+                                data: { 'userbetsIDs': userbetsIDs },
+                                complete: function () {
+                                },
+                                success: function (data) {
+                                }
+                            });
+                        }
+
+                    }, @LoggedinUserDetail.BetPlaceWaitandInterval.CancelBetTime.Value);
+                }
+                else {
+                    setTimeout(function () {
+
+
+                        var userbetsIDs = [];
+                        $(".unmatched-bets .bets-items").each(function () {
+                            var ID = $(this).attr("data-id");
+                            userbetsIDs.push(ID);
+                        })
+                        if (userbetsIDs.length > 0) {
+
+                            dataurl = '/UserBet/UpdateUnMatchedStatustoComplete';
+                            $.ajax({
+                                url: dataurl,
+
+                                type: 'POST',
+                                async: false,
+                                data: { 'userbetsIDs': userbetsIDs },
+
+                                complete: function () {
+
+                                },
+                                success: function (data) {
+
+                                }
+                            });
+                        }
+
+                    }, 0);
+                }
+
+            });
+            if ($("#AccountBalanceShow").val() != undefined && $("#lbltotLiabality").val() !== "") {
+                var currentliablity = "" + $("#lbltotLiabality").val();
+                var Totliablity = "" + $("#lblallLiabality").val();
+                var currentbalance = $("#AccountBalanceShow").val().trim().split(":");
+                var newbalance = parseInt(currentbalance[1]) + parseInt($("#lblallLiabality").val());
+                $("#CurrentUserBalance").html("Balance: " + newbalance.toString());
+                $("#CurrentUserLiabality").html(currentliablity);
+                $("#TotalLiabality").html(Totliablity);
+            }
+        });
+    </script>
+}
+
+<style>
+
+    .love123344 {
+        background: red;
+        color: white;
+    }
+        .love123344:hover {
+            outline: 5px auto -webkit-focus-ring-color;
+        }
+
+</style>

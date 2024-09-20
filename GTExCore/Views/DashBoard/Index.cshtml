@@ -1,0 +1,1337 @@
+﻿@using GTCore.ViewModel
+@using GTExCore.Models
+@model AccessRightsbyUserType
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+	<style>
+		.lilabel {
+			color: white;
+			font-weight: 700;
+		}
+
+		.container2990 {
+			display: inline-block;
+			cursor: pointer;
+			width: auto;
+		}
+
+		.bar1 {
+			width: 14px;
+			height: 2.0px;
+			background-color: white;
+			margin: 5.5px 0;
+			transition: 0.4s;
+		}
+
+		.bar3 {
+			width: 23px;
+			height: 2.0px;
+			background-color: white;
+			margin: 5.5px 0;
+			transition: 0.4s;
+		}
+
+		.bar2 {
+			width: 18px;
+			height: 2.0px;
+			background-color: white;
+			margin: 5.5px 0;
+			transition: 0.4s;
+		}
+
+		.change .bar1 {
+			transform: translate(0,8px) rotate(-45deg);
+			width: 23px;
+		}
+
+		.change .bar2 {
+			opacity: 0;
+		}
+
+		.change .bar3 {
+			transform: translate(0, -6px) rotate(42deg);
+		}
+	</style>
+</head>
+<div class="col-md-12 no-padding">
+	<div class="mainheaderdivstatic" style="background:@ViewBag.backgrod;color:@ViewBag.color">
+		<div class="logonew pull-left">
+			<a href="/DashBoard/Index">
+				<h9>GTEXCH</h9>
+			</a>
+		</div>
+
+
+
+
+		<div class="container2990 sidebar-collapse sidebar-toggle" onclick="myFunction(this)">
+			<div class="bar1"></div>
+			<div class="bar2"></div>
+			<div class="bar3"></div>
+		</div>
+
+		<div class="balanceandliabailitynew pull-right">
+			<div class="balanceandliabaility">
+				<ul class="navmain">
+					<li class="dropdown navmainli">
+						<a style="color:white;font-weight:500" href="#"> My Account &#9662; </a>
+						<ul class="dropdown-menu" id="" style="display:none;  ">
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White"><strong>@Model.Username</strong></a>
+							</li>
+
+							<li>
+								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White">Balance: <span id="TotalLiabality">@Model.CurrentAvailableBalance</span></a>
+							</li>
+
+							<li>
+								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White">Liability: <span id="TotalLiabality" style="color:red;font-weight:700">@Model.CurrentLiabality </span></a>
+							</li>
+							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewCreateUser('CreateUser')">Manage User</a>
+								</li>
+
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('ViewActivity')" value="">View Activity</a>
+								</li>
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewAddCredit('AddCredit')" value="Add/Remove credit">Add/Remove credit</a>
+
+								</li>
+							}
+						
+							<li>
+								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewAddCredit('Ledger')" value="View Ledger">Ledger/Statement</a>
+							</li>
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/MyBets" target="_blank" value="View Ledger">My Bets</a>
+							</li>
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/pl" target="_blank" value="View Ledger">Profit & Loss</a>
+
+							</li>
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/PlusMinusSummery" target="_blank" value="View Ledger">Plus & Minus Summery</a>
+								</li>
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('PoundRate')" value="">Set Pound Rate</a>
+								</li>
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('FancysettingsandResultPost')" value="">Fancy Result Post</a>
+
+								</li>
+							}
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="ShowResetPassword()" value="Reset Password">Change Password</a>
+
+							</li>
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/UserActivites" target="_blank" value="Reset Password">Activity Log</a>
+
+							</li>
+							<li class="logoutlink">
+								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="gotosignout()" value="">Log Out</a>
+
+							</li>
+						</ul>
+
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+		
+
+	</div>
+
+	<div class="container">
+		<div class="errordivfixed">
+			<label id="lblMainError"></label>
+		</div>
+
+	</div>
+
+	<div class="innerbodycontent innerbodycontent1">
+		<div class="col-md-2 no-padding">
+			<div class="mainheaderdiv">
+				<div>
+					<div class="navbar-collapse collapse usernameandliablity" style="display:normal"></div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="col-md-10 col-sm-12 no-padding" id="maindiv">
+
+			<div id="partialviews">
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<input type="hidden" id="callerfunction" value="" />
+<input type="hidden" id="userid" value="@LoggedinUserDetail.GetUserID()" />
+<div id='myModalPassword' class='modal'>
+	<div class="modal-dialog">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">Enter your Password</h4>
+		</div>
+		<div class="modal-content">
+
+			<input type="password" id="txtAdminPassword" />
+
+		</div>
+		<div class="modal-footer">
+			<button id="btnCheckPassword" type="button" class="btn btn-default">Continue</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+
+</div>
+
+@if (LoggedinUserDetail.GetUserTypeID() == 3)
+{
+
+	<div id='myModalCompletedMatchedBets' class='modal'>
+		<div class="modal-dialog">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">User Bets</h4>
+			</div>
+			<div id="completedmatcedbetscontent" class="modal-content">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+			</div>
+		</div>
+
+	</div>
+}
+
+else
+{
+	<div id='myModalCompletedMatchedBets' class='modal'>
+		<div class="modal-dialog" style="background:#1D9BF0 !important">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">User Bets</h4>
+			</div>
+			<div id="completedmatcedbetscontent" class="modal-content">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+			</div>
+		</div>
+
+	</div>
+}
+
+@if (LoggedinUserDetail.GetUserTypeID() == 3)
+{
+	<div id='myModalCompletedMatchedBetsFacny' class='modal'>
+		<div class="modal-dialog">
+			<div class="modal-header">
+	<h4 class="modal-title" id="bookheading">Book</h4>
+			</div>
+			<div id="completedmatcedbetscontentFancy" class="modal-content">
+			</div>
+			<div class="modal-footer">
+
+
+				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+			</div>
+		</div>
+
+	</div>
+
+}
+
+else
+{
+
+	<div id='myModalCompletedMatchedBetsFacny' class='modal'>
+		<div class="modal-dialog" style="background-color:#1D9BF0">
+			<div class="modal-header">
+	<h4 class="modal-title" id="bookheading">Book</h4>
+			</div>
+			<div id="completedmatcedbetscontentFancy" class="modal-content">
+			</div>
+			<div class="modal-footer">
+
+
+				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+			</div>
+		</div>
+
+	</div>
+
+
+}
+
+
+
+
+<div id='myModalShowBlanceDetail' class='modal'>
+
+	@if (LoggedinUserDetail.GetUserTypeID() == 3)
+	{
+		<div class="modal-dialog">
+
+
+
+			<div class="modal-header">
+
+					<h4 class="modal-title">Balance Details</h4>
+			</div>
+			<div id="balancedetailscontent" class="modal-content" style="color: white;"></div>
+			<div class="modal-footer">
+				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+			</div>
+		</div>
+
+	}
+
+	else
+
+	{
+		<div class="modal-dialog" style="background-color:#1D9BF0">
+
+
+
+			<div class="modal-header">
+
+					<h4 class="modal-title">Balance Details</h4>
+			</div>
+			<div id="balancedetailscontent" class="modal-content" style="color: white;"></div>
+			<div class="modal-footer">
+				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+			</div>
+		</div>
+
+
+	}
+
+
+</div>
+
+<div id='myModalResult' class='modal'>
+	<div class="modal-dialog">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title"> Results</h4>
+		</div>
+		<div id="resultdetails" class="modal-content"></div>
+		<div class="modal-footer">
+			<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
+		</div>
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+	function myFunction(x) {
+		x.classList.toggle("change");
+	}
+
+	$(document).ready(function () {
+		$(".sidebar-collapse").trigger('click')
+		$(".sidebar-collapse").click(function () {
+
+			if ($("#sidebar").css("display") == "none") {
+				$("#sidebar").show();
+				$("#maindiv").removeClass("col-md-12 col-sm-12 no-padding")
+				$("#maindiv").addClass("col-md-10 col-sm-12 no-padding")
+			}
+			else {
+				$("#sidebar").hide();
+				$("#maindiv").removeClass("col-md-10 col-sm-12 no-padding")
+				$("#maindiv").addClass("col-md-12 col-sm-12 no-padding")
+			}
+
+		});
+		//CheckUserStatus();
+	});
+
+	function getbalancedetail() {
+		$.ajax({
+			type: "GET",
+			url: "/DashBoard/GetBalnceDetails",
+
+			success: function (result) {
+
+				$("#myModalShowBlanceDetail").modal('show');
+				$("#balancedetailscontent").html(result);
+
+			}
+
+		});
+	};
+
+	function getCompletedResult() {
+
+		$.ajax({
+			type: "GET",
+			url: "/DashBoard/GetCompletedResult",
+
+			success: function (result) {
+
+				$("#myModalResult").modal('show');
+				$("#resultdetails").html(result);
+			}
+		});
+	};
+
+	function CheckUserStatus() {
+		try {
+
+			if (@LoggedinUserDetail.GetUserTypeID()== 3 || @LoggedinUserDetail.GetUserTypeID()== 2) {
+				$.ajax({
+					type: "POST",
+					url: "/DashBoard/GetStatus",
+					async: true,
+
+					success: function (result) {
+
+						if (result == "False") {
+							window.location = "/Account/LogOff?ID=" + $("#userid").val();
+						}
+						else {
+							setTimeout(function () { CheckUserStatus() }, 10000);
+
+						}
+
+
+					},
+					error: function (jqXHR, exception) {
+						//CheckUserStatus();
+					}
+				});
+
+			}
+		}
+		catch (err) {
+
+			setTimeout(function () { CheckUserStatus(), 50000 });
+		}
+	}
+
+	$('.mainheaderdiv').nextAll('div').remove();
+	var fromclicklocation = "";
+	function showcompleteduserbets(userid, marketbookID) {
+		if (marketbookID != "") {
+			$.ajax({
+				type: "GET",
+				url: "/DashBoard/showcompleteduserbets",
+
+				data: { 'userid': userid, 'marektbookID': marketbookID },
+				success: function (result) {
+
+					$("#completedmatcedbetscontent").html(result);
+					$("#myModalCompletedMatchedBets").modal('show');
+
+				}
+
+			});
+		}
+
+	}
+
+	function showcompleteduserbetsFacnyIN(marketbookID, selectionID) {
+		if (marketbookID != "") {
+
+			$.ajax({
+				type: "GET",
+
+				url: "/DashBoard/showcompleteduserbetsFancyIN",
+
+				data: { 'marektbookID': marketbookID, 'selectionID': selectionID },
+				success: function (result) {
+					//debugger;
+					$("#completedmatcedbetscontentFancy").html(result);
+					$("#myModalCompletedMatchedBetsFacny").modal('show');
+
+				}
+
+			});
+		}
+
+	}
+
+	function showcompleteduserbetsFacny(marketbookID) {
+		if (marketbookID != "") {
+			$.ajax({
+				type: "GET",
+				url: "/DashBoard/showcompleteduserbetsFancy",
+
+				data: { 'marektbookID': marketbookID },
+				success: function (result) {
+
+					$("#completedmatcedbetscontentFancy").html(result);
+					$("#myModalCompletedMatchedBetsFacny").modal('show');
+
+				}
+
+			});
+		}
+	}
+	function Toggleliabalitiesbymarkets() {
+
+		if ($("#libalitybymarket").css("display") == "none") {
+			$("#libalitybymarket").show();
+			Loadliabalitiesbymarkets();
+		}
+		else {
+			$("#libalitybymarket").hide();
+		}
+	}
+	function Loadliabalitiesbymarkets() {
+		$.ajax({
+			type: "GET",
+			async: false,
+			url: "/Liabality/LoadLiabalitybyMarket",
+			success: function (result) {
+
+				$("#libalitybymarket").html(result);
+
+
+			},
+			complete: function () {
+
+
+			}
+
+		});
+
+
+	}
+
+	function Togglebalanceandliablity() {
+		$(".balanceandliabaility").toggle();
+	}
+
+
+
+
+
+	function LoadUserBetsbyAgent() {
+		var partialviewname = "/DashBoard/UserBetsbyAgent";
+		ShowLoader();
+		$("#partialviews").load(partialviewname, function () {
+			HideLoader();
+
+		});
+	}
+
+	function ShowResetPassword() {
+		$('.mainheaderdiv').nextAll('div').remove();
+		ShowLoader();
+		var partialviewname = "/DashBoard/ResetPasswordView";
+		$("#partialviews").load(partialviewname, function () {
+
+		});
+		$(".usernameandliablity").removeClass("in");
+		$(".usernameandliablity").addClass("collapse");
+		togglemainsportsmenu(3, "");
+
+		HideLoader();
+	}
+	function gotosignout() {
+		window.location = "/Account/LogOff?ID=" + $("#userid").val();
+	}
+
+	$(document).ready(function () {
+
+		LoadMarketView('MarketView');
+		$("#btnCheckPassword").click(function () {
+
+			if ($("#txtAdminPassword").val().length >= 6) {
+				$("#btnCheckPassword").prop("disabled", true);
+				$.ajax({
+					url: '/DashBoard/VerifyPassword',
+
+					type: 'POST',
+
+					data: { 'password': $("#txtAdminPassword").val() },
+
+					complete: function () { },
+					success: function (data) {
+
+						if (data == "True") {
+							$("#btnCheckPassword").prop("disabled", false);
+							$("#myModalPassword").modal('hide');
+							$("#txtAdminPassword").val('');
+
+							if ($("#callerfunction").val() == "updatemarket") {
+
+
+								ShowLoader();
+								$('#ddlUsers > option:selected').each(function () {
+									AssignMarketToUser($(this).val());
+								});
+
+								HideLoader();
+								ShowErrorMsg("User Market Updated Successfully");
+							}
+
+							if ($("#callerfunction").val() == "addcredit") {
+
+								ShowLoader();
+								$.ajax({
+
+									url: '/DashBoard/AddCredittoUser',
+									async: true,
+									type: 'POST',
+									data: { 'AccountBalance': $("#AccountBalance").val(), 'UserID': $("#ddlUsers").val(), 'Username': $("#ddlUsers option:selected").text(), 'AccountsTitle': $("#AccountsTitle").val(), 'IsCredit': $("#chkisCredit").is(":checked") },
+
+									complete: function () { },
+									success: function (data) {
+										if (data == "True") {
+											$("#myModalPassword").modal('hide');
+											ShowCurrentBalance($("#AccountBalance").val());
+											HideLoader();
+
+											ShowErrorMsg("Credit added Successfully");
+											$("#AccountBalance").val('');
+											$("#Password").val('');
+											LoadUserDetails();
+										}
+										else {
+											HideLoader();
+											ShowErrorMsg(data);
+										}
+									}
+								});
+							}
+							if ($("#callerfunction").val() == "transferbalance") {
+
+								ShowLoader();
+								$.ajax({
+									url: '/DashBoard/TransferBalanceFromOneUsertoAnother',
+									async: true,
+									type: 'POST',
+									data: { 'AccountBalance': $("#AccountBalance").val(), 'UserIDFrom': $("#ddlUsersFrom").val(), 'UsernameFrom': $("#ddlUsersFrom option:selected").text(), 'AccountsTitle': $("#AccountsTitle").val(), 'UserIDTo': $("#ddlUsersTo").val(), 'UsernameTo': $("#ddlUsersTo option:selected").text() },
+
+									complete: function () { },
+									success: function (data) {
+										if (data == "True") {
+											$("#myModalPassword").modal('hide');
+											ShowCurrentBalance($("#AccountBalance").val());
+
+											$("#AccountBalance").val('');
+											$("#AccountsTitle").val('');
+											GetcurrentbalancebyUserIDFrom();
+											GetcurrentbalancebyUserIDTo();
+											$("#Password").val('');
+											HideLoader();
+											ShowErrorMsg("Balance Tranfered added Successfully");
+											LoadUserDetails();
+										}
+										else {
+											HideLoader();
+											ShowErrorMsg(data);
+										}
+									}
+								});
+							}
+
+							if ($("#callerfunction").val() == "removecredit") {
+								ShowLoader();
+								$.ajax({
+									url: '/DashBoard/RemoveCredittoUser',
+									async: true,
+									type: 'POST',
+									data: { 'AccountBalance': $("#AccountBalance").val(), 'UserID': $("#ddlUsers").val(), 'Username': $("#ddlUsers option:selected").text(), 'AccountsTitle': $("#AccountsTitle").val(), 'IsCredit': $("#chkisCredit").is(":checked") },
+
+									complete: function () { },
+									success: function (data) {
+
+										if (data == "True") {
+											$("#myModalPassword").modal('hide');
+											ShowCurrentBalance(-1 * ($("#AccountBalance").val()));
+											HideLoader();
+											ShowErrorMsg("Credit removed Successfully");
+											$("#AccountBalance").val('');
+											$("#Password").val('');
+											LoadUserDetails();
+										}
+										else {
+											HideLoader();
+											ShowErrorMsg(data);
+										}
+
+									}
+								});
+							}
+
+						}
+						else {
+							$("#btnCheckPassword").prop("disabled", false);
+							ShowErrorMsg(data);
+						}
+
+					}
+				});
+			}
+			else {
+				$("#btnCheckPassword").prop("disabled", false);
+			}
+
+		});
+
+	});
+
+
+	$(".dropdown").on('click', function (event) {
+		event.stopPropagation(); // Prevent the click event from bubbling up to the document
+		$(this).find(".dropdown-menu").slideToggle(1);
+	});
+
+	// Hide dropdown menu when clicking outside of it
+	$(document).on('click', function (event) {
+		if (!$(event.target).closest('.dropdown').length) {
+			$(".dropdown-menu").slideUp(1);
+		}
+	});
+
+
+
+	//$(document).on("click", function (event) {
+	//	var $trigger = $(".dropdown");
+	//	if ($trigger !== event.target && !$trigger.has(event.target).length) {
+	//		$(".dropdown-menu").slideUp(1);
+	//	}
+	//});
+	//$(document).mouseup(function (e) {
+	//	var container = $(".dropdown-menu");
+
+	//	// if the target of the click isn't the container nor a descendant of the container
+	//	if (!container.is(e.target) && container.has(e.target).length === 0) {
+	//		container.hide();
+	//	}
+
+	//});
+
+
+
+
+	function VerifyPassword(password) {
+
+	}
+	function LoadMyMarket(id) {
+
+
+		var partialviewname = "/DashBoard/" + id;
+		$("#myModalContent").load(partialviewname, function (responseTxt, statusTxt, xhr) {
+
+			HideLoader();
+			$('#myModal').modal('show');
+
+		});
+		$(".usernameandliablity").removeClass("in");
+		$(".usernameandliablity").addClass("collapse");
+	}
+	function GetcurrentbalancebyUserIDFrom() {
+		$.ajax({
+			url: '/DashBoard/GetCurrentBalanceofUser',
+
+			type: 'POST',
+			data: { 'userID': $("#ddlUsersFrom").val() },
+			complete: function () { },
+			success: function (data) {
+				$("#lblFromBlanace").text(data);
+
+
+			}
+		});
+	}
+	function GetcurrentbalancebyUserIDTo() {
+		$.ajax({
+			url: '/DashBoard/GetCurrentBalanceofUser',
+
+			type: 'POST',
+			data: { 'userID': $("#ddlUsersTo").val() },
+			complete: function () { },
+			success: function (data) {
+				$("#lblToBlanace").text(data);
+
+
+			}
+		});
+	}
+
+
+
+
+	//function addtofavourites(id) {
+
+	//}
+	function ShowErrorMsg(msg) {
+		//PlaySound();
+		$("#lblMainError").text(msg);
+		//$('.errordivfixed').delay(200);
+
+		$('.errordivfixed').fadeIn(500).delay(200).fadeOut(500).fadeIn(500).delay(2500).fadeOut(500);
+
+	}
+
+	function LoadMarketView(partialviewid) {
+		$('.mainheaderdiv').nextAll('div').remove();
+		ShowLoader();
+		var partialviewname = "/Market/Index";
+		$("#partialviews").load(partialviewname, function () {
+			HideLoader();
+		});
+		$(".usernameandliablity").removeClass("in");
+		$(".usernameandliablity").addClass("collapse");
+	}
+
+	function LoadPartialViewbyid(partialviewid) {
+		$('.mainheaderdiv').nextAll('div').remove();
+		ShowLoader();
+		var partialviewname = "/DashBoard/" + partialviewid;
+		$("#partialviews").load(partialviewname, function () {
+			togglemainsportsmenu(3, "");
+			HideLoader();
+		});
+
+		$("#ddlUsers").change(function () {
+			LoadUserDetails();
+		});
+		$(".usernameandliablity").removeClass("in");
+		$(".usernameandliablity").addClass("collapse");
+	}
+	//function addorremovefromfavouritesevents(id) {
+
+	//    var imgsrc = $("#eventitemimg" + id).attr("src");
+	//    var dataurl = "";
+	//    if (imgsrc != "../Content/Images/favoriteChecked.png") {
+	//        dataurl = '/Market/AddtoFavoritesEvent';
+	//    }
+	//    else {
+	//        dataurl = '/Market/RemoveFromFavoritesEvent'
+	//    }
+	//    $.ajax({
+	//        url: dataurl,
+
+	//        type: 'POST',
+
+	//        data: { 'eventID': id },
+
+	//        complete: function () { },
+	//        success: function (data) {
+
+	//            if (data == "True") {
+	//                if ($('#myModal').css("display") == "block") {
+	//                    LoadMyMarket('MyMarket');
+	//                }
+	//                if (imgsrc != "../Content/Images/favoriteChecked.png") {
+	//                    $("#eventitemimg" + id).attr({ "src": "../Content/Images/favoriteChecked.png", "title": "Remvoe from favorites" });
+	//                }
+	//                else {
+	//                    $("#eventitemimg" + id).attr({ "src": "../Content/Images/FavoriteUncheck.png", "title": "Add to favorites" });
+	//                }
+	//            }
+
+
+	//        }
+	//    });
+
+	//}
+	function AssignMarketToUser(userID) {
+
+		var selected = [];
+		$("#MarketTreeView label input[type=checkbox]:checked").each(function () {
+			selected.push($(this).attr("id"));
+		});
+
+		var allitemsarr = [];
+		for (i = 0; i <= selected.length - 1; i++) {
+			var itemarr = "";
+			var selecteditem = $("input[id='" + selected[i] + "']").val();
+
+			var parents = $("input[id='" + selected[i] + "']").parents("li");
+			var parentdata = "";
+			var selectionItems = "";
+			if (parents.length == 4) {
+
+				var opendate = "";
+				for (a = parents.length - 1; a >= 0; a--) {
+					if (parents[a] != "#") {
+
+						itemarr = itemarr + "#" + $(parents[a]).attr("data-value");
+
+					}
+					if (a == 0) {
+						var checkboxtext = $("label[for='marketcatalogueitem" + $(parents[a]).attr("data-value") + "']").text().trim();
+						itemarr = itemarr + "#" + checkboxtext;
+						opendate = $(parents[a]).attr("data-marketopentime");
+
+						$("ul[id='selectionitemsfor" + $(parents[a]).attr("data-value") + "'] li").each(function () {
+
+							var selectitem = "";
+							selectitem = $(this).attr("data-value") + "|" + $(this).html().trim() + "|" + $(this).attr("data-jockeyname") + "|" + $(this).attr("data-wearingdesc") + "|" + $(this).attr("data-wearing") + "|" + $(this).attr("data-clothnumber");
+							selectionItems = selectionItems + "=" + selectitem;
+						});
+
+					}
+					if (a == 1) {
+						var checkboxtext = $("label[for='eventitem" + $(parents[a]).attr("data-value") + "']").text().trim();
+
+						itemarr = itemarr + "#" + checkboxtext;
+					}
+					if (a == 2) {
+						var checkboxtext = $("label[for='competitionitem" + $(parents[a]).attr("data-value") + "']").text().trim();
+						itemarr = itemarr + "#" + checkboxtext;
+					}
+					if (a == 3) {
+						var checkboxtext = $("label[for='eventypeitem" + $(parents[a]).attr("data-value") + "']").text().trim();
+						itemarr = itemarr + "#" + checkboxtext;
+					}
+
+				}
+
+				itemarr = itemarr.substr(1);
+			}
+			selectionItems = selectionItems.substr(1);
+
+			if (itemarr != "") {
+				allitemsarr.push(itemarr + "#" + selectionItems + "#" + opendate);
+			}
+
+		}
+
+
+		$.ajax({
+			url: '/DashBoard/UpdateUserMarket',
+
+			type: 'POST',
+			async: true,
+			data: { 'allitemsarr': allitemsarr, 'userID': userID, 'DeleteOldMarket': $("#chkDeleteoldmarkets").prop('checked') },
+
+			complete: function () { },
+			success: function (data) {
+
+				if (data == "True") {
+
+
+
+				}
+				else {
+					HideLoader();
+					ShowErrorMsg(data);
+				}
+
+			}
+		});
+
+	}
+
+	function LoadUserDetails() {
+
+		ShowLoader();
+		$.ajax({
+			url: '/DashBoard/UserDetails',
+			async: true,
+			type: 'POST',
+			data: { 'UserID': $("#ddlUsers").val() },
+
+			complete: function () {
+				if ($("#callerfunction").val() == "updatemarket") {
+					$("label:not([for]) input[type=checkbox]").each(function () {
+						$(this).prop("checked", false);
+						$(this).prop("indeterminate", false);
+					});
+					if ($("#assignedIDs").val() != undefined) {
+						var assignedMarket = $("#assignedIDs").val().split(",");
+						var eventtypeIDs = [];
+						for (i = 0; i <= assignedMarket.length - 1; i++) {
+							if (assignedMarket[i].indexOf("eventypeitem") >= 0) {
+								eventtypeIDs.push(assignedMarket[i]);
+							}
+
+						}
+
+						for (i = 0; i <= eventtypeIDs.length - 1; i++) {
+							var eventtypeID = eventtypeIDs[i].split("|");
+							CheckSelectedMarket();
+
+						}
+					}
+				}
+			},
+			success: function (data) {
+				HideLoader();
+				$("#UserDetails").html(data);
+
+
+			}
+		});
+	}
+
+
+
+	function checkstatechange(checkboxid) {
+
+		var
+			checkbox = checkboxid,
+			nestedList = checkbox.parent().next().next(),
+			selectNestedListCheckbox = nestedList.find("label:not([for]) input:checkbox");
+
+		if (checkbox.is(":checked")) {
+
+			selectNestedListCheckbox.prop("indeterminate", false);
+			selectNestedListCheckbox.prop("checked", true);
+			var parents = $(checkbox).parents("li");
+			for (a = 0; a <= parents.length - 1; a++) {
+				$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', false);
+				$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', true);
+				var allchildlength = $(parents[a]).children('ul').first().children('li').children('label').children('input[type = "checkbox"]').length;
+				var selectedchildlength = $(parents[a]).children('ul').first().children('li').children('label').children('input[type = "checkbox"]:checked').length;
+				$(parents[a]).children('ul').first().children('li').children('label').children('input[type = "checkbox"]').each(function () {
+					if ($(this).prop("indeterminate") == true) {
+						selectedchildlength += 1;
+					}
+				});
+
+				if (selectedchildlength == allchildlength) {
+					$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', false);
+					$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', true);
+				}
+				else {
+					if (selectedchildlength == 0) {
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', false);
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', false);
+					}
+					else {
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', false);
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', true);
+					}
+
+
+				}
+
+			}
+			return
+		}
+		else {
+			selectNestedListCheckbox.prop("checked", false);
+			selectNestedListCheckbox.prop("indeterminate", false);
+			var parents = $(checkbox).parents("li");
+			for (a = 1; a <= parents.length - 1; a++) {
+
+				var allchildlength = $(parents[a]).children('ul').first().children('li').children('label').children('input[type = "checkbox"]').length;
+				var selectedchildlength = $(parents[a]).children('ul').first().children('li').children('label').children('input[type = "checkbox"]:checked').length;
+				$(parents[a]).children('ul').first().children('li').children('label').children('input[type = "checkbox"]').each(function () {
+					if ($(this).prop("indeterminate") == true) {
+						selectedchildlength += 1;
+					}
+				});
+
+				if (selectedchildlength == allchildlength) {
+					$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', false);
+					$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', true);
+				}
+				else {
+					if (selectedchildlength == 0) {
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', false);
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', false);
+					}
+					else {
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('checked', false);
+						$(parents[a]).children('label').first().children("input[type='checkbox']:first").prop('indeterminate', true);
+					}
+
+				}
+
+
+			}
+
+		}
+	}
+	function CheckSelectedMarket() {
+
+		if ($("#assignedIDs").val() != undefined) {
+			ShowLoader();
+			$("label:not([for]) input[type=checkbox]").each(function () {
+				$(this).prop("checked", false);
+				$(this).prop("indeterminate", false);
+			});
+
+			var assignedMarket = $("#assignedIDs").val().split(",");
+			if (assignedMarket.length > 0) {
+
+
+
+				for (i = 0; i <= assignedMarket.length - 1; i++) {
+
+					if (assignedMarket[i].indexOf("marketcatalogueitem") >= 0) {
+						$("label:not([for]) input[id='" + assignedMarket[i] + "']").prop("checked", true);
+					}
+
+
+				}
+
+
+				$("label:not([for]) input[type=checkbox]:checked").each(function () {
+					checkstatechange($(this));
+				});
+
+				HideLoader();
+			}
+		}
+	}
+	function CalculateAverageRate() {
+		var marketbookID = $("#lastloadedmarket").val().toString().replace(".", "");
+		var runner1profit = parseInt($("#marketbook" + marketbookID + " #lblprofitandloss" + $("#ddlRunners1" + $("#lastloadedmarket").val().toString().replace(".", "")).val()).text());
+		var runner2profit = parseInt($("#marketbook" + marketbookID + " #lblprofitandloss" + $("#ddlRunners2" + $("#lastloadedmarket").val().toString().replace(".", "")).val()).text());
+		if ((runner1profit > 0 && runner2profit > 0) || (runner1profit < 0 && runner2profit < 0)) {
+			$("#averageamt1" + $("#lastloadedmarket").val().toString().replace(".", "")).val("0.00");
+			$("#averageamt2" + $("#lastloadedmarket").val().toString().replace(".", "")).val("0.00");
+			return;
+		}
+		if (runner1profit > 0) {
+			$(".averageLateover1").text("L");
+			$(".averageLateover1").addClass("greenclass");
+			$(".averageLateover1").removeClass("redclass");
+			$(".averageLateover2").text("K");
+			$(".averageLateover2").addClass("redclass");
+			$(".averageLateover2").removeClass("greenclass");
+		}
+		else {
+
+			if (runner2profit > 0) {
+				$(".averageLateover1").text("K");
+				$(".averageLateover1").addClass("redclass");
+				$(".averageLateover1").removeClass("greenclass");
+				$(".averageLateover2").text("L");
+				$(".averageLateover2").addClass("greenclass");
+				$(".averageLateover2").removeClass("redclass");
+			}
+		}
+		if (runner1profit < 0) { runner1profit = runner1profit * -1; }
+		if (runner2profit < 0) { runner2profit = runner2profit * -1; }
+		if (runner1profit > 0 && runner2profit > 0) {
+			var result = runner1profit / runner2profit;
+			var result2 = runner2profit / runner1profit;
+			$("#averageamt1" + $("#lastloadedmarket").val().toString().replace(".", "")).val(parseFloat(result).toFixed(2));
+			$("#averageamt2" + $("#lastloadedmarket").val().toString().replace(".", "")).val(parseFloat(result2).toFixed(2));
+		}
+
+	}
+	function LoadPartialViewCreateUser(partialviewid) {
+		$('.mainheaderdiv').nextAll('div').remove();
+		ShowLoader();
+		var partialviewname = "/DashBoard/" + partialviewid;
+		$("#partialviews").load(partialviewname, function () {
+			HideLoader();
+			$("#btnCreateUser").click(function () {
+				if ($("#ddlUserType").val() == 0) {
+					ShowErrorMsg("Please select user type.");
+					return;
+				}
+				var BetLowerLimitC = 2000;
+				var BetUpperLimitC = 25000;
+				var BetLowerLimitCHorsePlace = 2000;
+				var BetUpperLimitCHorsePlace = 25000;
+				var BetLowerLimitCGrayHoundWin = 2000;
+				var BetUpperLimitCGrayHoundWin = 25000;
+				var BetLowerLimitCGrayHoundPlace = 2000;
+				var BetUpperLimitCGrayHoundPlace = 25000;
+				var BetLowerLimitCMatchOdds = 2000;
+				var BetUpperLimitCMatchOdds = 500000;
+				var BetLowerLimitCMatchOddsSoccer = 2000;
+				var BetUpperLimitCMatchOddsSoccer = 25000;
+				var BetLowerLimitCMatchOddsTennis = 2000;
+				var BetUpperLimitCMatchOddsTennis = 25000;
+				var BetLowerLimitCInningsRunns = 2000;
+				var BetUpperLimitCInningsRunns = 500000;
+				var BetLowerLimitCCompletedMatch = 2000;
+				var BetUpperLimitCCompletedMatch = 500000;
+				var BetLowerLimitCTiedMatch = 2000;
+				var BetUpperLimitCTiedMatch = 500000;
+				var BetLowerLimitCWinner = 2000;
+				var BetUpperLimitCWinner = 500000;
+				if (@LoggedinUserDetail.GetUserTypeID() == 1) {
+					BetLowerLimitC = $("#BetLowerLimit").val();
+					BetUpperLimitC = $("#BetUpperLimit").val();
+					BetLowerLimitCHorsePlace = $("#BetLowerLimitHorsePlace").val();
+					BetUpperLimitCHorsePlace = $("#BetUpperLimitHorsePlace").val();
+					BetLowerLimitCGrayHoundWin = $("#BetLowerLimitGrayHoundWin").val();
+					BetUpperLimitCGrayHoundWin = $("#BetUpperLimitGrayHoundWin").val();
+					BetLowerLimitCGrayHoundPlace = $("#BetLowerLimitGrayHoundPlace").val();
+					BetUpperLimitCGrayHoundPlace = $("#BetUpperLimitGrayHoundPlace").val();
+					BetLowerLimitCMatchOdds = $("#BetLowerLimitMatchOdds").val();
+					BetUpperLimitCMatchOdds = $("#BetUpperLimitMatchOdds").val();
+					BetLowerLimitCMatchOddsSoccer = $("#BetLowerLimitMatchOddsSoccer").val();
+					BetUpperLimitCMatchOddsSoccer = $("#BetUpperLimitMatchOddsSoccer").val();
+					BetLowerLimitCMatchOddsTennis = $("#BetLowerLimitMatchOddsTennis").val();
+					BetUpperLimitCMatchOddsTennis = $("#BetUpperLimitMatchOddsTennis").val();
+					BetLowerLimitCInningsRunns = $("#BetLowerLimitInningRuns").val();
+					BetUpperLimitCInningsRunns = $("#BetUpperLimitInningRuns").val();
+					BetLowerLimitCCompletedMatch = $("#BetLowerLimitCompletedMatch").val();
+					BetUpperLimitCCompletedMatch = $("#BetUpperLimitCompletedMatch").val();
+					BetLowerLimitCTiedMatch = $("#BetLowerLimitTiedMatch").val();
+					BetUpperLimitCTiedMatch = $("#BetUpperLimitTiedMatch").val();
+					BetLowerLimitCWinner = $("#BetLowerLimitWinner").val();
+					BetUpperLimitCWinner = $("#BetUpperLimitWinner").val();
+				}
+				var CreateUser = {
+					Name: $("#Name").val(), PhoneNumber: $("#PhoneNumber").val(), EmailAddress: $("#EmailAddress").val(), UserName: $("#UserName").val(), Password: $("#Password").val(), Location: $("#Location").val(), AccountBalance: $("#AccountBalance").val(), UserTypeID: $("#ddlUserType").val(), AgentRateC: $("#AgentRateC").val(), BetLowerLimit: BetLowerLimitC, BetUpperLimit: BetUpperLimitC, BetLowerLimitHorsePlace: BetLowerLimitCHorsePlace, BetUpperLimitHorsePlace: BetUpperLimitCHorsePlace, BetLowerLimitGrayHoundWin: BetLowerLimitCGrayHoundWin, BetUpperLimitGrayHoundWin: BetUpperLimitCGrayHoundWin, BetLowerLimitGrayHoundPlace: BetLowerLimitCGrayHoundPlace, BetUpperLimitGrayHoundPlace: BetUpperLimitCGrayHoundPlace, BetLowerLimitInningsRunns: BetLowerLimitCInningsRunns, BetUpperLimitInningsRunns: BetUpperLimitCInningsRunns, BetLowerLimitMatchOdds: BetLowerLimitCMatchOdds, BetUpperLimitMatchOdds: BetUpperLimitCMatchOdds, BetLowerLimitCompletedMatch: BetLowerLimitCCompletedMatch, BetUpperLimitCompletedMatch: BetUpperLimitCCompletedMatch, BetLowerLimitMatchOddsSoccer: BetLowerLimitCMatchOddsSoccer, BetUpperLimitMatchOddsSoccer: BetUpperLimitCMatchOddsSoccer, BetLowerLimitMatchOddsTennis: BetLowerLimitCMatchOddsTennis, BetUpperLimitMatchOddsTennis: BetUpperLimitCMatchOddsTennis, BetLowerLimitTiedMatch: BetLowerLimitCTiedMatch, BetUpperLimitTiedMatch: BetUpperLimitCTiedMatch, BetLowerLimitWinner: BetLowerLimitCWinner, BetUpperLimitWinner: BetUpperLimitCWinner
+				};
+				ShowLoader();
+				$.ajax({
+					url: '/DashBoard/GetUser',
+
+					type: 'POST',
+					data: CreateUser,
+					complete: function () { },
+					success: function (data) {
+						if (data.indexOf("True") >= 0) {
+
+							var userid = data.split("|");
+							AssignMarketToUser(userid[1]);
+							ShowCurrentBalance($("#AccountBalance").val());
+							$("#ManageUser").load("/DashBoard/ManageUser");
+							$("#CreateUserForm :input[type='text']").each(function () {
+								$(this).val('');
+							});
+
+							HideLoader();
+							ShowErrorMsg("User added Successfully");
+
+						}
+						else {
+							HideLoader();
+							ShowErrorMsg(data);
+						}
+
+					}
+				});
+			});
+
+
+		});
+
+	}
+
+	//function printContent(el){
+	//    var restorepage = document.body.innerHTML;
+	//    var printcontent = document.getElementById(el).innerHTML;
+	//    document.body.innerHTML = printcontent;
+	//    window.print();
+	//    document.body.innerHTML = restorepage;
+	//}
+
+
+	function showaboutus() {
+		var partialviewname = "/DashBoard/About";
+		$("#otherdata").load(partialviewname, function () {
+			$("#marketdataall").hide();
+			$("#otherdata").show();
+			$("#partialviews").show();
+			HideLoader();
+
+
+		});
+
+	}
+
+	function ShowCurrentBalance(addedbalance) {
+
+		if ($("#CurrentUserBalance").text() != "") {
+			var number = $("#CurrentUserBalance").text().split(":");
+			var newbalance = parseFloat(number[1]) - parseFloat(addedbalance);
+			$("#CurrentUserBalance").text('Balance: ' + parseFloat(newbalance).toFixed(2).toString());
+		}
+	}
+
+	function LoadPartialViewAddCredit(partialviewid) {
+		$('.mainheaderdiv').nextAll('div').remove();
+		ShowLoader();
+		var partialviewname = "/DashBoard/" + partialviewid;
+		$("#partialviews").load(partialviewname, function () {
+			var $form = $("#AddCreditForm");
+			$.ajax({
+				url: '/DashBoard/AllUsers',
+				async: false,
+				type: 'POST',
+
+
+				complete: function () {
+					$('.selectpicker').selectpicker();
+					$("#ddlUsers").change(function () {
+						LoadUserDetails();
+					});
+					HideLoader();
+				},
+				success: function (data) {
+					$("#allusers").html(data);
+
+				}
+			});
+
+
+			$("#ddlUsers").change(function () {
+				LoadUserDetails();
+			});
+			$("#btnAddCredit").click(function () {
+				if ($("#AccountsTitle").val() == "") {
+					ShowErrorMsg("Please enter Accounts Title.");
+					return false;
+				}
+				if ($("#AccountBalance").val() > 0 && $("#ddlUsers").val() > 0) {
+					$("#callerfunction").val("addcredit");
+					$("#myModalPassword").modal('show');
+					$("#txtAdminPassword").focus();
+
+				}
+			});
+
+			$("#btnRemoveCredit").click(function () {
+				if ($("#AccountsTitle").val() == "") {
+					ShowErrorMsg("Please enter Accounts Title.");
+					return false;
+				}
+				if ($("#AccountBalance").val() > 0 && $("#ddlUsers").val() > 0) {
+
+					$("#callerfunction").val("removecredit");
+					$("#myModalPassword").modal('show');
+					$("#txtAdminPassword").focus();
+				}
+
+			});
+			HideLoader();
+		});
+
+	}
+</script>
+
+
+

@@ -1,0 +1,38 @@
+﻿@using BettingServiceReference
+@model MarketBookForindianFancy
+
+@if (Model.RunnersForindianFancy.Count > 0)
+{
+    <div class="matched-bets">
+        <div class="bookscoreandamount">
+            <div class="bookscore">
+                <label>Score</label>
+            </div>
+            <div class="bookamount">
+                <label>Amount</label>
+            </div>
+        </div>
+        @foreach (var item in Model.RunnersForindianFancy)
+        {
+            <div class="bookscoreandamount">
+                <div class="bookscore">
+                    <label>@item.SelectionId</label>
+                </div>
+                @if (item.ProfitandLoss >= 0)
+                {
+                    <div class="bookamountgreen">
+                        <label>@item.ProfitandLoss</label>
+                    </div>
+                }
+                else
+                {
+                    <div class="bookamountred">
+                        <label>@item.ProfitandLoss</label>
+                    </div>
+                }
+
+            </div>
+        }
+    </div>
+}
+
