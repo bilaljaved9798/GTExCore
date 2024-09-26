@@ -930,7 +930,7 @@ cta-8:hover {
 }
 
 .btntvcard {
-    background: #075E54;
+    background: -webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important;
     height: 33px;
 }
 

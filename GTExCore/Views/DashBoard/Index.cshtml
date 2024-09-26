@@ -542,7 +542,7 @@ else
 
 	function LoadUserBetsbyAgent() {
 		var partialviewname = "/DashBoard/UserBetsbyAgent";
-		ShowLoader();
+		//ShowLoader();
 		$("#partialviews").load(partialviewname, function () {
 			HideLoader();
 
@@ -551,7 +551,7 @@ else
 
 	function ShowResetPassword() {
 		$('.mainheaderdiv').nextAll('div').remove();
-		ShowLoader();
+		//ShowLoader();
 		var partialviewname = "/DashBoard/ResetPasswordView";
 		$("#partialviews").load(partialviewname, function () {
 
@@ -591,7 +591,7 @@ else
 							if ($("#callerfunction").val() == "updatemarket") {
 
 
-								ShowLoader();
+								////ShowLoader();
 								$('#ddlUsers > option:selected').each(function () {
 									AssignMarketToUser($(this).val());
 								});
@@ -602,7 +602,7 @@ else
 
 							if ($("#callerfunction").val() == "addcredit") {
 
-								ShowLoader();
+								////ShowLoader();
 								$.ajax({
 
 									url: '/DashBoard/AddCredittoUser',
@@ -631,7 +631,7 @@ else
 							}
 							if ($("#callerfunction").val() == "transferbalance") {
 
-								ShowLoader();
+								//ShowLoader();
 								$.ajax({
 									url: '/DashBoard/TransferBalanceFromOneUsertoAnother',
 									async: true,
@@ -662,7 +662,7 @@ else
 							}
 
 							if ($("#callerfunction").val() == "removecredit") {
-								ShowLoader();
+								//ShowLoader();
 								$.ajax({
 									url: '/DashBoard/RemoveCredittoUser',
 									async: true,
@@ -803,7 +803,7 @@ else
 
 	function LoadMarketView(partialviewid) {
 		$('.mainheaderdiv').nextAll('div').remove();
-		ShowLoader();
+		//ShowLoader();
 		var partialviewname = "/Market/Index";
 		$("#partialviews").load(partialviewname, function () {
 			HideLoader();
@@ -814,7 +814,7 @@ else
 
 	function LoadPartialViewbyid(partialviewid) {
 		$('.mainheaderdiv').nextAll('div').remove();
-		ShowLoader();
+		//ShowLoader();
 		var partialviewname = "/DashBoard/" + partialviewid;
 		$("#partialviews").load(partialviewname, function () {
 			togglemainsportsmenu(3, "");
@@ -955,7 +955,7 @@ else
 
 	function LoadUserDetails() {
 
-		ShowLoader();
+		//ShowLoader();
 		$.ajax({
 			url: '/DashBoard/UserDetails',
 			async: true,
@@ -1078,7 +1078,7 @@ else
 	function CheckSelectedMarket() {
 
 		if ($("#assignedIDs").val() != undefined) {
-			ShowLoader();
+			//ShowLoader();
 			$("label:not([for]) input[type=checkbox]").each(function () {
 				$(this).prop("checked", false);
 				$(this).prop("indeterminate", false);
@@ -1147,7 +1147,7 @@ else
 	}
 	function LoadPartialViewCreateUser(partialviewid) {
 		$('.mainheaderdiv').nextAll('div').remove();
-		ShowLoader();
+		//ShowLoader();
 		var partialviewname = "/DashBoard/" + partialviewid;
 		$("#partialviews").load(partialviewname, function () {
 			HideLoader();
@@ -1205,7 +1205,7 @@ else
 				var CreateUser = {
 					Name: $("#Name").val(), PhoneNumber: $("#PhoneNumber").val(), EmailAddress: $("#EmailAddress").val(), UserName: $("#UserName").val(), Password: $("#Password").val(), Location: $("#Location").val(), AccountBalance: $("#AccountBalance").val(), UserTypeID: $("#ddlUserType").val(), AgentRateC: $("#AgentRateC").val(), BetLowerLimit: BetLowerLimitC, BetUpperLimit: BetUpperLimitC, BetLowerLimitHorsePlace: BetLowerLimitCHorsePlace, BetUpperLimitHorsePlace: BetUpperLimitCHorsePlace, BetLowerLimitGrayHoundWin: BetLowerLimitCGrayHoundWin, BetUpperLimitGrayHoundWin: BetUpperLimitCGrayHoundWin, BetLowerLimitGrayHoundPlace: BetLowerLimitCGrayHoundPlace, BetUpperLimitGrayHoundPlace: BetUpperLimitCGrayHoundPlace, BetLowerLimitInningsRunns: BetLowerLimitCInningsRunns, BetUpperLimitInningsRunns: BetUpperLimitCInningsRunns, BetLowerLimitMatchOdds: BetLowerLimitCMatchOdds, BetUpperLimitMatchOdds: BetUpperLimitCMatchOdds, BetLowerLimitCompletedMatch: BetLowerLimitCCompletedMatch, BetUpperLimitCompletedMatch: BetUpperLimitCCompletedMatch, BetLowerLimitMatchOddsSoccer: BetLowerLimitCMatchOddsSoccer, BetUpperLimitMatchOddsSoccer: BetUpperLimitCMatchOddsSoccer, BetLowerLimitMatchOddsTennis: BetLowerLimitCMatchOddsTennis, BetUpperLimitMatchOddsTennis: BetUpperLimitCMatchOddsTennis, BetLowerLimitTiedMatch: BetLowerLimitCTiedMatch, BetUpperLimitTiedMatch: BetUpperLimitCTiedMatch, BetLowerLimitWinner: BetLowerLimitCWinner, BetUpperLimitWinner: BetUpperLimitCWinner
 				};
-				ShowLoader();
+				//ShowLoader();
 				$.ajax({
 					url: '/DashBoard/GetUser',
 
@@ -1274,7 +1274,7 @@ else
 
 	function LoadPartialViewAddCredit(partialviewid) {
 		$('.mainheaderdiv').nextAll('div').remove();
-		ShowLoader();
+		//ShowLoader();
 		var partialviewname = "/DashBoard/" + partialviewid;
 		$("#partialviews").load(partialviewname, function () {
 			var $form = $("#AddCreditForm");

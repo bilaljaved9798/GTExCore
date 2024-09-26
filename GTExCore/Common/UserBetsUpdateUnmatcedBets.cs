@@ -2359,7 +2359,58 @@ namespace Global.API
 			return objmarketbookin;
 		}
 
-	}
+        public List<DebitCredit> ceckProfitandLossFig(MarketBook marketbookstatus, List<UserBets> lstUserBets)
+        {
+            List<DebitCredit> lstDebitCredit = new List<DebitCredit>();
+            var lstUserbetsbyMarketID = lstUserBets.Where(item => item.MarketBookID == marketbookstatus.MarketId);
+
+            foreach (var userbet in lstUserbetsbyMarketID)
+            {
+                var totamount = (Convert.ToDecimal(userbet.Amount) * Convert.ToDecimal(userbet.BetSize) / 100);
+                var objDebitCredit = new DebitCredit();
+                if (userbet.BetType == "back")
+                {
+                    objDebitCredit.SelectionID = userbet.SelectionID;
+                    objDebitCredit.Debit = totamount;
+                    objDebitCredit.Credit = 0;
+                    lstDebitCredit.Add(objDebitCredit);
+                    foreach (var runneritem in marketbookstatus.Runners)
+                    {
+                        if (runneritem.SelectionId != userbet.SelectionID)
+                        {
+                            objDebitCredit = new DebitCredit();
+                            objDebitCredit.SelectionID = runneritem.SelectionId;
+                            objDebitCredit.Debit = 0;
+                            objDebitCredit.Credit = Convert.ToDecimal(userbet.Amount);
+                            lstDebitCredit.Add(objDebitCredit);
+                        }
+                    }
+
+                }
+                else
+                {
+                    objDebitCredit.SelectionID = userbet.SelectionID;
+                    objDebitCredit.Debit = 0;
+                    objDebitCredit.Credit = totamount;
+                    lstDebitCredit.Add(objDebitCredit);
+                    foreach (var runneritem in marketbookstatus.Runners)
+                    {
+                        if (runneritem.SelectionId != userbet.SelectionID)
+                        {
+                            objDebitCredit = new DebitCredit();
+                            objDebitCredit.SelectionID = runneritem.SelectionId;
+                            objDebitCredit.Debit = Convert.ToDecimal(userbet.Amount);
+                            objDebitCredit.Credit = 0;
+                            lstDebitCredit.Add(objDebitCredit);
+                        }
+                    }
+
+                }
+            }
+            return lstDebitCredit;
+        }
+
+    }
 
 
 }

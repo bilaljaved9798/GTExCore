@@ -77,7 +77,7 @@ namespace Census.API.Controllers
 					lstAllUserBets.Clear();
 					if (_httpContextAccessor.HttpContext.Session.GetObject<BettingServiceReference.LinevMarkets>("linevmarkets") != null)
 					{
-						_httpContextAccessor.HttpContext.Session.GetObject<UserIDandUserType>("User");
+						//_httpContextAccessor.HttpContext.Session.GetObject<UserIDandUserType>("User");
 						List<UserBets> lstUserBetAll = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");
 						List<BettingServiceReference.LinevMarkets> linevmarketsfig = new List<BettingServiceReference.LinevMarkets>();
 						List<BettingServiceReference.LinevMarkets> linevmarkets = _httpContextAccessor.HttpContext.Session.GetObject<List<BettingServiceReference.LinevMarkets>>("linevmarkets");
