@@ -1,0 +1,22 @@
+﻿@using GTExCore.Models
+@model IEnumerable<LiabalitybyMarket>
+<table class="table">
+    <tr>
+        <th>
+            Market Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Liabality)
+        </th> 
+    </tr>
+@foreach (var item in Model) {
+    <tr onclick="lastLevelBreadcrumb('@item.MarketBookID')" style="cursor:pointer">
+        <td>
+            @Html.DisplayFor(modelItem => item.MarketBookName)
+        </td>
+        <td >
+            @Html.DisplayFor(modelItem => item.Liabality)
+        </td> 
+    </tr>
+}
+</table>

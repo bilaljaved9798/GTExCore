@@ -1,0 +1,172 @@
+﻿@using GTExCore.Models
+<div class="ledgerwraper">
+    <div class="container">
+        <div class="seven">
+            <a href="/DashBoard/Index" target="_self">
+                <h2 style="color:red">
+                    << Back to Dash_board
+                </h2>
+            </a>
+        </div>
+        <div class="col-md-12 no-padding form-horizontal">
+            <div class="ledgerheader col-md-offset-1">
+                <div id="BalanceDetails">
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3">From:</label>
+                    <div class="col-md-7 col-sm-6">
+                        <input type="text" id="txtDateFrom" class="form-control datepicker input1123" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-12">
+                <div class="form-group">
+                    <label class="control-label col-md-3"> To:</label>
+                    <div class="col-md-7">
+                        <input type="text" id="txtDateTo" class="form-control datepicker input1123" />
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="col-lg-5 col-sm-12">
+                @if (LoggedinUserDetail.GetUserTypeID() != 3)
+                {
+                    <br />
+                    <div class="col-md-offset-1">
+                        <div id="allusers">
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+
+                        $(document).ready(function () {
+                            $.ajax({
+                                url: '/DashBoard/AllUsers',
+                                async: true,
+                                type: 'POST',
+                                complete: function () {
+                                    $('.selectpicker').selectpicker();
+                                    $("#ddlUsers").change(function () {
+                                        if ($("#ddlUsers").val() > 0) {
+                                        }
+                                    });
+                                    HideLoader();
+                                },
+                                success: function (data) {
+                                    $("#allusers").html(data);
+                                }
+                            });
+                        });
+                    </script>
+                    <div class="col-md-9">
+                        <input type="checkbox" id="chkisCredit" value="isCredit" class="checkbox-inline" />
+                        <label class="control-label" for="chkisCredit">Include Credit</label>
+                    </div>
+                }
+            </div>
+            <div class="col-lg-5 col-sm-12">
+
+                <div class="form-group" style="margin-top:24px">
+                    <div class="col-md-offset-3 col-md-2 col-sm-12" style="float:right">
+                        <input type="button" value="Load Ledger" id="btnLoad" class="btn btn-default" />
+                    </div>
+                </div>
+
+                @if (LoggedinUserDetail.GetUserTypeID() != 3)
+                {
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-2 col-sm-12">
+                            <input type="button" value="Balance Sheet" id="btnLoadBalance" class="btn btn-default" style="float:left !important;margin-top: -34px" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-12 no-padding">
+            <div id="ledgerdetails">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+  
+    $(document).ready(function () {
+        var dateNow = new Date();
+        var newdate = new Date(dateNow).setDate(dateNow.getDate() - 1);
+        $('#txtDateFrom').datetimepicker({
+            format: 'DD-MM-YYYY',
+            defaultDate: newdate
+
+        });
+        $('#txtDateTo').datetimepicker({
+            format: 'DD-MM-YYYY',
+            defaultDate: dateNow
+
+        });
+
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: "/DashBoard/GetBalnceDetails",
+            success: function (result) {
+                debugger;
+                $("#BalanceDetails").html(result);
+                HideLoader();
+            },
+            complete: function () {
+            }
+
+        });
+        $("#btnLoad").click(function () {
+            var datefrom = $("#txtDateFrom").val();
+            var dateTo = $("#txtDateTo").val();
+            ShowLoader();
+            var userID = 0;
+            if ($("#ddlUsers").val() != undefined) {
+                userID = $("#ddlUsers").val();
+            }
+            $.ajax({
+                url: '/DashBoard/LedgerDetails',
+
+                type: 'POST',
+
+                data: { 'DateFrom': datefrom, 'DateTo': dateTo, 'UserID': userID, 'isCredit': $("#chkisCredit").is(":checked") },
+
+                complete: function () { },
+                success: function (data) {
+                    $("#ledgerdetails").html(data);
+                    HideLoader();
+                },
+                error: function (data) {
+                    HideLoader();
+                }
+            });
+        });
+        $("#btnLoadBalance").click(function () {
+            ShowLoader();
+            var userID = 0;
+            if ($("#ddlUsers").val() != undefined) {
+                userID = $("#ddlUsers").val();
+            }
+            $.ajax({
+                url: '/DashBoard/BalanceSheet',
+
+                type: 'POST',
+
+                data: { 'UserID': userID, 'isCredit': $("#chkisCredit").is(":checked") },
+
+                complete: function () { },
+                success: function (data) {
+                    $("#ledgerdetails").html(data);
+                    HideLoader();
+                },
+                error: function (data) {
+                    HideLoader();
+                }
+            });
+        });
+    });
+</script>

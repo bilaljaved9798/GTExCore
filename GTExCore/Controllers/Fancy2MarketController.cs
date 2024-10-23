@@ -187,7 +187,7 @@ namespace Census.API.Controllers
 				lstMarketBookRunnersIndianFancy.Clear();
 				string jsonResult = await objBettingClient.GetRunnersForFancyAsync(EventID, MarketBookID);
 				LineMarketData getDataFancy = JsonConvert.DeserializeObject<LineMarketData>(jsonResult);
-				getDataFancy.session = getDataFancy.session.Take(40).OrderBy(s => s.SelectionId).ToList();
+				getDataFancy.session = getDataFancy?.session.Take(40).OrderBy(s => s.SelectionId).ToList();
 				foreach (var runners in getDataFancy.session.Take(15))
 				{
 					var runner = new BettingServiceReference.RunnerForIndianFancy();

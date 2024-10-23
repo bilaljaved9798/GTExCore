@@ -23,6 +23,17 @@ namespace GTExCore.Controllers
         {
             return View();
         }
+
+        [AllowAnonymous]
+        public ActionResult LogOff(int ID)
+        {
+            int UserID = ID;
+            objUserServiceClient.SetLoggedinStatus(UserID, false);
+            LoggedinUserDetail.InsertActivityLog(UserID, "Logged Out");
+            _httpContextAccessor.HttpContext.Session.SetObject("User", new UserIDandUserType());
+            _httpContextAccessor.HttpContext.Session.SetObject("firsttimeload", true);
+            return RedirectToAction("Login", "Account");
+        }
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {

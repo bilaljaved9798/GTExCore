@@ -3938,164 +3938,19 @@ function ShowInPlayC() {
 
 	}
 
-
-
-	function AssignDatatoMarketBookFancy2(marketbooks) {
-
-		var marketbook1 = JSON.parse(marketbooks);
-		$("#maindata1").html('');
-		var html = '';
-
-		var itemfound = 0;
-
-		for (k = 0; k <= marketbook1.length - 1; k++) {
-			itemfound = 1;
-			var marketbook = marketbook1[k];
-			//var marketbookID = marketbook.MarketId.toString().replace(".", "");
-			for (j = 0; j <= marketbook.RunnersForindianFancy.length - 1; j++)
-			{
-				html += ' <input type="hidden" id="marketbookCategory' + marketbook.RunnersForindianFancy[j].MarketBookID.replace(".", "") + '" value="' + marketbook.RunnersForindianFancy[j].TotalMatchedStr + '" />';
-				html += '<input type="hidden" id="marketbookstatus ' + marketbook.RunnersForindianFancy[j].MarketBookID.replace(".", "") + '" value="' + marketbook.RunnersForindianFancy[j].StallDraw + '" />';
-				//html += '<input type="hidden" id="marketbookallowedbetting ' + marketbook.runnersforindianfancy[j].marketbookid.replace(".", "") + '" value="' + marketbook.runnersforindianfancy[j].bettingallowed + '" />';
-				//html += '<input type="hidden" id="marketbookallowedbettingoverall ' + marketbook.runnersforindianfancy[j].marketbookid.replace(".", "") + '" value="' + marketbook.runnersforindianfancy[j].bettingallowed + '" />';
-
-				html += '<div id="marketbook ' + marketbook1[k].MarketId.replace(".", "") + '"  class="marketbook4" data-marketid="' + marketbook1[k].MarketId + '">';
-				html += '<div id="selection ' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + '" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper">';
-
-				html += '<div id="runnernamediv ' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="col-md-2 col-sm-8 no-padding runnernamediv" style="display:none">';
-				html += '<label style="display:none">' + marketbook.RunnersForindianFancy[j].SelectionId + '</label>';
-				html +='</div >';
-				html += '<div id="nameProfitandlossdiv">'
-				html +='<div id="runnernamediv" class="no-padding runnernamediv runnerswrapper">'
-
-				html +='<label for="chkselection ' + marketbook.RunnersForindianFancy[j].SelectionId + '" data-value="' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="runners runnersname" id="lblSelectionName ' + marketbook.RunnersForindianFancy[j].SelectionId + '" style="float: left">'+ marketbook.RunnersForindianFancy[j].RunnerName+'</label>'
-
-				html += '<div class="bookbutton" onclick="showcompleteduserbetsFacnyIN(' + marketbook.RunnersForindianFancy[j].MarketBookID + ',' + marketbook.RunnersForindianFancy[j].SelectionId + ')"> Book </div>';
-
-				html += '<div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">';
-				if (marketbook.RunnersForindianFancy[j].ProfitandLoss >= 0) {
-					html += '<label id="lblprofitandloss ' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="runnersprofitlossgreenFancy ">' + marketbook.RunnersForindianFancy[j].ProfitandLoss + '</label>';
-				}
-				else {
-					html +='<label id="lblprofitandloss ' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="runnersprofitlossred"> '+marketbook.RunnersForindianFancy[j].ProfitandLoss+' </label>';
-				}
-
-				if (marketbook.RunnersForindianFancy[j].Loss >= 0) {
-					html +='<label id="lblloss ' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="runnersprofitlossgreenFancy ">' + marketbook.RunnersForindianFancy[j].Loss + '</label >';
-				}
-				else {
-					html += '<label id="lblloss ' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="runnersprofitlossred">' + marketbook.RunnersForindianFancy[j].Loss + '</label>';
-				}
-				html += '</div>';
-				html += '</div>';
-				html +='</div>';
-
-				html += '<div id="lastpricebackandlaydiv">';
-				html += '<div id="lastpricedivval" class="no-padding runnerlastpricediv">';
-				html += '<label id="lblrunnerlastprice ' + marketbook.RunnersForindianFancy[j].SelectionId + '" class="runnerslastprice">' + marketbook.RunnersForindianFancy[j].LastPriceTraded + '</label>';
-				html += '<label id="lblrunnertotalmatched ' + marketbook.RunnersForindianFancy[j].SelectionId + ' " class="runnertotalmatch">' + marketbook.RunnersForindianFancy[j].TotalMatched + '</label>';
-				html += '</div>';
-				if (marketbook.RunnersForindianFancy[j].StatusStr == "Ball Running")
-				{
-					Hidebetslip();
-					html += '<div id="backandlaydivMainINS" class="runnerbackandlaydiv">';
-					html += '<label id="lblballrunning" class="suspended">' + marketbook.RunnersForindianFancy[j].StatusStr + ' </label>';
-					html += '</div>';
-				}
-
-				else {
-					if (marketbook.RunnersForindianFancy[j].StatusStr == "SUSPENDED") {
-						html += '<div id="backandlaydivMainINS" class="runnerbackandlaydiv">';
-						html += '<label id="lblsuspend" class="suspended">' + marketbook.RunnersForindianFancy[j].StatusStr + '</label>';
-						html += '</div>';
-					}
-					else {
-						html += '<div id="backandlaydivMainIN" class="no-padding priceandsize matchcolors runnerbackandlaydiv">';
-						html += '<div id="backandlaydivthird" class="no-padding">';
-						html += '<div class="col-md-4 col-sm-12 no-padding backitem">';
-						html += '<label class="selectionprice"></label>';
-						html += '<br />';
-						html += '<label class="selectionsize"></label>';
-						html += '</div>';
-						html += '<div class="col-md-4 col-sm-12 no-padding backitem">';
-						html += '<label class="selectionprice"></label>';
-						html += '<br />';
-						html += '<label class="selectionsize"></label>';
-						html += '</div>';
-						html += '<div class="col-md-4 col-sm-12 no-padding backitem">';
-						html +='<label  style="font-size:21px; font-weight:bold" id="lblbackprice ' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + '" class="selectionprice" onclick="showbetslip(' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + ', "back",' + marketbook.RunnersForindianFancy[j].Backprice + ',"2000","0",' + marketbook.RunnersForindianFancy[j].MarketBookID + ',' + marketbook.RunnersForindianFancy[j].RunnerName + ',' + marketbook.RunnersForindianFancy[j].BackSize + ',"9",' + marketbook.RunnersForindianFancy[j].MarketBookID + ')">' + marketbook.RunnersForindianFancy[j].Backprice + '</label>';
-						html += '<br />';
-						html += '<label  id="lblbacksize ' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + '" class="selectionsize" onclick="showbetslip(' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + ', "back", ' + marketbook.RunnersForindianFancy[j].Backprice + ',"2000", "0", ' + marketbook.RunnersForindianFancy[j].MarketBookID + ', ' + marketbook.RunnersForindianFancy[j].RunnerName + ',' + marketbook.RunnersForindianFancy[j].BackSize + ',"9",' + marketbook.RunnersForindianFancy[j].MarketBookID + ')">' + marketbook.RunnersForindianFancy[j].BackSize + '</label>';
-						html += '</div>';
-						html += '</div>';
-
-
-						html += '<div id="ExchangePricesmain" class="no-padding">';
-						html += '<div id="layitemmain" class="no-padding layitem">';
-
-						html += '<label style="font-size:21px; font-weight:bold" id="lbllayprice ' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + '" class="selectionprice" onclick="showbetslip(' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + ',"lay",' + marketbook.RunnersForindianFancy[j].Layprice + ',"2000","0",' + marketbook.RunnersForindianFancy[j].MarketBookID + ',' + marketbook.RunnersForindianFancy[j].RunnerName + ',' + marketbook.RunnersForindianFancy[j].LaySize + ',"9",' + marketbook.RunnersForindianFancy[j].MarketBookID + ')">' + marketbook.RunnersForindianFancy[j].Layprice + '</label>';
-						html += '<br />';
-						html += '<label id="lbllaysize ' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + '" class="selectionsize" onclick="showbetslip(' + marketbook.RunnersForindianFancy[j].SelectionId.replace(" ", "") + ',"lay",' + marketbook.RunnersForindianFancy[j].Layprice + ',"2000","0",' + marketbook.RunnersForindianFancy[j].MarketBookID + ',' + marketbook.RunnersForindianFancy[j].RunnerName + ',' + marketbook.RunnersForindianFancy[j].LaySize + ',"9",' + marketbook.RunnersForindianFancy[j].MarketBookID + ')">' + marketbook.RunnersForindianFancy[j].LaySize + '</label>';
-						html += '</div>';
-
-						html += '<div id="layitemmain" class="no-padding layitem">';
-
-						html += '<label class="selectionprice"></label>';
-
-						html += '<label class="selectionsize"></label>';
-						html += '</div>';
-
-						html += '<div id="layitemmain" class="no-padding layitem">';
-						html += '<label class="selectionprice"></label>';
-
-						html += '<label class="selectionsize"></label>';
-						html += '</div>';
-
-
-
-						html += '</div>';
-						html += '</div>';
-
-					}
-
-				}
-			}
-
-			$("#maindata1").html(html);
-
-
-		}
-
-		if (itemfound == 1) {
-			$(".fancybackandlaydiv").show();
-
-
-		}
-		else {
-			$(".fancybackandlaydiv").hide();
-		}
-		if ($("#marketbookdataforshow").css("display") == "block") {
-			$("#fancymarketbook").show();
-		}
-		else {
-			$("#fancymarketbook").hide();
-		}
-
-	}
-
-
 	function assignDatatoMarketBookFancyIN(marketbooks) {
 		var marketbook1 = JSON.parse(marketbooks);
 		if (marketbook1.length == 0) {
 			GetActiveMarketINFancy();
 			return;
 		}
-		debugger;
+		
 		let existingRunners = new Set($(".marketbook4").map(function () {
 			return $(this).data("marketid");
 		}).get());
 		$.each(marketbook1, function (index, runner) {
 			let marketId = runner.SelectionId.replace(/\s/g, '');
+			marketId = parseInt(marketId);
 
 			if ($("#mainRunnerBook" + marketId).length > 0) {
 				if (runner.StatusStr === "Ball Running") {
@@ -4118,7 +3973,7 @@ function ShowInPlayC() {
 					$("#lbllayprice" + marketId).text(runner.Layprice);
 					$("#lbllaysize" + marketId).text(runner.LaySize);
 				}
-				
+				debugger
 				$("#lblprofitandloss" + marketId).text(runner.ProfitandLoss);
 				$("#lblloss" + marketId).text(runner.Loss);
 
@@ -5669,7 +5524,7 @@ function ShowInPlayC() {
 
 			$("#btnBetslipsubmit").click(function () {
 				isfirstclick = true;
-
+				debugger;
 				$("#btnBetslipsubmit").prop('disabled', true);
 				$("#btnBetslipReset").prop('disabled', true);
 
@@ -6590,30 +6445,36 @@ function ShowInPlayC() {
 				return re;
 			}
 
-	function insertbetslip() {
-				//debugger
+	        function insertbetslip() {				
 				if(checkNetConnection()==false){
 					return  ;
 				}
 
 				var data=$("#clickedbetsize").val()
-				//selectionID =
+		        var betRequest = {
+		        	Odd: $("#betslipodd").val(),
+		        	SelectionID: [$("#openedbetslipid").val()],  // Assuming SelectionID is an array
+		        	Selectionname: $("#betslipselection").text(),
+		        	BetType: $("#betsliptype").val(),
+		        	Amount: $("#betslipamount").val(),
+		        	Betslipamountlabel: $("#betslipamountlabel").text(),
+		        	Clickedlocation: $("#clickedlocation").val(),
+		        	Betslipsize: $("#clickedbetsize").val(),
+		        	MarketbookID: $("#loadedmarketbook").val(),
+		        	MarketbookName: $("#loadedmarketbookname").val(),
+		        };
 				$.ajax({
-					url: '/UserBet/InsertUserBetNew',
-
-					type: 'POST',
-					async: false,
-					data: { 'userodd': $("#betslipodd").val(), 'SelectionID': $("#openedbetslipid").val(), 'Selectionname': $("#betslipselection").text(),'BetType': $("#betsliptype").val(), 'nupdownAmount': $("#betslipamount").val(),'betslipamountlabel':$("#betslipamountlabel").text(),'Clickedlocation':$("#clickedlocation").val(),'Betslipsize':$("#clickedbetsize").val(),'marketbookId': $("#loadedmarketbook").val(), 'Marketbookname': $("#loadedmarketbookname").val() },
-
-					complete: function () {
-
-					},
-					success: function (data) {
-						HideLoader();
-
-					}
-				});
-
+                     url: '/UserBet/InsertUserBetNew',
+                     type: 'POST',
+                     contentType: 'application/json',
+                     data: JSON.stringify(betRequest),
+                     success: function(data) {
+                         HideLoader();
+                     },
+                     error: function(err) {
+                         console.error(err);
+                     }
+                 });
 			}
 
 	function insertbetslipmob() {
@@ -7096,20 +6957,15 @@ function ShowInPlayC() {
 					$("#bdownmob-349").prop('disabled', true)
 					$("#bupmob-349").prop('disabled', true)
 				}
-
-
 					if (categoryname == "Cricket") {
 						$.ajax({
 							url: '/userbet/GetBettingAllowedbyMarketIDandUserID',
-
 							type: 'post',
 							async: false,
 							data: { 'marketbookid': marketbookID },
-
 							complete: function () { },
 							success: function (data) {
-								// ;
-								if (data == "True") {
+								if (data == true) {
 									$("#marketbookallowedbetting" + newid).val('1');
 									betttingallowedmarket = "1";
 								}
@@ -7117,7 +6973,6 @@ function ShowInPlayC() {
 									$("#marketbookallowedbetting" + newid).val('0');
 									betttingallowedmarket = "0";
 								}
-
 							}
 						});
 		}
@@ -7127,20 +6982,17 @@ function ShowInPlayC() {
                              url: '/userbet/GetBettingAllowedbyMarketIDandUserID',	                
 							 type: 'post',
 							 async: false,
-                             data: { 'marketbookid': marketbookID },
-	                
+                             data: { 'marketbookid': marketbookID },	               
                              complete: function () { },
                              success: function (data) {
-                                 // ;
-                                 if (data == "True") {
+                                 if (data == true) {
                                      $("#marketbookallowedbetting" + newid).val('1');
                                      betttingallowedmarket = "1";
                                  }
                                  else {
                                      $("#marketbookallowedbetting" + newid).val('0');
                                      betttingallowedmarket = "0";
-                                 }
-	                
+                                 }	               
                              }
                          });
                      }

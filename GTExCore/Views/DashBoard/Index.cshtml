@@ -66,9 +66,6 @@
 			</a>
 		</div>
 
-
-
-
 		<div class="container2990 sidebar-collapse sidebar-toggle" onclick="myFunction(this)">
 			<div class="bar1"></div>
 			<div class="bar2"></div>
@@ -995,8 +992,6 @@ else
 		});
 	}
 
-
-
 	function checkstatechange(checkboxid) {
 
 		var
@@ -1257,10 +1252,7 @@ else
 			$("#otherdata").show();
 			$("#partialviews").show();
 			HideLoader();
-
-
 		});
-
 	}
 
 	function ShowCurrentBalance(addedbalance) {
@@ -1282,8 +1274,6 @@ else
 				url: '/DashBoard/AllUsers',
 				async: false,
 				type: 'POST',
-
-
 				complete: function () {
 					$('.selectpicker').selectpicker();
 					$("#ddlUsers").change(function () {
@@ -1293,7 +1283,6 @@ else
 				},
 				success: function (data) {
 					$("#allusers").html(data);
-
 				}
 			});
 
@@ -1310,7 +1299,6 @@ else
 					$("#callerfunction").val("addcredit");
 					$("#myModalPassword").modal('show');
 					$("#txtAdminPassword").focus();
-
 				}
 			});
 

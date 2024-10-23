@@ -1,6 +1,7 @@
 ﻿using BettingServiceReference;
 using Global.API;
 using GTCore.Models;
+using GTCore.ViewModel;
 using GTExCore.Common;
 using GTExCore.HelperClass;
 using GTExCore.HelperClasses;
@@ -21,9 +22,10 @@ namespace GTExCore.Controllers
     {
 
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        GTCore.ViewModel.AccessRightsbyUserType objAccessrightsbyUserType;
+        AccessRightsbyUserType objAccessrightsbyUserType;
 		BettingServiceClient BettingServiceClient = new BettingServiceClient();
-		UserServicesClient objUsersServiceCleint = new UserServicesClient();
+        UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+        UserServicesClient objUsersServiceCleint = new UserServicesClient();
         private readonly IRazorViewEngine _viewEngine;
         private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;
@@ -42,7 +44,6 @@ namespace GTExCore.Controllers
         [ActionName("Index")]
         public ActionResult Index()
         {
-
             if (LoggedinUserDetail.GetUserTypeID() == 3)
             {
                 _httpContextAccessor.HttpContext.Session.SetObject("userbets", new List<UserBets>());
@@ -88,14 +89,10 @@ namespace GTExCore.Controllers
                 }
             }
 
-            //LoggedinUserDetail.CheckifUserLogin();
-
-
             if (LoggedinUserDetail.GetUserID() > 0)
             {
-
                 Decimal CurrentLiabality = 0;
-                objAccessrightsbyUserType = new GTCore.ViewModel.AccessRightsbyUserType();
+                objAccessrightsbyUserType = new AccessRightsbyUserType();
                 objAccessrightsbyUserType.CurrentAvailableBalance = LoggedinUserDetail.CurrentAccountBalance + Convert.ToDouble(CurrentLiabality);
                 objAccessrightsbyUserType.Username = LoggedinUserDetail.GetUserName();
 
@@ -111,7 +108,6 @@ namespace GTExCore.Controllers
             {
                 return RedirectToAction("Login", "Account");
             }
-
         }
 
         //[HttpGet]
@@ -138,7 +134,6 @@ namespace GTExCore.Controllers
 
         BettingServiceClient objBettingClient = new BettingServiceClient();
         List<RootSCT> rootsct = new List<RootSCT>();
-
         public List<BettingServiceReference.MarketBook> GetMarketDatabyID(string[] marketID, string sheetname, DateTime OrignalOpenDate, string MainSportsCategory)
         {
             if (1 == 1)
@@ -167,18 +162,13 @@ namespace GTExCore.Controllers
             }
         }
         public static wsnew ws1 = new wsnew();
-
         public static wsnew ws2 = new wsnew();
-
         public static wsnew ws4 = new wsnew();
-
         public static wsnew ws7 = new wsnew();
-
         public static wsnew ws0 = new wsnew();
         //public static wsnew ws0t = new wsnew();
         public static wsnew ws4339 = new wsnew();
         public static wsnew wsFancy = new wsnew();
-
         private wsnew wsBFMatch = new wsnew();
         public void SetURLsData()
         {
@@ -275,7 +265,6 @@ namespace GTExCore.Controllers
                 return new BettingServiceReference.MarketBook();
             }
         }
-
         public BettingServiceReference.MarketBook ConvertJsontoMarketObjectBF(BettingServiceReference.MarketBook BFMarketbook, string marketid, DateTime marketopendate, string sheetname, string MainSportsCategory)
         {
             try
@@ -577,10 +566,8 @@ namespace GTExCore.Controllers
                 //APIConfig.LogError(ex);
                 return new BettingServiceReference.MarketBook();
             }
-        }
-
-       
-        public async Task<List<AllMarketsInPlay>> GetManagers()
+        } 
+       public async Task<List<AllMarketsInPlay>> GetManagers()
         {
             List<AllMarketsInPlay> lstGridMarkets = _httpContextAccessor.HttpContext.Session.GetObject<List<AllMarketsInPlay>>("marketsData");
             var session = _httpContextAccessor.HttpContext.Session;
@@ -730,7 +717,6 @@ namespace GTExCore.Controllers
             if (lstGridMarkets == null) lstGridMarkets = new List<AllMarketsInPlay>();
             return lstGridMarkets;
         }
-
         public async Task<string> GetReletedevent(string eventtype, string marketbookID)
         {
             try
@@ -760,7 +746,6 @@ namespace GTExCore.Controllers
 
             }
         }
-
         public async Task<string> RenderRazorViewToStringAsync(string viewName, object model)
         {
             ViewData.Model = model;
@@ -884,14 +869,12 @@ namespace GTExCore.Controllers
                 return PartialView("AllInPayMatches", new DefaultPageModel());
             }
         }
-
         public string ConvertDateFormat(string datetoconvert)
         {
             string[] datearr = datetoconvert.Split('-');
             datetoconvert = datearr[2].ToString() + "-" + datearr[1].ToString() + "-" + datearr[0].ToString();
             return datetoconvert;
         }
-
         public async Task<PartialViewResult> showcompleteduserbetsFancyIN(string marektbookID, string selectionID)
         {
             if (LoggedinUserDetail.GetUserTypeID() == 2)
@@ -993,9 +976,342 @@ namespace GTExCore.Controllers
                 }
             }
         }
+		public PartialViewResult Ledger()
+		{
+			LoggedinUserDetail.CheckifUserLogin();
+			return PartialView();
+		}
+        public PartialViewResult GetBalnceDetails()
+        {
+            if (LoggedinUserDetail.GetUserID() > 0)
+            {
+                double CurrentAccountBalance = 0;
+                string CurrentLiabality = "";
+                try
+                {
+                    LoggedinUserDetail.CurrentAccountBalance = Convert.ToDouble(objUsersServiceCleint.GetStartingBalance(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                    CurrentAccountBalance = Convert.ToDouble(objUsersServiceCleint.GetCurrentBalancebyUser(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                }
+                catch (System.Exception ex)
+                {
+                }
+                if (LoggedinUserDetail.GetUserTypeID() == 3)
+                {
+                    double laboddmarket = 0;
+                    double othermarket = 0;
+                    List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                    List<UserBets> lstUserBetsF = lstUserBets.Where(x => x.location != "9").ToList();
+                    List<UserBets> lstUserBetsfncy = lstUserBets.Where(x => x.location == "9").ToList();
+                    laboddmarket = objUserBets.GetLiabalityofCurrentUser(LoggedinUserDetail.GetUserID(), lstUserBetsF);
+                    othermarket = objUserBets.GetLiabalityofCurrentUserfancy(LoggedinUserDetail.GetUserID(), lstUserBetsfncy);
+                    CurrentLiabality = (laboddmarket + othermarket).ToString("F2");
+                    ViewBag.CurrentLiabality = CurrentLiabality;
+                    LoggedinUserDetail.CurrentAvailableBalance = CurrentAccountBalance + Convert.ToDouble(CurrentLiabality);
+                }
+                List<UserLiabality> lstUserLiabality = JsonConvert.DeserializeObject<List<UserLiabality>>(objUsersServiceCleint.GetCurrentLiabality(LoggedinUserDetail.GetUserID()));
 
+                objAccessrightsbyUserType = JsonConvert.DeserializeObject<AccessRightsbyUserType>(objUsersServiceCleint.GetAccessRightsbyUserType(LoggedinUserDetail.GetUserTypeID(), _passwordSettingsService.PasswordForValidate));
+                if (LoggedinUserDetail.GetUserTypeID() == 8)
+                {
+                    decimal TotAdminAmount = 0;
+                    decimal TotAdmincommession = 0;
+                    decimal TotalAdminAmountWithoutMarkets = 0;
+                    List<UserAccounts> AgentCommission = new List<UserAccounts>();
+                    List<UserAccounts> lstUserAccountsForAgent = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDatabyCreatedByIDForSuper(LoggedinUserDetail.GetUserID(), false, _passwordSettingsService.PasswordForValidate));
+                    if (lstUserAccountsForAgent.Count > 0)
+                    {
+                        AgentCommission = lstUserAccountsForAgent.Where(item1 => item1.AccountsTitle == "Commission").ToList();
+                        lstUserAccountsForAgent = lstUserAccountsForAgent.Where(item1 => item1.AccountsTitle != "Commission").ToList();
+                        foreach (UserAccounts objuserAccounts in lstUserAccountsForAgent)
+                        {
+                            if (objuserAccounts.AccountsTitle != "Commission" && objuserAccounts.MarketBookID != "")
+                            {
+                                int commissionrate = Convert.ToInt32(objuserAccounts.ComissionRate);
+                                int AgentRate = Convert.ToInt32(objuserAccounts.AgentRate);
+                                int SuperRate = Convert.ToInt32(objuserAccounts.SuperRate);
+                                decimal ActualAmount = Convert.ToDecimal(objuserAccounts.Debit) - Convert.ToDecimal(objuserAccounts.Credit);
+                                decimal superpercent = SuperRate - AgentRate;
+                                if (ActualAmount > 0)
+                                {
+                                    decimal SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                    decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                    decimal Comissionamount = 0;
+                                    if (AgentRate == 100)
+                                    {
+                                        Comissionamount = 0;
+                                    }
+                                    else
+                                    {
+                                        Comissionamount = Math.Round(((Convert.ToDecimal(commissionrate) / 100) * ActualAmount), 2);
+                                    }
 
+                                    TotAdminAmount += -1 * (ActualAmount - SuperAmount - AgentAmount);
+                                }
+                                else
+                                {
+                                    ActualAmount = -1 * ActualAmount;
+                                    decimal SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                    decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                    TotAdminAmount += ActualAmount - AgentAmount - SuperAmount;
+                                }
+                            }
+                        }
+                    }
+                    decimal a = 0;
+                    try
+                    {
 
+                        foreach (UserAccounts objuserAccounts in AgentCommission)
+                        {
+                            int commissionrate = Convert.ToInt32(objuserAccounts.ComissionRate);
+                            int AgentRate = Convert.ToInt32(objuserAccounts.AgentRate);
+                            int SuperRate = Convert.ToInt32(objuserAccounts.SuperRate);
+                            decimal ActualAmount = Convert.ToDecimal(objuserAccounts.Debit) - Convert.ToDecimal(objuserAccounts.Credit);
+                            decimal superpercent = SuperRate - AgentRate;
+                            ActualAmount = -1 * ActualAmount;
+                            decimal SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                            decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                            TotAdmincommession += ActualAmount - AgentAmount - SuperAmount;
+                        }
+                    }
+                    catch (System.Exception ex)
+                    {
+                    }
+                    if (LoggedinUserDetail.IsCom == true)
+                    {
+                        a = (-1 * (TotAdminAmount));
+                        ViewBag.commission = TotAdmincommession;
+                    }
+                    else
+                    {
+                        a = (-1 * (TotAdminAmount) + (-1 * TotAdmincommession));
+                    }
+                    objAccessrightsbyUserType.NetBalance = a.ToString();
+                }
+                else
+                {
+                    if (LoggedinUserDetail.GetUserTypeID() == 3)
+                    {
+                        ViewBag.NetBalance = objUsersServiceCleint.GetProfitorLossbyUserID(LoggedinUserDetail.GetUserID(), false, _passwordSettingsService.PasswordForValidate).ToString();
+                    }
 
+                    else
+                    {
+                        if (LoggedinUserDetail.GetUserTypeID() == 2)
+                        {
+                            ViewBag.backgrod = "#1D9BF0";
+                            ViewBag.color = "white";
+                            decimal TotAdminAmount = 0;
+                            decimal TotalAdminAmountWithoutMarkets = 0;
+                            decimal SuperAmount = 0;
+                            decimal SuperAmount1 = 0;
+                            List<UserAccounts> lstUserAccountsForAgent = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDatabyCreatedByID(LoggedinUserDetail.GetUserID(), false, _passwordSettingsService.PasswordForValidate));
+                            if (lstUserAccountsForAgent.Count > 0)
+                            {
+                                lstUserAccountsForAgent = lstUserAccountsForAgent.Where(item1 => item1.AccountsTitle != "Commission").ToList();
+                                foreach (UserAccounts objuserAccounts in lstUserAccountsForAgent)
+                                {
+                                    if (objuserAccounts.AccountsTitle != "Commission" && objuserAccounts.MarketBookID != "")
+                                    {
+                                        int commissionrate = Convert.ToInt32(objuserAccounts.ComissionRate);
+                                        int AgentRate = Convert.ToInt32(objuserAccounts.AgentRate);
+                                        int SuperRate = Convert.ToInt32(objuserAccounts.SuperRate);
+                                        decimal ActualAmount = Convert.ToDecimal(objuserAccounts.Debit) - Convert.ToDecimal(objuserAccounts.Credit);
+                                        decimal superpercent = 0;
+                                        if (SuperRate > 0)
+                                        {
+                                            superpercent = SuperRate - AgentRate;
+                                        }
+                                        else
+                                        {
+                                            superpercent = 0;
+                                        }
+                                        if (ActualAmount > 0)
+                                        {
+                                            SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                            decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                            decimal Comissionamount = 0;
+                                            if (AgentRate == 100)
+                                            {
+                                                Comissionamount = 0;
+                                            }
+                                            else
+                                            {
+                                                Comissionamount = Math.Round(((Convert.ToDecimal(commissionrate) / 100) * ActualAmount), 2);
+                                            }
+
+                                            TotAdminAmount += -1 * (ActualAmount - (AgentAmount + SuperAmount) - Comissionamount);
+                                            SuperAmount1 += -1 * SuperAmount;
+                                        }
+                                        else
+                                        {
+                                            ActualAmount = -1 * ActualAmount;
+                                            SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                            decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                            TotAdminAmount += ActualAmount - (AgentAmount + SuperAmount);
+                                            SuperAmount1 += SuperAmount;
+                                        }
+                                    }
+                                }
+                            }
+                            int createdbyid = objUsersServiceCleint.GetCreatedbyID(LoggedinUserDetail.GetUserID());
+                            string a = "";
+                            List<UserAccounts> lstAccountsDonebyAdmin = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDataForAdmin(createdbyid, false, _passwordSettingsService.PasswordForValidate));
+                            if (lstAccountsDonebyAdmin.Count > 0)
+                            {
+                                List<UserAccounts> lstAccountsDonebyAdminagainstthisAgent = lstAccountsDonebyAdmin.Where(item => item.AccountsTitle.Contains("(UserID=" + LoggedinUserDetail.GetUserID().ToString() + ")")).ToList();
+                                if (lstAccountsDonebyAdminagainstthisAgent.Count > 0)
+                                {
+                                    TotalAdminAmountWithoutMarkets = lstAccountsDonebyAdminagainstthisAgent.Sum(item => Convert.ToDecimal(item.Debit)) - lstAccountsDonebyAdminagainstthisAgent.Sum(item => Convert.ToDecimal(item.Credit));
+                                }
+                            }
+                            decimal AgentCommission = 0;
+                            decimal superCommission = 0;
+                            try
+                            {
+                                AgentCommission = objUsersServiceCleint.GetTotalAgentCommissionbyAgentID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate);
+                            }
+                            catch (System.Exception ex)
+                            {
+                            }
+                            if (LoggedinUserDetail.IsCom == true)
+                            {
+                                a = ((-1 * (TotAdminAmount) + (-1 * TotalAdminAmountWithoutMarkets) + (-1 * (SuperAmount1)))).ToString();
+                                ViewBag.commission = AgentCommission;
+                            }
+                            else
+                            {
+                                a = ((-1 * (TotAdminAmount) + (-1 * TotalAdminAmountWithoutMarkets) + (-1 * (SuperAmount1))) + AgentCommission).ToString();
+                            }
+
+                            ViewBag.NetBalance = a;
+                        }
+                        else
+                        {
+                            if (LoggedinUserDetail.GetUserTypeID() == 9)
+                            {
+                                ViewBag.backgrod = "#1D9BF0";
+                                ViewBag.color = "white";
+                                decimal TotAdminAmount = 0;
+                                decimal TotAdmincommession = 0;
+                                decimal TotalAdminAmountWithoutMarkets = 0;
+                                List<UserAccounts> AgentCommission = new List<UserAccounts>();
+                                List<UserAccounts> lstUserAccountsForAgent = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDatabyCreatedByIDForSamiAdmin(LoggedinUserDetail.GetUserID(), false, _passwordSettingsService.PasswordForValidate));
+                                if (lstUserAccountsForAgent.Count > 0)
+                                {
+                                    AgentCommission = lstUserAccountsForAgent.Where(item1 => item1.AccountsTitle == "Commission").ToList();
+                                    lstUserAccountsForAgent = lstUserAccountsForAgent.Where(item1 => item1.AccountsTitle != "Commission").ToList();
+                                    foreach (UserAccounts objuserAccounts in lstUserAccountsForAgent)
+                                    {
+                                        if (objuserAccounts.AccountsTitle != "Commission" && objuserAccounts.MarketBookID != "")
+                                        {
+                                            int commissionrate = Convert.ToInt32(objuserAccounts.ComissionRate);
+                                            int AgentRate = Convert.ToInt32(objuserAccounts.AgentRate);
+                                            int SuperRate = Convert.ToInt32(objuserAccounts.SuperRate);
+                                            int SamiadminRate = Convert.ToInt32(objuserAccounts.SamiadminRate);
+                                            decimal ActualAmount = Convert.ToDecimal(objuserAccounts.Debit) - Convert.ToDecimal(objuserAccounts.Credit);
+                                            decimal superpercent = SuperRate - AgentRate;
+                                            decimal samiadminpercent = SamiadminRate - (superpercent + AgentRate);
+                                            if (ActualAmount > 0)
+                                            {
+                                                decimal SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                                decimal SamiadminAmount = Math.Round((Convert.ToDecimal(samiadminpercent) / 100) * ActualAmount, 2);
+                                                decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                                decimal Comissionamount = 0;
+                                                if (AgentRate == 100)
+                                                {
+                                                    Comissionamount = 0;
+                                                }
+                                                else
+                                                {
+                                                    Comissionamount = Math.Round(((Convert.ToDecimal(commissionrate) / 100) * ActualAmount), 2);
+                                                }
+
+                                                TotAdminAmount += -1 * (ActualAmount - SuperAmount - AgentAmount - SamiadminAmount);
+                                            }
+                                            else
+                                            {
+                                                ActualAmount = -1 * ActualAmount;
+                                                decimal SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                                decimal SamiadminAmount = Math.Round((Convert.ToDecimal(samiadminpercent) / 100) * ActualAmount, 2);
+                                                decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                                TotAdminAmount += ActualAmount - AgentAmount - SuperAmount - SamiadminAmount;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                try
+                                {
+                                    foreach (UserAccounts objuserAccounts in AgentCommission)
+                                    {
+                                        int commissionrate = Convert.ToInt32(objuserAccounts.ComissionRate);
+                                        int AgentRate = Convert.ToInt32(objuserAccounts.AgentRate);
+                                        int SuperRate = Convert.ToInt32(objuserAccounts.SuperRate);
+                                        int SamiadminRate = Convert.ToInt32(objuserAccounts.SamiadminRate);
+                                        decimal ActualAmount = Convert.ToDecimal(objuserAccounts.Debit) - Convert.ToDecimal(objuserAccounts.Credit);
+                                        decimal superpercent = SuperRate - AgentRate;
+                                        decimal samiadminpercent = SamiadminRate - (superpercent + AgentRate);
+                                        ActualAmount = -1 * ActualAmount;
+                                        decimal SuperAmount = Math.Round((Convert.ToDecimal(superpercent) / 100) * ActualAmount, 2);
+                                        decimal AgentAmount = Math.Round((Convert.ToDecimal(AgentRate) / 100) * ActualAmount, 2);
+                                        decimal SamiadminAmount = Math.Round((Convert.ToDecimal(samiadminpercent) / 100) * ActualAmount, 2);
+                                        TotAdmincommession += ActualAmount - AgentAmount - SuperAmount - SamiadminAmount;
+                                    }
+                                }
+                                catch (System.Exception ex)
+                                {
+                                }
+                                decimal a = (-1 * (TotAdminAmount) + (-1 * TotAdmincommession));
+
+                                ViewBag.NetBalance = a.ToString();
+                            }
+                        }
+
+                    }
+                }
+            }
+
+            return PartialView("BalanceDetails", objAccessrightsbyUserType);
+        }
+        public PartialViewResult AllUsers()
+        {
+            List<UserIDandUserType> lstUsers = GetUsersbyUsersType();
+            return PartialView(lstUsers);          
+        }
+        public List<UserIDandUserType> GetUsersbyUsersType()
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            var results = "";
+            if (LoggedinUserDetail.GetUserTypeID() != 3)
+            {
+                results = objUsersServiceCleint.GetAllUsersbyUserType(LoggedinUserDetail.GetUserID(), LoggedinUserDetail.GetUserTypeID(), _passwordSettingsService.PasswordForValidate);
+            }
+
+            if (results != "")
+            {
+                List<UserIDandUserType> lstUsers = JsonConvert.DeserializeObject<List<UserIDandUserType>>(results);
+
+                foreach (UserIDandUserType objuser in lstUsers)
+                {
+                    objuser.UserName = Crypto.Decrypt(objuser.UserName);
+                    objuser.UserName = objuser.UserName + " (" + objuser.UserType + ")";
+                }
+                UserIDandUserType userdefult = new UserIDandUserType();
+                userdefult.ID = 0;
+                userdefult.UserName = "Please Select";
+                lstUsers.Insert(0, userdefult);
+                return lstUsers;
+            }
+            else
+            {
+                List<UserIDandUserType> lstUsers = new List<UserIDandUserType>();
+                return lstUsers;
+            }
+        }
+        public int GetBetPlaceInterval(string categoryname, string Marketbookname, string Runnerscount)
+        {
+            return LoggedinUserDetail.GetBetPlacewaitTimerandInterval(categoryname, Marketbookname, Runnerscount);
+        }
     }
 }

@@ -29,7 +29,7 @@ namespace Census.API.Controllers
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private BettingServiceClient objBettingClient = new BettingServiceClient();
 		UserServicesClient objUsersServiceCleint = new UserServicesClient();
-		private UserBetsUpdateUnmatcedBets _userBetsUpdateUnmatcedBets;
+		private UserBetsUpdateUnmatcedBets _userBetsUpdateUnmatcedBets=new UserBetsUpdateUnmatcedBets();
 		private readonly IRazorViewEngine _viewEngine;
 		private readonly ITempDataProvider _tempDataProvider;
 		private readonly IServiceProvider _serviceProvider;
@@ -58,8 +58,6 @@ namespace Census.API.Controllers
 
 		//    return Json(lstUserBets);
 		//}
-
-
 		public async Task<string> UserBets()
 		{
 			try
@@ -179,7 +177,6 @@ namespace Census.API.Controllers
 				return await RenderRazorViewToStringAsync("UserBets", lstUserBets);
 			}
 		}
-
 		public async Task<string> RenderRazorViewToStringAsync(string viewName, object model)
 		{
 			ViewData.Model = model;
@@ -315,9 +312,6 @@ namespace Census.API.Controllers
 		//    }
 		//}
 
-
-
-
 		[HttpPost]
 		[ActionName("InsertUserBetAdmin")]
 		public string InsertUserBetAdmin(string SelectionID, string selecitonname, string userOdd, string amount, string bettype, string liveodd, bool ismatched, string status, string marketbookid, string marketbookname, string Liablaity, decimal BetSize, decimal PendingAmount, string location, long ParentID, int UserID)
@@ -334,7 +328,6 @@ namespace Census.API.Controllers
 			}
 		}
 		[HttpPost]
-		[ActionName("InsertUserBetNew")]
 		public bool InsertUserBetNew([FromBody] BetRequestModel betRequest)
 		{
 			try
@@ -343,21 +336,21 @@ namespace Census.API.Controllers
 				{
 					if (betRequest.Clickedlocation == 9)
 					{
-						var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(betRequest.UserId);
-						objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], betRequest.MarketbookName, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, betRequest.UserId, betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
+						var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(LoggedinUserDetail.GetUserID());
+						objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], betRequest.MarketbookName, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize,_passwordSettingsService.PasswordForValidate, betRequest.MarketbookID, betRequest.MarketbookName, true);
 						return true;
 					}
 					else
 					{
-						var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLayAsync(betRequest.UserId);
-						objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], '(' + betRequest.Selectionname.ToLower() + ')', betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.Result.MaxOddBack), Convert.ToDecimal(objMaxOddBack.Result.MaxOddLay), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddLay), betRequest.Clickedlocation, betRequest.UserId, betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
+						var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLayAsync(LoggedinUserDetail.GetUserID());
+						objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], '(' + betRequest.Selectionname.ToLower() + ')', betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.Result.MaxOddBack), Convert.ToDecimal(objMaxOddBack.Result.MaxOddLay), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
 						return true;
 					}
 				}
 				else
 				{
-					var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(betRequest.UserId);
-					objUsersServiceCleint.InsertUserBetNew(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], '(' + betRequest.Selectionname.ToLower() + ')', betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, betRequest.UserId, betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
+					var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(LoggedinUserDetail.GetUserID());
+					objUsersServiceCleint.InsertUserBetNew(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], '(' + betRequest.Selectionname.ToLower() + ')', betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
 					return true;
 				}
 			}
@@ -366,7 +359,56 @@ namespace Census.API.Controllers
 				return false;
 			}
 		}
+        public bool GetBettingAllowedbyMarketIDandUserID(string MarketBookID)
+        {
+            return objUsersServiceCleint.GetBettingAllowedbyMarketIDandUserID(LoggedinUserDetail.GetUserID(), MarketBookID);
+        }
+        public string CheckforPlaceBet(string Amount, string Odd, string BetType, string[] SelectionID, string marketbookID, string MarketbookName, string Runnerscount)
+        {
+            try
+            {
+                List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                decimal TotLiabality = 0;
+                decimal fancylab = 0;
+                List<UserBets> UnlstUserBets = lstUserBets.Where(item => item.isMatched == false).ToList();
+                List<UserBets> MlstUserBets = lstUserBets.Where(item => item.isMatched == true && item.location != "9").ToList();
+                List<UserBets> lstuserbetfancy = lstUserBets.Where(item => item.location == "9").ToList();
+                if (LoggedinUserDetail.GetUserTypeID() == 3)
+                {
+                    lstUserBets = lstUserBets.Where(item => item.isMatched && item.location != "9").ToList();
+                    if (Runnerscount != null)
+                    {
+                        foreach (var selectionIDitem in SelectionID)
+                        {
+                            TotLiabality += _userBetsUpdateUnmatcedBets.GetLiabalityofCurrentUserActual(LoggedinUserDetail.GetUserID(), selectionIDitem, BetType, marketbookID, MarketbookName,_passwordSettingsService.PasswordForValidate);
+                        }
+                    }
+                    TotLiabality += _userBetsUpdateUnmatcedBets.GetLiabalityofCurrentUserActualforOtherMarkets(LoggedinUserDetail.GetUserID(), "", BetType, marketbookID, MarketbookName, lstUserBets);
 
-	}
+                    TotLiabality += _userBetsUpdateUnmatcedBets.GetLiabalityofCurrentUserfancy(LoggedinUserDetail.GetUserID(), lstuserbetfancy.Where(item => item.isMatched == true).ToList());
+                    decimal CurrentBalance = Convert.ToDecimal(objUsersServiceCleint.GetCurrentBalancebyUser(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                    decimal TotBalance = CurrentBalance + TotLiabality;
+                    if (TotBalance >= Convert.ToDecimal(Amount))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "Available balance is less then your amount";
+                    }
+                }
+                else
+                {
+                    return "You are not allowed to perform this operation.";
+                }
+            }
+            catch (System.Exception ex)
+            {
+                //LoggedinUserDetail.LogError(ex);
+                return "False";
+            }
+        }
+
+    }
 
 }
