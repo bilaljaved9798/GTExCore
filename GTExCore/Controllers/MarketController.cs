@@ -2323,6 +2323,20 @@ namespace Census.API.Controllers
             }
 
         }
+        public PartialViewResult AllMatches()
+        {
+            if (LoggedinUserDetail.GetUserTypeID() == 3 || LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8)
+            {
+                List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(objUsersServiceCleint.GetAllMatches(LoggedinUserDetail.GetUserID()));
+                return PartialView("InPlayMatches", lstInPlayMatches);
+            }
+            else
+            {
+                List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(objUsersServiceCleint.GetAllMatches(73));
+                return PartialView("InPlayMatches", lstInPlayMatches);
+            }
+
+        }
         public PartialViewResult InPlayMatchesF()
         {
             if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9 || LoggedinUserDetail.GetUserTypeID() == 1)
@@ -2410,5 +2424,241 @@ namespace Census.API.Controllers
                 return PartialView("TodayHorseRace", lstTodayHorseRacing);
             }
         }
-    }
+
+        public async Task<string> MarketBooksoccergoal(string EventID)
+        {
+            try
+            {
+                List<string> data = new List<string>();
+                UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+                LoggedinUserDetail.CheckifUserLogin();
+                var Soccergoalmarket = objUsersServiceCleint.GetSoccergoalbyeventId(LoggedinUserDetail.GetUserID(), EventID);
+
+                if (Soccergoalmarket != null)
+                {
+                    foreach (var item in Soccergoalmarket)
+                    {
+                        //  data.Add(item.MarketCatalogueID);
+                        if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() != 1)
+                        {
+                            objUsersServiceCleint.SetMarketBookOpenbyUSer(LoggedinUserDetail.GetUserID(), item.MarketCatalogueID);
+                        }
+                        if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() == 1)
+                        {
+                            objUsersServiceCleint.SetMarketBookOpenbyUSer(73, item.MarketCatalogueID);
+                        }
+                    }
+                }
+
+                if (LoggedinUserDetail.GetUserTypeID() == 3)
+                {
+                    var results = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
+
+                    if (results != null)
+                    {
+                        results = results.Where(item => item.EventID == EventID && item.Name != "Match Odds").ToList();
+                        var marketbooks = new List<BettingServiceReference.MarketBook>();
+                        List<string> lstIDs = new List<string>();
+                        foreach (var item in results)
+                        {
+                            lstIDs = new List<string>();
+
+                            lstIDs.Add(item.ID);
+                            var marketbook = GetMarketDatabyID(lstIDs.ToArray(), item.Name, item.EventOpenDate, item.EventTypeName);
+                            if (marketbook.Result.Count() > 0)
+                            {
+                                if (marketbook.Result[0].Runners != null)
+                                {
+                                    marketbooks.Add(marketbook.Result[0]);
+                                }
+                            }                         
+                        }
+
+                        foreach (var item in results)
+                        {
+                            foreach (var item2 in marketbooks)
+                            {
+                                if (item.ID == item2.MarketId)
+                                {
+                                    //item2.MarketBookName = item.Name + " / " + item.EventName;
+                                    item2.MarketBookName = item.EventName + " / " + item.Name;
+                                    item2.OrignalOpenDate = item.EventOpenDate;
+                                    item2.MainSportsname = item.EventTypeName;
+                                    item2.MarketStatusstr = item2.MarketStatusstr;
+                                    item2.BettingAllowed = item.BettingAllowed;
+                                    item2.BettingAllowedOverAll =await CheckForAllowedBettingOverAll(item.EventTypeName, item2.MarketBookName);
+                                    item2.GetMatchUpdatesFrom = item.GetMatchUpdatesFrom;
+                                    item2.EventID = item.EventID;
+
+                                    var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
+                                    foreach (var runnermarketitem in runnerdesc)
+                                    {
+                                        foreach (var runneritem in item2.Runners)
+                                        {
+                                            if (runnermarketitem.SelectionID == runneritem.SelectionId.Trim())
+                                            {
+                                                runneritem.RunnerName = runnermarketitem.SelectionName;
+                                                runneritem.JockeyName = runnermarketitem.JockeyName;
+                                                runneritem.WearingURL = runnermarketitem.Wearing;
+                                                runneritem.WearingDesc = runnermarketitem.WearingDesc;
+                                                runneritem.Clothnumber = runnermarketitem.ClothNumber;
+                                                runneritem.StallDraw = runnermarketitem.StallDraw;
+
+                                            }
+                                            List<UserBets> lstUserBet = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");        
+                                            List<UserBets> lstUserBets = lstUserBet.Where(item3 => item3.isMatched == true && item3.MarketBookID == item2.MarketId).ToList();
+                                            item2.DebitCredit = objUserBets.ceckProfitandLoss(item2, lstUserBets);
+                                            runneritem.ProfitandLoss = Convert.ToInt64(item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Debit) - item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Credit));
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        return await RenderRazorViewToStringAsync("MarketBookSoccerGoal", marketbooks.Take(2));
+                    }
+                    else
+                    {
+                        var marketbooks = new List<BettingServiceReference.MarketBook>();
+                        return await RenderRazorViewToStringAsync("MarketBookSoccerGoal", marketbooks);
+                    }
+                }                            
+                else
+                {
+                    var marketbooks = new List<BettingServiceReference.MarketBook>();
+                    return await RenderRazorViewToStringAsync("MarketBookSoccerGoal", marketbooks);
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+                var marketbooks = new List<BettingServiceReference.MarketBook>();
+                return await RenderRazorViewToStringAsync("MarketBookSoccerGoal", marketbooks);
+            }
+        }
+		public async Task<string> GetMarketBooksoccergoal(string EventID)
+		{
+			try
+			{
+				List<string> data = new List<string>();
+				UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+				LoggedinUserDetail.CheckifUserLogin();
+				var Soccergoalmarket = objUsersServiceCleint.GetSoccergoalbyeventId(LoggedinUserDetail.GetUserID(), EventID);
+
+				if (Soccergoalmarket != null)
+				{
+					foreach (var item in Soccergoalmarket)
+					{
+						if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() != 1)
+						{
+							objUsersServiceCleint.SetMarketBookOpenbyUSer(LoggedinUserDetail.GetUserID(), item.MarketCatalogueID);
+						}
+						if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() == 1)
+						{
+							objUsersServiceCleint.SetMarketBookOpenbyUSer(73, item.MarketCatalogueID);
+						}
+					}
+				}
+
+				if (LoggedinUserDetail.GetUserTypeID() == 3)
+				{
+					var results = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
+
+					if (results != null)
+					{
+						results = results.Where(item => item.EventID == EventID && item.Name != "Match Odds").ToList();
+						var marketbooks = new List<BettingServiceReference.MarketBook>();
+						List<string> lstIDs = new List<string>();
+						foreach (var item in results)
+						{
+							lstIDs = new List<string>();
+
+							lstIDs.Add(item.ID);
+							var marketbook = GetMarketDatabyID(lstIDs.ToArray(), item.Name, item.EventOpenDate, item.EventTypeName);
+							if (marketbook.Result.Count() > 0)
+							{
+								if (marketbook.Result[0].Runners != null)
+								{
+                                    marketbooks.Add(marketbook.Result[0]);
+								}
+							}
+						}
+
+						foreach (var item in results)
+						{
+							foreach (var item2 in marketbooks)
+							{
+								if (item.ID == item2.MarketId)
+								{
+									//item2.MarketBookName = item.Name + " / " + item.EventName;
+									item2.MarketBookName = item.EventName + " / " + item.Name;
+									item2.OrignalOpenDate = item.EventOpenDate;
+									item2.MainSportsname = item.EventTypeName;
+									item2.MarketStatusstr = item2.MarketStatusstr;
+									item2.BettingAllowed = item.BettingAllowed;
+									item2.BettingAllowedOverAll =await CheckForAllowedBettingOverAll(item.EventTypeName, item2.MarketBookName);
+									item2.GetMatchUpdatesFrom = item.GetMatchUpdatesFrom;
+									item2.EventID = item.EventID;
+
+									var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
+									foreach (var runnermarketitem in runnerdesc)
+									{
+										foreach (var runneritem in item2.Runners)
+										{
+											if (runnermarketitem.SelectionID == runneritem.SelectionId.Trim())
+											{
+												runneritem.RunnerName = runnermarketitem.SelectionName;
+												runneritem.JockeyName = runnermarketitem.JockeyName;
+												runneritem.WearingURL = runnermarketitem.Wearing;
+												runneritem.WearingDesc = runnermarketitem.WearingDesc;
+												runneritem.Clothnumber = runnermarketitem.ClothNumber;
+												runneritem.StallDraw = runnermarketitem.StallDraw;
+
+											}
+											List<UserBets> lstUserBet = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");
+											List<UserBets> lstUserBets = lstUserBet.Where(item3 => item3.isMatched == true && item3.MarketBookID == item2.MarketId).ToList();
+											item2.DebitCredit = objUserBets.ceckProfitandLoss(item2, lstUserBets);
+											runneritem.ProfitandLoss = Convert.ToInt64(item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Debit) - item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Credit));
+
+										}
+									}
+
+								}
+							}
+						}
+						return  ConvertListToJSONString(marketbooks.Take(2));
+					}
+					else
+					{
+						return "";
+					}
+				}
+				else
+				{
+					return "";
+				}
+			}
+			catch (System.Exception ex)
+			{
+				return "";
+			}
+		}
+		public string ConvertListToJSONString<T>(IEnumerable<T> resultList)
+		{
+			if (resultList != null)
+			{
+				DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(IEnumerable<T>));
+				MemoryStream memoryStream = new MemoryStream();
+				serializer.WriteObject(memoryStream, resultList);
+
+				// Return the results serialized as JSON
+				string json = Encoding.UTF8.GetString(memoryStream.ToArray());
+				return json;
+			}
+			else
+			{
+				return "[]"; // Return an empty JSON array if the list is null
+			}
+		}
+	}
 }

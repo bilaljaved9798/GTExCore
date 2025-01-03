@@ -1,0 +1,59 @@
+﻿<div class="score-football">
+	<div class="row football-timeline">
+		<div class="col-12 col-sm-12 col-md-12 col-lg-12" style="margin-bottom:-9px">
+			<div class="team-1">
+				<div class="score-star">
+					<i class="fa fa-star" style="color:forestgreen"></i>
+				</div>
+				<div class="score-team-info">
+					<div class="team-name-1">
+						<label id="lblteamnameAsoccer" style="width:auto"></label>
+					</div>
+					<div class="team-score">
+						<label class="sets-time">(<label id="lblteamAsoccer" style="width:auto"></label>-<label id="lblteamBsoccer" style="width:auto"></label>)</label>
+					</div>
+					<div class="team-name-2">
+						<label id="lblteamnameBsoccer" style="width:auto"></label>
+					</div>
+				</div>
+				<div class="time-football">
+
+					Time:
+					<span>
+						<span class="" id="lbltimes" style="width:auto"></span>
+					</span>
+					'
+					<span class="sets-time">
+
+					</span>
+				</div>
+			</div>
+		</div>
+
+
+
+		@*<span class="tooltiptext">Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName   </span>*@
+
+
+		<div class="col-12 col-sm-6">
+			<div class="score-first-half timeline-bg">
+				<div class="score-timeline" id="awaytimeline" title="" style="width:100%;"> &nbsp; </div>
+
+				<div id="goaldataFirstHalf"></div>
+				<div id="yellowdata">
+				</div>
+				<div class="score-red-card-home" title="home" id="homeredcard" style="display:none"></div>
+				<div class="score-red-card-away" title="away" id="awayredcard" style="display:none"></div>
+
+			</div>
+		</div>
+		<div class="col-12 col-sm-6">
+			<div class="score-second-half timeline-bg">
+				<div class="score-timeline" id="hometimeline" style="max-width:100% !important;"> &nbsp; </div>
+
+				<div id="goaldataSecondHalf"></div>
+				<div id="yellowdataSecondHalf"></div>
+			</div>
+		</div>
+	</div>
+</div>	

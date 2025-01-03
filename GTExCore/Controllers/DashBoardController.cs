@@ -15,15 +15,16 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using System.Data;
+using System.Web.Services.Description;
 using UserServiceReference;
 namespace GTExCore.Controllers
 {
     public class DashBoardController : Controller
     {
 
-		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         AccessRightsbyUserType objAccessrightsbyUserType;
-		BettingServiceClient BettingServiceClient = new BettingServiceClient();
+        BettingServiceClient BettingServiceClient = new BettingServiceClient();
         UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
         private readonly IRazorViewEngine _viewEngine;
@@ -31,6 +32,7 @@ namespace GTExCore.Controllers
         private readonly IServiceProvider _serviceProvider;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPasswordSettingsService _passwordSettingsService;
+        List<ProfitandLossEventType> lstProfitandLossAll = new List<ProfitandLossEventType>();
         public DashBoardController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -199,7 +201,7 @@ namespace GTExCore.Controllers
                    };
                 if (LoggedinUserDetail.GetCricketDataFrom == "Live")
                 {
-                    var marketbook =await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
+                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
                     if (marketbook.Count() > 0)
                     {
                         return marketbook[0];
@@ -213,7 +215,7 @@ namespace GTExCore.Controllers
                 {
 
 
-                    var marketbook =await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
+                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
                     if (marketbook.Count() > 0)
                     {
                         return marketbook[0];
@@ -566,8 +568,8 @@ namespace GTExCore.Controllers
                 //APIConfig.LogError(ex);
                 return new BettingServiceReference.MarketBook();
             }
-        } 
-       public async Task<List<AllMarketsInPlay>> GetManagers()
+        }
+        public async Task<List<AllMarketsInPlay>> GetManagers()
         {
             List<AllMarketsInPlay> lstGridMarkets = _httpContextAccessor.HttpContext.Session.GetObject<List<AllMarketsInPlay>>("marketsData");
             var session = _httpContextAccessor.HttpContext.Session;
@@ -976,11 +978,11 @@ namespace GTExCore.Controllers
                 }
             }
         }
-		public PartialViewResult Ledger()
-		{
-			LoggedinUserDetail.CheckifUserLogin();
-			return PartialView();
-		}
+        public PartialViewResult Ledger()
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            return PartialView();
+        }
         public PartialViewResult GetBalnceDetails()
         {
             if (LoggedinUserDetail.GetUserID() > 0)
@@ -1277,7 +1279,7 @@ namespace GTExCore.Controllers
         public PartialViewResult AllUsers()
         {
             List<UserIDandUserType> lstUsers = GetUsersbyUsersType();
-            return PartialView(lstUsers);          
+            return PartialView(lstUsers);
         }
         public List<UserIDandUserType> GetUsersbyUsersType()
         {
@@ -1312,6 +1314,343 @@ namespace GTExCore.Controllers
         public int GetBetPlaceInterval(string categoryname, string Marketbookname, string Runnerscount)
         {
             return LoggedinUserDetail.GetBetPlacewaitTimerandInterval(categoryname, Marketbookname, Runnerscount);
+        }
+        public PartialViewResult LedgerDetails(string DateFrom, string DateTo, int UserID, bool isCredit)
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            try
+            {
+                DateFrom = ConvertDateFormat(DateFrom);
+                DateTo = ConvertDateFormat(DateTo);
+                if (UserID == 0)
+                {
+                    UserID = LoggedinUserDetail.GetUserID();
+                }
+                List<UserAccounts> lstUserAccounts = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDatabyUserIDandDateRange(UserID, DateFrom, DateTo, isCredit, _passwordSettingsService.PasswordForValidate));
+                if (lstUserAccounts.Count > 0)
+                {
+                    UserAccounts objUseraccounts = new UserAccounts();
+                    objUseraccounts.AccountsTitle = "Opening Balance";
+                    objUseraccounts.Debit = lstUserAccounts[0].OpeningBalance.ToString("F2");
+                    objUseraccounts.Credit = "0.00";
+                    objUseraccounts.CreatedDate = lstUserAccounts[0].CreatedDate;
+                    objUseraccounts.OpeningBalance = lstUserAccounts[0].OpeningBalance;
+                    lstUserAccounts.Insert(0, objUseraccounts);
+                    for (int i = 0; i <= lstUserAccounts.Count - 1; i++)
+                    {
+                        if (i + 1 < lstUserAccounts.Count)
+                        {
+                            if (lstUserAccounts[i + 1].Debit == "" || lstUserAccounts[i + 1].Debit == "0.00")
+                            {
+                                lstUserAccounts[i + 1].OpeningBalance = lstUserAccounts[i].OpeningBalance - Convert.ToDecimal(lstUserAccounts[i + 1].Credit);
+                                lstUserAccounts[i + 1].Credit = (-1 * Convert.ToDecimal(lstUserAccounts[i + 1].Credit)).ToString();
+                                lstUserAccounts[i + 1].Debit = "0.00";
+                            }
+                            else
+                            {
+                                lstUserAccounts[i + 1].OpeningBalance = lstUserAccounts[i].OpeningBalance + Convert.ToDecimal(lstUserAccounts[i + 1].Debit);
+                                lstUserAccounts[i + 1].Credit = "0.00";
+                            }
+                        }
+                    }
+                }
+                ViewBag.NetProfitorLoss = objUsersServiceCleint.GetProfitorLossbyUserID(UserID, isCredit, _passwordSettingsService.PasswordForValidate);
+                return PartialView("LedgerDetails", lstUserAccounts);
+            }
+            catch (System.Exception ex)
+            {
+                //LoggedinUserDetail.LogError(ex);
+                List<UserAccounts> lstUserAccounts = new List<UserAccounts>();
+                return PartialView("LedgerDetails", lstUserAccounts);
+            }
+
+        }
+        public PartialViewResult ProfitandLoss(string DateFrom, string DateTo, int UserID, bool chkseassion, bool chkfancy, bool chkByMarket, bool chkByMarketCricket)
+        {
+            DateFrom = ConvertDateFormat(DateFrom);
+            DateTo = ConvertDateFormat(DateTo);
+
+            if (chkfancy == true && chkseassion == true)
+            {
+                Getdataforfancybysession(DateFrom, DateTo, chkfancy);
+                return PartialView("ProfitandLoss", lstProfitandLossAll);
+            }
+            LoggedinUserDetail.CheckifUserLogin();
+
+            if (chkByMarket == false)
+            {
+                List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
+                if (LoggedinUserDetail.GetUserTypeID() == 1)
+                {
+                    ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                    ViewBag.color = "white";
+
+                    SP_Users_GetCommissionAccountIDandBookAccountID_Result objCommissionandBookAccountID = objUsersServiceCleint.GetCommissionaccountIdandBookAccountbyUserID(LoggedinUserDetail.GetUserID());
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(Convert.ToInt32(objCommissionandBookAccountID.BookAccountID), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                    lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(Convert.ToInt32(objCommissionandBookAccountID.CommisionAccountID), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                    objProfitandLossCommission.EventType = "Commission";
+                    objProfitandLossCommission.NetProfitandLoss = lstProfitandlossEventtypeCommission.Sum(item => item.NetProfitandLoss);
+                    lstProfitandlossEventtype.Add(objProfitandLossCommission);
+                }
+
+                if (LoggedinUserDetail.GetUserTypeID() == 8)
+                {
+                    ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                    ViewBag.color = "white";
+
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                    lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.UserAccountsGetCommission(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                    objProfitandLossCommission.EventType = "Commission";
+                    objProfitandLossCommission.NetProfitandLoss = lstProfitandlossEventtypeCommission.Sum(item => item.NetProfitandLoss);
+                    lstProfitandlossEventtype.Add(objProfitandLossCommission);
+                }
+                if (LoggedinUserDetail.GetUserTypeID() == 9)
+                {
+                    ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                    ViewBag.color = "white";
+
+                    //Services.DBModel.SP_Users_GetCommissionAccountIDandBookAccountID_Result objCommissionandBookAccountID = objUsersServiceCleint.GetCommissionaccountIdandBookAccountbyUserID(LoggedinUserDetail.GetUserID());
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                    lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.UserAccountsGetCommission(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                    //GetDatabyAgentIDForCommisionandDateRange
+                    objProfitandLossCommission.EventType = "Commission";
+                    objProfitandLossCommission.NetProfitandLoss = lstProfitandlossEventtypeCommission.Sum(item => item.NetProfitandLoss);
+                    lstProfitandlossEventtype.Add(objProfitandLossCommission);
+                }
+                else
+                {
+
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    var data = JsonConvert.DeserializeObject(objUsersServiceCleint.GetDatabyAgentIDForCommisionandDateRange(Convert.ToInt32(LoggedinUserDetail.GetUserID()), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                    objProfitandLossCommission.EventType = "Commission";
+                    objProfitandLossCommission.NetProfitandLoss = Convert.ToDecimal(data); //lstProfitandlossEventtypeCommission.Sum(item => item.NetProfitandLoss);
+                    lstProfitandlossEventtype.Add(objProfitandLossCommission);
+                }
+
+                if (lstProfitandlossEventtype.Count > 0)
+                {
+                    if (chkfancy == true)
+                    {
+                        lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType.Contains("Fancy")).ToList();
+                    }
+                    if (chkByMarketCricket == true)
+                    {
+                        lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType == ("Cricket") || item.EventType == ("Fancy")).ToList();
+                    }
+
+
+                    ViewBag.NetProfitorLoss1 = lstProfitandlossEventtype.Where(item => item.EventType != "Commission").Sum(item => item.NetProfitandLoss).ToString("N0");
+
+                }
+                else
+                {
+                    //dgvProfitandLoss.ItemsSource = new List<ProfitandLossEventType>();
+                    //txtTotProfiltandLoss.Content = "0.00";
+                    //txtTotProfiltandLoss.Background = Brushes.Green;
+                    //txtTotProfiltandLoss.Foreground = Brushes.White;
+                    //MessageBox.Show("No data found.");
+                }
+                lstProfitandLossAll = lstProfitandlossEventtype;
+            }
+            else
+            {
+                try
+                {
+
+                    List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
+                    if (LoggedinUserDetail.GetUserTypeID() == 1)
+                    {
+                        ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                        ViewBag.color = "white";
+
+                        SP_Users_GetCommissionAccountIDandBookAccountID_Result objCommissionandBookAccountID = objUsersServiceCleint.GetCommissionaccountIdandBookAccountbyUserID(LoggedinUserDetail.GetUserID());
+                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(Convert.ToInt32(objCommissionandBookAccountID.BookAccountID), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                        List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                        lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(Convert.ToInt32(objCommissionandBookAccountID.CommisionAccountID), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                        ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                        foreach (var item in lstProfitandlossEventtypeCommission)
+                        {
+                            item.EventType = item.EventType + " (Commission)";
+                        }
+                        lstProfitandlossEventtype.AddRange(lstProfitandlossEventtypeCommission);
+                    }
+
+                    if (LoggedinUserDetail.GetUserTypeID() == 8)
+                    {
+                        ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                        ViewBag.color = "white";
+                        //Services.DBModel.SP_Users_GetCommissionAccountIDandBookAccountID_Result objCommissionandBookAccountID = objUsersServiceCleint.GetCommissionaccountIdandBookAccountbyUserID(LoggedinUserDetail.GetUserID());
+                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                        List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                        lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.UserAccountsGetCommission(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                        ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                        foreach (var item in lstProfitandlossEventtypeCommission)
+                        {
+                            item.EventType = item.EventType + " (Commission)";
+                        }
+
+                        lstProfitandlossEventtype.AddRange(lstProfitandlossEventtypeCommission);
+                    }
+                    if (LoggedinUserDetail.GetUserTypeID() == 9)
+                    {
+                        ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                        ViewBag.color = "white";
+
+                        //Services.DBModel.SP_Users_GetCommissionAccountIDandBookAccountID_Result objCommissionandBookAccountID = objUsersServiceCleint.GetCommissionaccountIdandBookAccountbyUserID(LoggedinUserDetail.GetUserID());
+                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                        List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                        lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.UserAccountsGetCommission(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                        ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                        foreach (var item in lstProfitandlossEventtypeCommission)
+                        {
+                            item.EventType = item.EventType + " (Commission)";
+                        }
+                        lstProfitandlossEventtype.AddRange(lstProfitandlossEventtypeCommission);
+                    }
+                    else
+                    {
+                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                    }
+                    if (lstProfitandlossEventtype.Count > 0)
+                    {
+                        if (chkfancy == true)
+                        {
+                            lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType.Contains("Fancy")).ToList();
+                        }
+                        if (chkByMarketCricket == true)
+                        {
+                            lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.Eventtype1 == ("Cricket") || item.Eventtype1 == ("Fancy")).ToList();
+                        }
+                    }
+                    else
+                    {
+                        //dgvProfitandLoss.ItemsSource = new List<ProfitandLossEventType>();
+                        //txtTotProfiltandLoss.Content = "0.00";
+                        //txtTotProfiltandLoss.Background = Brushes.Green;
+                        //txtTotProfiltandLoss.Foreground = Brushes.White;
+                        //MessageBox.Show("No data found.");
+                    }
+                    lstProfitandLossAll = lstProfitandlossEventtype;
+
+                }
+
+                catch (System.Exception ex)
+                {
+
+                }
+
+                // GetDistinctMatchesfromResults();
+            }
+
+            return PartialView("ProfitandLoss", lstProfitandLossAll);
+        }
+        public void Getdataforfancybysession(string DateFrom, string DateTo, bool chkfancy)
+        {
+            try
+            {
+                List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
+                if (LoggedinUserDetail.GetUserTypeID() == 1)
+                {
+                    SP_Users_GetCommissionAccountIDandBookAccountID_Result objCommissionandBookAccountID = objUsersServiceCleint.GetCommissionaccountIdandBookAccountbyUserID(LoggedinUserDetail.GetUserID());
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRangeFancywithMArketName(Convert.ToInt32(objCommissionandBookAccountID.BookAccountID), DateFrom, DateTo, LoggedinUserDetail.PasswordForValidate));
+                    List<ProfitandLossEventType> lstProfitandlossEventtypeCommission = new List<ProfitandLossEventType>();
+                    lstProfitandlossEventtypeCommission = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(Convert.ToInt32(objCommissionandBookAccountID.CommisionAccountID), DateFrom, DateTo, LoggedinUserDetail.PasswordForValidate));
+                    lstProfitandlossEventtypeCommission = lstProfitandlossEventtypeCommission.Where(item => item.EventType.Contains("Fancy")).ToList();
+                    ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                    foreach (var item in lstProfitandlossEventtypeCommission)
+                    {
+                        item.EventType = item.EventType + " (Commission)";
+                    }
+                    lstProfitandlossEventtype.AddRange(lstProfitandlossEventtypeCommission);
+                }
+                else
+                {
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRangeFancywithMArketName(LoggedinUserDetail.GetUserID(), DateFrom, DateTo, LoggedinUserDetail.PasswordForValidate));
+                }
+                if (lstProfitandlossEventtype.Count > 0)
+                {
+                    if (chkfancy == true)
+                    {
+                        lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType.Contains("Fancy")).ToList();
+                    }
+                    lstProfitandlossEventtype = lstProfitandlossEventtype.OrderBy(o => o.EventID).ThenBy(o => o.EventType).ToList();
+                    lstProfitandLossAll = lstProfitandlossEventtype;
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+            }
+        }
+        public PartialViewResult GetDefaultPageDataInPlay(string ViewType)
+        {
+            try
+            {
+                var results = objUsersServiceCleint.GetInPlayMatcheswithRunners(LoggedinUserDetail.GetUserID());
+                List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(results);
+                List<string> lstIds = new List<string>();
+                if (ViewType == "Inplay")
+                {
+                    lstIds = lstInPlayMatches.Where(item => item.EventTypeName == "Cricket" && item.EventOpenDate.Value < DateTime.Now.AddHours(-5)).Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList();
+                    DateTime currentDateTime = DateTime.Now;
+                    DateTime newDateTime = currentDateTime.AddHours(-8);
+                    lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Soccer" && item.EventOpenDate.Value > newDateTime && item.EventOpenDate.Value <= DateTime.Now.AddHours(-5)).Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
+                    lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Tennis" && item.EventOpenDate.Value > newDateTime && item.EventOpenDate.Value <= DateTime.Now.AddHours(-5)).Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
+                }
+                else
+                {
+                    lstIds = lstInPlayMatches.Where(item => item.EventTypeName == ViewType).Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList();
+                }
+                List<AllMarketsInPlay> lstGridMarkets = new List<AllMarketsInPlay>();
+                foreach (var item in lstIds)
+                {
+                    try
+                    {
+                        InPlayMatches objMarketLocal = lstInPlayMatches.Where(item2 => item2.MarketCatalogueID == item).FirstOrDefault();
+                        AllMarketsInPlay objGridMarket = new AllMarketsInPlay();
+                        objGridMarket.CategoryName = objMarketLocal.EventTypeName;
+                        objGridMarket.MarketBookID = objMarketLocal.MarketCatalogueID;
+                        objGridMarket.MarketBookName = objMarketLocal.MarketCatalogueName;
+                        objGridMarket.EventName = objMarketLocal.EventName;
+                        objGridMarket.CompetitionName = objMarketLocal.CompetitionName;
+                        objGridMarket.MarketStartTime = objMarketLocal.EventOpenDate.Value.AddHours(5).ToString("dd-MM-yyyy hh:mm tt");
+                        //  objGridMarket.MarketStatus = item.Status;
+                        objGridMarket.MarketStatus = "";
+                        List<InPlayMatches> lstRunnersID = lstInPlayMatches.Where(item2 => item2.MarketCatalogueID == item).ToList();
+                        try
+                        {
+                            objGridMarket.Runner1 = lstRunnersID.Where(x => !x.SelectionName.Contains("Draw")).FirstOrDefault().SelectionName;
+                            objGridMarket.Runner2 = lstRunnersID.Where(x => !x.SelectionName.Contains("Draw")).LastOrDefault().SelectionName;
+
+                            if (lstRunnersID.Count == 3)
+                            {
+                                objGridMarket.Runner3 = lstRunnersID.Where(x => x.SelectionName.Contains("Draw")).FirstOrDefault().SelectionName;
+                            }
+                        }
+                        catch (System.Exception ex)
+                        {}
+                        lstGridMarkets.Add(objGridMarket);
+                    }
+                    catch (System.Exception ex)
+                    {}
+                }
+                var model = new DefaultPageModel();
+                model.AllMarkets = lstGridMarkets;
+                model.ViewType = ViewType;
+                ViewBag.GridMarketsCount = lstGridMarkets.Count();
+                return PartialView("MatchHighlights", model);
+            }
+            catch (System.Exception ex)
+            {
+                return PartialView("MatchHighlights", new DefaultPageModel());
+            }
         }
     }
 }

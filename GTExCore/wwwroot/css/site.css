@@ -13,7 +13,6 @@ body {
     display: normal;
 }
 
-
 h9 {
     font-size: 2.6rem;
     margin-top: 45vh;
@@ -499,7 +498,7 @@ h9 {
 
 .suspendbann {
     font-size: 29px !important;
-    color: red;
+    color: #dc143c;
     opacity: 10;
     text-align: center;
     margin-top: 22px;
@@ -930,7 +929,7 @@ cta-8:hover {
 }
 
 .btntvcard {
-    background: -webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important;
+    background: -webkit-linear-gradient(top, rgb(53, 196, 131), rgb(0, 0, 0)) !important;
     height: 33px;
 }
 
@@ -1146,7 +1145,7 @@ cta-8:hover {
     margin-top: -4.5px;
 }
 
-}
+
 
 .runner-disabled {
     color: #f00;
@@ -1164,9 +1163,10 @@ cta-8:hover {
 }
 
 .suspended {
-    color: red;
+    color: #dc143c;
     font-family: 'Times New Roman', Times, serif;
     font-size: 17px !important;
+    background: #ffffffe6
 }
 
 .suspendedForRace {
@@ -1442,7 +1442,7 @@ textarea {
     padding: 5px 10px !important;
     color: white;
     text-shadow: 2px 2px #5f3f3f;
-    background: -webkit-linear-gradient(bottom,#35c483,#000000) !important;
+    background: -webkit-linear-gradient(bottom,#35c483,#000000);
     font-size: 20px !important;
     font-weight: 500 !important;
     margin-top: -5px !important;
@@ -1606,7 +1606,7 @@ textarea {
 
 .navmain1 li a:hover {
     /*text-decoration: none;*/
-    font-size: 17px:
+    font-size: 17px;
 }
 
 .navmain1 li {
@@ -2707,8 +2707,8 @@ label {
 }
 
 .suspended {
-    color: red !important;
-    border-top: 3px solid red;
+    color: #dc143c !important;
+    border-top: 3px solid #dc143c;
 }
 
 
@@ -2737,7 +2737,7 @@ label {
 .marketname {
     float: left;
     color: white;
-    background: -webkit-linear-gradient(bottom,#35c483,#000000) !important;
+    background: -webkit-linear-gradient(bottom,#35c483,#000000);
     width: 100% !important;
     text-align: center;
     font-size: 23px;
@@ -4100,12 +4100,6 @@ a {
 
 
 
-
-
-
-
-
-
 .powerdby {
     font-size: 11px;
     color: white;
@@ -4562,13 +4556,9 @@ a {
 }
 
 @media(max-width:768px) {
-
-
     .hideer {
         display: none;
     }
-
-
     .loveoflives {
         background: -webkit-linear-gradient(bottom,#ff0000,#b40000) !important;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px;
@@ -4585,18 +4575,14 @@ a {
         visibility: visible;
         color: white;
         font-family: Quicksand,sans-serif;
-        font-weight: 500;
+        font-weight: 700;
     }
-
-
-
     div.scrollmenu {
         margin-bottom: -44px;
         background-color: #333;
         overflow: auto;
         white-space: nowrap;
     }
-
         div.scrollmenu a {
             display: inline-block;
             color: black;
@@ -4978,11 +4964,13 @@ a {
 
     .suspendbann {
         font-size: 25px !important;
-        color: red;
+        color: #dc143c;
+        font-weight: 700 !important;
         opacity: 10;
         text-align: center;
         margin-top: 38px;
         border: 0px solid;
+        font-family: fantasy !important;
         transform: rotate(24deg);
     }
 
@@ -5564,7 +5552,7 @@ a {
     .rule2 {
         padding: 5px 10px !important;
         color: white;
-        background: #075E54;
+        background: -webkit-linear-gradient(bottom,#24e18a,#000000) !important;
         font-size: 18px !important;
         font-weight: 500 !important;
         margin-top: -5px !important;
@@ -6567,7 +6555,6 @@ a {
 
     #UpperDiv {
         display: inline-flex;
-        margin-top
     }
 
     #lastpricediv {
@@ -6658,15 +6645,7 @@ a {
 }
 
 @media(min-width:769px) {
-    /*#fulldisplay {
-        display: block !important;*/
-
-
-
-    width: 103% !important;
-    /* #mobiledisplay {
-        display: none;
-    }*/
+   
 }
 
 .runnerinfo {
@@ -6846,9 +6825,6 @@ a {
     position: relative;
 }
 
-
-
-
 @media(min-width:403px) {
     .btnacc {
         float: initial;
@@ -6862,5 +6838,4 @@ a {
         margin-top: 53px;
         margin-left: 0px;
     }
-}
 }

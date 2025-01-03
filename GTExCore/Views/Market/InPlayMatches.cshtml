@@ -1,0 +1,114 @@
+﻿@using GTCore.Models
+@model IEnumerable<InPlayMatches>
+
+@{
+	var lstEventTypes = Model
+		.GroupBy(item => new { item.EventTypeID, item.EventTypeName })
+		.Select(g => g.First())
+		.ToArray();
+
+	<li class="mainlimatch">
+
+		<a href="/DashBoard/Index" style="font-size:1.0em !important; Padding:2px!important ">
+			<img src="/insurance.png" width="40" height="40" /> Back to Main
+		</a>
+	</li>
+
+	foreach (var eventtypeitem in lstEventTypes)
+	{
+		<li class="mainlimatch">
+			@if (eventtypeitem.EventTypeName == "Cricket")
+			{
+				<a class="secondlevellink dropdown-toggle" href="javascript:void(0)" style="font-size:1.0em !important; Padding:2px!important">
+					<img src="/Cricketu.png" width="40" height="40" /> 	@eventtypeitem.EventTypeName
+				</a>
+			}
+			@if (eventtypeitem.EventTypeName == "Soccer")
+			{
+				<a class="secondlevellink dropdown-toggle" href="javascript:void(0)" style="font-size:1.0em !important; Padding:2px!important">
+					<img src="/soccer-player.png" width="40" height="40" /> 	@eventtypeitem.EventTypeName
+				</a>
+			}
+			@if (eventtypeitem.EventTypeName == "Tennis")
+			{
+				<a class="secondlevellink dropdown-toggle" href="javascript:void(0)" style="font-size:1.0em !important; Padding:2px!important">
+					<img src="/tennisu.png" width="40" height="40" /> 	@eventtypeitem.EventTypeName
+				</a>
+			}
+			<ul class="submenu" style="display:none;">
+				<!-- Initially hidden -->
+				@{
+					var lstCompetitions = Model.Where(item => item.EventTypeID == eventtypeitem.EventTypeID).Select(item => new { item.CompetitionID, item.CompetitionName }).Distinct().ToArray();
+				}
+				@foreach (var competitionitem in lstCompetitions)
+
+				{
+					<li class="mainlimatch">
+						<a class="thirdlevellink dropdown-toggle" href="javascript:void(0)">
+							@competitionitem.CompetitionName
+						</a>
+						<ul class="submenu" style="display:none;">
+							<!-- Initially hidden -->
+							@{
+								var lstEvents = Model.Where(item => item.CompetitionID == competitionitem.CompetitionID).Select(item => new { item.EventID, item.EventName }).Distinct().ToArray();
+							}
+							@foreach (var eventitem in lstEvents)
+							{
+								if (!(eventitem.EventName.Contains("Line v") || eventitem.EventName.Contains("Lines v")))
+								{
+									<li class="mainlimatch">
+										<a class="fourthlevellink dropdown-toggle" href="javascript:void(0)">
+											@eventitem.EventName
+										</a>
+										<ul class="submenu" style="display:none;">
+											<!-- Initially hidden -->
+											@{
+												var lstMarketCatalogues = Model.Where(item => item.EventID == eventitem.EventID && item.EventName != "Line v Markets").Select(item => new { item.MarketCatalogueID, item.MarketCatalogueName }).Distinct().ToArray();
+											}
+											@foreach (var marketcatalogueitem in lstMarketCatalogues)
+											{
+												<li>
+													<a class="active fifthlevellink" href="javascript:void(0)" onclick="lastLevelBreadcrumb('@marketcatalogueitem.MarketCatalogueID.ToString()')">
+														@marketcatalogueitem.MarketCatalogueName
+													</a>
+												</li>
+											}
+										</ul>
+									</li>
+								}
+							}
+						</ul>
+					</li>
+				}
+			</ul>
+		</li>
+	}
+}
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		// Toggle the second level (event types)
+		$('.secondlevellink').on('click', function (event) {
+			event.preventDefault();
+			$(this).siblings('.submenu').slideToggle();
+		});
+
+		// Toggle the third level (competitions)
+		$('.thirdlevellink').on('click', function (event) {
+			event.preventDefault();
+			$(this).siblings('.submenu').slideToggle();
+		});
+
+		// Toggle the fourth level (events)
+		$('.fourthlevellink').on('click', function (event) {
+			event.preventDefault();
+			$(this).siblings('.submenu').slideToggle();
+		});
+
+		// Toggle the fifth level (market catalogues)
+		$('.fifthlevellink').on('click', function (event) {
+			event.preventDefault();
+			$(this).siblings('.submenu').slideToggle();
+		});
+	});
+</script>

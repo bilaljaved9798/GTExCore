@@ -7676,6 +7676,8 @@ namespace BettingServiceReference
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsFancyResponse")]
         System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetAllMarketsFancyAsync(System.Collections.Generic.List<string> marketIDs);
+        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IBettingService/GetSoccorUpdate", ReplyAction = "http://tempuri.org/IBettingService/GetSoccorUpdateResponse")]
+        System.Threading.Tasks.Task<string> GetSoccorUpdateAsync(string EventID);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
@@ -7852,7 +7854,10 @@ namespace BettingServiceReference
         {
             return base.Channel.GetAllMarketsFancyAsync(marketIDs);
         }
-        
+        public System.Threading.Tasks.Task<string> GetSoccorUpdateAsync(string EventID)
+        {
+            return base.Channel.GetSoccorUpdateAsync(EventID);
+        }
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));

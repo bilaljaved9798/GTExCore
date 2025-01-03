@@ -1,0 +1,49 @@
+﻿@using GTCore.Models
+@model IEnumerable<ProfitandLossEventType>
+
+<table class="table">
+    <tr>       
+        <th>
+            EventType
+        </th>
+        <th>
+            PL
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EventType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NetProfitandLoss)
+            </td>
+        </tr>
+    }
+    @{
+        decimal NetProfitorLoss = 0;
+        if (@ViewBag.NetProfitorLoss1 != null)
+        {
+            NetProfitorLoss = Convert.ToDecimal(@ViewBag.NetProfitorLoss1);
+        }
+        if (NetProfitorLoss > 0)
+        {
+            <tr style="text-align:right">
+                <td>Net Profit or Loss</td>
+                <td class="ledgerdebit">@NetProfitorLoss</td>
+            </tr>
+        }
+        else
+        {
+            <tr style="text-align:right">
+                <td>Net Profit or Loss</td>
+                <td class="ledgercredit" style="text-align:right">@NetProfitorLoss</td>
+            </tr>
+        }
+    }
+
+
+
+</table>
+

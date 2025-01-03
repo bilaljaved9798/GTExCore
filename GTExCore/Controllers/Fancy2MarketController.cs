@@ -54,7 +54,7 @@ namespace Census.API.Controllers
 				UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
 			}
 
-			var linevmarkets = JsonConvert.DeserializeObject<List<BettingServiceReference.LinevMarkets>>(objUsersServiceCleint.GetLinevMarketsbyEventID(EventID, DateTime.Now, UserIDforLinevmarkets));
+			var linevmarkets = JsonConvert.DeserializeObject<List<LineVMarket>>(objUsersServiceCleint.GetLinevMarketsbyEventID(EventID, DateTime.Now, UserIDforLinevmarkets));
 
 			try
 			{

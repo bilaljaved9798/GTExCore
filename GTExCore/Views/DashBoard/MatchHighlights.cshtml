@@ -1,0 +1,130 @@
+﻿@using GTExCore.HelperClasses
+@model DefaultPageModel
+<div class="defaultpage">
+    <div class="col-md-12 no-padding">
+        <div class="col-md-12 no-padding">
+            @if (Model.ViewType == "Inplay")
+            {
+                <div class="headingdiv">
+                    <span class="headingcaption">
+                        <strong>In-Play Matches</strong>
+                    </span>
+                </div>
+                <div id="gridMarketsCount" style="display:none" data-count="@ViewBag.GridMarketsCount"></div>
+            }
+            else
+            {
+                <div class="headingdiv">
+                    <span class="headingcaption">
+                        <strong>@Model.ViewType Highlights</strong>
+                    </span>
+                </div>
+            }
+            <div class="sporthighlightsuldiv">
+                @{
+                    List<string> eventtypes = Model.AllMarkets.Select(x => x.CategoryName).Distinct().ToList();
+                    foreach (var item in eventtypes)
+                    {
+                        if (Model.ViewType == "Inplay")
+                        {
+                            <div class="matchcategoryheading">
+                                <div class="matchcategorylabel">
+                                    <h4>
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink dropdownlinkbutton" id="inplaymatchheading@(item.Trim())">
+                                            <i style="float:right" class="fa fa-caret-down" aria-hidden="true"></i>
+                                            @item
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div class="matchcategorybuttons"></div>
+                            </div>
+                        }
+                        <div class="col-md-12 no-padding">
+                            <div class="inplaydatabycategory" id="inplaydatafor@(item.Trim())" style="display:none">
+                                <div class="inplaydatarow">
+                                    <div class="inplaymatchbackandlay">
+                                        <div class="inplayrunner1">1</div>
+                                    </div>
+                                    <div class="inplaymatchbackandlay">
+                                        <div class="inplayrunner1">x</div>
+                                    </div>
+                                    <div class="inplaymatchbackandlay">
+                                        <div class="inplayrunner1">
+                                            2
+                                        </div>
+
+                                    </div>
+                                </div>
+                                @{
+                                    List<AllMarketsInPlay> lstMatchesbytype = Model.AllMarkets.Where(x => x.CategoryName == item).ToList();
+                                    foreach (var matchitem in lstMatchesbytype)
+                                    {
+                                        <div class="inplaydatarow">
+                                            <div class="inplaymatchname">
+                                                @if (Model.ViewType == "Inplay")
+                                                {
+                                                    <i class="fa fa-check-circle inplaygreencolor"></i>
+                                                    <a style="color:forestgreen" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID.ToString()')">@matchitem.Runner1 v @matchitem.Runner2</a>
+                                                }
+                                                else
+                                                {
+                                                    <a onclick="lastLevelBreadcrumb('@matchitem.MarketBookID.ToString()')">@matchitem.Runner1 v @matchitem.Runner2</a>
+                                                }
+                                            </div>
+                                            <div class="inplaymatchbackandlay">
+                                                <div class="inplayrunner1">
+                                                    <div class="inplayback">
+                                                        @matchitem.Runner1Back
+                                                    </div>
+                                                    <div class="inplaylay">
+                                                        @matchitem.Runner1Lay
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="inplaymatchbackandlay">
+                                                <div class="inplayrunner1">
+                                                    <div class="inplayback">
+                                                        @matchitem.Runner3Back
+                                                    </div>
+                                                    <div class="inplaylay">
+                                                        @matchitem.Runner3Lay
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="inplaymatchbackandlay">
+                                                <div class="inplayrunner1">
+                                                    <div class="inplayback">
+                                                        @matchitem.Runner2Back
+                                                    </div>
+                                                    <div class="inplaylay">
+                                                        @matchitem.Runner2Lay
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="inplaytimet21">
+                                            @matchitem.MarketStartTime
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function setactiveinplaycategory(category) {
+        $("#inplaydatafor" + category).show();
+    }
+    $(document).ready(function () {
+        setactiveinplaycategory('Cricket');
+        setactiveinplaycategory('Soccer');
+        setactiveinplaycategory('Tennis');
+    });
+</script>

@@ -13,20 +13,28 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
     <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    
+    <!-- Bootstrap -->
+   @*  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+ *@
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <!-- Bootstrap DateTimePicker -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
+
 </head>
 <body>
     <div class="container body-content">
 
         <div class="modalpopuploader">
             <div class="centerdiv">
-                <img alt="" src="/ajax-loader.gif" style="width:30%; height:30%" />
+                <img alt="Loading..." src="/ajax-loader.gif" style="width:30%; height:30%" />
             </div>
         </div>
         @RenderBody()
     </div>
-   
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
@@ -37,18 +45,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" rel="stylesheet" />
-
+  
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <link href="~/css/sidebar.css" rel="stylesheet" />
     @await RenderSectionAsync("Scripts", required: false)
     <script type="text/javascript">
-        function ShowLoader() {
-            $(".modalpopuploader").show();
-        }
-        function HideLoader() {
-            $(".modalpopuploader").hide();
-        }
+            function ShowLoader() {
+                $(".modalpopuploader").show();
+            }
+            function HideLoader() {
+                $(".modalpopuploader").hide();
+            }
     </script>
 </body>
 </html>

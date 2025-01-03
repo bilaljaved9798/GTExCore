@@ -1,0 +1,129 @@
+﻿@{
+	ViewBag.Title = "pl";
+	Layout = "~/Views/Shared/_AccountsLayout.cshtml";
+}
+
+<div class="page-container">
+	<div class="page-content">
+		<div>
+			<div class="page-body">
+				<div class="col-xs-push-12">
+					<div class="row">
+						<div id="BalanceDetails">
+						</div>
+					</div>
+					<br />
+					<div class="row">
+						<div class="col-lg-2 col-sm-2">
+							<label>Start Date:</label>
+							<div class="input-group">
+								<input type="text" id="txtDateFrom" class="form-control datepicker" />
+								<span class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+						<div class="col-lg-2 col-sm-2">
+							<label>End Date:</label>
+							<div class="input-group">
+								<input type="text" id="txtDateTo" class="form-control datepicker" />
+								<span class="input-group-addon">
+									<i class="fa fa-calendar"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-2 col-sm-2 love134">
+							<label for="chkisCredit">By Session:</label>
+							<input type="checkbox" id="chkseassion" value="isCredit" class="checkbox-inline" />
+						</div>
+						<div class="col-lg-2 col-sm-2 love134">
+							<label for="chkisCredit">By Cricket:</label>
+							<input type="checkbox" id="chkByMarketCricket" value="isCredit" class="checkbox-inline" />
+						</div>
+						<div class="col-lg-2 col-sm-2 love134">
+							<label for="chkisCredit">By Market:</label>
+							<input type="checkbox" id="chkByMarket" value="isCredit" class="checkbox-inline" />
+						</div>
+						<div class="col-lg-2 col-sm-2 love134">
+							<label for="chkisCredit">By Fancy Only:</label>
+							<input type="checkbox" id="chkfancy" value="isCredit" class="checkbox-inline" />
+						</div>
+						<div class="col-lg-2 col-sm-2">
+							<label>&nbsp;</label>
+							<br />
+							<div>
+								<input type="button" value="Load Report" id="btnLoad" class="buttonview" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-12 no-padding">
+			<div id="ProfitandLoss">
+			</div>
+		</div>
+
+		<hr>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		debugger;
+		$.ajax({
+			type: "GET",
+			async: true,
+			url: "/DashBoard/GetBalnceDetails",
+			success: function (result) {
+				debugger;
+				$("#BalanceDetails").html(result);
+				HideLoader();
+			},
+			complete: function () {
+			}
+		});
+
+		var dateNow = new Date();
+		var newdate = new Date(dateNow).setDate(dateNow.getDate() - 5);
+		$('#txtDateFrom').datetimepicker({
+			//format: 'YYYY-MM-DD hh:mm',
+			format: 'DD-MM-YYYY',
+			defaultDate: newdate
+
+		});
+		$('#txtDateTo').datetimepicker({
+			format: 'DD-MM-YYYY',
+			defaultDate: dateNow
+		});
+
+		$("#btnLoad").click(function () {
+			//debugger;
+			var datefrom = $("#txtDateFrom").val();
+			var dateTo = $("#txtDateTo").val();
+			ShowLoader();
+			var userID = 0;
+			if ($("#ddlUsers").val() != undefined) {
+				userID = $("#ddlUsers").val();
+			}
+			$.ajax({
+				url: '/DashBoard/ProfitandLoss',
+				type: 'POST',
+				data: { 'DateFrom': datefrom, 'DateTo': dateTo, 'UserID': userID, 'chkseassion': $("#chkseassion").is(":checked"), 'chkfancy': $("#chkfancy").is(":checked"), 'chkByMarket': $("#chkByMarket").is(":checked"), 'chkByMarketCricket': $("#chkByMarketCricket").is(":checked") },
+
+				complete: function () { },
+				success: function (data) {
+
+					$("#ProfitandLoss").html(data);
+					HideLoader();
+				},
+				error: function (data) {
+					HideLoader();
+				}
+			});
+		});
+	});
+</script>
