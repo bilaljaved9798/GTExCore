@@ -6096,28 +6096,35 @@ else
     }
 
     function insertbetslipmob() {
-        //debugger;
         if (checkNetConnection() == false) {
             return;
         }
 
-        selectionID = $("#openedbetslipid").val();
+        var betRequest = {
+            Odd: $("#betslipoddmob").val(),
+            SelectionID: [$("#openedbetslipid").val()],  // Assuming SelectionID is an array
+            Selectionname: $("#betslipselection").text(),
+            BetType: $("#betsliptype").val(),
+            Amount: $("#betslipamountmob").val(),
+            Betslipamountlabel: $("#betslipamountlabelmob").text(),
+            Clickedlocation: $("#clickedlocation").val(),
+            Betslipsize: $("#clickedbetsize").val(),
+            MarketbookID: $("#loadedmarketbook").val(),
+            MarketbookName: $("#loadedmarketbookname").val(),
+        };
+
         $.ajax({
             url: '/UserBet/InsertUserBetNew',
-
             type: 'POST',
-            async: false,
-            data: { 'userodd': $("#betslipoddmob").val(), 'SelectionID': selectionID, 'Selectionname': $("#betslipselection").text(), 'BetType': $("#betsliptype").val(), 'nupdownAmount': $("#betslipamountmob").val(), 'betslipamountlabel': $("#betslipamountlabelmob").text(), 'Clickedlocation': $("#clickedlocation").val(), 'Betslipsizemob': $("#clickedbetsize").val(), 'marketbookId': $("#loadedmarketbook").val(), 'Marketbookname': $("#loadedmarketbookname").val() },
-
-            complete: function () {
-
-            },
+            contentType: 'application/json',
+            data: JSON.stringify(betRequest),
             success: function (data) {
                 HideLoader();
-
+            },
+            error: function (err) {
+                console.error(err);
             }
         });
-
     }
 
 
@@ -6611,7 +6618,7 @@ else
             $('#simpleBet').hide();
         }
         else {
-            if (categoryname.indexOf("Racing") >= 0) {
+             if (categoryname.indexOf("Racing") >= 0) {
                 if (status == "IN-PLAY") {
                     allowedstatus = false;
                 }
@@ -6647,7 +6654,7 @@ else
                         }
                     }
                 }
-            }
+            } 
             else {
 
                 if (status == "IN-PLAY" || status == "IN PLAY" || status == "In Play" || status == "") {
@@ -6657,8 +6664,8 @@ else
                     allowedstatus = true;
                 }
 
-            }
-
+            } 
+            
             if (allowedstatus == true) {
                 $("#openedbetslipid").val(id);
                 $("#betsliptype").val(betsliptype);
@@ -7139,7 +7146,7 @@ else
                             if (status == "GOING LIVE") {
 
                                 var minutesremaining = timeofmatch.split(":");
-                                // ;
+                                
                                 if (marketbookname.indexOf("(US)") >= 0) {
                                     if (parseFloat(minutesremaining[0]) >= 0 && parseFloat(minutesremaining[2]) <= @LoggedinUserDetail.BetPlaceWaitandInterval.RaceMinutesBeforeStart && parseFloat(minutesremaining[1]) == 0) {
                                         allowedstatus = true;

@@ -203,114 +203,7 @@ namespace Census.API.Controllers
 				return sw.ToString();
 			}
 		}
-		//public string UserBetsAll()
-		//{
-		//    try
-		//    {
-		//        if (LoggedinUserDetail.GetUserTypeID() == 3)
-		//        {
-
-		//            List<UserBets> lstUserBets = (List<UserBets>)Session["userbets"];
-		//            lstUserBets.Where(w => w.location == "8").ToList().ForEach(i => i.UserOdd = (Convert.ToDouble(i.BetSize) / 100).ToString());
-		//            List<UserBets> lstAllUserBets = new List<Models.UserBets>();
-		//            if (Session["linevmarkets"] != null)
-		//            {
-		//                List<UserBets> lstUserBetAll = (List<UserBets>)Session["userbet"];
-		//                List<LinevMarkets> linevmarketsfig = new List<LinevMarkets>();
-		//                List<LinevMarkets> linevmarkets = (List<LinevMarkets>)Session["linevmarkets"];
-		//                if (linevmarkets != null)
-		//                {
-
-		//                    linevmarketsfig = linevmarkets.GroupBy(item => item.MarketCatalogueName).Select(g => g.First()).Where(item2 => item2.EventName == "Figure").ToList();
-		//                    linevmarkets = linevmarkets.Where(item => item.EventName != "Figure").ToList();
-		//                    List<UserBets> lstFancyBets = new List<UserBets>();
-		//                    foreach (var lineitem in linevmarkets)
-		//                    {
-		//                        lstFancyBets = lstUserBetAll.Where(item => item.MarketBookID == lineitem.MarketCatalogueID).ToList();
-		//                        lstAllUserBets.AddRange(lstFancyBets);
-		//                    }
-		//                    List<UserBets> lstFancyfigBets = new List<UserBets>();
-		//                    foreach (var lineitem in linevmarketsfig)
-		//                    {
-		//                        lstFancyfigBets = lstUserBetAll.Where(item => item.MarketBookID == lineitem.MarketCatalogueID).ToList();
-		//                        lstAllUserBets.AddRange(lstFancyfigBets);
-		//                    }
-		//                }
-		//            }
-		//            if (lstUserBets != null)
-		//            {
-		//                lstAllUserBets.AddRange(lstUserBets);
-		//                lstAllUserBets = lstAllUserBets.OrderByDescending(item => item.ID).ToList();
-
-		//            }
-
-		//            //long Liabality = objUserBets.GetLiabalityofCurrentUser(LoggedinUserDetail.GetUserID(), lstUserBets);
-		//            ViewData["liabality"] = Session["liabality"];
-		//            ViewBag.totliabality = Session["totliabality"];
-
-		//            return RenderRazorViewToString("UserBetsAll", lstAllUserBets);
-
-		//        }
-		//        else
-		//        {
-		//            if (LoggedinUserDetail.GetUserTypeID() == 2)
-		//            {
-
-		//                List<UserBetsforAgent> lstUserBets = (List<UserBetsforAgent>)Session["userbets"];
-		//                ViewData["liabality"] = Session["liabality"];
-		//                ViewData["totliabality"] = Session["totliabality"];
-
-		//                return RenderRazorViewToString("UserBetsAgentAll", lstUserBets);
-		//            }
-		//            else
-		//            {
-		//                if (LoggedinUserDetail.GetUserTypeID() == 8)
-		//                {
-		//                    List<UserBetsforSuper> lstUserBets = (List<UserBetsforSuper>)Session["userbets"];
-		//                    ViewData["liabality"] = Session["liabality"];
-		//                    ViewData["totliabality"] = Session["totliabality"];
-
-		//                    return RenderRazorViewToString("UserBetsForSuperAll", lstUserBets);
-		//                }
-		//                else
-		//                {
-		//                    if (LoggedinUserDetail.GetUserTypeID() == 1)
-		//                    {
-
-		//                        List<UserBetsForAdmin> lstUserBets = (List<UserBetsForAdmin>)Session["userbets"];
-		//                        ViewData["liabality"] = Session["liabality"];
-		//                        ViewData["totliabality"] = Session["totliabality"];
-
-		//                        return RenderRazorViewToString("UserBetsForAdminAll", lstUserBets);
-		//                    }
-		//                    else
-		//                    {
-		//                        if (LoggedinUserDetail.GetUserTypeID() == 9)
-		//                        {
-
-		//                            List<UserBetsforSamiadmin> lstUserBets = (List<UserBetsforSamiadmin>)Session["userbets"];
-		//                            ViewData["liabality"] = Session["liabality"];
-		//                            ViewData["totliabality"] = Session["totliabality"];
-		//                            return RenderRazorViewToString("UserBetsForSamiadminAll", lstUserBets);
-		//                        }
-
-		//                        else
-		//                        {
-		//                            List<UserBets> lstUserBets = new List<UserBets>();
-		//                            return RenderRazorViewToString("UserBetsAll", lstUserBets);
-		//                        }
-		//                    }
-		//                }
-		//            }
-		//        }
-
-		//    }
-		//    catch (System.Exception ex)
-		//    {
-		//        List<UserBets> lstUserBets = new List<UserBets>();
-		//        return RenderRazorViewToString("UserBetsAll", lstUserBets);
-		//    }
-		//}
+		
 
 		[HttpPost]
 		[ActionName("InsertUserBetAdmin")]
@@ -362,6 +255,13 @@ namespace Census.API.Controllers
         public bool GetBettingAllowedbyMarketIDandUserID(string MarketBookID)
         {
             return objUsersServiceCleint.GetBettingAllowedbyMarketIDandUserID(LoggedinUserDetail.GetUserID(), MarketBookID);
+        }
+        public string UpdateUnMatchedStatustoComplete(string[] userbetsIDs)
+        {
+
+            List<long> lstUserBetIDs = userbetsIDs.Select(long.Parse).ToList();
+            objUsersServiceCleint.UpdateUserBetUnMatchedStatusTocomplete(lstUserBetIDs, _passwordSettingsService.PasswordForValidate);
+            return "True";
         }
         public string CheckforPlaceBet(string Amount, string Odd, string BetType, string[] SelectionID, string marketbookID, string MarketbookName, string Runnerscount)
         {
