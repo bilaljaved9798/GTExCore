@@ -2,147 +2,94 @@
 @model BetSlipKeys
 @{
     ViewBag.Title = "Stack";
-    // Layout = "~/Views/Shared/_AccountsLayout.cshtml";
 }
 
-<div class="page-container">
-    <div class="page-content">
-        <div>
-            <div class="page-body">
-                <div class="col-xs-push-12">
-
-                   @*  @using (Html.BeginForm("Stack", "Accounts", FormMethod.Post)) *@
-                   @*  @using (Html.BeginForm("Stack", "Accounts", new {}, FormMethod.Post, null, new { role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.ValidationSummary(true) *@
-
-                        <br />
-                        <table id="simplebit">
-                            <tr><th style="margin-right:30px;text-align:left">Simple Bet</th></tr>
-                               <tr>
-                                <td>1: <input style="width: 100px;" type="text" id="SimpleBtn1" value="@(Model.SimpleBtn1.Replace("+", ""))" data-value="@Model.SimpleBtn1.Replace("+", "")" /></td>
-                                <td>2: <input style="width: 100px;" type="text" id="SimpleBtn2" value="@(Model.SimpleBtn2.Replace("+", ""))" data-value="@Model.SimpleBtn2.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>3: <input style="width: 100px;" type="text" id="SimpleBtn3" value="@(Model.SimpleBtn3.Replace("+", ""))" data-value="@Model.SimpleBtn3.Replace("+", "")" /></td>
-                                <td>4: <input style="width: 100px;" type="text" id="SimpleBtn4" value="@(Model.SimpleBtn4.Replace("+", ""))" data-value="@Model.SimpleBtn4.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>5: <input style="width: 100px;" type="text" id="SimpleBtn5" value="@(Model.SimpleBtn5.Replace("+", ""))" data-value="@Model.SimpleBtn5.Replace("+", "")" /></td>
-                                <td>6: <input style="width: 100px;" type="text" id="SimpleBtn6" value="@(Model.SimpleBtn6.Replace("+", ""))" data-value="@Model.SimpleBtn6.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>7: <input style="width: 100px;" type="text" id="SimpleBtn7" value="@(Model.SimpleBtn7.Replace("+", ""))" data-value="@Model.SimpleBtn7.Replace("+", "")" /></td>
-                                <td>8: <input style="width: 100px;" type="text" id="SimpleBtn8" value="@(Model.SimpleBtn8.Replace("+", ""))" data-value="@Model.SimpleBtn8.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>9: <input style="width: 100px;" type="text" id="SimpleBtn9" value="@(Model.SimpleBtn9.Replace("+", ""))" data-valueModel.SimpleBtn9.Replace("+", "")" /></td>
-                            </tr>
-                        </table>
-
-                        <br />
-                        <table id="joribit">
-                            <tr><th style="margin-right:30px;text-align:left">Jori Bet</th></tr>                          
-                            <tr>
-                                <td>1: <input style="width: 100px;" type="text" id="MutipleBtn1" value="@(Model.MutipleBtn1.Replace("+", ""))" data-value="@Model.MutipleBtn1.Replace("+", "")" /></td>
-                                <td>2: <input style="width: 100px;" type="text" id="MutipleBtn2" value="@(Model.MutipleBtn2.Replace("+", ""))" data-value="@Model.MutipleBtn2.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>3: <input style="width: 100px;" type="text" id="MutipleBtn3" value="@(Model.MutipleBtn3.Replace("+", ""))" data-value="@Model.MutipleBtn3.Replace("+", "")" /></td>
-                                <td>4: <input style="width: 100px;" type="text" id="MutipleBtn4" value="@(Model.MutipleBtn4.Replace("+", ""))" data-value="@Model.MutipleBtn4.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>5: <input style="width: 100px;" type="text" id="MutipleBtn5" value="@(Model.MutipleBtn5.Replace("+", ""))" data-value="@Model.MutipleBtn5.Replace("+", "")" /></td>
-                                <td>6: <input style="width: 100px;" type="text" id="MutipleBtn6" value="@(Model.MutipleBtn6.Replace("+", ""))" data-value="@Model.MutipleBtn6.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>7: <input style="width: 100px;" type="text" id="MutipleBtn7" value="@(Model.MutipleBtn7.Replace("+", ""))" data-value="@Model.MutipleBtn7.Replace("+", "")" /></td>
-                                <td>8: <input style="width: 100px;" type="text" id="MutipleBtn8" value="@(Model.MutipleBtn8.Replace("+", ""))" data-value="@Model.MutipleBtn8.Replace("+", "")" /></td>
-                            </tr>
-                            <tr>
-                                <td>9: <input style="width: 100px;" type="text" id="MutipleBtn9" value="@(Model.MutipleBtn9.Replace("+", ""))" data-value="@Model.MutipleBtn9.Replace("+", "")" /></td>
-                            </tr>
-                        </table>
-
-
-                        <p>
-                            <input id="btnSubmit" type="submit" value="Save" />
-
-                            @*<input type="submit" id="btn1" value="Save" class="btn btn-default" />*@
-                        </p>
-                    //}
-
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="text-center">Bet Slip Keys</h3>
                 </div>
+                <div class="card-body">
+                    <h4 class="text-secondary">Simple Bet</h4>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                        @for (int i = 1; i <= 9; i++)
+                        {
+                            <tr>
+                                <td>Simple Key @i:</td>
+                                <td>
+                                    <input class="form-control bg-light border-primary"
+                                           style="width: 100px;"
+                                           type="text"
+                                           id="SimpleBtn@(i)"
+                                           value="@Model.GetType().GetProperty($"SimpleBtn{i}")?.GetValue(Model)?.ToString()?.Replace("+", "")"
+                                           data-value="@Model.GetType().GetProperty($"SimpleBtn{i}")?.GetValue(Model)?.ToString()?.Replace("+", "")" />
+                                </td>
+                            </tr>
+                        }
+                    </table>
 
+                    <h4 class="text-secondary mt-4">Jori Bet</h4>
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                        @for (int i = 1; i <= 9; i++)
+                        {
+                            <tr>
+                                <td>Jori Key @i:</td>
+                                <td>
+                                    <input class="form-control bg-light border-success"
+                                           style="width: 100px;"
+                                           type="text"
+                                           id="MutipleBtn@(i)"
+                                           value="@Model.GetType().GetProperty($"MutipleBtn{i}")?.GetValue(Model)?.ToString()?.Replace("+", "")"
+                                           data-value="@Model.GetType().GetProperty($"MutipleBtn{i}")?.GetValue(Model)?.ToString()?.Replace("+", "")" />
+                                </td>
+                            </tr>
+                        }
+                    </table>
 
+                    <div class="text-center mt-4">
+                        <button id="btnSubmit" class="btn btn-primary btn-lg">Save</button>
+                    </div>
+                </div>
             </div>
-            <hr>
         </div>
     </div>
 </div>
 
-
-<script language="javascript" type="text/javascript">
-
+<script>
     $(document).ready(function () {
-
         $("#btnSubmit").click(function () {
-           // debugger;
+            var betslipkeys = {};
+            for (let i = 1; i <= 9; i++) {
+                betslipkeys[`SimpleBtn${i}`] = $(`#SimpleBtn${i}`).val();
+                betslipkeys[`MutipleBtn${i}`] = $(`#MutipleBtn${i}`).val();
+            }
 
-            var betslipkeys= { SimpleBtn1: $("#SimpleBtn1").val(), SimpleBtn2: $("#SimpleBtn2").val(), SimpleBtn3: $("#SimpleBtn3").val(), SimpleBtn4: $("#SimpleBtn4").val(), SimpleBtn5: $("#SimpleBtn5").val(), SimpleBtn6: $("#SimpleBtn6").val(), SimpleBtn7: $("#SimpleBtn7").val(), SimpleBtn8: $("#SimpleBtn8").val(), SimpleBtn9: $("#SimpleBtn9").val(), SimpleBtn10: $("#SimpleBtn10").val(), SimpleBtn11: $("#SimpleBtn11").val(), SimpleBtn12: $("#SimpleBtn12").val(), MutipleBtn1: $("#MutipleBtn1").val(), MutipleBtn2: $("#MutipleBtn2").val(), MutipleBtn3: $("#MutipleBtn3").val(), MutipleBtn4: $("#MutipleBtn4").val(), MutipleBtn5: $("#MutipleBtn5").val(), MutipleBtn6: $("#MutipleBtn6").val(), MutipleBtn7: $("#MutipleBtn7").val(), MutipleBtn8: $("#MutipleBtn8").val(), MutipleBtn9: $("#MutipleBtn9").val(), MutipleBtn10: $("#MutipleBtn10").val(), MutipleBtn11: $("#MutipleBtn11").val(), MutipleBtn12: $("#MutipleBtn12").val() };
             $.ajax({
                 url: '/Accounts/UpdateBetSlipKeys',
-                async: true,
                 type: "POST",
-                //data: "{'SimpleBtn1':$('#SimpleBtn1').val(), 'SimpleBtn2':$('#SimpleBtn2').val(), 'SimpleBtn3':$('#SimpleBtn3').val(), 'SimpleBtn4':$('#SimpleBtn4').val(), 'SimpleBtn5':$('#SimpleBtn5').val(), 'SimpleBtn6':$('#SimpleBtn6').val(), 'SimpleBtn7':$('#SimpleBtn7').val(), 'SimpleBtn8':$('#SimpleBtn8').val(), 'SimpleBtn9':$('#SimpleBtn9').val(), 'MutipleBtn1':$('#MutipleBtn1').val(), 'MutipleBtn2':$('#MutipleBtn2').val(), 'MutipleBtn3':$('#MutipleBtn3').val(), 'MutipleBtn4':$('#MutipleBtn4').val(), 'MutipleBtn5':$('#MutipleBtn5').val(), 'MutipleBtn6':$('#MutipleBtn6').val(), 'MutipleBtn7':$('#MutipleBtn7').val(), 'MutipleBtn8':$('#MutipleBtn8').val(), 'MutipleBtn9':$('#MutipleBtn9').val()}"
                 data: betslipkeys,
-
-                complete: function () { },
                 success: function (data) {
-                  //  debugger;
                     if (data == "True") {
-                        HideLoader();
-                        ShowErrorMsg("User Status updated successfully.");
-                        $("#SimpleBtn1").val('');
-                        $("#SimpleBtn2").val('');
-                        $("#SimpleBtn3").val('');
-                        $("#SimpleBtn4").val('');
-                        $("#SimpleBtn5").val('');
-                        $("#SimpleBtn6").val('');
-                        $("#SimpleBtn7").val('');
-                        $("#SimpleBtn8").val('');
-                        $("#SimpleBtn9").val('');
-                        $("#SimpleBtn10").val('');
-                        $("#SimpleBtn11").val('');
-                        $("#SimpleBtn12").val('');
-                        $("#MutipleBtn1").val('');
-                        $("#MutipleBtn2").val('');
-                        $("#MutipleBtn3").val('');
-                        $("#MutipleBtn4").val('');
-                        $("#MutipleBtn5").val('');
-                        $("#MutipleBtn6").val('');
-                        $("#MutipleBtn7").val('');
-                        $("#MutipleBtn8").val('');
-                        $("#MutipleBtn9").val('');
-                        $("#MutipleBtn10").val('');
-                        $("#MutipleBtn11").val('');
-                        $("#MutipleBtn12").val('');
-
-                        //alert("Data Saved Successfully");
-                        reload.page();
+                        alert("User Status updated successfully.");
+                        $("input").val("");
+                    } else {
+                        alert("Error: " + data);
                     }
-                    else {
-                        HideLoader();
-                        ShowErrorMsg(data);
-                    }
+                },
+                error: function (err) {
+                    console.error(err);
                 }
-
-            });
-
             });
         });
+    });
 </script>
-
-
-
