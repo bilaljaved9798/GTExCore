@@ -55,6 +55,19 @@ namespace GTExCore.Controllers
         }
         public string UpdateBetSlipKeys(BetSlipKeys betSlipKeys)
         {
+            // Null check for betSlipKeys to avoid runtime errors
+            if (betSlipKeys == null)
+            {
+                return "False";
+            }
+
+            // Add "+" prefix to specific buttons dynamically
+            //betSlipKeys.SimpleBtn5 = AddPlusPrefix(betSlipKeys.SimpleBtn5);
+            //betSlipKeys.SimpleBtn6 = AddPlusPrefix(betSlipKeys.SimpleBtn6);
+            //betSlipKeys.SimpleBtn7 = AddPlusPrefix(betSlipKeys.SimpleBtn7);
+            //betSlipKeys.SimpleBtn8 = AddPlusPrefix(betSlipKeys.SimpleBtn8);
+
+            // Check if the user is logged in
             if (LoggedinUserDetail.GetUserID() > 0)
             {
                 objUsersServiceCleint.UpdateBetSlipKeys(
@@ -84,14 +97,21 @@ namespace GTExCore.Controllers
                     betSlipKeys.MutipleBtn11,
                     betSlipKeys.MutipleBtn12
                 );
-
+                _httpContextAccessor.HttpContext.Session.SetObject("BetSlipKeys", betSlipKeys);
                 return "True";
             }
             else
             {
                 return "False";
             }
+        }      
+        private string AddPlusPrefix(string value)
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                return value;
+            }
+            return value.StartsWith("+") ? value : $"+{value}";
         }
-
     }
 }

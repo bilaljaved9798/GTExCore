@@ -300,7 +300,7 @@ else
                                 </li>
 
                             </ul>
-                            <div class="tab-content tabs-flat" style="padding: 3px;">
+                            <div class="tab-content tabs-flat" style="padding: 3px; background-color:whitesmoke">
                                 <div id="simpleBet" class="tab-pane">
                                     <div id="BetSlipMain" class="betslip-wrapper hide" style="position: relative">
                                         <a href="~/Accounts/Stack" class="btn btn-blue btn-xs pull-right" style="margin-bottom: 3px">Customize Stake Buttons <i class="fa fa-edit"></i></a>
@@ -372,11 +372,10 @@ else
                                                                 <input class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" type="button" value="@( obj.SimpleBtn3.Replace("+", ""))" data-value="@obj.SimpleBtn3.Replace("+", "")" style="  border-radius: 6px;" ;>
                                                                 <input class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" type="button" value="@(obj.SimpleBtn4.Replace("+", ""))" data-value="@obj.SimpleBtn4.Replace("+", "")" style="  border-radius: 6px;" ;>
                                                                 <br />
-                                                                <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" value="@(obj.SimpleBtn8)" data-value="@(obj.SimpleBtn8.Replace("+", ""))" style=" border-radius: 6px;" ; />
                                                                 <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" value="@(obj.SimpleBtn5)" data-value="@(obj.SimpleBtn5.Replace("+", ""))" style=" border-radius: 6px;" ; />
                                                                 <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" value="@(obj.SimpleBtn6)" data-value="@(obj.SimpleBtn6.Replace("+", ""))" style="  border-radius: 6px;" ; />
                                                                 <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" value="@(obj.SimpleBtn7)" data-value="@(obj.SimpleBtn7.Replace("+", ""))" style=" border-radius: 6px;" ; />
-
+                                                                <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip betors" value="@(obj.SimpleBtn8)" data-value="@(obj.SimpleBtn8.Replace("+", ""))" style=" border-radius: 6px;" ; />                                                                                                                           
                                                             </div>
                                                         </center>
 
@@ -526,7 +525,7 @@ else
                     </div>
                 </div>
                 <div class="widget-body" style="padding: 0px; ">
-                    <div class="modal-content tabs-flat" style="padding: 3px;">
+                    <div class="modal-content tabs-flat" style="padding: 3px; background-color:whitesmoke">
                         <div id="simpleBet" class="tab-pane">
                             <div id="BetSlipMainmob" class="betslip-wrapper hide" style="position: relative">
                                 <a href="~/Accounts/Stack" class="btn btn-blue btn-xs pull-right" style="margin-bottom: 3px">Customize Stake Buttons <i class="fa fa-edit"></i></a>
@@ -642,7 +641,7 @@ else
         <div id='myModalBetslipmultiple' class='modal'>
             <div class="modal-dialog">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" id="btnmulipleslipclose" class="close" data-dismiss="modal">&times;</button>
                     <h4 id="betslipheadingmultiple" class="modal-title">You are going to place </h4>
                 </div>
                 <div id="betslipcontentmultiplemb" class="modal-content">
@@ -2015,9 +2014,8 @@ else
 
     var Carddisplay = true;
 
-
-
     $('#btnscorecard').click(function (ev) {
+        debugger;
         $("#video").hide();
         var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
         $.ajax({
@@ -2028,10 +2026,12 @@ else
             complete: function () {
             },
             error: function () {
-                //updatescores();
+                updatescores();
             },
             success: function (data) {
-                var scorecard = JSON.parse(data);
+                debugger
+                var scorecarddata = JSON.parse(data);
+                var scorecard = scorecarddata.filter(x => x.EventID == eventID);
                 if (display == true && scorecard.length > 0) {
                     $("#scorecaed")[0].src = scorecard[0].scorecard;
                     $("#scorecaed").show();
@@ -4830,6 +4830,13 @@ else
         $("#btnslipclose").click(function () {
             $("#myModalBetslipmob").modal("hide");
         });
+        $("#btnmulipleslipclose").click(function () {
+            $("#myModalBetslipmultiple").modal("hide");
+        });
+        $("#btnBetslipClosemultiple").click(function () {
+            $("#myModalBetslipmultiple").modal("hide");
+        });           
+
 
         $("#btnBetslipsubmitmob").click(function () {
 
@@ -4845,6 +4852,8 @@ else
             //$(".loadingimg").show();
             $("#btnBetslipsubmitmob").hide();
             $("#btnloadermob").show();
+            debugger;
+
             var categoryname = $("#marketbookCategory" + marketbookID).val();
             if (categoryname == undefined || categoryname == "") {
                 categoryname = "Fancy";
@@ -4957,31 +4966,24 @@ else
                 var odd1 = $("#clickedbetsize").val();
                 $.ajax({
                     url: '/UserBet/CheckforPlaceBet',
-
                     type: 'POST',
                     async: true,
                     data: { 'Amount': $("#betslipamountlabelmob").text().trim(), 'Odd': odd1, 'BetType': $("#betsliptype").val(), 'SelectionID': selectionIDs1, 'marketbookID': $("#loadedmarketbook").val(), 'MarketbookName': marketbookname, 'Runnerscount': marketbookrunners },
-
                     complete: function () { },
                     success: function (data) {
-
                         if (data == "True") {
                             isInserting = true;
                             // ShowLoader();
                             //$(".loadingimg").show();
                             //$(".pendding").show();
                             $("#btnBetslipsubmitmob").hide();
-                            $("#btnloadermob").show();
-                            var categoryname = $("#marketbookCategory" + marketbookID).val();
+                            $("#btnloadermob").show();                            
                             var counter = 6;
-
                             $.ajax({
                                 url: '/DashBoard/GetBetPlaceInterval',
-
                                 type: 'GET',
                                 async: false,
                                 data: { 'categoryname': categoryname, 'Marketbookname': marketbookname, 'Runnerscount': marketbookrunners },
-
                                 complete: function () { },
                                 success: function (data) {
 

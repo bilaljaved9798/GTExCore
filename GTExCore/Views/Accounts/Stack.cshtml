@@ -18,7 +18,7 @@
                             <th>Key</th>
                             <th>Value</th>
                         </tr>
-                        @for (int i = 1; i <= 9; i++)
+                        @for (int i = 1; i <= 4; i++)
                         {
                             <tr>
                                 <td>Simple Key @i:</td>
@@ -29,6 +29,23 @@
                                            id="SimpleBtn@(i)"
                                            value="@Model.GetType().GetProperty($"SimpleBtn{i}")?.GetValue(Model)?.ToString()?.Replace("+", "")"
                                            data-value="@Model.GetType().GetProperty($"SimpleBtn{i}")?.GetValue(Model)?.ToString()?.Replace("+", "")" />
+                                </td>
+                            </tr>
+                        }
+                        @for (int i = 5; i <= 9; i++)
+                        {
+                            string value = Model.GetType().GetProperty($"SimpleBtn{i}")?.GetValue(Model)?.ToString();
+                            value = !string.IsNullOrEmpty(value) && value.StartsWith("+") ? value : $"+{value}";
+
+                            <tr>
+                                <td>Simple Key @i:</td>
+                                <td>
+                                    <input class="form-control bg-light border-primary enforce-plus"
+                                           style="width: 100px;"
+                                           type="text"
+                                           id="SimpleBtn@(i)"
+                                           value="@value"
+                                           data-value="@value" />
                                 </td>
                             </tr>
                         }
@@ -67,6 +84,23 @@
 
 <script>
     $(document).ready(function () {
+        $('.enforce-plus').on('input', function () {
+            let inputValue = $(this).val();
+
+            // Ensure the value starts with '+'
+            if (!inputValue.startsWith('+')) {
+                // Add the '+' prefix, ignoring duplicates
+                $(this).val('+' + inputValue.replace(/^(\+)?/, ''));
+            }
+        });
+
+        // Optional: Ensure the initial values are valid on page load
+        $('.enforce-plus').each(function () {
+            let inputValue = $(this).val();
+            if (!inputValue.startsWith('+')) {
+                $(this).val('+' + inputValue.replace(/^(\+)?/, ''));
+            }
+        });
         $("#btnSubmit").click(function () {
             var betslipkeys = {};
             for (let i = 1; i <= 9; i++) {
@@ -81,6 +115,7 @@
                 success: function (data) {
                     if (data == "True") {
                         alert("User Status updated successfully.");
+                        window.location.href = '/DashBoard/Index';
                         $("input").val("");
                     } else {
                         alert("Error: " + data);
