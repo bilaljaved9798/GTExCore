@@ -91,18 +91,10 @@
 </head>
 
 <div class="d-flex justify-content-center h-100">
-
-
     <div class="user_card">
-
-
         <span class="spani1">
-
-            @*<img src="~/Content/Images/GT-LOGO.png" class="brand_logo" alt="Global">*@
             <h9 class="brand_logo">GTEXCH </h9>
         </span>
-
-
         <div class="d-flex justify-content-center form_container" style="margin-top: 22px;">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { role = "form" }))
             {
@@ -113,24 +105,17 @@
                     <i class="fa fa-user icon">
                     </i>
                     @Html.TextBoxFor(m => m.Username, new { autofocus = "autofocus", placeholder = "Username", @id = "txtname", @class = "input-field" })
-
                 </div>
-
                 <div class="input-icons">
                     <i class="fa fa-key icon">
                     </i>
                     @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @id = "txtpass", @class = "input-field" })
-
-
                 </div>
-
                 <div class="form-group" font-family:'Josefin Sans'">
                     <div class="col-md-12" style="padding-right: 38px !important">
-
                         <label> <input type="checkbox" style="color:ActiveBorder; width:28px; margin-left:21px; left:auto; font-family:'Josefin Sans'; text-shadow:0px 0.3px #000000" />  <b>Remember Me</b> </label>
                     </div>
                 </div>
-
                 <div class="input-field">
                     <button type="submit" style="text-shadow: 	0.5px 0.5px #FFFFFD;" id="btnLogin" class="btn btn1" name="button">Login</button>
                 </div>
@@ -149,14 +134,12 @@
                 <strong><a href="https://globaltraderexch.com/Terms/Index#responsiblegambling" onclick=" window.open('/Terms/Index#responsiblegambling', '_blank', 'width=800, height=600', window.focus()) " style="color:black">Gambling can be addictive, please play responsibly</a> | </strong>
 
                 <strong><a href="#" onclick=" window.open('/Terms/Index#parentalsupervision', '_blank', 'width=800, height=600', window.focus()) " style="color:black">Parental Supervision</a> | </strong>
-
-
             </p>
             <hr>
             <p style="background-color:#d5d5d5; box-shadow:rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px">
 
                 <span class="powerdby">Powered by </span>
-                <img height="40" width="110" alt="Global" src="~/Content/Images/betfair-logo.png" />
+                <img height="40" width="110" alt="Global" src="~/betfair-logo.png" />
             </p>
 
 

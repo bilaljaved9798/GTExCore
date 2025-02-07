@@ -297,9 +297,7 @@ else
                                         {
                                             <div>
                                                 @if (runner.StatusStr == "REMOVED")
-                                                {
-
-                                                }
+                                                {}
                                                 else
                                                 {
                                                     <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
@@ -311,7 +309,7 @@ else
                                                 @{
                                                     runner.WearingURL = runner.WearingURL.ToString().Replace("content-cache.betfair.com/feeds_images/Horses/SilkColours/", "bf-silks.009901.xyz/proxy/");
                                                 }
-                                                <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL" title="@runner.WearingDesc" onerror="this.onerror = null; this.src = '/not-found.png';" /></div>
+                                                <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL" title="@runner.WearingDesc" onerror="this.onerror = null; this.src = '~/not-found.png';" /></div>
                                                 <div class="clothnumandstallnum">
                                                 </div>
                                             </div>

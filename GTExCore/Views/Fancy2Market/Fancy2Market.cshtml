@@ -62,50 +62,30 @@
 
                                 @if (LoggedinUserDetail.GetUserTypeID() == 3)
                                 {
-                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID?','@runner?.SelectionId')" style="background-color:@ViewBag.backgrod;color:@ViewBag.color">
+                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID','@runner?.SelectionId')" style="background-color:@ViewBag.backgrod;color:@ViewBag.color">
                                         Book
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID?','@runner?.SelectionId')" style="background:#1D9BF0;color:white">
+                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID','@runner?.SelectionId')" style="background:#1D9BF0;color:white">
                                         Book
                                     </div>
                                 }
 
                                 <div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">
 
-                                    @if (runner?.ProfitandLoss >= 0 && runner?.ProfitandLoss != 0)
-                                    {
+                                    
                                         <label id="lblprofitandloss@(runner?.SelectionId)" class="runnersprofitlossgreenFancy ">
                                             @runner?.ProfitandLoss
                                         </label>
-                                    }
-                                    else
-                                    {
-                                        if (runner?.ProfitandLoss < 0 && runner?.ProfitandLoss != 0)
-                                        {
-                                            <label id="lblprofitandloss@(runner?.SelectionId)" class="runnersprofitlossred23">
-                                                @runner?.ProfitandLoss
-                                            </label>
-                                        }
-                                    }
-
-                                    @if (runner?.Loss >= 0 && runner?.Loss != 0)
-                                    {
-                                        <label id="lblloss@(runner?.SelectionId)" class="runnersprofitlossgreenFancy ">
-                                            @runner?.Loss
-                                        </label>
-                                    }
-                                    else
-                                    {
-                                        if (runner?.Loss < 0 && runner?.Loss != 0)
-                                        {
+                                    
+                                    
+                                        
                                             <label id="lblloss@(runner?.SelectionId)" class="runnersprofitlossred23">
                                                 @runner?.Loss
                                             </label>
-                                        }
-                                    }
+                                       
                                 </div>
 
                             </div>

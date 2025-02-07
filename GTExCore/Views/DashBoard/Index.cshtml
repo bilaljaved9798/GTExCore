@@ -244,7 +244,6 @@ else
 				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
 			</div>
 		</div>
-
 	</div>
 }
 
@@ -258,16 +257,11 @@ else
 			<div id="completedmatcedbetscontentFancy" class="modal-content">
 			</div>
 			<div class="modal-footer">
-
-
 				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
 			</div>
 		</div>
-
 	</div>
-
 }
-
 else
 {
 
@@ -279,61 +273,22 @@ else
 			<div id="completedmatcedbetscontentFancy" class="modal-content">
 			</div>
 			<div class="modal-footer">
-
-
 				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
 			</div>
 		</div>
-
 	</div>
-
-
 }
 
-
-
-
-<div id='myModalShowBlanceDetail' class='modal'>
-
-	@if (LoggedinUserDetail.GetUserTypeID() == 3)
-	{
+<div id='myModalShowBlanceDetail' class='modal'>	
 		<div class="modal-dialog">
-
-
-
 			<div class="modal-header">
-
 					<h4 class="modal-title">Balance Details</h4>
 			</div>
 			<div id="balancedetailscontent" class="modal-content" style="color: white;"></div>
 			<div class="modal-footer">
 				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
 			</div>
-		</div>
-
-	}
-
-	else
-
-	{
-		<div class="modal-dialog" style="background-color:#1D9BF0">
-
-
-
-			<div class="modal-header">
-
-					<h4 class="modal-title">Balance Details</h4>
-			</div>
-			<div id="balancedetailscontent" class="modal-content" style="color: white;"></div>
-			<div class="modal-footer">
-				<button type="button" class="btncancelUnmatchedBets" data-dismiss="modal" style="height: 40px;">Close</button>
-			</div>
-		</div>
-
-
-	}
-
-
+		</div>	
 </div>
 
 <div id='myModalResult' class='modal'>
@@ -348,7 +303,6 @@ else
 		</div>
 	</div>
 </div>
-
 
 
 <script type="text/javascript">
@@ -387,12 +341,10 @@ else
 				$("#balancedetailscontent").html(result);
 
 			}
-
 		});
 	};
 
 	function getCompletedResult() {
-
 		$.ajax({
 			type: "GET",
 			url: "/DashBoard/GetCompletedResult",
@@ -682,24 +634,20 @@ else
 											HideLoader();
 											ShowErrorMsg(data);
 										}
-
 									}
 								});
 							}
-
 						}
 						else {
 							$("#btnCheckPassword").prop("disabled", false);
 							ShowErrorMsg(data);
 						}
-
 					}
 				});
 			}
 			else {
 				$("#btnCheckPassword").prop("disabled", false);
 			}
-
 		});
 
 	});
@@ -716,27 +664,6 @@ else
 			$(".dropdown-menu").slideUp(1);
 		}
 	});
-
-
-
-	//$(document).on("click", function (event) {
-	//	var $trigger = $(".dropdown");
-	//	if ($trigger !== event.target && !$trigger.has(event.target).length) {
-	//		$(".dropdown-menu").slideUp(1);
-	//	}
-	//});
-	//$(document).mouseup(function (e) {
-	//	var container = $(".dropdown-menu");
-
-	//	// if the target of the click isn't the container nor a descendant of the container
-	//	if (!container.is(e.target) && container.has(e.target).length === 0) {
-	//		container.hide();
-	//	}
-
-	//});
-
-
-
 
 	function VerifyPassword(password) {
 

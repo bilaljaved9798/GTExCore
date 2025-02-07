@@ -1,0 +1,59 @@
+﻿@using GTExCore.Models
+@model IEnumerable<UserBets>
+
+@{
+    List<UserBets> lstMatchedBets = Model.Where(a => a.isMatched == true).ToList();
+    <div class="user-bets-wrapper">
+        <div class="matched-bets">
+            @if (lstMatchedBets.Count > 0)
+            {
+                <div class="allmatchedbets">
+                    <div class="matched-betsViewAll">
+                        <div class="bets-header">
+                            <div class="selection" style="background-color:#075E54">
+                                <label style="color:white">Selection</label>
+                            </div>
+                            <div class="Odd" style="background-color:#075E54">
+                                <label style="color:white">Odd</label>
+                            </div>
+                            <div class="Amount" style="background-color:#075E54; width:33% !important">
+                                <label style="color:white">Amount</label>
+                            </div>
+                        </div>
+                        @foreach (var item in lstMatchedBets)
+                        {
+                            if (item.BetType == "back")
+                            {
+                                <div class="bets-items back" data-id="@item.ID" data-bettype="@item.BetType" data-selectionid="@item.SelectionID" data-odd="@item.UserOdd" data-amount="@item.Amount" data-betsize="@item.BetSize" data-location="@item.location" data-pendingamount="@item.PendingAmount" data-parentID="@item.ParentID">
+                                    <div class="selection">
+                                        <label>@item.SelectionName</label>
+                                    </div>
+                                    <div class="Odd">
+                                        <label>@item.UserOdd</label>
+                                    </div>
+                                    <div class="Amount">
+                                        <label id="lblbetamount@(item.ID)">@item.Amount</label>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="bets-items lay" data-id="@item.ID" data-bettype="@item.BetType" data-selectionid="@item.SelectionID" data-odd="@item.UserOdd" data-amount="@item.Amount" data-betsize="@item.BetSize" data-location="@item.location" data-pendingamount="@item.PendingAmount" data-parentID="@item.ParentID">
+                                    <div class="selection">
+                                        <label>@item.SelectionName</label>
+                                    </div>
+                                    <div class="Odd">
+                                        <label>@item.UserOdd</label>
+                                    </div>
+                                    <div class="Amount">
+                                        <label id="lblbetamount@(item.ID)">@item.Amount</label>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

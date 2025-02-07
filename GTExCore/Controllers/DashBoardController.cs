@@ -958,7 +958,9 @@ namespace GTExCore.Controllers
                     {
                         LoggedinUserDetail.CheckifUserLogin();
                         UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
-                        List<UserBets> lstUserBets = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");
+                        //List<UserBets> lstUserBets = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");
+                        List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+
                         BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
                         if (CurrentMarketProfitandloss.RunnersForindianFancy != null)
                         {
