@@ -4524,12 +4524,7 @@ else
     }
     var isInserting = false;
     function LoadDefaultPage() {
-
-
         var partialviewname = "/DashBoard/GetDefaultPageData";
-
-
-
         $("#otherdata").load(partialviewname, function () {
             $("#marketdataall").hide();
             $("#otherdata").show();
@@ -4538,21 +4533,10 @@ else
         });
         $(".usernameandliablity").removeClass("in");
         $(".usernameandliablity").addClass("collapse");
+        
+        
     }
-    //function LoadDefaultPageInPlay(viewtype) {
-
-    //	//ShowLoader();
-    //	var partialviewname = "/DashBoard/GetDefaultPageDataInPlay?ViewType="+viewtype;
-    //	$("#otherdata").load(partialviewname, function () {
-    //		$("#marketdataall").hide();
-    //		$("#otherdata").show();
-    //		$("#partialviews").show();
-    //		//HideLoader();
-
-    //	});
-    //	$(".usernameandliablity").removeClass("in");
-    //	$(".usernameandliablity").addClass("collapse");
-    //}
+    
     function LoadDefaultPageInPlay(viewtype) {
 
         //ShowLoader();
@@ -4572,6 +4556,7 @@ else
                 $("#marketdataall").hide();
                 $("#otherdata").show();
                 $("#partialviews").show();
+                $("#divfooter").css("display", "block");
                 //HideLoader();
             },
             error: function (xhr, status, error) {
@@ -7934,7 +7919,7 @@ else
 
 @if (LoggedinUserDetail.GetUserTypeID() == 3)
 {
-    <div class="footer no-padding">
+    <div class="footer no-padding" id="divfooter" style="display:none">
         <footer style="color:black">
             <ul>
                 <li onclick="togglemainsportsmenu(1,'footer')">
