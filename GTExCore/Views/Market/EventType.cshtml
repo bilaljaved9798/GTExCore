@@ -4530,11 +4530,10 @@ else
             $("#otherdata").show();
             $("#partialviews").show();
             //HideLoader();
+            $("#divfooter").css("display", "block");
         });
         $(".usernameandliablity").removeClass("in");
-        $(".usernameandliablity").addClass("collapse");
-        
-        
+        $(".usernameandliablity").addClass("collapse");       
     }
     
     function LoadDefaultPageInPlay(viewtype) {
@@ -4556,7 +4555,7 @@ else
                 $("#marketdataall").hide();
                 $("#otherdata").show();
                 $("#partialviews").show();
-                $("#divfooter").css("display", "block");
+                
                 //HideLoader();
             },
             error: function (xhr, status, error) {
