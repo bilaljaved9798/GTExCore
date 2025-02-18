@@ -7397,6 +7397,17 @@ else
         $("#lastloadedmarket").val(id);
 
     }
+    function logoClick(){  
+        $("#marketdataall").hide();
+        $("#BetSlipMain").hide();
+        $("#simpleBet").hide();
+        $("#betslipcontent").hide();
+
+        $("#BetSlipJori").hide();
+        $("#joriBet").hide();
+        $("#betslipcontentmultiple").hide();
+        $("#otherdata").show();     
+    }
 
     function SetLastLoadedMarket(id) {
         LoadUserBets();
