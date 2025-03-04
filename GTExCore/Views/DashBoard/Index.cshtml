@@ -9,6 +9,25 @@
 
 <head>
 	<style>
+
+		.blur-background::before {
+			content: "";
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			backdrop-filter: blur(5px); /* Blur effect */
+			background: rgba(0, 0, 0, 0.3); /* Semi-transparent dark overlay */
+			z-index: 999; /* Ensure it covers everything */
+		}
+
+		.dropdown-menu {
+			position: absolute;
+			z-index: 1000; /* Ensure dropdown is above the blur */
+		}
+
+
 		.lilabel {
 			color: white;
 			font-weight: 700;
@@ -56,10 +75,33 @@
 		.change .bar3 {
 			transform: translate(0, -6px) rotate(42deg);
 		}
+
+		.overlay {
+			display: none;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			opacity: 0.5; /* Make it semi-transparent */
+			z-index: 998; /* Lower than sidebar */
+			transition: opacity 0.3s ease;
+		}
+
+			.overlay.active {
+				display: block;
+				opacity: 1;
+			}
+
+		#maindiv.faded {
+			pointer-events: none; /* Disable interactions */
+			opacity: 0.5; /* Make it semi-transparent */
+		}
+
 	</style>
 </head>
 <div class="col-md-12 no-padding">
-	<div class="mainheaderdivstatic" style="background:@ViewBag.backgrod;color:@ViewBag.color">
+	<div class="mainheaderdivstatic" style="background:@ViewBag.backgrod;color:@ViewBag.color; position:fixed;z-index:1000">
 		<div class="logonew pull-left" onclick="logoClick()" id="logdiv">
 			<h9>GTEXCH</h9>		
 		</div>
@@ -160,7 +202,7 @@
 		
 
 	</div>
-
+	<div id="fade-overlay" style="display: none;"></div>
 	<div class="container">
 		<div class="errordivfixed">
 			<label id="lblMainError"></label>
@@ -305,28 +347,58 @@ else
 
 <script type="text/javascript">
 
+	// $(document).ready(function () {
+	// 	// Check if screen width is greater than 768px (Laptop/Desktop)
+	// 	if (window.matchMedia("(min-width: 769px)").matches) {
+	// 		$(".sidebar-collapse").trigger('click');
+
+	// 		$(".sidebar-collapse").click(function () {
+	// 			if ($("#sidebar").css("display") == "none") {
+	// 				$("#sidebar").show();
+	// 				$("#maindiv").removeClass("col-md-12 col-sm-12 no-padding");
+	// 				$("#maindiv").addClass("col-md-10 col-sm-12 no-padding");
+	// 			} else {
+	// 				$("#sidebar").hide();
+	// 				$("#maindiv").removeClass("col-md-10 col-sm-12 no-padding");
+	// 				$("#maindiv").addClass("col-md-12 col-sm-12 no-padding");
+	// 			}
+	// 		});
+	// 	}
+	// });
+
+
+
 	function myFunction(x) {
 		x.classList.toggle("change");
 	}
 
 	$(document).ready(function () {
-		$(".sidebar-collapse").trigger('click')
 		$(".sidebar-collapse").click(function () {
-
-			if ($("#sidebar").css("display") == "none") {
-				$("#sidebar").show();
-				$("#maindiv").removeClass("col-md-12 col-sm-12 no-padding")
-				$("#maindiv").addClass("col-md-10 col-sm-12 no-padding")
+			// Check if screen width is less than 768px
+			if (window.matchMedia("(max-width: 768px)").matches) {
+				if ($("#sidebar").css("display") == "none") {
+					$("#sidebar").show();
+					$("#overlay").addClass("active"); // Show overlay
+					$("#maindiv").addClass("faded"); // Add faded effect
+				} else {
+					$("#sidebar").hide();
+					$("#overlay").removeClass("active"); // Hide overlay
+					$("#maindiv").removeClass("faded"); // Remove faded effect
+				}
 			}
-			else {
-				$("#sidebar").hide();
-				$("#maindiv").removeClass("col-md-10 col-sm-12 no-padding")
-				$("#maindiv").addClass("col-md-12 col-sm-12 no-padding")
-			}
-
 		});
-		//CheckUserStatus();
+
+		// Close sidebar when overlay is clicked (only for mobile screens)
+		$(".innerbodycontent1").click(function () {
+			if (window.matchMedia("(max-width: 768px)").matches) {
+				$("#sidebar").hide();
+				
+				$(this).removeClass("active");
+				$("#maindiv").removeClass("faded");
+			}
+		});
 	});
+
 
 	function getbalancedetail() {
 		$.ajax({
@@ -651,16 +723,31 @@ else
 	});
 
 
-	$(".dropdown").on('click', function (event) {
-		event.stopPropagation(); // Prevent the click event from bubbling up to the document
-		$(this).find(".dropdown-menu").slideToggle(1);
-	});
+	$(document).ready(function () {
+		$(".dropdown").on('click', function (event) {
+			event.stopPropagation(); // Prevent event bubbling
+			$(this).find(".dropdown-menu").slideToggle(200);
 
-	// Hide dropdown menu when clicking outside of it
-	$(document).on('click', function (event) {
-		if (!$(event.target).closest('.dropdown').length) {
-			$(".dropdown-menu").slideUp(1);
-		}
+			if ($(window).width() <= 768) { // Only apply blur effect on mobile
+				$("body").toggleClass("blur-background");
+			}
+		});
+
+		// Hide dropdown menu when clicking outside of it
+		$(document).on('click', function (event) {
+			if (!$(event.target).closest('.dropdown').length) {
+				$(".dropdown-menu").slideUp(200);
+				$("body").removeClass("blur-background"); // Remove blur effect
+			}
+		});
+
+		// Optional: Remove blur effect when resizing to larger screens
+		$(window).on('resize', function () {
+			if ($(window).width() > 768) {
+				$("body").removeClass("blur-background");
+				$(".dropdown-menu").hide();
+			}
+		});
 	});
 
 	function VerifyPassword(password) {

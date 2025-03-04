@@ -6305,8 +6305,8 @@ body.modal-open {
     left: 0;
     z-index: 1040;
     display: none;
-    overflow: auto;
-    overflow-y: scroll;
+    overflow: visible;
+    overflow-y: visible;
 }
 
     .modal.fade .modal-dialog {
@@ -6912,7 +6912,7 @@ body.modal-open {
 }
 
 .show {
-    display: block !important;
+    display: contents;
 }
 
 .invisible {

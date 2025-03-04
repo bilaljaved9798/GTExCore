@@ -5,6 +5,7 @@ body {
     font-family: 'Times New Roman', Times, serif;
 }
 
+
 body {
     background-color: #eeeeee;
 }
@@ -23,6 +24,7 @@ h9 {
     animation-iteration-count: infinite;
     animation-direction: alternate;
 }
+
 
 @keyframes glow {
     from {
@@ -61,17 +63,35 @@ h9 {
     border-left: 0px
 }
 
+.usracenumber {
+    position: relative;
+    width: 19px;
+    margin-left: -19px;
+    margin-top: 23px;
+    color: white;
+    float: left;
+    font-size: 15px;
+}
 
-    .buttonlove1:hover {
-        flex: 1 0 auto;
-        box-shadow: inset 0 0 100px #068b7c;
-        color: white;
-        background-color: #068b7c;
-        text-align: center;
-        border-top: 3px solid #f41e44;
-        border-right: 0px white solid !important;
-        border-left: 1px white solid !important;
-    }
+.Greyoundnumber {
+    position: relative;
+    width: 19px;
+    margin-left: 6px;
+    margin-top: 5px;
+    float: left;
+    font-size: 15px;
+}
+
+.buttonlove1:hover {
+    flex: 1 0 auto;
+    box-shadow: inset 0 0 100px #068b7c;
+    color: white;
+    background-color: #068b7c;
+    text-align: center;
+    border-top: 3px solid #f41e44;
+    border-right: 0px white solid !important;
+    border-left: 1px white solid !important;
+}
 
 
 .loveoflives {
@@ -1282,6 +1302,7 @@ textarea {
 .innerbodycontent {
     padding: 0px 0px;
     float: left;
+    margin-top: 59px;
     width: 100%;
 }
 
@@ -1724,6 +1745,8 @@ textarea {
     font-size: 13px;
     color: black;
     border-radius: 0;
+    z-index:1000;
+    position: relative;
     list-style: none;
 }
 
@@ -2338,7 +2361,7 @@ audio {
 .runnerwearing {
     float: left;
     margin-left: 0px;
-    margin-top: 8px;
+    margin-top: 1px;
 }
 
 .amountbutton input[type="button"], .amountbuttonmultiple input[type="button"] {
@@ -2649,19 +2672,19 @@ label {
 }
 
 .runnersprofitlossgreen {
-    color: darkgreen !important;
+    color: #00b181 !important;
 }
 
 .runnersprofitlossgreengrey {
-    color: darkgreen !important;
+    color: #00b181 !important;
 }
 
 .runnersprofitlossred {
-    color: red !important;
+    color: #dc143c !important;
 }
 
 .runnersprofitlossredgrey {
-    color: red !important;
+    color: #dc143c !important;
 }
 
 .marketinfo {
@@ -3414,7 +3437,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: darkgreen !important;
+    color: #00b181 !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 0px;
@@ -3429,7 +3452,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: darkgreen !important;
+    color: #00b181 !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: -20px;
@@ -3444,7 +3467,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: darkgreen !important;
+    color: #00b181 !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: -20px;
@@ -3459,7 +3482,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: darkgreen !important;
+    color: #00b181 !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 23px;
@@ -3475,7 +3498,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: red !important;
+    color: #dc143c !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 0px;
@@ -3491,7 +3514,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: red !important;
+    color: #dc143c !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 0px;
@@ -3506,7 +3529,7 @@ label {
     white-space: nowrap;
     float: left;
     margin-left: 0px;
-    color: red !important;
+    color: #dc143c !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: -20px;
@@ -3521,7 +3544,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: red !important;
+    color: #dc143c !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 2px;
@@ -3536,7 +3559,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: red !important;
+    color: #dc143c !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 0px;
@@ -3551,7 +3574,7 @@ label {
     white-space: nowrap;
     float: right;
     margin-left: 0px;
-    color: red !important;
+    color: #dc143c !important;
     font-weight: bold;
     font-size: 12px;
     margin-top: 23px;
@@ -3999,7 +4022,7 @@ a {
     font-size: 15px;
     font-weight: 400;
     float: left;
-    width: 65%;
+    width: 55%;
     margin-right: 2px;
     padding: 7px;
 }
@@ -4542,6 +4565,10 @@ a {
     height: 180px;
 }
 
+.iluf {
+    display: none;
+}
+
 @media(max-width:1078px) {
     .backgroundimageforSuspended {
         float: right;
@@ -4556,33 +4583,44 @@ a {
 }
 
 @media(max-width:768px) {
+
+
+    .iluf1 {
+    display:none
+    
+    }
+
     .hideer {
         display: none;
     }
+
     .loveoflives {
-        background: -webkit-linear-gradient(bottom,#ff0000,#b40000) !important;
+        background: -webkit-linear-gradient(bottom, #ff0000, #b40000) !important;
         box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px;
-        font-size: 11.5px;
+        font-size: 12.5px;
         margin-top: 3%;
         float: right;
-        animation: blinker 3s linear infinite;
+        animation: blinker 3slinear infinite;
         margin-right: 2%;
         border-radius: 1px;
-        width: 34px;
-        height: 18px;
+        width: 31px;
+        height: 16px;
         justify-content: center;
-        padding: 3px 4px 4px 5px;
+        /* padding: 3px 4px 4px 5px; */
         visibility: visible;
         color: white;
-        font-family: Quicksand,sans-serif;
+        font-family: Quicksand, sans-serif;
         font-weight: 700;
     }
+    
+
     div.scrollmenu {
         margin-bottom: -44px;
         background-color: #333;
         overflow: auto;
         white-space: nowrap;
     }
+
         div.scrollmenu a {
             display: inline-block;
             color: black;
@@ -5214,7 +5252,7 @@ a {
         white-space: nowrap;
         float: right !important;
         margin-left: 0px;
-        color: darkgreen !important;
+        color: #00b181 !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: 0px;
@@ -5229,7 +5267,7 @@ a {
         white-space: nowrap;
         float: left;
         margin-left: 0px;
-        color: red !important;
+        color: #dc143c !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: 0px;
@@ -5256,7 +5294,7 @@ a {
         white-space: nowrap;
         float: right;
         margin-left: 0px;
-        color: darkgreen !important;
+        color: #00b181 !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: 26px !important;
@@ -5271,7 +5309,7 @@ a {
         white-space: nowrap;
         float: right;
         margin-left: 0px;
-        color: red !important;
+        color: #dc143c !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: 26px;
@@ -5279,7 +5317,7 @@ a {
 
 
     .innerbodycontent1 {
-        margin-top: -15px;
+        margin-top: 47px;
     }
 
     .relatedtime {
@@ -5528,7 +5566,7 @@ a {
         text-overflow: ellipsis !important;
         display: inline-block;
         margin-top: 2px !important;
-        margin-left: -2px !important;
+        margin-left: 1px !important;
     }
 
     .new112233 {
@@ -5571,7 +5609,7 @@ a {
         white-space: nowrap;
         float: left !important;
         margin-left: 0px;
-        color: darkgreen !important;
+        color: #00b181 !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: 0px;
@@ -5586,7 +5624,7 @@ a {
         white-space: nowrap;
         float: left !important;
         margin-left: 0px;
-        color: darkgreen !important;
+        color: #00b181 !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: 0px;
@@ -5602,7 +5640,7 @@ a {
         white-space: nowrap;
         float: right !important;
         margin-left: 0px;
-        color: darkgreen !important;
+        color: #00b181 !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: -7px;
@@ -5618,7 +5656,7 @@ a {
         white-space: nowrap;
         float: right !important;
         margin-left: 0px;
-        color: darkgreen !important;
+        color: #00b181 !important;
         font-weight: bold;
         font-size: 12px;
         margin-top: -7px;
@@ -5917,7 +5955,7 @@ a {
     }
 
     .runnersname {
-        width: 80% !important;
+        width: 70% !important;
         text-align: left;
         text-overflow: ellipsis;
         height: 20px;
@@ -5986,14 +6024,16 @@ a {
     }
 
     .wearingdiv {
-        width: 33px;
+        width: 27px;
         float: left;
-        margin-top: 0px;
+        margin-left: -21px;
+     
+        margin-top: 10px;
     }
 
     .runnerwearing {
         float: left;
-        margin-left: 3px;
+        margin-left: 0px;
         width: 100%;
     }
 
@@ -6015,14 +6055,14 @@ a {
     }*/
 
     .runnersprofitlossred {
-        color: red !important;
+        color: #dc143c !important;
         width: 62%;
         float: right;
         margin-right: -23px;
     }
 
     .runnersprofitlossredgrey {
-        color: red !important;
+        color: #dc143c !important;
         width: 62% !important;
         float: right;
         margin-right: -23px;
@@ -6087,7 +6127,7 @@ a {
     .clothnumstalldrawimg {
         border: 0px solid;
         float: left;
-        width: 22%;
+        width: 3%;
         padding: 3px 0px;
     }
 
@@ -6645,7 +6685,6 @@ a {
 }
 
 @media(min-width:769px) {
-   
 }
 
 .runnerinfo {

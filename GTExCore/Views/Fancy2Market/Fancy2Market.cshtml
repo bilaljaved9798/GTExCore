@@ -18,7 +18,58 @@
             </div>
         </div>
 
-        <div class="runnerbackandlaydivf">
+        <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead iluf" style="border-bottom: 1px solid black !important;">
+            <div class="col-md-8 col-sm-8 no-padding runnernamediv " style="width:98%">
+                <label class="markettotalmatched">
+                  
+
+                </label>
+            </div>
+
+            <div id="lastpricediv" class="col-md-1 col-sm-1 no-padding runnerlastpricediv">
+
+                <label class="runnerstotalmatched" style="font-size:9px; font-weight:600; visibility:hidden;">
+                 
+                </label>
+            </div>
+
+            <div class="col-md-4 col-sm-4 no-padding  runnerbackandlaydiv backandlaydivsecond1122">
+                <div class="col-md-12 col-sm-12 no-padding">
+                    <div class="col-md-12 col-sm-12 no-padding backhead">
+                        <div id="BackDiv" class="col-md-12 col-sm-12 no-padding">
+                            <div class="col-md-4 col-sm-4 no-padding">
+                                <label></label>
+                            </div>
+                            <div class="col-md-4 no-padding">
+                                <label></label>
+                            </div>
+                            <div class="col-md-12 col-sm-12 no-padding">
+                                <label style="font-weight:700 !important">BACK</label>
+                                <i class="backcircle fa fa-arrow-circle-down"></i>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-sm-12 no-padding layhead">
+                        <div id="LayDiv" class="col-md-12 col-sm-12 no-padding">
+                            <div class="col-md-12 col-sm-12 no-padding">
+                                <label style="font-weight:700 !important">LAY</label>
+                                <i class="laycircle fa fa-arrow-circle-down"></i>
+                            </div>
+                            <div class="col-md-4 no-padding">
+                                <label></label>
+                            </div>
+                            <div class="col-md-4 no-padding">
+                                <label></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="runnerbackandlaydivf iluf1">
             <span class="suspended234" style="  width: 50%;    float: right; margin-top:13px">
                 <span class="love12" style="  width: 56%; ">
                     BACK <br />
@@ -31,6 +82,7 @@
                 </span>
             </span>
         </div>
+
         <div id="runnermain">
             @foreach (var runner in Model)
             {
@@ -43,7 +95,7 @@
 
                     <div id="selection@(runner?.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="border-bottom:solid 1px black; height:44px;">
 
-                        <div id="runnernamediv@(runner.SelectionId)" class="col-md-2 col-sm-8 no-padding runnernamediv" style="display:none">
+                        <div id="runnernamediv@(runner?.SelectionId)" class="col-md-2 col-sm-8 no-padding runnernamediv" style="display:none">
                             <label style="display:none">
                                 @runner?.SelectionId
                             </label>
@@ -53,8 +105,14 @@
 
                             <div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
 
-                                <label for="chkselection@(runner?.SelectionId)" data-value="@runner?.SelectionId" class="runners runnersname tooltip" id="lblSelectionName@(runner?.SelectionId)" style="float: left;">
-                                    @runner?.RunnerName
+
+                                   
+
+                                <label for="chkselection@(runner?.SelectionId)" data-value="@runner?.SelectionId" class="runners runnersname tooltip" id="lblSelectionName@(runner?.SelectionId)" style="float: left; width:80% !important">
+                            
+                                
+                                
+                                @runner?.RunnerName
 
                                     <span class="tooltiptext">	@runner?.RunnerName </span>
 
@@ -77,13 +135,13 @@
 
                                     
                                         <label id="lblprofitandloss@(runner?.SelectionId)" class="runnersprofitlossgreenFancy ">
-                                            @runner?.ProfitandLoss
+                                            @runner?.ProfitandLoss/
                                         </label>
                                     
                                     
                                         
                                             <label id="lblloss@(runner?.SelectionId)" class="runnersprofitlossred23">
-                                                @runner?.Loss
+                                                @runner?.Loss 
                                             </label>
                                        
                                 </div>
@@ -138,24 +196,24 @@
 }
 <script type="text/javascript">
 
-    $("#closebutton").click(function () {
+    // $("#closebutton").click(function () {
 
-        $("#markettype").hide();
-        $("#backandlay").hide();
-        $("#maindata").hide();
-        $(".hideit").hide();
-        $("#fancyclose").hide();
-        $("#fancyopen").hide();
-    });
+    //     $("#markettype").hide();
+    //     $("#backandlay").hide();
+    //     $("#maindata").hide();
+    //     $(".hideit").hide();
+    //     $("#fancyclose").hide();
+    //     $("#fancyopen").hide();
+    // });
 
-    $("#undobutton").click(function () {
-        $("#markettype").show();
-        $("#backandlay").show();
-        $("#maindata").show();
-        $(".hideit").show();
-        $("#fancyclose").hide();
-        $("#fancyopen").show();
-    });
+    // $("#undobutton").click(function () {
+    //     $("#markettype").show();
+    //     $("#backandlay").show();
+    //     $("#maindata").show();
+    //     $(".hideit").show();
+    //     $("#fancyclose").hide();
+    //     $("#fancyopen").show();
+    // });
 
 
 

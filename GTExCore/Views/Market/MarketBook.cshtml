@@ -295,39 +295,191 @@ else
                                         </label>
                                         @if (item.MainSportsname == "Horse Racing" && runner.JockeyName != "Not")
                                         {
+
                                             <div>
                                                 @if (runner.StatusStr == "REMOVED")
-                                                {}
+
+
+                                                {
+                                                    @*<input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />*@
+
+                                                }
+
                                                 else
                                                 {
+
                                                     <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
-                                                }
-                                            </div>
-                                            <i class="fa fa-bar-chart graph"></i>
 
-                                            <div class="clothnumstalldrawimg" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')">
-                                                @{
-                                                    runner.WearingURL = runner.WearingURL.ToString().Replace("content-cache.betfair.com/feeds_images/Horses/SilkColours/", "bf-silks.009901.xyz/proxy/");
                                                 }
-                                                <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL" title="@runner.WearingDesc" onerror="this.onerror = null; this.src = '~/not-found.png';" /></div>
-                                                <div class="clothnumandstallnum">
+
+                                            </div>
+
+
+                                        
+
+                                            if (item.MarketBookName.Contains("(US)"))
+
+
+
+
+                                            {
+
+                                                <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+                                                
+                                                if (runner.Clothnumber == ("1"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #bb2025;">1</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("2"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #ffffff; color:black">2</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("3"))
+                                                {
+
+                                                    <span class="usracenumber" style="background:#253b84;">3</span>
+                                                }
+                                                if (runner.Clothnumber == ("4"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #cdb301;">4</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("5"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #1c5b1b;">5</span>
+                                                }
+                                                if (runner.Clothnumber == ("6"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: Black;">6</span>
+                                                }
+                                                if (runner.Clothnumber == ("7"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #b63d13;">7</span>
+                                                }
+                                                if (runner.Clothnumber == ("8"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #b27692;">8</span>
+                                                }
+                                                if (runner.Clothnumber == ("9"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #13a19c;">9</span>
+                                                }
+                                                if (runner.Clothnumber == ("10"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #610f9a;">10</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("11"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #6b6b6b; ">11</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("12"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #2f9a3b;">12</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("13"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #cc276c;">13</span>
+                                                }
+                                                if (runner.Clothnumber == ("14"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #a40042;">14</span>
+                                                }
+
+
+                                                <div class="runnerinfo ">
+
+
+
+
+                                                    <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
+                                                        @runner.RunnerName
+                                                    </label>
+
+                                                    <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                                        (@runner.StallDraw) @runner.JockeyName
+
+                                                        <span class="tooltiptext">
+                                                            Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
+                                                            <br />
+                                                        </span>
+                                                    </label>
+                                                    @*<label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                <script>
+                                getRunnerDetails(@(item.MarketId), @(runner.SelectionId));
+                                </script>
+                                </label>*@
                                                 </div>
-                                            </div>
-                                            <div class="runnerinfo ">
-                                                <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
-                                                    @runner.Clothnumber.       @runner.RunnerName
-                                                </label>
 
-                                                <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
-                                                    (@runner.StallDraw) @runner.JockeyName
 
-                                                    <span class="tooltiptext">
-                                                        Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
-                                                        <br />
-                                                    </span>
-                                                </label>
-                                            </div>
+
+                                            }
+
+                                            else
+                                            {
+
+                                                <div class="clothnumstalldrawimg" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')" style="margin-left:21px">
+                                                    @{
+
+                                                        runner.WearingURL = runner.WearingURL.ToString().Replace("content-cache.betfair.com/feeds_images/Horses/SilkColours/", "bf-silks.009901.xyz/proxy/");
+
+
+                                                    }
+                                                    <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL" title="@runner.WearingDesc" onerror="this.onerror = null; this.src = '../Content/images/not-found.png';" /></div>
+                                                    <div class="clothnumandstallnum">
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="runnerinfo ">
+
+
+
+
+                                                    <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
+                                                        @runner.Clothnumber.       @runner.RunnerName
+                                                    </label>
+
+                                                    <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                                        (@runner.StallDraw) @runner.JockeyName
+
+                                                        <span class="tooltiptext">
+                                                            Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
+                                                            <br />
+                                                        </span>
+                                                    </label>
+                                                    @*<label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                <script>
+                                getRunnerDetails(@(item.MarketId), @(runner.SelectionId));
+                                </script>
+                                </label>*@
+                                                </div>
+
+
+                                            }
+
+
+
+
                                             <div>
+
                                                 @if (runner.ProfitandLoss >= 0)
                                                 {
                                                     <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen1">
@@ -356,23 +508,83 @@ else
 
                                                     }
                                                 }
+
+
                                             </div>
                                         }
+
+
+
                                         else
                                         {
-                                            if (item.MainSportsname.Contains("Racing"))
+                                            if (item.MainSportsname == "Greyhound Racing")
+
+
                                             {
+
+
+
                                                 <div class="clothnumstalldrawimgempty" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
                                                 <div class="clothnumandstallnum">
-                                                    <a>
-                                                        <i class="fa fa-bar-chart graph"></i>
-                                                        <i class="fas fa-caret-right" style="   margin-top: 6px;"></i>
-                                                    </a>
+
+                                                    <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+
                                                 </div>
-                                                <label style="margin-top:6px !important" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
+
+                                                if (runner.RunnerName.Contains("1"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #bb2025;  color: white;">1</span>
+                                                }
+
+                                                if (runner.RunnerName.Contains("2"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #253d83;  color: white;">2</span>
+                                                }
+
+                                                if (runner.RunnerName.Contains("3"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background:#fff;     color: black;">3</span>
+                                                }
+                                                if (runner.RunnerName.Contains("4"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #1e1e1e;  color: white;">4</span>
+                                                }
+
+                                                if (runner.RunnerName.Contains("5"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #ffb80c;    color: black;">5</span>
+                                                }
+                                                if (runner.RunnerName.Contains("6"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: linear-gradient(180deg,#1e1e1e,4px,#fff 4px,6px,#1e1e1e 6px,11px,#fff 11px,13px,#1e1e1e 13px,18px,#fff 18px,20px,#1e1e1e 20px);    color: darkred;">6</span>
+                                                }
+                                                if (runner.RunnerName.Contains("7"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #212121;       color: white;">7</span>
+                                                }
+                                                if (runner.RunnerName.Contains("8"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #cc276c;       color: white;">8</span>
+                                                }
+
+
+
+
+                                                <label style="margin-top:6px !important; margin-left:-27px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
                                                     @runner.RunnerName
                                                 </label>
                                                 <div>
+
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="text-align: left;float: left;margin-left: 14px;margin-top: -6px;"></i>
+
 
                                                     @if (runner.ProfitandLoss >= 0)
                                                     {
@@ -400,9 +612,13 @@ else
                                                                 @runner.Loss
                                                             </label>
                                                         }
+
                                                     }
+
+
                                                 </div>
                                             }
+
                                             else
                                             {
                                                 if (item.MainSportsname == "Cricket" || item.MainSportsname == "Soccer" || item.MainSportsname == "Tennis")
@@ -412,7 +628,7 @@ else
                                                     <div class="clothnumstalldrawimgemptynotshow" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
                                                     <div class="clothnumandstallnum">
                                                         <a>
-                                                            <i class="fa fa-bar-chart graph"></i>
+                                                            <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
                                                             <i class="fas fa-caret-right" style="    margin-top: 4px;"></i>
                                                         </a>
                                                     </div>

@@ -148,7 +148,7 @@
                                     <div class="inplaydatarow">
                                         <i class="fa fa-share-alt" aria-hidden="true" style="float: right;margin-top: 14px;margin-right: 10px;"></i>
                                         <div class="inplaymatchname">
-                                            <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 1px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 25px;"></i>
+                                            <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 2px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 22px;"></i>
                                             @if (isRacing)
                                             {
                                                 var imageUrl = Url.Content($"/{matchitem.CountryCode}.svg");
@@ -218,16 +218,16 @@
                             private IHtmlContent RenderRunner(string back, string backSize, string lay, string laySize)
                             {
                                 return new HtmlString($@"
-                                 <div class='inplayrunner1'>
-                                 <div class='inplayback'>
-                                 <span style='font-size: 22px;font-weight: 800;'>{back}</span><br />
-                                 <span style='font-size: 14px;font-weight: 500;'>{backSize}</span>
-                                 </div>
-                                 <div class='inplaylay'>
-                                 <span style='font-size: 22px;font-weight: 800;'>{lay}</span><br />
-                                 <span style='font-size: 14px;font-weight: 500;'>{laySize}</span>
-                                 </div>
-                                 </div>");
+                    <div class='inplayrunner1'>
+                    <div class='inplayback'>
+                    <span style='font-size: 22px;font-weight: 800;'>{back}</span><br />
+                    <span style='font-size: 14px;font-weight: 500;'>{backSize}</span>
+                    </div>
+                    <div class='inplaylay'>
+                    <span style='font-size: 22px;font-weight: 800;'>{lay}</span><br />
+                    <span style='font-size: 14px;font-weight: 500;'>{laySize}</span>
+                    </div>
+                    </div>");
                             }
                         }
 
