@@ -108,7 +108,7 @@
 
                                    
 
-                                <label for="chkselection@(runner?.SelectionId)" data-value="@runner?.SelectionId" class="runners runnersname tooltip" id="lblSelectionName@(runner?.SelectionId)" style="float: left; width:80% !important">
+                                <label for="chkselection@(runner?.SelectionId)" data-value="@runner?.SelectionId" class="runners runnersname tooltip" id="lblSelectionName@(runner?.SelectionId)" style="float: left; width:82% !important;margin-top:3px;margin-left:7px">
                             
                                 
                                 
@@ -118,18 +118,11 @@
 
                                 </label>
 
-                                @if (LoggedinUserDetail.GetUserTypeID() == 3)
-                                {
-                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID','@runner?.SelectionId')" style="background-color:@ViewBag.backgrod;color:@ViewBag.color">
+                              
+                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID','@runner?.SelectionId')">
                                         Book
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID','@runner?.SelectionId')" style="background:#1D9BF0;color:white">
-                                        Book
-                                    </div>
-                                }
+                             
 
                                 <div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">
 
@@ -152,11 +145,11 @@
 
 
                             <div id="backandlayBallRunning@(runner?.SelectionId)" style="display:none" class="runnerbackandlaydivf">
-                                    <label id="lblballrunning@(runner?.SelectionId)" class="suspended" style="border-top:0px">@runner?.StatusStr</label>
+                                    <label id="lblballrunning@(runner?.SelectionId)" class="suspended" style="border-top:0px;margin-top: 13px;">@runner?.StatusStr</label>
                             </div>
 
                             <div id="backandlaySUSPENDED@(runner?.SelectionId)" style="display:none" class="runnerbackandlaydivf">
-                                    <label id="lblsuspend@(runner?.SelectionId)" class="suspended" style="border-top:0px">@runner?.StatusStr</label>
+                                    <label id="lblsuspend@(runner?.SelectionId)" class="suspended" style="border-top:0px;margin-top: 13px;">@runner?.StatusStr</label>
                             </div>
 
                             <div id="backandlaydivMain@(runner?.SelectionId)" class="no-padding priceandsize matchcolors runnerbackandlaydivf">

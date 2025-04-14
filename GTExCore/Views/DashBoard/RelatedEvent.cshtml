@@ -13,47 +13,48 @@
             DateTime marketnameandtype = Convert.ToDateTime(item.EventOpenDate);
             marketnameandtype = marketnameandtype.AddHours(5);
 
-             
+
 
             <div class="inplaydatarow">
-
-
                 @{
                     bool isPastTime = marketnameandtype < DateTime.Now;
-                    string timeColor = isPastTime ? "color: green;" : "";
+                    string timeColor = isPastTime ? "color: green; font-size:15px; font-weight: bold;" : "";
                 }
-                <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 9px;  margin-left: 4px; @timeColor "></i>
+                <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 9px; margin-left: 4px; @timeColor"></i>
 
                 @if (item.EventTypeName == "Horse Racing" || item.EventTypeName == "Greyhound Racing")
                 {
                     <div class="inplaymatchnamerelated relatedname" style="height: auto; @timeColor">
-                        <a onclick="lastLevelBreadcrumb('@item.MarketCatalogueID.ToString()'), topFunction()">@item.EventName - @item.MarketCatalogueName<br></a>
+                        <a onclick="lastLevelBreadcrumb('@item.MarketCatalogueID.ToString()'), topFunction()">
+                            @item.EventName - @item.MarketCatalogueName<br>
+                        </a>
                     </div>
                 }
                 else
                 {
                     <div class="inplaymatchnamerelated relatedname" style="height: auto; @timeColor">
-                        <a onclick="lastLevelBreadcrumb('@item.MarketCatalogueID.ToString()'), topFunction()">@item.EventName <br></a>
+                        <a onclick="lastLevelBreadcrumb('@item.MarketCatalogueID.ToString()'), topFunction()">
+                            @item.EventName <br>
+                        </a>
                     </div>
                 }
-
-               
 
                 @if (item.EventTypeName == "Horse Racing" || item.EventTypeName == "Greyhound Racing")
                 {
                     <div class="relatedtime">
-                        <span class="relatedspan" style="margin-right: 12px;@timeColor ">@marketnameandtype.ToString("dd/MM")</span> <br />
-                        <span class="relatedspan" style="@timeColor">@marketnameandtype.ToString("hh:mm tt")</span>
+                        <span class="relatedspan" style="margin-right: 12px; ">@marketnameandtype.ToString("dd/MM")</span> <br />
+                        <span class="relatedspan" >@marketnameandtype.ToString("hh:mm tt")</span>
                     </div>
                 }
                 else
                 {
                     <div class="relatedtime">
-                        <span class="relatedspan" style="margin-right: 12px; @timeColor">@marketnameandtype.ToString("dd/MM")</span> <br />
-                        <span class="relatedspan" style="@timeColor">@marketnameandtype.ToString("hh:mm tt")</span>
+                        <span class="relatedspan" style="margin-right: 12px;">@marketnameandtype.ToString("dd/MM")</span> <br />
+                        <span class="relatedspan" >@marketnameandtype.ToString("hh:mm tt")</span>
                     </div>
                 }
             </div>
+
         }
     </div>
 
