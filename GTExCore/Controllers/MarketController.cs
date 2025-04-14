@@ -89,11 +89,7 @@ namespace Census.API.Controllers
         {
             try
             {
-
-                //Session["TWT"] = "";
-                //Session["TM"] = "";
                 UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
-                //LoggedinUserDetail.CheckifUserLogin();
                 if (LoggedinUserDetail.GetUserTypeID() != 1)
                 {
                     objUsersServiceCleint.UpdateAllMarketClosedbyUserID(LoggedinUserDetail.GetUserID());
@@ -314,7 +310,7 @@ namespace Census.API.Controllers
                     }
                     else
                     {
-                        List<UserBets> lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                        //List<UserBets> lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
                         //Session["userbets"] = lstUserBet;
                         //Session["liabality"] = 0;
 
@@ -327,228 +323,185 @@ namespace Census.API.Controllers
                 }
                 else
                 {
-                    //    if (LoggedinUserDetail.GetUserTypeID() == 2)
-                    //    {
-                    //        ViewBag.backgrod = "#1D9BF0";
-                    //        ViewBag.color = "white";
-                    //        var results = JsonConvert.DeserializeObject<List<Models.MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
-                    //        if (results != null)
-                    //        {
-                    //            results = results.Where(item => item.ID == ID).ToList();
-                    //            var marketbooks = new List<BettingServiceReference.MarketBook>();
-                    //            List<string> lstIDs = new List<string>();
-                    //            foreach (var item in results)
-                    //            {
-                    //                lstIDs = new List<string>();
+                    if (LoggedinUserDetail.GetUserTypeID() == 2)
+                    {
+                        ViewBag.backgrod = "#1D9BF0";
+                        ViewBag.color = "white";
+                        var results = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
+                        if (results != null)
+                        {
+                            results = results.Where(item => item.ID == ID).ToList();
+                            var marketbooks2 = new List<BettingServiceReference.MarketBook>();
+                            List<string> lstIDs = new List<string>();
+                            foreach (var item in results)
+                            {
+                                lstIDs = new List<string>();
+                                lstIDs.Add(item.ID);
+                                var marketbook = GetMarketDatabyID(lstIDs.ToArray(), item.Name, item.EventOpenDate, item.EventTypeName);
+                                if (marketbook.Result.Count() > 0)
+                                {
+                                    if (marketbook.Result[0].Runners != null)
+                                    {
+                                        marketbooks2.Add(marketbook.Result[0]);
+                                    }
+                                }                               
+                            }
+                            foreach (var item in results)
+                            {
+                                foreach (var item2 in marketbooks2)
+                                {
+                                    if (item.ID == item2.MarketId)
+                                    {
+                                        //item2.MarketBookName = item.Name + " / " + item.EventName;
+                                        item2.MarketBookName = item.EventName + " / " + item.Name;
+                                        item2.OrignalOpenDate = item.EventOpenDate;
+                                        item2.MainSportsname = item.EventTypeName;
+                                        item2.BettingAllowed = item.BettingAllowed;
+                                        item2.BettingAllowedOverAll = true;
+                                        item2.GetMatchUpdatesFrom = item.GetMatchUpdatesFrom;
+                                        item2.EventID = item.EventID;
+                                        var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
+                                        foreach (var runnermarketitem in runnerdesc)
+                                        {
+                                            foreach (var runneritem in item2.Runners)
+                                            {
+                                                if (runnermarketitem.SelectionID == runneritem.SelectionId)
+                                                {
+                                                    runneritem.RunnerName = runnermarketitem.SelectionName;
+                                                    runneritem.JockeyName = runnermarketitem.JockeyName;
+                                                    runneritem.WearingURL = runnermarketitem.Wearing;
+                                                    runneritem.WearingDesc = runnermarketitem.WearingDesc;
+                                                    runneritem.Clothnumber = runnermarketitem.ClothNumber;
+                                                    runneritem.StallDraw = runnermarketitem.StallDraw;
 
-                    //                lstIDs.Add(item.ID);
-                    //                var marketbook = GetMarketDatabyID(lstIDs.ToArray(), item.Name, item.EventOpenDate, item.EventTypeName);
-                    //                if (marketbook.Count() > 0)
+                                                }
+                                            }
+                                        }
+                                        //if (item2.MarketBookName.Contains("Match Odds") && item2.MainSportsname == "Cricket" && item2.MarketStatusstr != "Closed")
+                                        //{
+                                        //    item2.CricketMatchKey = objUsersServiceCleint.GetCricketMatchKey(item2.MarketId);
+                                        //    var resultslinev = objUsersServiceCleint.GetEventDetailsbyMarketBook(item2.MarketId);
+                                        //    int UserIDforLinevmarkets = 0;
+                                        //    if (LoggedinUserDetail.GetUserTypeID() == 1)
+                                        //    {
+                                        //        UserIDforLinevmarkets = 73;
+                                        //    }
+                                        //    else
+                                        //    {
+                                        //        UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
+                                        //    }
+                                        //    var linevmarkets = JsonConvert.DeserializeObject<List<BettingServiceReference.LinevMarkets>>(objUsersServiceCleint.GetLinevMarketsbyEventID(resultslinev.EventID, resultslinev.EventOpenDate.Value, UserIDforLinevmarkets));
+                                        //    if (linevmarkets.Count() > 0)
+                                        //    {
+                                        //        item2.LineVMarkets = linevmarkets;
+                                        //    }
+                                        //}
+                                    }
+                                }
+                            }
+                            if (marketbooks2.Count == 0)
+                            {
+                                BettingServiceReference.MarketBook item2 = new BettingServiceReference.MarketBook();
+                                var item = results[0];
+                                item2.MarketId = item.ID;
+                                //item2.MarketBookName = item.Name + " / " + item.EventName;
+                                item2.MarketBookName = item.EventName + " / " + item.Name;
+                                item2.OrignalOpenDate = item.EventOpenDate;
+                                item2.MainSportsname = item.EventTypeName;
+                                item2.BettingAllowed = item.BettingAllowed;
+                                item2.BettingAllowedOverAll = true;
+                                item2.GetMatchUpdatesFrom = item.GetMatchUpdatesFrom;
+                                item2.EventID = item.EventID;
+                                DateTime OpenDate = item.EventOpenDate.AddHours(5);
+                                DateTime CurrentDate = DateTime.Now;
+                                TimeSpan remainingdays = (CurrentDate - OpenDate);
+                                if (OpenDate < CurrentDate)
+                                {
+                                    item2.OpenDate = "-" + remainingdays.Days.ToString() + ":" + remainingdays.Hours.ToString() + ":" + remainingdays.Minutes.ToString() + ":" + remainingdays.Seconds.ToString();
+                                }
+                                else
+                                {
+                                    item2.OpenDate = (-1 * remainingdays.Days).ToString() + ":" + (-1 * remainingdays.Hours).ToString() + ":" + (-1 * remainingdays.Minutes).ToString() + ":" + (-1 * remainingdays.Seconds).ToString();
+                                }
+                                item2.MarketStatusstr = "Active";
 
-                    //                {
-                    //                    if (marketbook[0].Runners != null)
-                    //                    {
-                    //                        marketbooks.Add(marketbook[0]);
-                    //                    }
+                                var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
+                                item2.Runners = new List<BettingServiceReference.Runner>();
 
-                    //                }
-                    //                else
-                    //                {
+                                foreach (var runnermarketitem in runnerdesc)
+                                {
+                                    var runneritem = new BettingServiceReference.Runner();
+                                    runneritem.SelectionId = runnermarketitem.SelectionID;
+                                    runneritem.RunnerName = runnermarketitem.SelectionName;
+                                    runneritem.JockeyName = runnermarketitem.JockeyName;
+                                    runneritem.WearingURL = runnermarketitem.Wearing;
+                                    runneritem.WearingDesc = runnermarketitem.WearingDesc;
+                                    runneritem.Clothnumber = runnermarketitem.ClothNumber;
+                                    runneritem.StallDraw = runnermarketitem.StallDraw;
+                                    runneritem.ExchangePrices = new BettingServiceReference.ExchangePrices();
+                                    var lstpricelist = new List<BettingServiceReference.PriceSize>();
+                                    for (int i = 0; i < 3; i++)
+                                    {
+                                        var pricesize = new BettingServiceReference.PriceSize();
 
-                    //                }
+                                        pricesize.Size = 0;
 
-                    //            }
+                                        pricesize.Price = 0;
 
+                                        lstpricelist.Add(pricesize);
+                                    }
+                                    runneritem.ExchangePrices.AvailableToBack = lstpricelist;
+                                    lstpricelist = new List<BettingServiceReference.PriceSize>();
+                                    for (int i = 0; i < 3; i++)
+                                    {
+                                        var pricesize = new BettingServiceReference.PriceSize();
 
-                    //            foreach (var item in results)
-                    //            {
-                    //                foreach (var item2 in marketbooks)
-                    //                {
-                    //                    if (item.ID == item2.MarketId)
-                    //                    {
-                    //                        //item2.MarketBookName = item.Name + " / " + item.EventName;
-                    //                        item2.MarketBookName = item.EventName + " / " + item.Name;
-                    //                        item2.OrignalOpenDate = item.EventOpenDate;
-                    //                        item2.MainSportsname = item.EventTypeName;
-                    //                        item2.BettingAllowed = item.BettingAllowed;
-                    //                        item2.BettingAllowedOverAll = CheckForAllowedBettingOverAll(item.EventTypeName, item2.MarketBookName);
-                    //                        item2.GetMatchUpdatesFrom = item.GetMatchUpdatesFrom;
-                    //                        item2.EventID = item.EventID;
-                    //                        Session["Eventid"] = item.EventID;
+                                        pricesize.Size = 0;
 
+                                        pricesize.Price = 0;
 
-                    //                        var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
-                    //                        foreach (var runnermarketitem in runnerdesc)
-                    //                        {
-                    //                            foreach (var runneritem in item2.Runners)
-                    //                            {
-                    //                                if (runnermarketitem.SelectionID == runneritem.SelectionId)
-                    //                                {
-                    //                                    runneritem.RunnerName = runnermarketitem.SelectionName;
-                    //                                    runneritem.JockeyName = runnermarketitem.JockeyName;
-                    //                                    runneritem.WearingURL = runnermarketitem.Wearing;
-                    //                                    runneritem.WearingDesc = runnermarketitem.WearingDesc;
-                    //                                    runneritem.Clothnumber = runnermarketitem.ClothNumber;
-                    //                                    runneritem.StallDraw = runnermarketitem.StallDraw;
-
-                    //                                }
-                    //                            }
-
-                    //                        }
-
-                    //                        // 
-
-                    //                        if (item2.MarketBookName.Contains("Match Odds") && item2.MainSportsname == "Cricket" && item2.MarketStatusstr != "Closed")
-                    //                        {
-                    //                            item2.CricketMatchKey = objUsersServiceCleint.GetCricketMatchKey(item2.MarketId);
-                    //                            var resultslinev = objUsersServiceCleint.GetEventDetailsbyMarketBook(item2.MarketId);
-                    //                            int UserIDforLinevmarkets = 0;
-                    //                            if (LoggedinUserDetail.GetUserTypeID() == 1)
-                    //                            {
-                    //                                UserIDforLinevmarkets = 73;
-                    //                            }
-                    //                            else
-                    //                            {
-                    //                                UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
-                    //                            }
-                    //                            var linevmarkets = JsonConvert.DeserializeObject<List<LinevMarkets>>(objUsersServiceCleint.GetLinevMarketsbyEventID(resultslinev.EventID, resultslinev.EventOpenDate.Value, UserIDforLinevmarkets));
-
-
-                    //                            if (linevmarkets.Count() > 0)
-                    //                            {
-                    //                                item2.LineVMarkets = linevmarkets;
-                    //                            }
-                    //                        }
-
-
-                    //                    }
-                    //                }
-
-                    //            }
-                    //            if (marketbooks.Count == 0)
-                    //            {
-                    //                BettingServiceReference.MarketBook item2 = new BettingServiceReference.MarketBook();
-                    //                var item = results[0];
-                    //                item2.MarketId = item.ID;
-                    //                //item2.MarketBookName = item.Name + " / " + item.EventName;
-                    //                item2.MarketBookName = item.EventName + " / " + item.Name;
-                    //                item2.OrignalOpenDate = item.EventOpenDate;
-                    //                item2.MainSportsname = item.EventTypeName;
-                    //                item2.BettingAllowed = item.BettingAllowed;
-                    //                item2.BettingAllowedOverAll = CheckForAllowedBettingOverAll(item.EventTypeName, item2.MarketBookName);
-                    //                item2.GetMatchUpdatesFrom = item.GetMatchUpdatesFrom;
-                    //                item2.EventID = item.EventID;
-                    //                DateTime OpenDate = item.EventOpenDate.AddHours(5);
-                    //                DateTime CurrentDate = DateTime.Now;
-                    //                TimeSpan remainingdays = (CurrentDate - OpenDate);
-                    //                if (OpenDate < CurrentDate)
-                    //                {
-                    //                    item2.OpenDate = "-" + remainingdays.Days.ToString() + ":" + remainingdays.Hours.ToString() + ":" + remainingdays.Minutes.ToString() + ":" + remainingdays.Seconds.ToString();
-                    //                }
-                    //                else
-                    //                {
-                    //                    item2.OpenDate = (-1 * remainingdays.Days).ToString() + ":" + (-1 * remainingdays.Hours).ToString() + ":" + (-1 * remainingdays.Minutes).ToString() + ":" + (-1 * remainingdays.Seconds).ToString();
-                    //                }
-                    //                item2.MarketStatusstr = "Active";
-
-                    //                var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
-                    //                item2.Runners = new List<Runner>();
-
-                    //                foreach (var runnermarketitem in runnerdesc)
-                    //                {
-                    //                    var runneritem = new Runner();
-                    //                    runneritem.SelectionId = runnermarketitem.SelectionID;
-                    //                    runneritem.RunnerName = runnermarketitem.SelectionName;
-                    //                    runneritem.JockeyName = runnermarketitem.JockeyName;
-                    //                    runneritem.WearingURL = runnermarketitem.Wearing;
-                    //                    runneritem.WearingDesc = runnermarketitem.WearingDesc;
-                    //                    runneritem.Clothnumber = runnermarketitem.ClothNumber;
-                    //                    runneritem.StallDraw = runnermarketitem.StallDraw;
-                    //                    runneritem.ExchangePrices = new ExchangePrices();
-                    //                    var lstpricelist = new List<PriceSize>();
-                    //                    for (int i = 0; i < 3; i++)
-                    //                    {
-                    //                        var pricesize = new PriceSize();
-
-                    //                        pricesize.Size = 0;
-
-                    //                        pricesize.Price = 0;
-
-                    //                        lstpricelist.Add(pricesize);
-                    //                    }
-                    //                    runneritem.ExchangePrices.AvailableToBack = lstpricelist;
-                    //                    lstpricelist = new List<PriceSize>();
-                    //                    for (int i = 0; i < 3; i++)
-                    //                    {
-                    //                        var pricesize = new PriceSize();
-
-                    //                        pricesize.Size = 0;
-
-                    //                        pricesize.Price = 0;
-
-                    //                        lstpricelist.Add(pricesize);
-                    //                    }
-                    //                    runneritem.ExchangePrices.AvailableToLay = lstpricelist;
-                    //                    item2.Runners.Add(runneritem);
-
-
-                    //                }
-                    //                item2.FavoriteID = "0";
-                    //                item2.FavoriteBack = "0";
-                    //                item2.FavoriteBackSize = "0";
-                    //                item2.FavoriteLay = "0";
-                    //                item2.FavoriteLaySize = "0";
-                    //                item2.FavoriteSelectionName = "";
-                    //                // 
-                    //                if (item2.MarketBookName.Contains("Match Odds") && item2.MainSportsname == "Cricket" && item2.MarketStatusstr != "Closed")
-                    //                {
-                    //                    item2.CricketMatchKey = objUsersServiceCleint.GetCricketMatchKey(item2.MarketId);
-                    //                    var resultslinev = objUsersServiceCleint.GetEventDetailsbyMarketBook(item2.MarketId);
-                    //                    int UserIDforLinevmarkets = 0;
-                    //                    if (LoggedinUserDetail.GetUserTypeID() == 1)
-                    //                    {
-                    //                        UserIDforLinevmarkets = 73;
-                    //                    }
-                    //                    else
-                    //                    {
-                    //                        UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
-                    //                    }
-                    //                    var linevmarkets = JsonConvert.DeserializeObject<List<LinevMarkets>>(objUsersServiceCleint.GetLinevMarketsbyEventID(resultslinev.EventID, resultslinev.EventOpenDate.Value, UserIDforLinevmarkets));
+                                        lstpricelist.Add(pricesize);
+                                    }
+                                    runneritem.ExchangePrices.AvailableToLay = lstpricelist;
+                                    item2.Runners.Add(runneritem);
+                                }
+                                item2.FavoriteID = "0";
+                                item2.FavoriteBack = "0";
+                                item2.FavoriteBackSize = "0";
+                                item2.FavoriteLay = "0";
+                                item2.FavoriteLaySize = "0";
+                                item2.FavoriteSelectionName = "";
+                                //if (item2.MarketBookName.Contains("Match Odds") && item2.MainSportsname == "Cricket" && item2.MarketStatusstr != "Closed")
+                                //{
+                                //    item2.CricketMatchKey = objUsersServiceCleint.GetCricketMatchKey(item2.MarketId);
+                                //    var resultslinev = objUsersServiceCleint.GetEventDetailsbyMarketBook(item2.MarketId);
+                                //    int UserIDforLinevmarkets = 0;
+                                //    if (LoggedinUserDetail.GetUserTypeID() == 1)
+                                //    {
+                                //        UserIDforLinevmarkets = 73;
+                                //    }
+                                //    else
+                                //    {
+                                //        UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
+                                //    }
+                                //    var linevmarkets = JsonConvert.DeserializeObject<List<BettingServiceReference.LinevMarkets>>(objUsersServiceCleint.GetLinevMarketsbyEventID(resultslinev.EventID, resultslinev.EventOpenDate.Value, UserIDforLinevmarkets));
 
 
-                    //                    if (linevmarkets.Count() > 0)
-                    //                    {
-                    //                        item2.LineVMarkets = linevmarkets;
-                    //                    }
-                    //                }
-                    //                marketbooks.Add(item2);
-
-
-                    //            }
-
-                    //            List<UserBetsforAgent> lstUserBet = JsonConvert.DeserializeObject<List<Models.UserBetsforAgent>>(objUsersServiceCleint.GetUserbetsbyUserIDandAgentID(LoggedinUserDetail.GetUserID(), ));
-                    //            Session["userbets"] = lstUserBet;
-                    //            Session["liabality"] = 0;
-                    //            lstUserBet = lstUserBet.Where(x => x.location != "9").ToList();
-                    //            decimal TotLiabality = objUserBets.GetLiabalityofCurrentAgent(lstUserBet);
-                    //            Session["totliabality"] = 0;
-                    //            ViewBag.totliabalityNew = 0;
-                    //            return RenderRazorViewToString("BettingServiceReference.MarketBook", marketbooks);
-                    //        }
-                    //        else
-                    //        {
-
-                    //            List<UserBetsforAgent> lstUserBet = JsonConvert.DeserializeObject<List<Models.UserBetsforAgent>>(objUsersServiceCleint.GetUserbetsbyUserIDandAgentID(LoggedinUserDetail.GetUserID(), ));
-                    //            Session["userbets"] = lstUserBet;
-                    //            Session["liabality"] = 0;
-
-                    //            decimal TotLiabality = objUserBets.GetLiabalityofCurrentAgent(lstUserBet);
-                    //            Session["totliabality"] = 0;
-                    //            ViewBag.totliabalityNew = 0;
-                    //            var marketbooks = new List<BettingServiceReference.MarketBook>();
-                    //            return RenderRazorViewToString("BettingServiceReference.MarketBook", marketbooks);
-                    //        }
-                    //    }
+                                //    if (linevmarkets.Count() > 0)
+                                //    {
+                                //        item2.LineVMarkets = linevmarkets;
+                                //    }
+                                //}
+                                marketbooks2.Add(item2);
+                            }
+							return await RenderRazorViewToStringAsync("MarketBook", marketbooks2);
+						}
+                        else
+                        {                        
+                            var marketbooks2 = new List<BettingServiceReference.MarketBook>();
+							return await RenderRazorViewToStringAsync("MarketBook", marketbooks2);
+						}
+                    }
                     //    else
                     //    {
                     //        if (LoggedinUserDetail.GetUserTypeID() == 1)

@@ -862,7 +862,7 @@ namespace GTExCore.Controllers
                     model.ModalContent.Add(modalli1);
                     model.ModalContent.Add(modalli2);
 
-                    return PartialView("AllInPayMatches2", model);
+                    return PartialView("AllInPayMatchesAdmin", model);
                 }
             }
             catch (System.Exception ex)
