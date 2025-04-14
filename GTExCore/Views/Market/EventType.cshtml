@@ -223,33 +223,24 @@ else
             <div id="marketbook"></div>
         </div>
 
-        <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
+       @*  <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
 
             <div id="marketbookTWT"></div>
-        </div>
+        </div> *@
 
         <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
             <div id="marketbooksoccer">
             </div>
         </div>
 
-        @if (LoggedinUserDetail.GetUserID() == 1391)
-        {
-            <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
-                <div id="fancymarketbook" style="display: none;"></div>
-                <div id="Figurefancymarketbook"></div>
-                <div id="KJfancymarketbook" style="display: none;"></div>
-            </div>
-        }
-        else
-        {
+  
             <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
                 <div id="fancymarketbook"></div>
                 <div id="Indianfancymarketbook1"></div>
                 <div id="Figurefancymarketbook"></div>
                 <div id="KJfancymarketbook" style="display: none;"></div>
             </div>
-        }
+        
 
     </div>
 
@@ -386,11 +377,11 @@ else
 
                                                 <tr>
                                                     <td colspan="3">
-                                                        <button class="btncancelUnmatchedBets" id="cancelAll" style="float:left;"> <span style="height:30px !important;  width:97px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
+                                                        <button class="btncancelUnmatchedBets" id="cancelAll" style="float:left;"> <span style="height:30px !important;  width:70px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
                                                     </td>
                                                     <td colspan="3" align="right">
                                                         <button class="buttonview" id="btnBetslipsubmit" style="padding: 4px; height:34px !important;  width:97px !important;  font-size:18px !important; ">Submit</button>
-                                                        <button class="buttonview" id="btnloader" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width: 97px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
+                                                        <button class="buttonview" id="btnloader" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width: 72px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -490,10 +481,10 @@ else
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
-                                                        <button class="btncancelUnmatchedBets" id="cancelAllJori" style="float:left;"> <span style="height:30px !important;  width:97px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
+                                                        <button class="btncancelUnmatchedBets" id="cancelAllJori" style="float:left;"> <span style="height:30px !important;  width:70px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
                                                     </td>
                                                     <td colspan="3" align="right">
-                                                        <button class="buttonview" id="btnBetslipsubmitmultiple" style=" padding: 4px; height:34px !important;  width:97px !important;  font-size:18px !important; ">Submit</button>
+                                                        <button class="buttonview" id="btnBetslipsubmitmultiple" style=" padding: 4px; height:34px !important;  width:72px !important;  font-size:18px !important; ">Submit</button>
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -618,12 +609,12 @@ else
                                         </tr>
                                         <tr>
                                             <td colspan="3">
-                                                <button class="btncancelUnmatchedBets" id="cancelAllmop" style="float:left;"> <span style="height:30px !important;  width:97px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
+                                                <button class="btncancelUnmatchedBets" id="cancelAllmop" style="float:left;"> <span style="height:30px !important;  width:70px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
                                             </td>
                                             <td colspan="3" align="right">
 
-                                                <button class="buttonview" id="btnBetslipsubmitmob" style=" padding: 4px; height:34px !important;  width:97px !important;  font-size:18px !important; ">Submit</button>
-                                                <button class="buttonview" id="btnloadermob" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width: 97px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
+                                                <button class="buttonview" id="btnBetslipsubmitmob" style=" padding: 4px; height:31px !important;  width:72px !important;  font-size:18px !important; ">Submit</button>
+                                                <button class="buttonview" id="btnloadermob" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width: 72px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
 
                                             </td>
                                         </tr>
@@ -970,7 +961,7 @@ else
         //	url: dataurl,
 
         //	type: 'GET',
-        //	async:false,
+        //	async:true,
         //	data: { 'categoryname': category,'marketbookname': marketbookname,'Runnerscount':runnerscount },
 
         //	complete: function () {
@@ -997,7 +988,7 @@ else
             url: dataurl,
 
             type: 'GET',
-            async: false,
+            async: true,
             complete: function () {
 
             },
@@ -1190,7 +1181,7 @@ else
             ShowLoader();
             $.ajax({
                 type: "GET",
-                async: false,
+                async: true,
                 url: "/Liabality/LoadLiabalitybyMarket",
                 success: function (result) {
                     HideLoader();
@@ -1736,7 +1727,7 @@ else
         $.ajax({
             url: '/Figure/LoadMarketFig/',
             type: 'GET',
-            async: false,
+            async: true,
             data: { 'EventID': eventID },
             complete: function () {
             },
@@ -1808,7 +1799,7 @@ else
             success: function (data) {
                 setTimeout(function () {
                     LoadActiveMarketFancyIN();
-                }, 5000);
+                }, 1000);
                 if (data != "") {
                     $("#Indianfancymarketbook1").show();
                     assignDatatoMarketBookFancyIN(data);
@@ -3632,59 +3623,55 @@ else
 
     }
 
-    function assignDatatoMarketBookFancyIN(marketbooks) {
-        var marketbook1 = JSON.parse(marketbooks);
-        if (marketbook1.length == 0) {
-            GetActiveMarketINFancy();
-            return;
-        }
-
-        let existingRunners = new Set($(".marketbook4").map(function () {
-            return $(this).data("marketid");
-        }).get());
-        $.each(marketbook1, function (index, runner) {
-            let marketId = runner.SelectionId.replace(/\s/g, '');
-            marketId = parseInt(marketId);
-
-            if ($("#mainRunnerBook" + marketId).length > 0) {
-                if (runner.StatusStr === "Ball Running") {
-                    $("#backandlaySUSPENDED" + marketId).hide();
-                    $("#backandlaydivMain" + marketId).hide();
-                    $("#backandlayBallRunning" + marketId).show();
-                    $("#lblballrunning" + marketId).text(runner.StatusStr);
-                } else if (runner.StatusStr === "SUSPENDED" || runner.StatusStr === "SUSPENDED1") {
-                    $("#backandlayBallRunning" + marketId).hide();
-                    $("#backandlaydivMain" + marketId).hide();
-                    $("#lblsuspend" + marketId).text(runner.StatusStr);
-                    $("#backandlaySUSPENDED" + marketId).show();
-                } else {
-                    $("#backandlayBallRunning" + marketId).hide();
-                    $("#backandlaySUSPENDED" + marketId).hide();
-                    $("#backandlaydivMain" + marketId).show();
-
-                    $("#lblbackprice" + marketId).text(runner.Backprice);
-                    $("#lblbacksize" + marketId).text(runner.BackSize);
-                    $("#lbllayprice" + marketId).text(runner.Layprice);
-                    $("#lbllaysize" + marketId).text(runner.LaySize);
-                }
-                $("#lblprofitandloss" + marketId).text(runner.ProfitandLoss);
-                $("#lblloss" + marketId).text(runner.Loss);
-
-                existingRunners.delete(marketId);
-            } else {
-                // Runner does not exist, so add it
-                addRunner(runner);
-            }
-        });
-
-        // Remove runners that are no longer in the data
-        existingRunners.forEach(function (marketId) {
-            var $runnerElement = $("#mainRunnerBook" + marketId);
-            if ($runnerElement.length > 0) {
-                $runnerElement.remove();
-            }
-        });
+   function assignDatatoMarketBookFancyIN(marketbooks) {
+    let marketbook1;
+    try {
+        marketbook1 = JSON.parse(marketbooks);
+    } catch (e) {
+        console.error("Invalid JSON data:", e);
+        return;
     }
+
+    if (!marketbook1.length) {
+        GetActiveMarketINFancy();
+        return;
+    }
+
+    let existingRunners = new Set($(".marketbook4").map(function () {
+        return $(this).data("marketid");
+    }).get());
+
+    $.each(marketbook1, function (index, runner) {
+        let marketId = parseInt(runner.SelectionId.replace(/\s/g, ''), 10);
+        let $runnerElement = $("#mainRunnerBook" + marketId);
+
+        if ($runnerElement.length > 0) {
+            let status = runner.StatusStr;
+            let isSuspended = status.includes("SUSPENDED");
+
+            $("#backandlaySUSPENDED" + marketId).toggle(isSuspended);
+            $("#backandlayBallRunning" + marketId).toggle(status === "Ball Running");
+            $("#backandlaydivMain" + marketId).toggle(!isSuspended && status !== "Ball Running");
+
+            $("#lblballrunning" + marketId).text(status === "Ball Running" ? status : "");
+            $("#lblsuspend" + marketId).text(isSuspended ? status : "");
+            $("#lblbackprice" + marketId).text(runner.Backprice);
+            $("#lblbacksize" + marketId).text(runner.BackSize);
+            $("#lbllayprice" + marketId).text(runner.Layprice);
+            $("#lbllaysize" + marketId).text(runner.LaySize);
+            $("#lblprofitandloss" + marketId).text(runner.ProfitandLoss);
+            $("#lblloss" + marketId).text(runner.Loss);
+
+            existingRunners.delete(marketId);
+        } else {
+            addRunner(runner); // Runner does not exist, so add it
+        }
+    });
+
+    // Remove outdated runners
+    existingRunners.forEach(marketId => $("#mainRunnerBook" + marketId).remove());
+}
+
 
     function addRunner(runner) {
 
@@ -4348,41 +4335,53 @@ else
 
 
     }
+    // Global cache to avoid repeated parsing
+    let cachedSelections = {};
+
     function AddRunnersformultiplebets(id) {
-        // Cache frequently used DOM elements and values
+        // Cache frequently used DOM elements
         const lastLoadedMarket = $("#lastloadedmarket");
         const marketbookdID = lastLoadedMarket.val().toString().replace(".", "");
         const marketbookElem = $(`#marketbook${marketbookdID}`);
+
+        // Retrieve elements once
         const chkElem = marketbookElem.find(`#chkselection${id}`);
+        const selectionElem = marketbookElem.find(`#selection${id}`);
+        const clothNumStallDrawElem = marketbookElem.find(`#clothnumstalldrawimg${id}`);
+        const selectionClothLabel = marketbookElem.find(`#lblSelectionClothnumber${id}`);
 
         // Get values once
-        const marketbbokname = $(`#marketbookname${marketbookdID}`).val();
+        const marketbookname = $(`#marketbookname${marketbookdID}`).val();
         const mainsportcat = $(`#marketbookCategory${marketbookdID}`).val();
         const marketstatus = $(`#marketbookstatus${marketbookdID}`).text();
 
         // Early exit conditions
-        if (marketbbokname.includes("To Be Placed") || !mainsportcat.includes("Racing") || marketbbokname.includes("(US)")) {
+        if (marketbookname.includes("To Be Placed") || !mainsportcat.includes("Racing") || marketbookname.includes("(US)")) {
             chkElem.prop("checked", false);
             return;
         }
 
         if (marketstatus === "SUSPENDED" || marketstatus === "CLOSED") {
             chkElem.prop("checked", false);
-            marketbookElem.find(`#clothnumstalldrawimg${id}`).css("background-color", "white");
+            clothNumStallDrawElem.css("background-color", "white");
             return;
         }
 
         // Get state once
         const isChecked = chkElem.prop("checked");
-        const selectionElem = marketbookElem.find(`#selection${id}`);
 
-        // Get and parse data once
-        const selectedRunnersInput = $(`#selectedrunners${marketbookdID}`);
-        const selectedClothInput = $(`#selectedrunnersclothnumber${marketbookdID}`);
-        let selectedRunners = JSON.parse(selectedRunnersInput.val() || "[]");
-        let selectedCloth = JSON.parse(selectedClothInput.val() || "[]");
+        // Use cached selections to avoid repeated JSON parsing
+        if (!cachedSelections[marketbookdID]) {
+            cachedSelections[marketbookdID] = {
+                runners: JSON.parse($(`#selectedrunners${marketbookdID}`).val() || "[]"),
+                clothNumbers: JSON.parse($(`#selectedrunnersclothnumber${marketbookdID}`).val() || "[]")
+            };
+        }
 
-        // Handle uncheck action first as it's simpler
+        let selectedRunners = cachedSelections[marketbookdID].runners;
+        let selectedCloth = cachedSelections[marketbookdID].clothNumbers;
+
+        // Handle uncheck action
         if (!isChecked) {
             const index = selectedRunners.indexOf(id);
             if (index > -1) {
@@ -4391,14 +4390,15 @@ else
                 selectionElem.removeClass("runnerselectedhorse");
             }
         } else {
-            // Validation logic
-            const totrunnercount = marketbookElem.find(".runnerswrapper").length;
+            // Define selection limits
+            const totalRunnerCount = marketbookElem.find(".runnerswrapper").length;
             const maxSelections =
-                totrunnercount > 40 ? 7 :
-                    totrunnercount > 25 ? 6 :
-                        totrunnercount > 20 ? 4 :
-                            totrunnercount > 12 ? 3 : 2;
+                totalRunnerCount > 40 ? 7 :
+                    totalRunnerCount > 25 ? 6 :
+                        totalRunnerCount > 20 ? 4 :
+                            totalRunnerCount > 12 ? 3 : 2;
 
+            // Prevent over-selection
             if (selectedRunners.length >= maxSelections) {
                 ShowErrorMsg(`You can select only ${maxSelections} runners.`);
                 chkElem.prop("checked", false);
@@ -4407,14 +4407,15 @@ else
 
             // Add new selection
             selectedRunners.push(id);
-            selectedCloth.push($(`#lblSelectionClothnumber${id}`).text());
+            selectedCloth.push(selectionClothLabel.text());
             selectionElem.addClass("runnerselectedhorse");
         }
 
-        // Update DOM once at the end
-        selectedRunnersInput.val(JSON.stringify(selectedRunners));
-        selectedClothInput.val(JSON.stringify(selectedCloth));
+        // Update inputs once at the end
+        $(`#selectedrunners${marketbookdID}`).val(JSON.stringify(selectedRunners));
+        $(`#selectedrunnersclothnumber${marketbookdID}`).val(JSON.stringify(selectedCloth));
     }
+
 
     function LoadMarketTypeandUserBetsAgent() {
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
@@ -4463,47 +4464,67 @@ else
     var isInserting = false;
     function LoadDefaultPage() {
         var partialviewname = "/DashBoard/GetDefaultPageData";
-        $("#otherdata").load(partialviewname, function () {
-            $("#marketdataall").hide();
-            $("#otherdata").show();
-            $("#partialviews").show();
-            //HideLoader();
-            $("#divfooter").css("display", "block");
-        });
-        $(".usernameandliablity").removeClass("in");
-        $(".usernameandliablity").addClass("collapse");
-    }
 
-    function LoadDefaultPageInPlay(viewtype) {
-
-        //ShowLoader();
-        var partialviewname = "/DashBoard/GetDefaultPageDataInPlay?ViewType=" + viewtype;
         $.ajax({
             url: partialviewname,
-            type: 'GET',
-            dataType: 'html',
+            type: "GET",
             success: function (data) {
-                //debugger;
                 $("#otherdata").html(data);
-                var gridMarketsCount = $("#gridMarketsCount").data("count");
-                if (gridMarketsCount != null) {
-                    $("#marketcount").text("(" + gridMarketsCount + ")");
-                }
-                // Perform actions after the content is loaded
                 $("#marketdataall").hide();
                 $("#otherdata").show();
                 $("#partialviews").show();
 
-                //HideLoader();
+                // Collapse class changes
+                $(".usernameandliablity").removeClass("in").addClass("collapse");
+            },
+            complete: function () {
+                // Ensure everything is loaded, then show the footer
+                setTimeout(function () {
+                    $("#divfooter").fadeIn(); // Smooth fade-in effect
+                }, 1000);
             },
             error: function (xhr, status, error) {
-                // Handle errors if the content fails to load
+                console.error("Error loading data:", error);
+            }
+        });
+    }
+
+    function LoadDefaultPageInPlay(viewtype) {
+        // ShowLoader();
+        var partialviewname = "/DashBoard/GetDefaultPageDataInPlay?ViewType=" + viewtype;
+
+        $.ajax({
+            url: partialviewname,
+            type: "GET",
+            dataType: "html",
+            success: function (data) {
+                // Populate the content
+                $("#otherdata").html(data);
+
+                // Update market count if available
+                var gridMarketsCount = $("#gridMarketsCount").data("count");
+                if (gridMarketsCount != null) {
+                    $("#marketcount").text("(" + gridMarketsCount + ")");
+                }
+
+                // Perform actions after content is loaded
+                $("#marketdataall").hide();
+                $("#otherdata").show();
+                $("#partialviews").show();
+            },
+            complete: function () {
+                // Ensure everything is loaded, then show the footer
+                setTimeout(function () {
+                    $("#divfooter").fadeIn(); // Smooth fade-in effect
+                }, 1000);
+            },
+            error: function (xhr, status, error) {
                 console.error("Error loading content: " + error);
             }
         });
 
-        $(".usernameandliablity").removeClass("in");
-        $(".usernameandliablity").addClass("collapse");
+        // Collapse class changes
+        $(".usernameandliablity").removeClass("in").addClass("collapse");
     }
     function showsubmenus() {
         $("#inplayul li").find("ul").css("display", "none");
@@ -4584,7 +4605,7 @@ else
                 }), $.ajax({
                     url: '/Market/UserBets',
                     type: 'GET',
-                    async: false,
+                    async: true,
 
                 })).then(function (res1, res2) {
 
@@ -4610,7 +4631,7 @@ else
                             LoadUserBets();
                         }
 
-                    }, 1000);
+                    }, 2000);
                 }
 
             }
@@ -4627,7 +4648,7 @@ else
             function StartMarketLoading() {
                 setInterval(function () {
 
-                }, 0);
+                }, 300);
             }
         }
         $(".amountbutton input[type='button']").click(function () {
@@ -7320,21 +7341,30 @@ else
         }
     }
     function lastLevelBreadcrumb(id) {
-        $("#multimedia").hide();
-        $("#betsection").hide();
-        $(".competitions").hide();
-        $(".eventtypes").hide();
-        // ShowInPlay();
-        $("#lastsavedhtml").val('');
-        $("#marketbook").html('');
-        $("#todayhorseraceui").hide();
-        $("#inplayul").hide();
-        $("#todaygrayhoundraceui").hide();
-        togglemainsportsmenu(3, "");
-        LoadMarketType(id);
-        $("#lastloadedmarket").val(id);
+    // Hide the footer immediately when clicked
+    $("#divfooter").hide();
 
-    }
+    $("#multimedia").hide();
+    $("#betsection").hide();
+    $(".competitions").hide();
+    $(".eventtypes").hide();
+    $("#lastsavedhtml").val('');
+    $("#marketbook").html('');
+    $("#todayhorseraceui").hide();
+    $("#inplayul").hide();
+    $("#todaygrayhoundraceui").hide();
+    togglemainsportsmenu(3, "");
+
+    // Load market type and ensure footer is shown after everything is loaded
+    LoadMarketType(id);
+
+    $("#lastloadedmarket").val(id);
+
+    // Delay showing the footer to ensure everything is loaded
+    setTimeout(function () {
+        $("#divfooter").show();
+    }, 1020); // Adjust timeout if needed
+}
 
     function logoClick() {
 
@@ -7556,6 +7586,8 @@ else
             }
         });
     }
+    
+    
 
     function LoadMarketType(id) {
         isMarketINFancyLoaded = false;
@@ -7567,7 +7599,7 @@ else
         $("#liscorecard").hide();
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
         dataurl = '/Market/MarketBook/';
-    @* ShowLoader(); *@
+   @*  ShowLoader(); *@
             $.ajax({
                 url: '/Market/MarketBook/',
                 type: 'GET',
@@ -7590,7 +7622,7 @@ else
                         if ($("#lastsavedhtml").val().trim() == "") {
                             $("#lastsavedhtml").val($("#marketbook").html());
                         }
-                        comparemarketbook();
+                       
 
                         if ($("#lastloadedmarket").val() == "") {
                             $("#lastloadedmarket").val($(".nav-tabs li:last").attr("data-value"));
@@ -7930,7 +7962,7 @@ else
 
 else
 {
-    <div class="footer no-padding">
+    <div class="footer no-padding" id="divfooter">
         <footer style="color:black">
             <ul>
                 <li onclick="togglemainsportsmenu(1,'footer')">

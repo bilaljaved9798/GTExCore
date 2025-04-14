@@ -14,6 +14,16 @@ body {
     display: normal;
 }
 
+
+#fancy-market-container {
+    min-height: 200px; /* Adjust based on expected content */
+    overflow: hidden;
+}
+
+#divfooter {
+    display: none;
+}
+
 h9 {
     font-size: 2.6rem;
     margin-top: 45vh;
@@ -65,21 +75,22 @@ h9 {
 
 .usracenumber {
     position: relative;
-    width: 19px;
+    width: 21px;
     margin-left: -19px;
-    margin-top: 23px;
+    margin-top: 21px;
     color: white;
     float: left;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 .Greyoundnumber {
     position: relative;
-    width: 19px;
+    width: 21px;
     margin-left: 6px;
-    margin-top: 5px;
+    margin-top: 4px;
     float: left;
-    font-size: 15px;
+    font-size: 18px;
+}
 }
 
 .buttonlove1:hover {
@@ -1042,9 +1053,10 @@ cta-8:hover {
     padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: 125%;
+    bottom: 95%;
     left: 50%;
-    margin-left: -60px;
+    /* float: left; */
+    margin-left: -165px;
     transition: opacity 0.3s;
 }
 
@@ -1175,11 +1187,11 @@ cta-8:hover {
 }
 
 .runnerfavorite .runnersname, .runnerfavorite .runnersnameHorse, .runnerfavorite .runnersnamenotrace {
-    color: #FF0000 !important;
+    /*color: #FF0000 !important;
     font-weight: bold;
     text-decoration: none;
-    font-size: 14px;
-    text-transform: uppercase;
+    font-size: 14px;*/
+  /*  text-transform: uppercase;*/
 }
 
 .suspended {
@@ -1528,7 +1540,7 @@ textarea {
     overflow: hidden;
     box-sizing: border-box;
     line-height: 1;
-    height: 36px;
+    height: 20px;
     vertical-align: -webkit-baseline-middle;
 }
 
@@ -1738,14 +1750,14 @@ textarea {
     width: 100%;
     background-color: transparent;
     display: inline-block;
-    line-height: 24px;
+    line-height: 19px;
     margin: 0 0px 0 0px;
-    height: 17px;
+    height: 4px;
     padding: 0;
     font-size: 13px;
     color: black;
     border-radius: 0;
-    z-index:1000;
+    z-index: 1000;
     position: relative;
     list-style: none;
 }
@@ -3617,11 +3629,11 @@ label {
     color: white;
 }*/
 
-.btncancelUnmatchedBets {
+.buttonviewall {
     border-radius: 4px;
     float: right;
-    background: -webkit-linear-gradient(bottom,#ff0000,#b40000) !important;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);
+    background: -webkit-linear-gradient(bottom, #38b736, #1c3615) !important;
+    /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .6); */
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -3631,6 +3643,25 @@ label {
     transition: all 0.5s;
     cursor: pointer;
     margin: 0px;
+    width: 76px;
+}
+
+
+
+.btncancelUnmatchedBets {
+    border-radius: 4px;
+    float: right;
+    background: -webkit-linear-gradient(bottom, #ff031c, #000000) !important;
+    /* box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2), 0 6px 20px 0 rgba(0, 0, 0, .6); */
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 1px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 0px;
+    width: 76px;
 }
 
     .btncancelUnmatchedBets span {
@@ -3650,7 +3681,7 @@ label {
         }
 
     .btncancelUnmatchedBets:hover span {
-        padding-right: 25px;
+        padding-right: 1px;
         background-color: #f41e44;
     }
 
@@ -3783,10 +3814,10 @@ label {
 }
 
 .bookbutton {
-    background: -webkit-linear-gradient(bottom,#35c483,#000000);
+    /*background: -webkit-linear-gradient(bottom,#35c483,#000000);*/
     color: white;
     padding: 0px 0px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 0px -6px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;
+    /*box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 0px -6px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;*/
     border-radius: 3px;
     width: 50px;
     margin-top: 1px;
@@ -3797,8 +3828,9 @@ label {
 }
 
     .bookbutton:hover {
+        color:white;
         background: -webkit-linear-gradient(bottom,#ff0000,#b40000) !important;
-        box-shadow: 0 5px #666;
+     /*   box-shadow: 0 5px #666;*/
         transform: translateX(4px);
     }
 
@@ -5324,13 +5356,13 @@ a {
         font-size: 13.5px;
         margin-top: 7px;
         font-weight: 400;
-        width: 33%;
+        width: 26%;
         float: right;
     }
 
     .inplaydatarow {
         border-bottom: 1px solid #e2e1e1;
-        text-shadow: 0.3px 0.3px #000000;
+      /*  text-shadow: 0.3px 0.3px #000000;*/
         float: left;
         font-size: 13.5px;
         font-weight: 500;
@@ -5888,11 +5920,11 @@ a {
 
     #marketbook label, #betslipcontent label, #fancymarketbook label, #marketbooksoccer label, #Indianfancymarketbook1 label, #marketbookTWT label, #KJfancymarketbook label, #Figurefancymarketbook label, #SFigfancymarketbook label {
         margin-bottom: 0px;
-        text-shadow: 0.1px 0.3px #000000;
+       /* text-shadow: 0.1px 0.3px #000000;*/
         padding: 0px;
         width: 100%;
-        font-size: 14px;
-        font-weight: 700;
+        font-size: 16px;
+        font-weight: 800;
         cursor: cell;
         /*font-size:16px*/
     }
@@ -6184,16 +6216,18 @@ a {
     }
 
     .bookbutton {
-        height: 25px;
-        margin-top: -4px;
-        text-shadow: 0.1px 0.35px #FFFFFF;
+        font-weight: bolder;
+        height: 16px;
+        margin-top: 2px;
+        /* text-shadow: 0.1px 0.35px #FFFFFF; */
         float: left;
-        width: 50px;
-        background-color: #075E54;
-        color: white;
-        padding: 2px 2px;
+        width: 43px;
+        /* background-color: #075E54; */
+        color: #00b181;
+        /* padding: 2px 2px; */
         border-color: #d73d32;
         cursor: pointer;
+        font-size: 14px;
         display: inline-block;
     }
 
@@ -6343,7 +6377,7 @@ a {
     .runnersnamenotrace {
         width: 80% !important;
         text-align: left;
-        margin-top: 7px !important;
+        margin-top: 5px !important;
         height: 20px;
         overflow: hidden;
         white-space: nowrap;

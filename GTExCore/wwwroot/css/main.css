@@ -12,7 +12,7 @@ html {
 
 .spani1 {
     width: 101%;
-    background-color: #075E54;
+    background-color: -webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;
     margin-left: -2px;
 }
 
@@ -166,8 +166,8 @@ h9 {
     }
 
     h9 {
-        font-size: 2.5rem;
-        line-height: 1.2;
+        font-size: 2.1rem;
+        line-height: 1.7;
         color: white;
         font-family: fantasy;
         animation-name: glow;

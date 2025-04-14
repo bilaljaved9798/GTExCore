@@ -2261,7 +2261,7 @@ textarea.input-lg {
     border-radius: 4px;
     float: right;
     background: -webkit-linear-gradient(bottom, #04ff00, #1c3615) !important;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);
+   /* box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);*/
     border: none;
     color: #FFFFFF;
     text-align: center;
