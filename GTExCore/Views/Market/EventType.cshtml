@@ -237,7 +237,7 @@ else
             <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
                 <div id="fancymarketbook"></div>
                 <div id="Indianfancymarketbook1"></div>
-                <div id="Figurefancymarketbook"></div>
+                <div id="Figurefancymarketbook" style="display: none;"></div>
                 <div id="KJfancymarketbook" style="display: none;"></div>
             </div>
         
@@ -1686,6 +1686,7 @@ else
     var retryCountFigure = 0;
     var maxRetriesFigure = 5;
     function LoadFigureMarket() {
+        debugger;
         var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
         if (eventID != undefined) {
             $.ajax({
@@ -1693,8 +1694,9 @@ else
                 type: 'GET',
                 data: { 'EventID': eventID },
                 success: function (data) {
-                    if (data !== "") {
+                    if (data !== "") {                       
                         $("#Figurefancymarketbook").html(data);
+                        $("#Figurefancymarketbook").show();
                     } else {
                         $("#Figurefancymarketbook").html("<p>Figure market not open yet.</p>");
                     }
