@@ -609,12 +609,12 @@ else
                                         </tr>
                                         <tr>
                                             <td colspan="3">
-                                                <button class="btncancelUnmatchedBets" id="cancelAllmop" style="float:left;"> <span style="height:30px !important;  width:70px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
+                                                <button class="btncancelUnmatchedBets" id="cancelAllmop" style="float:left;width:85px"> <span style="height:30px !important;  width:70px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
                                             </td>
                                             <td colspan="3" align="right">
 
-                                                <button class="buttonview" id="btnBetslipsubmitmob" style=" padding: 4px; height:31px !important;  width:72px !important;  font-size:18px !important; ">Submit</button>
-                                                <button class="buttonview" id="btnloadermob" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width: 72px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
+                                                <button class="buttonview" id="btnBetslipsubmitmob" style=" padding: 4px; height:31px !important;  width:85px !important;  font-size:18px !important; ">Submit</button>
+                                                <button class="buttonview" id="btnloadermob" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width:85px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
 
                                             </td>
                                         </tr>
@@ -3421,7 +3421,10 @@ else
                 if (marketbook.Runners[j].StatusStr == "WINNER") {
 
                     $("#marketbook" + marketbookID + " #runnernamediv" + marketbook.Runners[j].SelectionId.toString()).addClass("runnerwinner");
-                    $("#marketbook" + marketbookID + " #lblSelectionName" + marketbook.Runners[j].SelectionId.toString()).attr('style', 'color: white !important');
+                    let $el = $("#marketbook" + marketbookID + " #lblSelectionName" + marketbook.Runners[j].SelectionId.toString());
+                    $el[0].style.setProperty("color", "white", "important");
+                    $el[0].style.setProperty("margin-top", "6px", "important");
+                    $el[0].style.setProperty("margin-left", "-27px");
                     $("#marketbook" + marketbookID + " #lbljockey" + marketbook.Runners[j].SelectionId.toString()).attr('style', 'color: white !important');
 
                     $("#lblfavoritename" + marketbookID).text($("#marketbook" + marketbookID + " #lblSelectionName" + marketbook.FavoriteID).text().toString().trim());
@@ -3690,7 +3693,7 @@ else
                                             ${runner.RunnerName}
                                             <span class="tooltiptext">${runner.RunnerName}</span>
                                         </label>
-                                            <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('${runner.MarketBookID}','${marketId}')" style="background:-webkit-linear-gradient(bottom,#35c483,#000000);color:white">
+                                            <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('${runner.MarketBookID}','${marketId}')">
                                             Book
                                         </div>
                                     </div>

@@ -320,7 +320,7 @@ a.article, a.article:hover {
 
     #sidebar ul li a {
         padding: 3px 5px;
-        text-shadow: 0.4px 0.35px #ffffff !important;
+        /*text-shadow: 0.4px 0.35px #ffffff !important;*/
     }
 
         #sidebar ul li a span {
@@ -337,12 +337,12 @@ a.article, a.article:hover {
     }
 
     #sidebar ul li a i {
-        font-size: 1.0em;
+        font-size: 1.05em;
         font-style: normal;
-        animation-name: love;
+       /* animation-name: love;
         animation-duration: 1s;
         animation-iteration-count: infinite;
-        animation-direction: alternate;
+        animation-direction: alternate;*/
     }
 
     @keyframes love {

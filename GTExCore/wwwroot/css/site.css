@@ -75,12 +75,12 @@ h9 {
 
 .usracenumber {
     position: relative;
-    width: 21px;
-    margin-left: -19px;
-    margin-top: 21px;
+    width: 28px;
+    margin-left: 2px;
+    margin-top: 9px;
     color: white;
     float: left;
-    font-size: 18px;
+    font-size: 23px;
 }
 
 .Greyoundnumber {
@@ -1475,7 +1475,7 @@ textarea {
     padding: 5px 10px !important;
     color: white;
     text-shadow: 2px 2px #5f3f3f;
-    background: -webkit-linear-gradient(bottom,#35c483,#000000);
+   /* background: -webkit-linear-gradient(bottom,#35c483,#000000);*/
     font-size: 20px !important;
     font-weight: 500 !important;
     margin-top: -5px !important;
@@ -3261,7 +3261,7 @@ label {
     background-position-x: 33px;
     background-size: 60% 100%;
     background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.4);
     /*border-top: 2px dotted red;
 	 border-left: 2px dotted red;
 	  border-right: 2px dotted red;
@@ -3273,7 +3273,7 @@ label {
     background-size: 60% 100%;
     background-repeat: no-repeat;
     background-image: URL(" ~/Content/Images/Suspend.png");
-    background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.4);
     /*border-top: 2px dotted red;
 	border-left: 2px dotted red;
 	border-right: 2px dotted red;*/
@@ -3916,7 +3916,7 @@ a {
 
 .headingcaption {
     line-height: 34px;
-    text-shadow: 2px 2px #5f3f3f;
+   /* text-shadow: 2px 2px #5f3f3f;*/
     padding: 0;
     margin: 0;
     float: left;
@@ -4932,13 +4932,13 @@ a {
 
 
     .En {
-        text-shadow: 2px 2px #5f3f3f;
+       /* text-shadow: 2px 2px #5f3f3f;*/
         width: 25%;
         font-family: 'Times New Roman', Times, serif;
     }
 
     .od {
-        text-shadow: 2px 2px #5f3f3f;
+        /*text-shadow: 2px 2px #5f3f3f;*/
         width: 20.5%;
         font-family: 'Times New Roman', Times, serif;
         text-align: end;
