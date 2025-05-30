@@ -1833,7 +1833,7 @@ namespace Census.API.Controllers
         {
             try
             {
-                string jsonString = await objUsersServiceCleint.GetTvLinksAsync(EventId);
+				string jsonString = await objUsersServiceCleint.GetTvLinksAsync(EventId);
                 return jsonString;
             }
             catch (System.Exception ex)

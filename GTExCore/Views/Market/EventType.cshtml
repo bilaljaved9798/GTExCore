@@ -1949,7 +1949,7 @@ else
 
 
     $('#btnPlay').click(function (ev) {
-
+        debugger;
         var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
         $.ajax({
             url: '/Market/GetTvLinks',
@@ -1964,11 +1964,13 @@ else
             success: function (data) {
 
                 var scorecard = JSON.parse(data);
+                var tvLink = scorecard.filter(x => x.EventID == eventID) // Directly get the IframeUrl
+
                 $("#scorecaed").hide();
                 if (display == false) {
                     $("#video").show();
                     display = true;
-                    $("#video")[0].src = scorecard[0].tvlink;
+                    $("#video")[0].src = tvLink[0].tvlink1;
                 }
                 else {
                     display = false;
