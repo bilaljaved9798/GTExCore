@@ -236,14 +236,14 @@ namespace Census.API.Controllers
                     else
                     {
                         var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLayAsync(LoggedinUserDetail.GetUserID());
-                        objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], '(' + betRequest.Selectionname.ToLower() + ')', betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.Result.MaxOddBack), Convert.ToDecimal(objMaxOddBack.Result.MaxOddLay), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
+                        objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], betRequest.Selectionname, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.Result.MaxOddBack), Convert.ToDecimal(objMaxOddBack.Result.MaxOddLay), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
                         return true;
                     }
                 }
                 else
                 {
                     var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(LoggedinUserDetail.GetUserID());
-                    objUsersServiceCleint.InsertUserBetNew(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], '(' + betRequest.Selectionname.ToLower() + ')', betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
+                    objUsersServiceCleint.InsertUserBetNew(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0],  betRequest.Selectionname, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, LoggedinUserDetail.GetUserID(), betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
                     return true;
                 }
             }
