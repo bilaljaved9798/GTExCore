@@ -244,11 +244,21 @@ else
 
     </div>
 
-    <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;">
-        <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove">Live Video</button>
-        <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1">Score Card</button>
-    </div>
 
+    @if (LoggedinUserDetail.GetUserTypeID() == 3)
+		{
+         <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;">
+            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">Live Video</button>
+            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">Score Card</button>
+    </div>
+        }
+else{
+    <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;">
+        <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important;color:white">Live Video</button>
+            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important
+;color:white">Score Card</button>
+    </div>
+}
     <br />
 
     <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" @*src="../Content/Images/123.gif"*@ style="height: 250px ;display:none" id="video" frameborder="0" allowfullscreen> </iframe>
@@ -1686,7 +1696,6 @@ else
     var retryCountFigure = 0;
     var maxRetriesFigure = 5;
     function LoadFigureMarket() {
-        debugger;
         var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
         if (eventID != undefined) {
             $.ajax({
@@ -5917,6 +5926,7 @@ else
 
     });
 
+    debugger;
 
     function insertbetslipSimple() {
         var cuttinguserid = $("#allusersCuttingUsers" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
@@ -6062,6 +6072,8 @@ else
             MarketbookID: $("#loadedmarketbook").val(),
             MarketbookName: $("#loadedmarketbookname").val(),
         };
+
+        debugger;
 
         $.ajax({
             url: '/UserBet/InsertUserBetNew',

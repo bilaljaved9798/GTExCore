@@ -725,7 +725,7 @@ namespace GTExCore.Controllers
             {
                 if (LoggedinUserDetail.GetUserTypeID() != 3)
                 {
-                    ViewBag.backgrod = "#1D9BF0";
+                    ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                     ViewBag.color = "white";
                 }
                 int userid = LoggedinUserDetail.GetUserID();

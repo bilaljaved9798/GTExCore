@@ -5,17 +5,38 @@
 @{
     if (Model.Count() > 0)
     {
-        <div id="maindiv" style="background:@ViewBag.backgrod;color:@ViewBag.color; ">
-            <div class="marketstatusrulesandmarkettype" id="markettype" style="margin-top:5px;">
-                <label class="rule2 active1" style="background:@ViewBag.backgrod;color:@ViewBag.color">
+        <div id="maindiv" >
 
-                    <span style="float:left; text-shadow: 0.3px 0.25px #ffffff !important">FANCY MARKET 2</span>
-                    <span style="float:right;margin-right: 20px;">
-                        <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')">
-                        </i>
-                    </span>
-                </label>
-            </div>
+            @if (LoggedinUserDetail.GetUserTypeID() == 3)
+            {
+                <div class="marketstatusrulesandmarkettype" id="markettype" style="margin-top:5px;">
+                    <label class="rule2 active1" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">
+
+                        <span style="float:left; text-shadow: 0.3px 0.25px #ffffff !important">FANCY MARKET 2</span>
+                        <span style="float:right;margin-right: 20px;">
+                            <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')">
+                            </i>
+                        </span>
+                    </label>
+                </div>
+
+            }
+
+            else
+            {
+                <div class="marketstatusrulesandmarkettype" id="markettype" style="margin-top:5px;">
+                    <label class="rule2 active1" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10));color:white">
+
+                        <span style="float:left; text-shadow: 0.3px 0.25px #ffffff !important">FANCY MARKET 2</span>
+                        <span style="float:right;margin-right: 20px;">
+                            <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')">
+                            </i>
+                        </span>
+                    </label>
+                </div>
+                
+            }
+           
         </div>
 
         <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead iluf" style="border-bottom: 1px solid black !important;">

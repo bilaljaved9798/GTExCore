@@ -4,15 +4,15 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
-    background-color: grey !important;
+    
     background-repeat: no-repeat;
-    background-size: cover;
+  
   
 }
 
 .spani1 {
     width: 101%;
-    background-color: -webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;
+    background: -webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;
     margin-left: -2px;
 }
 
@@ -21,6 +21,43 @@ html {
     color: #f01e29;
 }
 
+
+
+@keyframes rotate-bg {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+   @keyframes gradientBackground {
+            0% {
+                background: -webkit-linear-gradient(bottom, #35c483, #000000);
+            }
+            50% {
+                background: -webkit-linear-gradient(bottom, #000000, #35c483);
+            }
+            100% {
+                background: -webkit-linear-gradient(bottom, #35c483, #000000);
+            }
+        }
+@keyframes gradientBackground {
+    0% {
+        background: -webkit-linear-gradient(bottom, #35c483, #000000);
+    }
+
+    50% {
+        background: -webkit-linear-gradient(bottom, #000000, #35c483);
+    }
+
+    100% {
+        background: -webkit-linear-gradient(bottom, #35c483, #000000);
+    }
+}
 
 h9 {
     font-size: 2.25rem;
@@ -101,8 +138,7 @@ h9 {
 }
 
 .input-group-text {
-    background: #075E54 !important;
-    color: white !important;
+    background: -webkit-linear-gradient(bottom,#35c483,#000000); color: white !important;
     border: 0 !important;
     border-radius: 0.25rem 0 0 0.25rem !important;
 }
@@ -328,7 +364,12 @@ h9 {
 
 
 
-
+@media (max-width: 576px) {
+    .login-card {
+        max-width: 90vw;
+        padding: 30px 30px 50px 30px;
+    }
+}
 
 
 
@@ -357,15 +398,16 @@ h9 {
 
 
     .user_card {
-        height: 85%;
+       
         width: 100%;
-        margin-top: auto;
-        margin-bottom: auto;
+        margin-top: 12px;
         background-color: #e5e5e5cf;
         position: inherit;
         display: grid;
+        height: 600px;
         justify-content: center;
         flex-direction: column;
         padding: 0px;
+    }
     }
 }

@@ -119,8 +119,14 @@
 			<div class="bar3"></div>
 		</div>
 
+
+			@if (LoggedinUserDetail.GetUserTypeID() == 3)
+			{
+
+
 		<div class="balanceandliabailitynew pull-right">
 			<div class="balanceandliabaility">
+
 				<ul class="navmain">
 					<li class="dropdown navmainli">
 						<a style="color:white;font-weight:500" href="#"> My Account &#9662; </a>
@@ -201,12 +207,112 @@
 						</ul>
 
 					</li>
+
+	}
+
+
+
+
 				</ul>
 			</div>
 
 		</div>
 
-		
+	}
+
+	else{<div class="balanceandliabailitynew pull-right">
+			<div class="balanceandliabaility">
+
+				<ul class="navmain">
+					<li class="dropdown navmainli">
+						<a style="color:white;font-weight:500" href="#"> My Account &#9662; </a>
+						<ul class="dropdown-menu" id="" style="display:none;  ">
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White"><strong>@Model.Username</strong></a>
+							</li>
+
+							<li>
+								<a class="navbar-buttons " style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White">Balance: <span id="TotalLiabality">@Model.CurrentAvailableBalance</span></a>
+							</li>
+
+							<li>
+								<a class="navbar-buttons " style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White">Liability: <span id="TotalLiabality" style="color:red;font-weight:700">@Model.CurrentLiabality </span></a>
+							</li>
+							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="LoadPartialViewCreateUser('CreateUser')">Manage User</a>
+								</li>
+
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="LoadPartialViewbyid('ViewActivity')" value="">View Activity</a>
+								</li>
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="LoadPartialViewAddCredit('AddCredit')" value="Add/Remove credit">Add/Remove credit</a>
+
+								</li>
+							}
+						
+							<li>
+								<a class="navbar-buttons " style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="LoadPartialViewAddCredit('Ledger')" value="View Ledger">Ledger/Statement</a>
+							</li>
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" href="/Accounts/MyBets" target="_blank" value="View Ledger">My Bets</a>
+							</li>
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" href="/Accounts/pl" target="_blank" value="View Ledger">Profit & Loss</a>
+
+							</li>
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" href="/Accounts/PlusMinusSummery" target="_blank" value="View Ledger">Plus & Minus Summery</a>
+								</li>
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons " style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="LoadPartialViewbyid('PoundRate')" value="">Set Pound Rate</a>
+								</li>
+							}
+							@if (LoggedinUserDetail.GetUserTypeID() == 1)
+							{
+								<li>
+									<a class="navbar-buttons " style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="LoadPartialViewbyid('FancysettingsandResultPost')" value="">Fancy Result Post</a>
+
+								</li>
+							}
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="ShowResetPassword()" value="Reset Password">Change Password</a>
+
+							</li>
+							<li>
+								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" href="/Accounts/UserActivites" target="_blank" value="Reset Password">Activity Log</a>
+
+							</li>
+							<li class="logoutlink">
+								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White" onclick="gotosignout()" value="">Log Out</a>
+
+							</li>
+						</ul>
+
+					</li>
+
+	
+
+
+
+
+				</ul>
+			</div>
+
+		</div>}
 
 	</div> }
 

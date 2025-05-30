@@ -38,9 +38,9 @@ namespace Census.API.Controllers
 
         public async Task<PartialViewResult> GetInFancyMarket(string EventID, string MarketBookID)
         {
-            if ((LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9))
+            if (LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
             {
-                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
+                ViewBag.backgrod = "#1D9BF0";
                 ViewBag.color = "white";
             }
 

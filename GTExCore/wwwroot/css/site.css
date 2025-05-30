@@ -77,10 +77,10 @@ h9 {
     position: relative;
     width: 28px;
     margin-left: 2px;
-    margin-top: 9px;
+    margin-top: 13px;
     color: white;
     float: left;
-    font-size: 23px;
+    font-size: 20px;
 }
 
 .Greyoundnumber {
@@ -3643,7 +3643,7 @@ label {
     transition: all 0.5s;
     cursor: pointer;
     margin: 0px;
-    width: 76px;
+    width: 78px;
 }
 
 
@@ -5622,7 +5622,7 @@ a {
     .rule2 {
         padding: 5px 10px !important;
         color: white;
-        background: -webkit-linear-gradient(bottom,#24e18a,#000000) !important;
+      /*  background: -webkit-linear-gradient(bottom,#24e18a,#000000) !important;*/
         font-size: 18px !important;
         font-weight: 500 !important;
         margin-top: -5px !important;

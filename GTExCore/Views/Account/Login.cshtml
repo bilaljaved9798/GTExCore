@@ -7,143 +7,222 @@
 }
 
 <head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-yT6oCmPAV/..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     <style>
-        .input-icons i {
-            position: absolute;
+        .brand_logo_header {
+            background: linear-gradient(to right, #24e18a, #000000);
+            padding: 12px 25px;
+            border-radius: 2px;
+            color: #ffffff;
+            font-size: 26px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
         }
 
-        .input-icons {
-            width: 100%;
-            margin-bottom: 10px;
+
+        body {
+            background: linear-gradient(to top, #dbf6e60a, #ffffff);
+            font-family: 'Josefin Sans', sans-serif;
         }
 
+        .brand_logo_header {
+               width: 100%;
+    height: 68px;
+    font-family: fantasy;
+    font-weight: bolder;
+    background: linear-gradient(to top, #24e18a, #000000);
+    padding: 9px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: left !important;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+           
+            line-height: 1.6;
+            color: white;
+            font-family: fantasy;
+            animation-name: glow;
+            animation-duration: 5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
 
-        .btn {
-            position: relative;
-            display: block;
-            color: black;
-            font-size: 16px;
-            font-weight: 600;
-            font-family: 'Times New Roman';
-            text-decoration: none;
-            margin: 30px;
-            border: 2px solid #ff7675;
-            padding: 14px 60px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .user_card {
+            background-color: #00ffdc0f;
+            border-radius: 2px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            padding: 0;
             overflow: hidden;
-            transition: 1s all ease;
-        }
-
-            .btn::before {
-                background: #ff7675;
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: -1;
-                transition: all 0.6s ease;
-            }
-
-        .btn1::before {
-            width: 0;
-            height: 100%;
-        }
-
-        .btn1:hover::before {
+            max-width: 400px;
             width: 100%;
-        }
-
-
-        .text-danger {
-            color: blue
-        }
-
-        h2 {
-            color: green;
         }
 
         button[type=submit] {
-            color: rgba(255,255,255,.9);
-            background: #9152f8;
-            background: -webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;
-            background: -o-linear-gradient(bottom,#3e6d8d,#121d30) !important;
-            background: -moz-linear-gradient(bottom,#3e6d8d,#121d30) !important;
-            background: linear-gradient(bottom,#3e6d8d,#121d30) !important;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);
-            width: 108%;
-            padding: 11px;
-            margin: 0px 0;
-            margin-left: -10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+            border-radius: 1px; /* Matches card corners */
         }
 
-            button[type=submit]:hover {
-                flex: 1 0 auto;
-                color: rgba(255,255,255,.9);
-                background: -webkit-linear-gradient(bottom,#24e18a,#000000) !important;
-                text-align: center;
+        .brand_logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2d3436;
+            text-align: center;
+            display: block;
+        }
+
+        .input-icons {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .input-icons i {
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: #636e72;
             }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 10px 10px 35px;
+            border: 1px solid #000000;
+            border-radius: 2px;
+            font-size: 16px;
+            width:98%;
+            margin-left:1px;
+        }
+
+        .btn1 {
+            background: linear-gradient(to top, #24e18a, #000000);
+            border: none;
+            padding: 12px 20px;
+            width: 98%;
+            color: white;
+            border-radius: 2px;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+            .btn1:hover {
+                background: linear-gradient(to right, #000000, #24e18a);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            }
+
+        .text-danger {
+            color: red;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            color: #2d3436;
+        }
+
+        .main-container {
+            margin-top: 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+            .main-container a {
+                color: #2d3436;
+                text-decoration: none;
+            }
+
+                .main-container a:hover {
+                    text-decoration: underline;
+                }
+
+        .powerdby {
+            margin-right: 10px;
+        }
+
+
+        .input-icons {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+            .input-icons .icon {
+                position: absolute;
+                left: 0px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: black;
+                font-size: 17px;
+                z-index: 2;
+            }
+
+        .input-field {
+            width: 100%;
+            padding: 10px 10px 10px 35px; /* enough padding-left to fit icon */
+            border: 1px solid #000000;
+            border-radius: 2px;
+            font-size: 16px;
+            box-sizing: border-box;
+            width: 98%;
+            margin-left: 1px;
+        }
+
+
+
+        }
     </style>
 </head>
 
-<div class="d-flex justify-content-center h-100" style="text-align:center">
+<div class="d-flex justify-content-center align-items-center min-vh-100">
     <div class="user_card">
-        <span class="spani1">
-            <h9 class="brand_logo">GTEXCH </h9>
-        </span>
-        <div class="d-flex justify-content-center form_container" style="margin-top: 22px;">
+        <div class="brand_logo_header w-100 text-center">
+            GTEXCH
+        </div>
+
+        <div class="form_container mt-4" style="text-align:center;">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, null, new { role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="input-icons">
+                    <i class="fa fa-user icon"></i>
+                    @Html.TextBoxFor(m => m.Username, new { placeholder = "Username", @class = "input-field" })
+                </div>
 
                 <div class="input-icons">
-                    <i class="fa fa-user icon">
-                    </i>
-                    @Html.TextBoxFor(m => m.Username, new { autofocus = "autofocus", placeholder = "Username", @id = "txtname", @class = "input-field" })
+                    <i class="fa fa-eye icon" ></i>
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "input-field" })
                 </div>
-                <div class="input-icons">
-                    <i class="fa fa-key icon">
-                    </i>
-                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @id = "txtpass", @class = "input-field" })
+
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" style="margin-left: 5px;" /> <strong>Remember Me</strong>
+                    </label>
                 </div>
-                <div class="form-group" font-family:'Josefin Sans'">
-                    <div class="col-md-12" style="padding-right: 38px !important">
-                        <label> <input type="checkbox" style="color:ActiveBorder; width:28px; margin-left:21px; left:auto; font-family:'Josefin Sans'; text-shadow:0px 0.3px #000000" />  <b>Remember Me</b> </label>
-                    </div>
-                </div>
-                <div class="input-field">
-                    <button type="submit" style="text-shadow: 	0.5px 0.5px #FFFFFD;" id="btnLogin" class="btn btn1" name="button">Login</button>
+
+                <div class="mt-3">
+                    <button type="submit" id="btnLogin" class="btn1" style="margin:3px">LOGIN</button>
                 </div>
             }
         </div>
 
-        <div class="main-container">
-
-            <p style="font-family:'Times New Roman';text-shadow:0px 0.3px #000000">
-                <strong><a href="#" onclick="showaboutus()" style="color:black">About us</a> | </strong>
-
-                <strong><a href="https://globaltraderexch.com/Terms/Index#cookiepolicy" onclick=" window.open('/Terms/Index#cookiepolicy', '_blank', 'width=800, height=600', window.focus()) " style="color:black">Cookie Policy</a> | </strong>
-
-                <strong><a href="https://globaltraderexch.com/Terms/Index#term" onclick=" window.open('/Terms/Index#term', '_blank', 'width=800, height=600', window.focus()) " style="color:black">Terms &amp; Conditions</a> | </strong>
-
-                <strong><a href="https://globaltraderexch.com/Terms/Index#responsiblegambling" onclick=" window.open('/Terms/Index#responsiblegambling', '_blank', 'width=800, height=600', window.focus()) " style="color:black">Gambling can be addictive, please play responsibly</a> | </strong>
-
-                <strong><a href="#" onclick=" window.open('/Terms/Index#parentalsupervision', '_blank', 'width=800, height=600', window.focus()) " style="color:black">Parental Supervision</a> | </strong>
+        <div class="main-container mt-4">
+            <p>
+                <strong><a href="#" onclick="showaboutus()">About us</a> | </strong>
+                <strong><a href="/Terms/Index#cookiepolicy" target="_blank">Cookie Policy</a> | </strong>
+                <strong><a href="/Terms/Index#term" target="_blank">Terms &amp; Conditions</a> | </strong>
+                <strong><a href="/Terms/Index#responsiblegambling" target="_blank">Gambling can be addictive, please play responsibly</a> | </strong>
+                <strong><a href="/Terms/Index#parentalsupervision" target="_blank">Parental Supervision</a></strong>
             </p>
             <hr>
-            <p style="background-color:#d5d5d5; box-shadow:rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px">
-
-                <span class="powerdby">Powered by </span>
+            <p style="background-color:#d5d5d5; padding:10px; border-radius:3px; box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px;">
+                <span class="powerdby">Powered by</span>
                 <img height="40" width="110" alt="Global" src="~/betfair-logo.png" />
             </p>
-
-
         </div>
-
     </div>
 </div>

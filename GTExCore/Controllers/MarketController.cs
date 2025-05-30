@@ -61,7 +61,7 @@ namespace Census.API.Controllers
 
             if (LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
             {
-                ViewBag.backgrod = "#1D9BF0";
+                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                 ViewBag.color = "white";
             }
 
@@ -325,7 +325,7 @@ namespace Census.API.Controllers
                 {
                     if (LoggedinUserDetail.GetUserTypeID() == 2)
                     {
-                        ViewBag.backgrod = "#1D9BF0";
+                        ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                         ViewBag.color = "white";
                         var results = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
                         if (results != null)
@@ -2261,7 +2261,7 @@ namespace Census.API.Controllers
 
             if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9 || LoggedinUserDetail.GetUserTypeID() == 1)
             {
-                ViewBag.backgrod = "#1D9BF0";
+                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                 ViewBag.color = "white";
                 List<TodayHorseRacing> lstTodayHorseRacing = JsonConvert.DeserializeObject<List<TodayHorseRacing>>(objUsersServiceCleint.GetTodayHorseRacing(LoggedinUserDetail.GetUserID(), "4"));
                 lstTodayHorseRacing = lstTodayHorseRacing.Where(a => a.EventName != "Line v Markets").ToList();
@@ -2294,7 +2294,7 @@ namespace Census.API.Controllers
         {
             if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9 || LoggedinUserDetail.GetUserTypeID() == 1)
             {
-                ViewBag.backgrod = "#1D9BF0";
+                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))"; ;
                 ViewBag.color = "white";
             }
             if (LoggedinUserDetail.GetUserTypeID() == 3 || LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
@@ -2316,7 +2316,7 @@ namespace Census.API.Controllers
         {
             if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9 || LoggedinUserDetail.GetUserTypeID() == 1)
             {
-                ViewBag.backgrod = "#1D9BF0";
+                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                 ViewBag.color = "white";
             }
             if (LoggedinUserDetail.GetUserTypeID() == 3 || LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
@@ -2338,7 +2338,7 @@ namespace Census.API.Controllers
         {
             if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9 || LoggedinUserDetail.GetUserTypeID() == 1)
             {
-                ViewBag.backgrod = "#1D9BF0";
+                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                 ViewBag.color = "white";
             }
             //LoggedinUserDetail.CheckifUserLogin();
@@ -2360,7 +2360,7 @@ namespace Census.API.Controllers
         {
             if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9 || LoggedinUserDetail.GetUserTypeID() == 1)
             {
-                ViewBag.backgrod = "#1D9BF0";
+                ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
                 ViewBag.color = "white";
             }
             //LoggedinUserDetail.CheckifUserLogin();
