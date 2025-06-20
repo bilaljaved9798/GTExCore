@@ -214,7 +214,7 @@ a[aria-expanded="true"]::before {
 ul ul a {
     font-size: 0.9em !important;
     padding-left: 18px !important;
-    background: -webkit-linear-gradient(bottom,#35c483,#000000);
+    background: linear-gradient(to top, #00ff8a, #000000) !important;
 }
 
 ul.CTAs {

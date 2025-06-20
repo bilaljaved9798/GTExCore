@@ -31,20 +31,20 @@
         }
 
         .brand_logo_header {
-               width: 100%;
-    height: 68px;
-    font-family: fantasy;
-    font-weight: bolder;
-    background: linear-gradient(to top, #24e18a, #000000);
-    padding: 9px;
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: bold;
-    text-align: left !important;
-    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.3);
-           
+            width: 100%;
+            height: 68px;
+            font-family: fantasy;
+            font-weight: bolder;
+            background: linear-gradient(to top, #00ff8a, #000000);
+            padding: 9px;
+            border-top-left-radius: 2px;
+            border-top-right-radius: 2px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            font-size: 30px;
+            font-weight: 500;
+            text-align: left !important;
+            box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.3);
             line-height: 1.6;
             color: white;
             font-family: fantasy;
@@ -100,14 +100,15 @@
         }
 
         .btn1 {
-            background: linear-gradient(to top, #24e18a, #000000);
+            background: linear-gradient(to top, #00ff8a, #000000);
             border: none;
             padding: 12px 20px;
             width: 98%;
             color: white;
             border-radius: 2px;
-            font-weight: 500;
+            font-weight: 800;
             transition: 0.3s ease;
+            font-family: "Times New Roman", Times, serif;
         }
 
             .btn1:hover {
@@ -193,8 +194,10 @@
                 </div>
 
                 <div class="input-icons">
-                    <i class="fa fa-eye icon" ></i>
-                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "input-field" })
+                    <i class="fa fa-key icon"></i>
+
+                    @Html.PasswordFor(m => m.Password, new { placeholder = "Password", @class = "input-field", id = "password" })
+                    <i class="fa fa-eye toggle-password" id="togglePassword" style="position: absolute; left: 90%; top: 50%; transform: translateY(-50%); cursor: pointer; color:black"></i>
                 </div>
 
 
@@ -226,3 +229,16 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const passwordField = document.getElementById("password");
+        const togglePassword = document.getElementById("togglePassword");
+
+        togglePassword.addEventListener("click", function () {
+            const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+            passwordField.setAttribute("type", type);
+            this.classList.toggle("fa-eye");
+            this.classList.toggle("fa-eye-slash");
+        });
+    });
+</script>

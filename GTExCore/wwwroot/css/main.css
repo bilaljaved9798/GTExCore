@@ -67,7 +67,7 @@ h9 {
     font-family: fantasy;
     animation-name: glow;
     animation-duration: 5s;
-    animation-iteration-count: infinite;
+    letter-spacing:1px; animation-iteration-count: infinite;
     animation-direction: alternate;
 }
 
@@ -202,8 +202,8 @@ h9 {
     }
 
     h9 {
-        font-size: 2.4rem;
-        line-height: 1.11;
+        font-size: 2.5rem;
+        line-height: 1.09;
         color: white;
         font-family: fantasy;
         animation-name: glow;
