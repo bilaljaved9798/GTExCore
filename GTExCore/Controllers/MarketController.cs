@@ -6,6 +6,7 @@ using GTExCore.HelperClass;
 using GTExCore.Models;
 using GTExCore.ViewModel;
 using log4net;
+using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,6 +19,7 @@ using Org.BouncyCastle.Crypto.Engines;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using UserServiceReference;
@@ -1829,19 +1831,19 @@ namespace Census.API.Controllers
                 return marketbooks;
             }
         }
-        public async Task<string> GetTvLinks(string EventId)
-        {
-            try
-            {
-				string jsonString = await objUsersServiceCleint.GetTvLinksAsync(EventId);
-                return jsonString;
-            }
-            catch (System.Exception ex)
-            {
-                return "";
-            }
+    //    public async Task<string> GetTvLinks(string EventId)
+    //    {
+    //        try
+    //        {
+				//string jsonString = await objUsersServiceCleint.GetTvLinksAsync(EventId);
+    //            return jsonString;
+    //        }
+    //        catch (System.Exception ex)
+    //        {
+    //            return "";
+    //        }
 
-        }
+    //    }
         public void SetURLsData()
         {
             LoggedinUserDetail.URLsData = JsonConvert.DeserializeObject<List<SP_URLsData_GetAllData_Result>>(objUsersServiceCleint.GetURLsData());
@@ -2613,5 +2615,58 @@ namespace Census.API.Controllers
 				return "[]"; // Return an empty JSON array if the list is null
 			}
 		}
-	}
+
+        public async Task<string> GetTvLinks(int sportId, string eventId)
+        {
+            try
+            {
+                string jsonString = await objUsersServiceCleint.GetTvLinksAsync(eventId);
+                var obj = JsonConvert.DeserializeObject<List<TVlink>>(jsonString);
+                var data = obj.Where(x => x.EventID == eventId).FirstOrDefault();
+                long dID = Convert.ToInt64(data.DimondID);
+                if (sportId == 1)
+                {
+                    try
+                    {
+                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                        HttpClient _httpClient = new HttpClient();
+                        string url = $"https://serviceapi.fairgame7.com/getIframeUrl/{dID}?sportType=football&isTv=true&isScore=true";
+                        HttpResponseMessage response = await _httpClient.GetAsync(url);
+                        if (!response.IsSuccessStatusCode)
+                        {
+                            return "Failed to fetch data from API";
+                        }
+                        string dimondApiResponse = await response.Content.ReadAsStringAsync();
+                        var result = JsonConvert.DeserializeObject<DimondRoot>(dimondApiResponse);
+                        var tvlink1 = result.tvData.iframeUrl;
+                        return tvlink1;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        return "";
+                    }
+                }
+                //https://serviceapi.fairgame7.com/getIframeUrl/471734455?sportType=football&isTv=true&isScore=true
+                return data.tvlink1;
+            }
+            catch (System.Exception ex)
+            {
+                return "";
+            }
+        }
+
+        public string GetCardLinks(string EventId)
+        {
+            try
+            {
+                string jsonString = objUsersServiceCleint.GetTvLinks(EventId);
+                return jsonString;
+            }
+            catch (System.Exception ex)
+            {
+                return "";
+            }
+        }
+    }
 }

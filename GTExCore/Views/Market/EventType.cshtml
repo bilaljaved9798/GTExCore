@@ -1958,32 +1958,58 @@ else{
 
 
     $('#btnPlay').click(function (ev) {
-        debugger;
+        var sportID = 4;
+        var mainsportcat1 = $("#marketbookCategory" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
+        if (mainsportcat1 == "Cricket") {
+            sportID = 4;
+
+        }
+        else {
+            if (mainsportcat1 == "Soccer") {
+                sportID = 1;
+            }
+            if (mainsportcat1 == "Tennis") {
+                sportID = 2;
+            }
+        }
         var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
+
         $.ajax({
             url: '/Market/GetTvLinks',
             type: 'GET',
             async: true,
-            data: { 'EventId': eventID },
+            data: { 'sportId': sportID, 'eventId': eventID },
             complete: function () {
             },
             error: function () {
                 //updatescores();
             },
             success: function (data) {
-
-                var scorecard = JSON.parse(data);
-                var tvLink = scorecard.filter(x => x.EventID == eventID) // Directly get the IframeUrl
-
-                $("#scorecaed").hide();
-                if (display == false) {
-                    $("#video").show();
-                    display = true;
-                    $("#video")[0].src = tvLink[0].tvlink1;
+                if (!data) {
+                    console.log("No TV link found.");
+                    return;
                 }
-                else {
-                    display = false;
-                    $("#video").hide();
+
+                try {
+                    //var scorecard = JSON.parse(data);
+                    //var tvLink = scorecard.filter(x => x.EventID == eventID) // Directly get the IframeUrl
+
+                    if (!data) {
+                        console.log("Invalid TV link.");
+                        return;
+                    }
+
+                    $("#scorecaed").hide();
+                    if (display === false) {
+                        $("#video").show();
+                        display = true;
+                        $("#video")[0].src = data;
+                    } else {
+                        display = false;
+                        $("#video").hide();
+                    }
+                } catch (e) {
+                    console.log("Error parsing response: ", e);
                 }
             }
         });
@@ -2031,7 +2057,7 @@ else{
             complete: function () {
             },
             error: function () {
-                updatescores();
+                //updatescores();
             },
             success: function (data) {
                
@@ -2050,6 +2076,45 @@ else{
         });
         display = true;
     })
+
+    var Carddisplay = true;
+	$('#btnscorecard').click(function (ev) {
+		debugger;
+		$("#video").hide();
+
+            var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
+            $.ajax({
+                url: '/Market/GetCardLinks',
+                type: 'GET',
+                async: true,
+                data: { 'EventId': eventID },
+                complete: function () {
+                },
+                error: function () {
+                    updatescores();
+                },
+                success: function (data) {
+					//debugger;
+                    var scorecarddata = JSON.parse(data);
+                    var scorecard = scorecarddata.filter(x => x.EventID == eventID);
+					if (display == true && scorecard.length>0) {
+
+						$("#scorecaed")[0].src = scorecard[0].scorecard;
+						$("#scorecaed").show();
+
+
+                        display = false;
+                    }
+                    else {
+						display = true;
+						$("#scorecaed").hide();
+                    }
+                }
+            });
+            display = true;
+
+
+	})
 
     function showcurrentviewsquadorscorecard(num) {
         $("#currentview" + $("#lastloadedmarket").val().toString().replace(".", "")).val(num);
