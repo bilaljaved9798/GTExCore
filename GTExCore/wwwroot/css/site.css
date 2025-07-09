@@ -24,6 +24,21 @@ body {
     display: none;
 }
 
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.6;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
 h9 {
     text-shadow: 1px 1px black !important;
     font-size: 2.6rem;
@@ -1019,6 +1034,7 @@ cta-8:hover {
     min-height: 88%;
     width: 100% !important;
     max-width: 100% !important;
+   
 }
 
 .mediaplayer {
@@ -1314,7 +1330,7 @@ textarea {
 
 .innerbodycontent {
     padding: 0px 0px;
-    background: #00ffdc0f;
+    /*background: #00ffdc0f;*/
     float: left;
     margin-top: 59px;
     width: 100%;
@@ -3845,6 +3861,7 @@ label {
     padding-right: 05px;
     padding-bottom: 05px;
     padding-top: 05px;
+    background: #00ffdc0;
 }
 
 .allhorsercedefault {
@@ -3951,9 +3968,9 @@ a {
 }
 
 .activelink, .activelink:hover {
-    border: 1px solid #ccc;
+    border: 1px solid #17f311;
     border-top: 2px solid #2dc3e8 !important;
-    background-color: white !important;
+    background-color: #00ffdc0f !important;
     margin-top: -2px !important;
     color: Black;
     text-decoration: none;
@@ -4023,7 +4040,7 @@ a {
     font-size: 16px;
     font-weight: bold;
     border-bottom: 1px solid #e2e1e1;
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    box-shadow: rgba(255, 255, 255, 0.35) 0px 54px 55px,rgba(200, 255, 250, 0.25) 0px -12px 30px,rgba(255, 255, 255, 0.2) 0px 4px 6px,rgba(150, 255, 240, 0.3) 0px 12px 13px,rgba(255, 255, 255, 0.15) 0px -3px 5px;
     width: 100%;
     margin-bottom: 0px;
     background-color: white;
@@ -4167,7 +4184,8 @@ a {
 }
 
 #partialviews {
-    min-height: 300px;
+    min-height: 800px;
+    background: #00ffdc0f;
 }
 
 .inplaycompetition {
@@ -4369,11 +4387,13 @@ a {
     color: white;
     position: relative;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 19px;
     line-height: 1;
     padding: 10px;
     float: left;
     width: 100%;
+    text-shadow:1px 1px black !important;
+
 }
 
 
@@ -5357,6 +5377,7 @@ a {
 
     .innerbodycontent1 {
         margin-top: 47px;
+
     }
 
     .relatedtime {
@@ -5426,7 +5447,7 @@ a {
     .inplaymatchheading li a {
         text-shadow: 0px 0.5px #000000;
         width: 100%;
-        box-shadow: rgb(255 255 255 / 25%) 0px 50px 100px -20px, rgb(255 255 255 / 30%) 0px 30px 60px -30px, rgb(98 200 118 / 35%) 0px -2px 6px 0px inset;
+        box-shadow: rgba(255, 255, 255, 0.4) 0px 50px 100px -20px, rgb(255 255 255 / 35%) 0px 30px 60px -30px, rgba(120, 255, 220, 0.4) 0px -2px 6px 0px inset;
         margin-right: 0% !important;
         float: left;
         font-size: 15px !important;
