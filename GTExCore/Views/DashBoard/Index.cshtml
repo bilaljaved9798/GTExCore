@@ -129,79 +129,79 @@
 
 				<ul class="navmain">
 					<li class="dropdown navmainli">
-								<a style="color:white;font-weight:700;text-shadow:0px 2px #000000 !important" href="#"> My Account &#9662; </a>
+								<a style="color:white;font-weight:700;text-shadow:0px 2px #000000 !important; margin-right:5px;" href="#"> My Account &#9662; </a>
 						<ul class="dropdown-menu" id="" style="display:none;  ">
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White"><strong>@Model.Username</strong></a>
+										<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black"><strong>@Model.Username</strong></a>
 							</li>
 
 							<li>
-								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White">Balance: <span id="TotalLiabality">@Model.CurrentAvailableBalance</span></a>
+										<a class="navbar-buttons " style="font-weight:500;background:#e7fbf4 !important;color:black">Balance: <span id="TotalLiabality">@Model.CurrentAvailableBalance</span></a>
 							</li>
 
 							<li>
-								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White">Liability: <span id="TotalLiabality" style="color:red;font-weight:700">@Model.CurrentLiabality </span></a>
+										<a class="navbar-buttons " style="font-weight:500;background:#e7fbf4 !important;color:black">Liability: <span id="TotalLiabality" style="color:red;font-weight:700">@Model.CurrentLiabality </span></a>
 							</li>
 							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewCreateUser('CreateUser')">Manage User</a>
+											<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="LoadPartialViewCreateUser('CreateUser')">Manage User</a>
 								</li>
 
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('ViewActivity')" value="">View Activity</a>
+											<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="LoadPartialViewbyid('ViewActivity')" value="">View Activity</a>
 								</li>
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewAddCredit('AddCredit')" value="Add/Remove credit">Add/Remove credit</a>
+											<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="LoadPartialViewAddCredit('AddCredit')" value="Add/Remove credit">Add/Remove credit</a>
 
 								</li>
 							}
 						
 							<li>
-								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewAddCredit('Ledger')" value="View Ledger">Ledger/Statement</a>
+										<a class="navbar-buttons " style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="LoadPartialViewAddCredit('Ledger')" value="View Ledger">Ledger/Statement</a>
 							</li>
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/MyBets" target="_blank" value="View Ledger">My Bets</a>
+										<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" href="/Accounts/MyBets" target="_blank" value="View Ledger">My Bets</a>
 							</li>
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/pl" target="_blank" value="View Ledger">Profit & Loss</a>
+										<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" href="/Accounts/pl" target="_blank" value="View Ledger">Profit & Loss</a>
 
 							</li>
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/PlusMinusSummery" target="_blank" value="View Ledger">Plus & Minus Summery</a>
+											<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" href="/Accounts/PlusMinusSummery" target="_blank" value="View Ledger">Plus & Minus Summery</a>
 								</li>
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('PoundRate')" value="">Set Pound Rate</a>
+											<a class="navbar-buttons " style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="LoadPartialViewbyid('PoundRate')" value="">Set Pound Rate</a>
 								</li>
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('FancysettingsandResultPost')" value="">Fancy Result Post</a>
+											<a class="navbar-buttons " style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="LoadPartialViewbyid('FancysettingsandResultPost')" value="">Fancy Result Post</a>
 
 								</li>
 							}
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="ShowResetPassword()" value="Reset Password">Change Password</a>
+										<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="ShowResetPassword()" value="Reset Password">Change Password</a>
 
 							</li>
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/UserActivites" target="_blank" value="Reset Password">Activity Log</a>
+										<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" href="/Accounts/UserActivites" target="_blank" value="Reset Password">Activity Log</a>
 
 							</li>
 							<li class="logoutlink">
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="gotosignout()" value="">Log Out</a>
+										<a class="navbar-buttons" style="font-weight:500;background:#e7fbf4 !important;color:black" onclick="gotosignout()" value="">Log Out</a>
 
 							</li>
 						</ul>
@@ -225,7 +225,7 @@
 
 				<ul class="navmain">
 					<li class="dropdown navmainli">
-						<a style="color:white;font-weight:500" href="#"> My Account &#9662; </a>
+								<a style="color:white;font-weight:500; margin-right:5px" href="#"> My Account &#9662; </a>
 						<ul class="dropdown-menu" id="" style="display:none;  ">
 							<li>
 								<a class="navbar-buttons" style="font-weight:500;background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:White"><strong>@Model.Username</strong></a>
@@ -333,79 +333,79 @@
 			<div class="balanceandliabaility">
 				<ul class="navmain">
 					<li class="dropdown navmainli">
-						<a style="color:white;font-weight:500" href="#"> My Account &#9662; </a>
+						<a style="color:white;font-weight:500;  margin-right:5px" href="#"> My Account &#9662; </a>
 						<ul class="dropdown-menu" id="" style="display:none;  ">
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White"><strong>@Model.Username</strong></a>
+									<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black"><strong>@Model.Username</strong></a>
 							</li>
 
 							<li>
-								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White">Balance: <span id="TotalLiabality">@Model.CurrentAvailableBalance</span></a>
+									<a class="navbar-buttons " style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black">Balance: <span id="TotalLiabality">@Model.CurrentAvailableBalance</span></a>
 							</li>
 
 							<li>
-								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White">Liability: <span id="TotalLiabality" style="color:red;font-weight:700">@Model.CurrentLiabality </span></a>
+									<a class="navbar-buttons " style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black">Liability: <span id="TotalLiabality" style="color:red;font-weight:700">@Model.CurrentLiabality </span></a>
 							</li>
 							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewCreateUser('CreateUser')">Manage User</a>
+										<a class="navbar-buttons" style="font-weight:500;linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="LoadPartialViewCreateUser('CreateUser')">Manage User</a>
 								</li>
 
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('ViewActivity')" value="">View Activity</a>
+										<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="LoadPartialViewbyid('ViewActivity')" value="">View Activity</a>
 								</li>
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewAddCredit('AddCredit')" value="Add/Remove credit">Add/Remove credit</a>
+										<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="LoadPartialViewAddCredit('AddCredit')" value="Add/Remove credit">Add/Remove credit</a>
 
 								</li>
 							}
 						
 							<li>
-								<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewAddCredit('Ledger')" value="View Ledger">Ledger/Statement</a>
+									<a class="navbar-buttons " style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="LoadPartialViewAddCredit('Ledger')" value="View Ledger">Ledger/Statement</a>
 							</li>
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/MyBets" target="_blank" value="View Ledger">My Bets</a>
+									<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" href="/Accounts/MyBets" target="_blank" value="View Ledger">My Bets</a>
 							</li>
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/pl" target="_blank" value="View Ledger">Profit & Loss</a>
+									<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" href="/Accounts/pl" target="_blank" value="View Ledger">Profit & Loss</a>
 
 							</li>
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/PlusMinusSummery" target="_blank" value="View Ledger">Plus & Minus Summery</a>
+										<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" href="/Accounts/PlusMinusSummery" target="_blank" value="View Ledger">Plus & Minus Summery</a>
 								</li>
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('PoundRate')" value="">Set Pound Rate</a>
+										<a class="navbar-buttons " style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="LoadPartialViewbyid('PoundRate')" value="">Set Pound Rate</a>
 								</li>
 							}
 							@if (LoggedinUserDetail.GetUserTypeID() == 1)
 							{
 								<li>
-									<a class="navbar-buttons " style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="LoadPartialViewbyid('FancysettingsandResultPost')" value="">Fancy Result Post</a>
+										<a class="navbar-buttons " style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="LoadPartialViewbyid('FancysettingsandResultPost')" value="">Fancy Result Post</a>
 
 								</li>
 							}
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="ShowResetPassword()" value="Reset Password">Change Password</a>
+									<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" onclick="ShowResetPassword()" value="Reset Password">Change Password</a>
 
 							</li>
 							<li>
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" href="/Accounts/UserActivites" target="_blank" value="Reset Password">Activity Log</a>
+									<a class="navbar-buttons" style="font-weight:500;background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;color:black" href="/Accounts/UserActivites" target="_blank" value="Reset Password">Activity Log</a>
 
 							</li>
 							<li class="logoutlink">
-								<a class="navbar-buttons" style="font-weight:500;background:@ViewBag.backgrod;color:White" onclick="gotosignout()" value="">Log Out</a>
+									<a class="navbar-buttons" style="font-weight:500;background: linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important; color:black" onclick="gotosignout()" value="">Log Out</a>
 
 							</li>
 						</ul>

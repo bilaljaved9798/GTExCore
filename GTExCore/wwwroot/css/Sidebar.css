@@ -98,7 +98,7 @@ i, span {
 #sidebar {
     min-width: 75%;
     max-width: 100%;
-    background: -webkit-linear-gradient(top,#35c483,#000000);
+    background: linear-gradient(to bottom, #00ff8a, #000000) !important;
     color: #fff;
     transition: all 0.1s;
     height: 1273.5px !important;
@@ -154,7 +154,7 @@ i, span {
 
     #sidebar .sidebar-header {
         padding: 20px;
-        background: -webkit-linear-gradient(bottom,#35c483,#000000);
+        background: linear-gradient(to bottom, #00ff8a, #000000) !important;
     }
 
         #sidebar .sidebar-header strong {
@@ -186,11 +186,12 @@ i, span {
             font-style: normal;
             font-size: 20px;
             font-weight: 500;
+            text-shadow: 1px 1px black;
         }
 
     #sidebar ul li.active > a, a[aria-expanded="true"] {
         color: #fff;
-        background: -webkit-linear-gradient(bottom,#35c483,#000000);
+        background: linear-gradient(to bottom, #00ff8a, #000000) !important;
     }
 
 
@@ -212,9 +213,13 @@ a[aria-expanded="true"]::before {
 
 
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 0.65em !important;
     padding-left: 18px !important;
-    background: linear-gradient(to top, #00ff8a, #000000) !important;
+    background: white;
+    color: black;
+    text-shadow: 0.2px 0.2px black;
+    box-shadow: rgba(255, 255, 255, 0.35) 0px 54px 55px, rgba(200, 255, 250, 0.25) 0px -12px 30px, rgba(255, 255, 255, 0.2) 0px 4px 6px, rgba(150, 255, 240, 0.3) 0px 12px 13px, rgba(255, 255, 255, 0.15) 0px -3px 5px;
+    border-bottom: 1px solid #e6e6e6;
 }
 
 ul.CTAs {
@@ -283,7 +288,7 @@ a.article, a.article:hover {
     }
 
     #sidebar {
-        background: -webkit-linear-gradient(top,#35c483,#000000);
+        background: linear-gradient(to bottom, #00ff8a, #000000) !important;
         position: absolute;
         top: 4px;
         left: 0;
@@ -337,9 +342,12 @@ a.article, a.article:hover {
     }
 
     #sidebar ul li a i {
-        font-size: 1.05em;
+        font-size: 1em;
         font-style: normal;
-       /* animation-name: love;
+        font-weight: 500;
+        text-shadow: 0 0 4px #000000, 0 0 5px #000000, 0 0 7px #00ff8a, 0 0 17px #62ff00, 0 0 26px #00ff40;
+        color: #fff;
+        /* animation-name: love;
         animation-duration: 1s;
         animation-iteration-count: infinite;
         animation-direction: alternate;*/

@@ -76,7 +76,7 @@
                                         <span class="Maintime" id="lblStartTime@(item.MarketId.ToString().Replace(".", ""))">@item.OrignalOpenDate.Value.AddHours(5).ToString("ddd, dd MMM")</span>
                                     </span>
 
-                                    <label class="markettime" id="lbltimer@(item.MarketId.ToString().Replace(".", ""))">@item.OpenDate</label>
+                                <label style="text-shadow:0.5px 0.2px #ff0000" class="markettime" id="lbltimer@(item.MarketId.ToString().Replace(".", ""))">@item.OpenDate</label>
                                     <br />
                                     <span class="namestyle">
 
@@ -286,7 +286,7 @@
                             @foreach (var runner in item.Runners)
                             {
 
-                                <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="border-top: 1px black solid" ;>
+                            <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important" ;>
                                     <div id="nameProfitandlossdiv">
                                         <div id="runnernamediv@(runner.SelectionId)" class="no-padding runnernamediv runnerswrapper">
                                             <label style="display:none">
@@ -300,7 +300,7 @@
 
 
                                                     {
-                                                        @*<input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />*@
+                                                        <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
 
                                                     }
 
@@ -441,11 +441,11 @@
                                                     <div class="clothnumstalldrawimg" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')" style="margin-left:21px">
                                                         @{
 
-                                                        runner.WearingURL = runner.WearingURL.ToString().Replace("content-cache.betfair.com/feeds_images/Horses/SilkColours/", "content.betfair.com/feeds_images/Horses/SilkColours/");
+                                                        runner.WearingURL = runner.WearingURL.ToString().Replace("content-cache.betfair.com/feeds_images/Horses/SilkColours/", "score.ssfun.in/SilkColours/");
 
 
                                                         }
-                                                        <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL" title="@runner.WearingDesc" onerror="this.onerror = null; this.src = '../Content/images/not-found.png';" /></div>
+                                                        <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL"  onerror="this.src = '../Content/images/not-found.png';" /></div>
                                                         <div class="clothnumandstallnum">
                                                         </div>
                                                     </div>

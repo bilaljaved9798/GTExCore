@@ -60,15 +60,21 @@
                                     foreach (var matchitem in lstMatchesbytype)
                                     {
                                         <div class="inplaydatarow">
-                                            <div class="inplaymatchname">
+                                            <div class="inplaymatchmama">
                                                 @if (Model.ViewType == "Inplay")
                                                 {
                                                     <i class="fa fa-check-circle inplaygreencolor"></i>
                                                     <a style="color:forestgreen" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID.ToString()')">@matchitem.Runner1 v @matchitem.Runner2</a>
+                                                    <div class="inplaytimet21">
+                                                        @matchitem.MarketStartTime
+                                                    </div>
                                                 }
                                                 else
                                                 {
                                                     <a onclick="lastLevelBreadcrumb('@matchitem.MarketBookID.ToString()')">@matchitem.Runner1 v @matchitem.Runner2</a>
+                                                    <div class="inplaytimet21">
+                                                        @matchitem.MarketStartTime
+                                                    </div>
                                                 }
                                             </div>
                                             <div class="inplaymatchbackandlay">
@@ -104,9 +110,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="inplaytimet21">
-                                            @matchitem.MarketStartTime
-                                        </div>
+                                        
                                     }
 
 
