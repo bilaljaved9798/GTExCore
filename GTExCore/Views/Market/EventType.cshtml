@@ -3721,10 +3721,21 @@ else{
     let existingRunners = new Set($(".marketbook4").map(function () {
         return $(this).data("marketid");
     }).get());
-
+    debugger;
     $.each(marketbook1, function (index, runner) {
         let marketId = parseInt(runner.SelectionId.replace(/\s/g, ''), 10);
         let $runnerElement = $("#mainRunnerBook" + marketId);
+
+            var a = $("#clickedlocation").val();
+            var selectionId = $("#openedbetslipid").val();
+            if ((runner.StatusStr == "Ball Running" || runner.StatusStr == "SUSPENDED" || runner.StatusStr == "Starting soon.") && runner.SelectionId == selectionId) {
+                debugger;
+                if (a == "9") {
+                    $('#simpleBet').hide();
+                    $('#myModalBetslipmob').modal('hide');
+                }
+            }
+
 
         if ($runnerElement.length > 0) {
             let status = runner.StatusStr;
