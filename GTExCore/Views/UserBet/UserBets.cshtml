@@ -8,28 +8,28 @@
 
     @if (LoggedinUserDetail.GetUserTypeID() == 3)
     {
-        <div class="user-bets-wrapper" style="background: -webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important;">
+        <div class="user-bets-wrapper" style="background: linear-gradient(to top, #00ff8a, #000000) !important;">
             <div>
-                <h4>My Bets</h4>
+                <h4>MY BETS</h4>
             </div>
             <input type="hidden" id="lbltotLiabality" value="@ViewData["liabality"]">
             <input type="hidden" id="lblallLiabality" value="@ViewBag.totliabality">
             <div class="unmatched-bets">
                 <div class="matched-unmatched-heading">
                     <label>Unmatched Bets </label> <label>@lstUnMatchedBets.Count </label>
-                    <button class="btncancelUnmatchedBets" id="btncancelUnmatchedBets"><span>Cancel All </span></button>
+                    <button class="btn btn-danger" id="btncancelUnmatchedBets" style="float:right">Cancel All </button>
                 </div>
-                <div class="bets-header" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important; border-top:0px">
+                <div class="bets-header" style="background:linear-gradient(to top, #00ff8a, #000000) !important; border-top:0px">
                     <div class="Editcancel">
                         <button class="btn0983"><i class="fa fa-times"></i></button>
                     </div>
-                    <div class="selection" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                    <div class="selection" style="background:linear-gradient(to top, #00ff8a, #000000) !important;">
                         <label style="color:white">Runner </label>
                     </div>
-                    <div class="Odd" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                    <div class="Odd" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
                         <label style="color:white">Size</label>
                     </div>
-                    <div class="Amount" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                    <div class="Amount" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
                         <label style="color:white">Price</label>
                     </div>
                 </div>
@@ -80,19 +80,19 @@
             <div class="matched-bets">
                 <div class="matched-unmatched-heading">
                     <label>Matched Bets @lstMatchedBets.Count</label>
-                    <button class="buttonviewall" id="btnShowAllmatchedBets" style="height:28.5px">View All</button>
+                    <button class="btn btn-success" id="btnShowAllmatchedBets" style=" float:right; letter-spacing:1.4px">View All</button>
                 </div>
 
                 <div class="allmatchedbets">
                     <div class="matched-betsViewAll">
                         <div class="bets-header" style="border-top:0px">
-                            <div class="selection" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                            <div class="selection" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
                                 <label style="color:white">Runner </label>
                             </div>
-                            <div class="Odd" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important">
+                            <div class="Odd" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
                                 <label style="color:white"> Size</label>
                             </div>
-                            <div class="Amount" style="background:-webkit-linear-gradient(bottom,#1aa867,#0a0a0a) !important; width: 33% !important;">
+                            <div class="Amount" style="background: linear-gradient(to top, #00ff8a, #000000) !important; width: 33% !important;">
                                 <label style="color:white"> Price</label>
                             </div>
                         </div>
@@ -208,7 +208,7 @@
         <div class="matched-bets">
             <div class="matched-unmatched-heading">
                 <label>Matched Bets @lstMatchedBets.Count</label>
-                <button class="buttonviewall" id="btnShowAllmatchedBets" style="height:28.5px">View All</button>
+                    <button class="btn btn-success" id="btnShowAllmatchedBets" style="float:right">View All</button>
             </div>
 
             <div class="allmatchedbets">

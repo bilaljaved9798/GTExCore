@@ -15,6 +15,24 @@ body {
 }
 
 
+buttonslip {
+    color: #090909;
+    padding: 0.7em 1.7em;
+    font-size: 18px;
+    border-radius: 0.5em;
+    background: #e8e8e8;
+    cursor: pointer;
+    border: 1px solid #e8e8e8;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+}
+
+    buttonslip:active {
+        color: #666;
+        box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
+    }
+
+
 #fancy-market-container {
     min-height: 200px; /* Adjust based on expected content */
     overflow: hidden;
@@ -73,8 +91,9 @@ h9 {
     .buttonlove:hover {
         flex: 1 0 auto;
         box-shadow: inset 0 0 100px #068b7c;
-        color: white;
-        background-color: #068b7c;
+        color: black;
+        Background: white;
+        color:black;
         text-align: center;
         border-top: 3px solid #f41e44;
         border-right: 1px white solid !important;
@@ -101,18 +120,20 @@ h9 {
 
 .Greyoundnumber {
     position: relative;
-    width: 21px;
+    width: 23px;
     margin-left: 6px;
     margin-top: 4px;
     float: left;
-    font-size: 18px;
+    font-size: 20px
+   ;
 }
 }
 
 .buttonlove1:hover {
     flex: 1 0 auto;
     box-shadow: inset 0 0 100px #068b7c;
-    color: white;
+    background-color: white;
+    color: black;
     background-color: #068b7c;
     text-align: center;
     border-top: 3px solid #f41e44;
@@ -122,19 +143,10 @@ h9 {
 
 
 .loveoflives {
-    background: linear-gradient(101.41deg,rgba(156,6,5,.84) -4.12%,rgba(181,18,17,.97) 147.95%);
-    float: left;
+   
+   
     animation: blinker 4s linear infinite;
-    margin-left: 1%;
-    border-radius: 1px;
-    width: 34px;
-    height: 18px;
-    justify-content: center;
-    padding: 2px;
-    color: white;
-    font-family: Quicksand,sans-serif;
-    visibility: hidden;
-    font-weight: 700;
+  
 }
 
 
@@ -577,7 +589,7 @@ h9 {
     float: right;
     width: 189px;
     font: icon;
-    margin-top: 5px;
+    
     font-weight: normal;
     font-size: 12px;
 }
@@ -981,7 +993,7 @@ cta-8:hover {
 }
 
 .reletedeventbackground {
-    background: -webkit-linear-gradient(top, rgb(53, 196, 131), rgb(0, 0, 0)) !important;
+    background: linear-gradient(to top, #00ff8a, #000000) !important;
 }
 
 .love12 {
@@ -1654,8 +1666,8 @@ textarea {
 
 .logoutlink {
     padding: 2px;
-    border-top: 3px solid #2dc3e8;
-    border-bottom: 0;
+    border-top: 2px solid black;
+    
     text-align: center;
 }
 
@@ -2251,7 +2263,7 @@ runnerwrapperheadf {
 .backitemf {
     /*border-bottom: 1px solid black;*/
     border-left: 0px solid black;
-    border-right: 0px solid black;
+    border-right: 2px solid white;
     border-top: 0px solid black;
     margin: 0px 0px 0px 1px;
     width: 100%;
@@ -2403,11 +2415,11 @@ audio {
     padding: 4px;
     margin: 2px;
     font-weight: bold;*/
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);
+   /* box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);*/
     padding: 0px 0px;
-    margin-left: -5px;
+    
     font-size: 17px;
-    width: 24%;
+    width: 23.5%;
     height: 46px;
     border-radius: 0px;
 }
@@ -2664,15 +2676,21 @@ label {
     height: 100%;
 }
 
+
+
+
 #userbets h4 {
     padding: 13px 11px;
     border-bottom: 5px solid #11a9cc;
-    color: white;
+    
     margin: 0;
+    color: white !important;
+    font-family: fantasy;
+
     text-align: left;
     margin-bottom: 10px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, .3);
-    font-size: 18px;
+   letter-spacing:1px;
+    font-size: 20px;
 }
 
 .matched-unmatched-heading {
@@ -2733,7 +2751,7 @@ label {
 #marketbookdataforshow {
     float: left;
     margin-top: 15px;
-    background-color: white;
+    background: white;
     width: 100%;
     margin-bottom: 0px;
 }
@@ -2794,9 +2812,10 @@ label {
 .marketname {
     float: left;
     color: white;
-    background: -webkit-linear-gradient(bottom,#35c483,#000000);
+    background: linear-gradient(to top, #00ff8a, #000000) !important;
     width: 100% !important;
     text-align: center;
+    border:1px solid black;
     font-size: 23px;
     font-weight: 500;
     padding: 10px !important;
@@ -3629,8 +3648,9 @@ label {
 }
 
 .betslipbuttons {
-    background: -webkit-linear-gradient(bottom,#25e68d,#000000) !important;
-    color: white !important;
+    background: #9fd2be;
+    color: black !important;
+    border: 1px solid white;
 }
 
     .betslipbuttons:hover {
@@ -3801,7 +3821,7 @@ label {
 
 .backitem {
     /*border-bottom: 1px solid black;*/
-    border-left: 1px solid black;
+   /* border-left: 1px solid black;*/
     border-right: 0px solid black;
     border-top: 0px solid black;
     margin: 0px 0px 0px 1px;
@@ -3811,7 +3831,7 @@ label {
 
 .layitem {
     /*border-bottom: 1px solid black;*/
-    border-left: 1px solid black;
+    border-left: 1px solid white;
     border-right: 0px solid black;
     border-top: 0px solid black;
     margin: 0px 0px 0px 0px;
@@ -3921,7 +3941,7 @@ a {
     color: black;
     padding-left: 12px;
     text-align: right;
-    border-bottom: 3px solid #11a9cc;
+    border-bottom: 3px solid #00ff9a;
 }
 
 .headingdivagent {
@@ -3938,7 +3958,7 @@ a {
 
 .headingcaption {
     line-height: 34px;
-    text-shadow: 0px 2px #000000 !important;
+    text-shadow: 1px 1px #000000 !important;
     padding: 0;
     margin: 0;
     float: left;
@@ -4114,7 +4134,7 @@ a {
 .inplaymatchname a {
     padding: 5px 0px;
     margin-left: 4px;
-    width: 67%;
+    width: 97%;
     float: left;
     font-size: 19px;
     font-weight: bold;
@@ -4124,6 +4144,23 @@ a {
     .inplaymatchname a:hover {
         color: Red !important;
     }
+
+.inplaymatchmama a {
+    padding: 5px 0px;
+    margin-left: 4px;
+    width: 45%;
+    float: left;
+    font-size: 19px;
+    font-weight: bold;
+    color: black;
+}
+
+    .inplaymatchmama a:hover {
+        color: Red !important;
+    }
+
+
+
 
 .inplaymatchbackandlay {
     float: left;
@@ -4383,8 +4420,8 @@ a {
 }
 
 .dropdownlinkbutton {
-    background: -webkit-linear-gradient(bottom,#35c483,#000000) !important;
-    color: white;
+    background: #e5ffea !important;
+    color: black;
     position: relative;
     font-weight: bold;
     font-size: 19px;
@@ -4392,8 +4429,7 @@ a {
     padding: 10px;
     float: left;
     width: 100%;
-    text-shadow:1px 1px black !important;
-
+   
 }
 
 
@@ -4530,7 +4566,7 @@ a {
     float: left;
     width: 189px;
     font: icon;
-    margin-top: 15px;
+    
     margin-left: -264px;
     font-weight: 100;
     font-size: 18px;
@@ -4652,8 +4688,7 @@ a {
     }
 
     .loveoflives {
-        background: -webkit-linear-gradient(bottom, #ff0000, #b40000) !important;
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px;
+        
         font-size: 12.5px;
         margin-top: 3%;
         float: right;
@@ -4680,12 +4715,16 @@ a {
 
         div.scrollmenu a {
             display: inline-block;
+            box-shadow: rgba(255, 255, 255, 0.4) 0px 50px 100px -20px, rgb(255 255 255 / 35%) 0px 30px 60px -30px, rgba(120, 255, 220, 0.4) 0px -2px 6px 0px inset;
             color: black;
             text-align: center;
             padding: 12px;
             text-decoration: none;
             text-shadow: 0px 1px #000000;
-            background: #00ffc905;
+            background: linear-gradient(to top, #ffee9300, #beffea33) !important;
+            border-bottom: 2px solid green;
+        
+        
         }
 
             div.scrollmenu a:hover {
@@ -4716,10 +4755,9 @@ a {
             z-index: 1029;
             height: 40px;
             /* width: 36px; */
-            margin-right: 2px;
+            margin-right: -2px;
             padding: 8px 8px;
-            box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 16px 0px, rgba(0, 0, 0, 0.1) 0px 6px 20px 0px;
-            color: #444444;
+            box-shadow: rgba(255, 255, 255, 0.4) 0px 50px 100px -20px, rgb(255 255 255 / 35%) 0px 30px 60px -30px, rgba(120, 255, 220, 0.4) 0px -2px 6px 0px inset;
             -webkit-transition: all .218s ease;
             -moz-transition: all .218s ease;
             -o-transition: all .218s ease;
@@ -4958,13 +4996,13 @@ a {
 
 
     .En {
-        text-shadow: 2px 2px #000000;
+        text-shadow: 1px 1px #000000;
         width: 25%;
         font-family: 'Times New Roman', Times, serif;
     }
 
     .od {
-        text-shadow: 2px 2px #000000;
+        text-shadow: 1px 1px #000000;
         width: 20.5%;
         font-family: 'Times New Roman', Times, serif;
         text-align: end;
@@ -4996,7 +5034,7 @@ a {
     .moleucule {
         font-size: 18px;
         margin-top: -6px;
-        visibility: hidden;
+        display:none;
     }
 
 
@@ -5267,6 +5305,7 @@ a {
     #Indianfancymarketbook1 {
         /*width: 98.50%;*/
         width: 49.50%;
+        border-bottom: 1px solid #dddddd;
         background: white;
         margin-left: 0px;
         float: left;
@@ -5390,13 +5429,13 @@ a {
 
     .inplaydatarow {
         border-bottom: 1px solid #e2e1e1;
-      /*  text-shadow: 0.3px 0.3px #000000;*/
+        /*  text-shadow: 0.3px 0.3px #000000;*/
         float: left;
         font-size: 13.5px;
         font-weight: 500;
         width: 100%;
         margin-bottom: 1px;
-        background-color: white;
+       
     }
 
     .bslipl {
@@ -5435,8 +5474,10 @@ a {
 
     .tvmbl {
         width: 50.6%;
+        font-weight: 700;
         margin-left: -1.29%;
-        text-shadow: 2px 2px #5f3f3f;
+        text-shadow: 1px 1px #000000;
+        letter-spacing: 0.5px;
     }
 
     .inplaymatchheading > li > a {
@@ -5547,14 +5588,32 @@ a {
         margin-left: 4px;
         text-shadow: 0px 0.3px #000000;
         float: left;
+        width: 67%;
         font-size: 14px;
-        font-weight: bold;
+        font-weight: 700;
         color: black;
     }
 
         .inplaymatchname a:hover {
             color: Red !important;
         }
+
+
+
+
+         .inplaymatchmama a {
+        padding: 5px 0px;
+        margin-left: 4px;
+        text-shadow: 0px 0.3px #000000;
+        float: left;
+        font-size: 16px;
+        font-weight: 500;
+        color: black;
+    }
+
+            .inplaymatchmama a:hover {
+                color: Red !important;
+            }
 
 
 
@@ -5780,12 +5839,12 @@ a {
     padding: 4px;
     margin: 2px;
     font-weight: bold;*/
-        box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);
+        /*box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);*/
         padding: 0px 0px;
         margin-top: 0px;
-        margin-left: -4px;
+       font-weight:bold;
         font-size: 16px;
-        width: 24%;
+        width: 23.5%;
         height: 50px;
         border-radius: 0px;
     }
@@ -5860,7 +5919,8 @@ a {
         font-size: 20px;
         font-weight: 900;
         margin-top: 0px;
-        text-shadow: 2px 2px #5f3f3f;
+        text-shadow: 1px 1px black !important;
+        letter-spacing: 1px;
     }
 
     .Timer {
@@ -5987,6 +6047,7 @@ a {
         /*width: 49%;*/
         text-align: center;
         min-height: 45px;
+        border-top: 1px solid white;
     }
 
     .backitem:nth-child(3) {
@@ -5995,6 +6056,7 @@ a {
         /*width: 50%;*/
         text-align: center;
         min-height: 45px;
+        border-top:1px solid white;
     }
 
     .layitem:nth-child(2), .layitem:nth-child(3) {
@@ -6183,7 +6245,7 @@ a {
             padding: 3px;
             max-width: 26%;
             text-align: right;
-            color: white !important;
+            color: red !important;
         }
 
     .clothnumstalldrawimg {
@@ -6224,6 +6286,7 @@ a {
         margin-top: 0px;
         float: left;
         width: 100%;
+        border-bottom: 1px solid #dddddd;
         margin-bottom: 0px;
     }
 
@@ -6706,7 +6769,7 @@ a {
 
     .inplaymatchname {
         float: left;
-        width: 72%;
+        width: 93%;
         margin-right: 2px;
     }
 

@@ -1592,7 +1592,7 @@ table th[class*="col-"] {
     margin-bottom: 15px;
     overflow-x: scroll;
     overflow-y: hidden;
-    border: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
   }
   .table-responsive > .table {
     margin-bottom: 0;

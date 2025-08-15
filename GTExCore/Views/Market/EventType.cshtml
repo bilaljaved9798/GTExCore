@@ -18,7 +18,7 @@
         }
 
         .number-input {
-            border: 2px solid #ddd;
+            border: 0px solid #ddd;
             display: inline-flex;
         }
 
@@ -59,7 +59,7 @@
                     padding: 0rem;
                     width: 100% !important;
                     border: solid #ddd;
-                    border-width: 0 2px;
+                    border-width: 0 0px;
                     height: 3rem;
                     font-weight: bold;
                     text-align: center;
@@ -73,7 +73,7 @@
     <ul class="list-unstyled components">
         <li class="dropdown-submenu">
             <a id="sportsitem1" onclick="ShowAllMatches()">
-                <i> <img src="/ball-sport.png" width="40" height="40" /> Sports</i>
+                <i> <img src="/sports1.png" width="40" height="40" /> Sports</i>
             </a>
             <ul id="allsportsul" class="collapse list-unstyled"></ul>
         </li>
@@ -81,19 +81,19 @@
 
         <li>
             <a href="#" id="sportsitem2" aria-expanded="false" data-toggle="collapse" onclick="ShowInPlayC()">
-                <i> <img src="/Crick.gif" width="40" height="40" /> Cricket</i>
+                <i> <img src="/Cricket1.png" width="40" height="40" /> Cricket</i>
             </a>
             <ul id="inplayulC" class="collapse list-unstyled"></ul>
         </li>
         <li>
             <a href="#" id="sportsitem2" aria-expanded="false" data-toggle="collapse" onclick="ShowInPlayF()">
-                <i> <img src="/futbal.gif" width="40" height="30" /> Soccer </i>
+                <i> <img src="/Socccer1.png" width="40" height="30" /> Soccer </i>
             </a>
             <ul id="inplayulF" class="collapse list-unstyled"></ul>
         </li>
         <li>
             <a href="#" id="sportsitem2" aria-expanded="false" data-toggle="collapse" onclick="ShowInPlayT()">
-                <i> <img src="/tenis.gif" width="40" height="40" />    Tennis  </i>
+                <i> <img src="/Tennis1.png" width="40" height="40" />    Tennis  </i>
             </a>
             <ul id="inplayulT" class="collapse list-unstyled"></ul>
         </li>
@@ -102,7 +102,7 @@
             <li>
                 <a href="#" id="sportsitem3" aria-expanded="false" data-toggle="collapse" onclick="ShowTodayHorseRace()">
                     <i>
-                        <img src="/gallop-unscreen.gif" width="45" height="40" style=" -webkit-transform: scaleX(-1);" />Horse Race
+                        <img src="/horse1.png" width="45" height="40"  />Horse Race
                     </i>
                 </a>
                 <ul id="todayhorseraceui" class="collapse list-unstyled"></ul>
@@ -112,7 +112,7 @@
         {
             <li>
                 <a href="#" id="sportsitem4" onclick="ShowTodayGrayhoundRace()">
-                    <i> <img src="/grey.gif" width="40" height="40" /> Greyhound</i>
+                    <i> <img src="/grey1.png" width="40" height="40" /> Greyhound</i>
                 </a>
                 <ul id="todaygrayhoundraceui" class="collapse list-unstyled"></ul>
             </li>
@@ -120,33 +120,33 @@
 
         <li>
             <a href="#" id="sportsitem4" onclick="Toggleliabalitiesbymarkets1()">
-                <i> <img src="/3133622.png" width="40" height="40" /> Liability</i>
+                <i> <img src="/Liability1.png" width="40" height="40" /> Liability</i>
             </a>
             <ul id="libalitybymarket1" style="height:100%"></ul>
         </li>
         <li>
             <a href="/Accounts/pl" target="_blank" value="View Ledger" id="sportsitem4" onclick="Toggleliabalitiesbymarkets1()">
-                <i> <img src="/clipart351908-removebg-preview.png" width="40" height="40" /> Reports</i>
+                <i> <img src="/reports1.png" width="40" height="40" /> Reports</i>
             </a>
             <ul></ul>
         </li>
         <li>
             <a href="#" id="sportsitem4" onclick="showrules()">
-                <i> <img src="/rules.png" width="45" height="40" />Rules</i>
+                <i> <img src="/Rules1.png" width="45" height="40" />Rules</i>
             </a>
             <ul></ul>
         </li>
 
         <li>
             <a href="#" id="sportsitem4" onclick="getbalancedetail()">
-                <i> <img src="/location_pin.png" width="40" height="40" /> Position</i>
+                <i> <img src="/position1.png" width="40" height="40" /> Position</i>
             </a>
             <ul></ul>
         </li>
         <li>
 
             <a href="#" id="sportsitem4" onclick="LoadPartialViewAddCredit('ResultsDetails')">
-                <i> <img src="/pngwing.com (1).png" width="40" height="40" /> Result</i>
+                <i> <img src="/results1.png" width="40" height="40" /> Result</i>
 
             </a>
             <ul></ul>
@@ -156,7 +156,7 @@
         <li>
 
             <a href="#" id="sportsitem4" onclick="gettermcondetion()">
-                <i> <img src="/1539846.png" width="40" height="40" /> Terms & Condition</i>
+                <i> <img src="/tc1.png" width="40" height="40" /> Terms & Condition</i>
             </a>
             <ul></ul>
 
@@ -247,9 +247,9 @@ else
 
     @if (LoggedinUserDetail.GetUserTypeID() == 3)
 		{
-         <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;">
-            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">Live Video</button>
-            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">Score Card</button>
+        <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;background:linear-gradient(to top, #00ff8a, #000000) !important">
+            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white">Live Video</button>
+            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white">Score Card</button>
     </div>
         }
 else{
@@ -520,9 +520,9 @@ else{
         <div id="myModalBetslipmob" class='modal'>
 
             <div id="BetSlipSection" class="modal-dialog" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;margin-top:-4px; border-radius:10px;">
-                <div class="widget-header bordered-bottom bordered-sky">
-                    <span class="widget-caption">Bet Slip </span>
-                    <button type="button" id="btnslipclose" class="close" data-dismiss="modal">&times;</button>
+                <div class="widget-header bordered-bottom bordered-sky" style="height:36px; padding:5px;">
+                    <span class="widget-caption" style="color:white">Bet Slip </span>
+                    <button type="button" id="btnslipclose" class="btn btn-danger" style="font-size:16px; float:right; padding:0px !important; height:25px;width:30px;" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i></button>
                     <div class="widget-buttons">
                     </div>
                 </div>
@@ -530,32 +530,32 @@ else{
                     <div class="modal-content tabs-flat" style="padding: 3px; background-color:whitesmoke">
                         <div id="simpleBet" class="tab-pane">
                             <div id="BetSlipMainmob" class="betslip-wrapper hide" style="position: relative">
-                                <a href="~/Accounts/Stack" class="btn btn-blue btn-xs pull-right" style="margin-bottom: 3px">Customize Stake Buttons <i class="fa fa-edit"></i></a>
+                                <a href="~/Accounts/Stack" class="btn btn-blue btn-xs pull-right" style="margin-bottom: 3px;background:#dbeeea">Edit Stake Buttons <i class="fa fa-pencil-square-o" aria-hidden="true"></i></i></a>
                                 <br>
                                 <table cellspacing="0" width="100%">
                                     <thead>
                                         <tr>
 
-                                            <th width="50%" colspan="3" class="oddsH" style="font-family: 'Times New Roman', Times, serif !important;">Odds</th>
-                                            <th width="50%" colspan="3" class="stake" style="text-align:right;font-family: 'Times New Roman', Times, serif !important;">Stake</th>
+                                            <th width="50%" colspan="3" class="oddsH" style="font-family: 'Times New Roman', Times, serif !important; padding: 1px 45px;">Odds</th>
+                                            <th width="50%" colspan="3" class="stake" style="text-align:right;font-family: 'Times New Roman', Times, serif !important;padding: 1px 26px">Stake</th>
 
                                         </tr>
                                     </thead>
                                     <tbody id="betslipcontentmob">
                                         <tr id="b-349" data-handicap="0.000000" dtata-slip="b">
-                                            <td colspan="3" class="oddsH" style="height: 40px;vertical-align: bottom;">
+                                            <td colspan="3" class="oddsH" style="height: 39px;vertical-align: bottom;">
                                                 <div>
                                                     <div class="odd-left" style="font-size: 15px; ">
                                                         <div class="number-input">
-                                                            <button id="bdownmob-349" onclick="decrement(); return false;" class="minus"></button>
-                                                            <input tabindex="1" type="text" id="betslipoddmob" max="1000" style="font-family: 'Times New Roman', Times, serif !important;width:60px; font-size:17px;">
+                                                            <button id="bdownmob-349" onclick="decrement(); return false;" class="minus" style="background:#d9534f;border-color:#d43f3a"></button>
+                                                            <input tabindex="1" type="text" id="betslipoddmob" max="1000" style="font-family: 'Times New Roman', Times, serif !important;width:60px; font-size:17px;border:none;text-align:center;">
 
-                                                            <button id="bupmob-349" onclick="increment(); return false;" class="plus"></button>
+                                                            <button id="bupmob-349" onclick="increment(); return false;" style="background:#5cb85c; border-color:#4cae4c" class="plus"></button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td colspan="3" class="stake" style="height: 40px;vertical-align: bottom;text-align:right !important">
+                                            <td colspan="3" class="stake" style="height: 40px;vertical-align: middle;text-align:right !important">
                                                 <div class="number-input">
                                                     <input id="betslipamountmob" type="number" onmouseup="calculateamountsmob()" min="500" max="5000000000" step="1" maxlength="7" onkeyup="calculateamountsmob() " style="font-family: 'Times New Roman', Times, serif !important;">
                                                 </div>
@@ -574,35 +574,35 @@ else{
 
                                                 </div>
                                             </td>
-                                            <th width="25%" colspan="2"></th>
+                                            
                                         </tr>
 
                                         <tr id="b-349" data-handicap="0.000000" dtata-slip="b" colspan="5">
 
-                                            <th width="50%" colspan="5" style="text-align:center">
-                                                <label class="runnername " id="betslipselectionmob" style="font-weight: 600 !important;    text-align: initial !important;    font-family: 'Times New Roman', Times, serif !important;    font-size: 15px;    float: left;    width: 125px;    overflow: hidden;    text-overflow: ellipsis;    white-space: nowrap;">
+                                            <th width="50%" colspan="5" style="text-align:center;padding:2px;">
+                                                <label class="runnername " id="betslipselectionmob" style="font-weight: 600 !important;  margin-top:26px;  text-align: initial !important;    font-family: 'Times New Roman', Times, serif !important;    font-size: 15px;    float: left;    width: 50%;    overflow: hidden;    text-overflow: ellipsis;    white-space: nowrap;">
                                                 </label>
-                                                <span style="width:25%;text-align:center; ">
+                                                <label style="width: 23.2%; text-align: center;   padding: 0px !important; ">
 
-                                                    <label style="font-weight: 700; margin-left:20%;font-family: 'Times New Roman', Times, serif !important;font-size:14px "> BACK</label>
+                                                    <label style="font-weight: 700; margin-left:3%;font-family: 'Times New Roman', Times, serif !important;font-size:14px "> BACK</label>
                                                     <br />
-                                                    <label id="betslipbackmob" style="box-shadow:rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px; background: #72bbef;text-align: center;font-weight: 700;width:95%;margin-left:8%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important"></label>
-                                                    <label id="betslipsizemob" style="background: #72bbef;text-align: center;font-weight: 400;width:95%;margin-left:8%; font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" "></label>
-                                                </span>
-                                                <span style="width:25%;text-align:center">
-                                                    <label style="font-weight:700;font-family: 'Times New Roman', Times, serif !important;font-size:14px  ">LAY</label>
+                                                    <label id="betslipbackmob" style=" background: #72bbef;text-align: center;font-weight: 700;width:100%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important"></label>
+                                                    <label id="betslipsizemob" style="background: #72bbef;text-align: center;font-weight: 400;width:100%; font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" "></label>
+                                                </label>
+                                                <label style="width: 23.2%;  text-align: center;    padding: 0px !important;    ">
+                                                    <label style="font-weight:700;font-family: 'Times New Roman', Times, serif !important;font-size:14px;margin-left:-1%  ">LAY</label>
                                                     <br />
-                                                    <label id="betsliplaymob" style="box-shadow:rgba(0, 0, 0, 0.2) 0px 8px 16px 0px, rgba(0, 0, 0, 0.6) 0px 6px 20px 0px; background: #FF8A8E;text-align: center;font-weight: 700;width:91%;margin-left:1%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" ">
+                                                    <label id="betsliplaymob" style="background: #FF8A8E;text-align: center;font-weight: 700;width:100%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" ">
                                                     </label>
-                                                    <label id="betslipsizelaymob" style="background: #FF8A8E;text-align: center;font-weight: 400;width:91%;margin-left:1%;font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" "></label>
-                                                </span>
+                                                    <label id="betslipsizelaymob" style="background: #FF8A8E;text-align: center;font-weight: 400;width:100%;font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" "></label>
+                                                </label>
                                             </th>
                                         </tr>
 
                                         <tr data-parent="b-349" id="btn-b-349">
                                             <td colspan="5" width="100px">
                                                 <center>
-                                                    <div class="amountbutton" style="float: none; height: 116px;margin-left: 3px;">
+                                                    <div class="amountbutton" style="float: none; height: 116px;">
                                                         <input class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip" type="button" value="@(obj.SimpleBtn1.Replace("+", ""))" data-value="@obj.SimpleBtn1.Replace("+", "")" style=" border-radius: 6px;margin-bottom: 4px;">
                                                         <input class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip" type="button" value="@(obj.SimpleBtn2.Replace("+", ""))" data-value="@obj.SimpleBtn2.Replace("+", "")" style="  border-radius: 6px;margin-bottom: 4px;">
                                                         <input class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip" type="button" value="@(obj.SimpleBtn3.Replace("+", ""))" data-value="@obj.SimpleBtn3.Replace("+", "")" style="border-radius: 6px;margin-bottom: 4px;">
@@ -619,12 +619,12 @@ else{
                                         </tr>
                                         <tr>
                                             <td colspan="3">
-                                                <button class="btncancelUnmatchedBets" id="cancelAllmop" style="float:left;width:85px"> <span style="height:30px !important;  width:70px !important; font-size:18px !important; padding: 4px;"> Close </span></button>
+                                                <button class="btn btn-danger" id="cancelAllmop" style="float:left;width:85px"> <span style= "font-size:18px !important;"> Close </span></button>
                                             </td>
                                             <td colspan="3" align="right">
 
-                                                <button class="buttonview" id="btnBetslipsubmitmob" style=" padding: 4px; height:31px !important;  width:85px !important;  font-size:18px !important; ">Submit</button>
-                                                <button class="buttonview" id="btnloadermob" style="padding: 4px;font-size: 18px;color: #bfbfbf;height: 34px !important;width:85px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
+                                                <button class="btn btn-success" id="btnBetslipsubmitmob" style="font-size:18px !important; ">Submit</button>
+                                                <button class="btn btn-success" id="btnloadermob" style="font-size: 18px;color: #bfbfbf;height: 34px !important;width:85px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
 
                                             </td>
                                         </tr>
@@ -4644,7 +4644,7 @@ else{
             $("#sidebar").height($(window).height());
             var sidebar = document.getElementById('sidebar');
             if (@LoggedinUserDetail.GetUserTypeID() == 3) {
-                sidebar.style.background = "-webkit-linear-gradient(top, #35c483, #000000)";
+                sidebar.style.background = "linear-gradient(to bottom, #00ff8a, #000000) !important";
             } else {
                 sidebar.style.background = "-webkit-linear-gradient(top, #1D9BF0, #0a0a0a)";
             }
@@ -4667,7 +4667,7 @@ else{
             $("#sidebar").height($(window).height());
             var sidebar = document.getElementById('sidebar');
             if (@LoggedinUserDetail.GetUserTypeID() == 3) {
-                sidebar.style.background = "-webkit-linear-gradient(top, #35c483, #000000)";
+                sidebar.style.background = "linear-gradient(to bottom, #00ff8a, #000000) !important";
             } else {
                 sidebar.style.background = "-webkit-linear-gradient(top, #1D9BF0, #0a0a0a)";
             }
@@ -8041,14 +8041,7 @@ else{
                     </strong>
                 </p>
 
-                <p style="background:@ViewBag.backgrod !important; color:white;">
-                    <a target="_blank" href="http://www.gamcare.org.uk">
-                        <img height="25px" src="/logo-problemgambling-233c8bac632bf066daa7381b84f418be3026baef9c5d93e7a23fe7ab6def0f67.png" />
-                    </a>
-                    @*<span class="powerdby" style="visibility:hidden">Powered by </span>
-                <img style="visibility:hidden" src="/betfair-logo q.png" />*@
-                    <img height="35px" src="/APS-SSL-Secure-Connection-300x128-removebg-preview.png" />
-                </p>
+               
             </div>
         </footer>
     </div>
@@ -8089,23 +8082,8 @@ else
                     </strong>
                 </p>
 
-               @*  <p style="background:@ViewBag.backgrod !important; color:white;">
-
-                    <a target="_blank" href="http://www.gamcare.org.uk">
-
-                        <img height="25px" src="/logo-problemgambling-233c8bac632bf066daa7381b84f418be3026baef9c5d93e7a23fe7ab6def0f67.png" />
-                    </a>
-                    <a target="_blank" href="http://www.gamcare.org.uk">
-
-                        <img height="25px" src="/logo-problemgambling-233c8bac632bf066daa7381b84f418be3026baef9c5d93e7a23fe7ab6def0f67.png" />
-                    </a>
-
-
-                    <span style="visibility:hidden" class="powerdby">Powered by </span>
-                <img style="visibility:hidden" src="/betfair-logo q.png" />
-                    <img height="25px" src="/APS-SSL-Secure-Connection-300x128-removebg-preview.png" />
-                </p> *@
-
+             
+            
 
             </div>
 

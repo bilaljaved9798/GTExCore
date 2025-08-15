@@ -148,30 +148,42 @@
                                     <div class="inplaydatarow">
                                         <i class="fa fa-share-alt" aria-hidden="true" style="float: right;margin-top: 14px;margin-right: 10px;"></i>
                                         <div class="inplaymatchname">
-                                            <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 2px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 22px;"></i>
+                                            
                                             @if (isRacing)
                                             {
+                                                <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 22px;"></i>
                                                 var imageUrl = Url.Content($"/{matchitem.CountryCode}.svg");
-                                                <img src="@imageUrl" alt="Country Flag" style="height:35px;width:35px;float:left" />
+                                                <img src="@imageUrl" alt="Country Flag" style="height:25px;width:25px;float:left;margin-top:5px" />
                                                 <a onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.EventName - @matchitem.MarketBookName</a>
                                             }
                                             else if (isCricket && matchitem.MarketBookName == "Winner")
                                             {
+                                                   <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 2px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 22px;"></i>
                                                 <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.EventName</a>
                                             }
                                             else if (matchitem.MarketStatus == "In Play")
                                             {
-                                                <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.Runner1 v @matchitem.Runner2</a>
-                                                <div class="loveoflives"> LIVE </div>
+                                                   <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 2px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 22px;"></i>
+                                                <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.Runner1 v @matchitem.Runner2
+
+                                                    <img class="loveoflives" src="/play.png" style="height:25px;width:25px;float:initial;margin-top:0px" />
+                                                
+                                                </a>
+                                               
                                             }
                                             else
                                             {
+                                                <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 2px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 22px;"></i>
                                                 <a style="color:@(GetMatchStatusColor(matchitem))" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.Runner1 v @matchitem.Runner2</a>
                                             }
+
+                                            <div class="inplaytime">
+                                                @matchitem.MarketStartTime
+                                            </div>
+
+
                                         </div>
-                                        <div class="inplaytime">
-                                            @matchitem.MarketStartTime
-                                        </div>
+                                        
                                         @if (isCricket || isSoccer || isTennis)
                                         {
                                             <div class="inplaymatchbackandlay">

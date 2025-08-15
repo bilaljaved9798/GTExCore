@@ -10,9 +10,9 @@
             @if (LoggedinUserDetail.GetUserTypeID() == 3)
             {
                 <div class="marketstatusrulesandmarkettype" id="markettype" style="margin-top:5px;">
-                    <label class="rule2 active1" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">
+                    <label class="rule2 active1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white">
 
-                        <span style="float:left; text-shadow: 0.3px 0.25px #ffffff !important">FANCY MARKET 2</span>
+                        <span style="float:left; text-shadow: 1px 1px black !important ; letter-spacing:1px;">FANCY MARKET 2</span>
                         <span style="float:right;margin-right: 20px;">
                             <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')">
                             </i>
@@ -39,7 +39,7 @@
            
         </div>
 
-        <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead iluf" style="border-bottom: 1px solid black !important;">
+        <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead iluf" style="border-bottom: 1px solid white !important;">
             <div class="col-md-8 col-sm-8 no-padding runnernamediv " style="width:98%">
                 <label class="markettotalmatched">
                   
@@ -114,7 +114,7 @@
                 <div id="marketbook@(runner?.MarketBookID.Replace(" ", ""))">
                 <div id="mainRunnerBook@(runner?.SelectionId.Replace(" ", ""))" class="marketbook4" data-marketid="@runner?.SelectionId">
 
-                    <div id="selection@(runner?.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="border-bottom:solid 1px black; height:44px;">
+                        <div id="selection@(runner?.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style=" background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important; height:44px;">
 
                         <div id="runnernamediv@(runner?.SelectionId)" class="col-md-2 col-sm-8 no-padding runnernamediv" style="display:none">
                             <label style="display:none">
