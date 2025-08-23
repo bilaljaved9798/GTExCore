@@ -1954,15 +1954,11 @@ else{
 
     }
     var display = false;
-
-
-
     $('#btnPlay').click(function (ev) {
         var sportID = 4;
         var mainsportcat1 = $("#marketbookCategory" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
         if (mainsportcat1 == "Cricket") {
             sportID = 4;
-
         }
         else {
             if (mainsportcat1 == "Soccer") {
@@ -7438,7 +7434,8 @@ else{
     function lastLevelBreadcrumb(id) {
     // Hide the footer immediately when clicked
     $("#divfooter").hide();
-
+        $("#video").hide();
+        $("#video")[0].removeAttribute("src");
     $("#multimedia").hide();
     $("#betsection").hide();
     $(".competitions").hide();
@@ -7709,7 +7706,7 @@ else{
                         if (location.href != 'http://gtdexch.com/DashBoard/Index#') {
                             location.href = location.href + '#';
                         }
-
+                       
                         localStorage.setItem('id', id);
                         $("#betsection").show();
                         $("#marketbook").html(data);
@@ -7760,8 +7757,6 @@ else{
                                 display = true;
 
                             }
-
-
                             else {
                                 if (mainsportcat1 == "Tennis") {
                                     CheckForTinnes();
@@ -7774,14 +7769,11 @@ else{
                                     $("#SFigfancymarketbook").hide();
                                     $("#btnscorecard").show();
                                     $("#btnPlay").show();
-
-
                                     $("#btnscorecard").click();
                                     display = true;
                                 }
+                                debugger;
                                 if (mainsportcat1 == "Greyhound Racing" || mainsportcat1 == "Horse Racing" || mainsportcat1 == undefined || mainsportcat1 == "Racing" || mainsportcat1 == "winner") {
-
-
                                     $("#KJfancymarketbook").hide();
                                     $("#Indianfancymarketbook1").hide();
                                     $("#Figurefancymarketbook").hide();
@@ -7791,13 +7783,12 @@ else{
                                     $("#btnscorecard").hide();
                                     $("#scorecaed").hide();
                                     $("#btnPlay").show();
+                                  
                                     $('#btnPlay').removeClass('col-sm-6');
                                     $('#btnPlay').css("border-right", "0px");
                                     $('#btnPlay').addClass('col-sm-12');
                                     $("#btnPlay").css("width", "101%");
-
-
-
+                                    $('#btnPlay').click();
                                 }
                             }
                         }
