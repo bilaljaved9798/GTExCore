@@ -611,15 +611,40 @@ else
 		});
 
 		// Close sidebar when overlay is clicked (only for mobile screens)
-		$(".innerbodycontent1").click(function () {
+		$(".innerbodycontent1").click(function (e) {
+			if (window.matchMedia("(max-width: 768px)").matches) {
+				if (!$(e.target).closest("#sidebar").length) {
+					$("#sidebar").hide();
+					$(this).removeClass("active");
+					$("#maindiv").removeClass("faded");
+				}
+			}
+		});
+
+		$("#sidebar .components > li > .menu-link").on("click", function (e) {
+			e.preventDefault();
+
+			let $submenu = $(this).next("ul");
+
+			if ($submenu.length > 0) {
+				// If this item has a submenu → toggle it
+				$("#sidebar .components ul.collapse").not($submenu).slideUp().removeClass("show");
+				$submenu.slideToggle().toggleClass("show");
+			}
+
+			// Always close sidebar on mobile after click
 			if (window.matchMedia("(max-width: 768px)").matches) {
 				$("#sidebar").hide();
-				
-				$(this).removeClass("active");
 				$("#maindiv").removeClass("faded");
 			}
 		});
+
 	});
+
+
+
+
+
 
 
 	function getbalancedetail() {
@@ -947,8 +972,8 @@ else
 
 	$(document).ready(function () {
 		$(".dropdown").on('click', function (event) {
-			event.stopPropagation(); // Prevent event bubbling
-			$(this).find(".dropdown-menu").slideToggle(200);
+			// event.stopPropagation(); // Prevent event bubbling
+			$(this).find(".dropdown-menu").slideToggle(0);
 
 			if ($(window).width() <= 768) { // Only apply blur effect on mobile
 				$("body").toggleClass("blur-background");
@@ -958,7 +983,7 @@ else
 		// Hide dropdown menu when clicking outside of it
 		$(document).on('click', function (event) {
 			if (!$(event.target).closest('.dropdown').length) {
-				$(".dropdown-menu").slideUp(200);
+				$(".dropdown-menu").slideUp(0);
 				$("body").removeClass("blur-background"); // Remove blur effect
 			}
 		});

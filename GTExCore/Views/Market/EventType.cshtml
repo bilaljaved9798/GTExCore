@@ -71,98 +71,95 @@
 
 <div id="sidebar">
     <ul class="list-unstyled components">
+
         <li class="dropdown-submenu">
-            <a id="sportsitem1" onclick="ShowAllMatches()">
-                <i> <img src="/sports1.png" width="40" height="40" /> Sports</i>
+            <a class="menu-link" onclick="ShowAllMatches()">
+                <i><img src="/sports1.png" width="40" height="40" /> Sports</i>
             </a>
             <ul id="allsportsul" class="collapse list-unstyled"></ul>
         </li>
+
         <ul id="left-panel" class="left-panel" style="background:-webkit-linear-gradient(bottom,#35c483,#000000)"></ul>
 
         <li>
-            <a href="#" id="sportsitem2" aria-expanded="false" data-toggle="collapse" onclick="ShowInPlayC()">
-                <i> <img src="/Cricket1.png" width="40" height="40" /> Cricket</i>
+            <a href="#" class="menu-link" onclick="ShowInPlayC()">
+                <i><img src="/Cricket1.png" width="40" height="40" /> Cricket</i>
             </a>
             <ul id="inplayulC" class="collapse list-unstyled"></ul>
         </li>
+
         <li>
-            <a href="#" id="sportsitem2" aria-expanded="false" data-toggle="collapse" onclick="ShowInPlayF()">
-                <i> <img src="/Socccer1.png" width="40" height="30" /> Soccer </i>
+            <a href="#" class="menu-link" onclick="ShowInPlayF()">
+                <i><img src="/Socccer1.png" width="40" height="30" /> Soccer</i>
             </a>
             <ul id="inplayulF" class="collapse list-unstyled"></ul>
         </li>
+
         <li>
-            <a href="#" id="sportsitem2" aria-expanded="false" data-toggle="collapse" onclick="ShowInPlayT()">
-                <i> <img src="/Tennis1.png" width="40" height="40" />    Tennis  </i>
+            <a href="#" class="menu-link" onclick="ShowInPlayT()">
+                <i><img src="/Tennis1.png" width="40" height="40" /> Tennis</i>
             </a>
             <ul id="inplayulT" class="collapse list-unstyled"></ul>
         </li>
+
         @if (LoggedinUserDetail.isAllowedHorseRacing() == true)
         {
             <li>
-                <a href="#" id="sportsitem3" aria-expanded="false" data-toggle="collapse" onclick="ShowTodayHorseRace()">
-                    <i>
-                        <img src="/horse1.png" width="45" height="40"  />Horse Race
-                    </i>
+                <a href="#" class="menu-link" onclick="ShowTodayHorseRace()">
+                    <i><img src="/horse1.png" width="45" height="40" /> Horse Race</i>
                 </a>
                 <ul id="todayhorseraceui" class="collapse list-unstyled"></ul>
             </li>
         }
+
         @if (LoggedinUserDetail.isAllowedGrayHoundRacing() == true)
         {
             <li>
-                <a href="#" id="sportsitem4" onclick="ShowTodayGrayhoundRace()">
-                    <i> <img src="/grey1.png" width="40" height="40" /> Greyhound</i>
+                <a href="#" class="menu-link" onclick="ShowTodayGrayhoundRace()">
+                    <i><img src="/grey1.png" width="40" height="40" /> Greyhound</i>
                 </a>
                 <ul id="todaygrayhoundraceui" class="collapse list-unstyled"></ul>
             </li>
         }
 
         <li>
-            <a href="#" id="sportsitem4" onclick="Toggleliabalitiesbymarkets1()">
-                <i> <img src="/Liability1.png" width="40" height="40" /> Liability</i>
+            <a href="#" class="menu-link" onclick="Toggleliabalitiesbymarkets1()">
+                <i><img src="/Liability1.png" width="40" height="40" /> Liability</i>
             </a>
-            <ul id="libalitybymarket1" style="height:100%"></ul>
-        </li>
-        <li>
-            <a href="/Accounts/pl" target="_blank" value="View Ledger" id="sportsitem4" onclick="Toggleliabalitiesbymarkets1()">
-                <i> <img src="/reports1.png" width="40" height="40" /> Reports</i>
-            </a>
-            <ul></ul>
-        </li>
-        <li>
-            <a href="#" id="sportsitem4" onclick="showrules()">
-                <i> <img src="/Rules1.png" width="45" height="40" />Rules</i>
-            </a>
-            <ul></ul>
+            <ul id="libalitybymarket1" class="collapse list-unstyled"></ul>
         </li>
 
         <li>
-            <a href="#" id="sportsitem4" onclick="getbalancedetail()">
-                <i> <img src="/position1.png" width="40" height="40" /> Position</i>
+            <a href="/Accounts/pl" target="_blank" class="menu-link">
+                <i><img src="/reports1.png" width="40" height="40" /> Reports</i>
             </a>
-            <ul></ul>
-        </li>
-        <li>
-
-            <a href="#" id="sportsitem4" onclick="LoadPartialViewAddCredit('ResultsDetails')">
-                <i> <img src="/results1.png" width="40" height="40" /> Result</i>
-
-            </a>
-            <ul></ul>
-
         </li>
 
         <li>
-
-            <a href="#" id="sportsitem4" onclick="gettermcondetion()">
-                <i> <img src="/tc1.png" width="40" height="40" /> Terms & Condition</i>
+            <a href="#" class="menu-link" onclick="showrules()">
+                <i><img src="/Rules1.png" width="45" height="40" /> Rules</i>
             </a>
-            <ul></ul>
-
         </li>
+
+        <li>
+            <a href="#" class="menu-link" onclick="getbalancedetail()">
+                <i><img src="/position1.png" width="40" height="40" /> Position</i>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="menu-link" onclick="LoadPartialViewAddCredit('ResultsDetails')">
+                <i><img src="/results1.png" width="40" height="40" /> Result</i>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" class="menu-link" onclick="gettermcondetion()">
+                <i><img src="/tc1.png" width="40" height="40" /> Terms & Condition</i>
+            </a>
+        </li>
+
     </ul>
-
 </div>
 
 @if (LoggedinUserDetail.GetUserID() == 1399 && LoggedinUserDetail.GetUserID() == 1391)
@@ -641,13 +638,14 @@ else{
         </div>
 
         <div id='myModalBetslipmultiple' class='modal'>
-            <div class="modal-dialog">
-                <div class="modal-header">
+            <div class="modal-dialog" style="background:darkseagreen !important">
+                <div class="modal-header" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
                     <button type="button" id="btnmulipleslipclose" class="close" data-dismiss="modal">&times;</button>
                     <h4 id="betslipheadingmultiple" class="modal-title">You are going to place </h4>
                 </div>
                 <div id="betslipcontentmultiplemb" class="modal-content">
-                    <div id="betslipmultiple" style="height:404px;">
+                    <div id="betslipmultiple" style="height:auto; max-height:80vh; overflow-y:auto;">
+
                         <div class="col-md-12 no-padding betslipselectionsmb">
                             <div class="col-md-6 no-padding" style="margin-left:2px;">
 
@@ -684,7 +682,7 @@ else{
                             <div class="col-md-6 no-padding">
                                 <div class="col-md-12 no-padding amountareamb">
                                     <div class="col-md-12 no-padding">
-                                        <div class="amountbuttonmultiple" style=" margin-left: 9px;margin-right: -13px;">
+                                        <div class="amountbuttonmultiple" style=" margin-left: 7px;">
                                             <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip" value="@( obj.MutipleBtn1.Replace("+",""))" data-value="@obj.MutipleBtn1.Replace("+", "")" style="font-size: 17px; border-radius:6px; margin-bottom:4px" />
                                             <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip" value="@( obj.MutipleBtn2.Replace("+",""))" data-value="@obj.MutipleBtn2.Replace("+", "")" style="font-size: 17px;border-radius:6px;" />
                                             <input type="button" class="betslipbuttons btnBetSlip btn-smBetSlip btn-defaultBetSlip" value="@( obj.MutipleBtn3.Replace("+",""))" data-value="@obj.MutipleBtn3.Replace("+", "")" style="font-size: 17px;border-radius:6px;" />
@@ -708,8 +706,8 @@ else{
                                                 <label id="betslipamountlabelmultiplemb" style="color:red"></label>
                                             </div>
                                             <div class="amountsmb">
-                                                <input type="button" style="background:-webkit-linear-gradient(bottom,#ff0000,#b40000) !important; float: left; height:35px !important; font-size:20px" class="buttonview" data-dismiss="modal" value="Close" id="btnBetslipClosemultiple" />
-                                                <input type="button" class="buttonview" value="Submit" id="btnBetslipsubmitmultiplemb" style="font-size:20px; height:35px !important;" />
+                                                <input type="button" style=" float: left;font-size:18px;margin-left:5px;letter-spacing:2px" class="btn btn-danger" data-dismiss="modal" value="Close" id="btnBetslipClosemultiple" />
+                                                <input type="button" class="btn btn-success" value="Submit" id="btnBetslipsubmitmultiplemb" style="font-size:18px;float:right;margin-right:3px " />
                                             </div>
                                         </div>
                                         <div class="clear-fix"></div>
@@ -811,6 +809,10 @@ else{
 
 
 <script type="text/javascript">
+
+
+
+
 
 
 
@@ -4204,10 +4206,10 @@ else{
                 htmlstrmb += '<label style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:block !important; " id="lblbetsliprunnernamemb' + selectedrunners[i] + '">' + $("#lblSelectionName" + selectedrunners[i]).text() + '</label>';
 
                 htmlstrmb += '</div>';
-                htmlstrmb += '<div class="col-md-3  betslipoddmb"  style="background:#72bbef; text-align:center;border:solid 1px;">';
+                htmlstrmb += '<div class="col-md-3  betslipoddmb"  style="background:#72bbef; text-align:center;">';
                 htmlstrmb += '<label id="lblbetslipbackoddmb' + selectedrunners[i] + '">' + $("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim() + '</label>';
                 htmlstrmb += '</div>';
-                htmlstrmb += '<div class="col-md-3  betslipoddmb" style="background:#FF8A8E; text-align:center;border:solid 1px;">';
+                htmlstrmb += '<div class="col-md-3  betslipoddmb" style="background:#FF8A8E; text-align:center;">';
                 htmlstrmb += '<label id="lblbetsliplayoddmb' + selectedrunners[i] + '">' + $("#marketbook" + marketbookdID + " #lbllayprice0" + selectedrunners[i]).text().toString().trim() + '</label>';
                 htmlstrmb += '</div>';
                 htmlstrmb += '</div>';
@@ -5874,6 +5876,9 @@ else{
                     selectionIDs2.push(selectedrunners[i]);
                 }
             }
+
+            debugger;
+
             var marketbookrunners = $("#marketbookrunners" + marketbookdID).val();
             $.ajax({
                 url: '/UserBet/CheckforPlaceBet',
