@@ -71,13 +71,13 @@
 
 <script type="text/javascript">
 	$(document).ready(function () {
-		debugger;
+		 
 		$.ajax({
 			type: "GET",
 			async: true,
 			url: "/DashBoard/GetBalnceDetails",
 			success: function (result) {
-				debugger;
+				 
 				$("#BalanceDetails").html(result);
 				HideLoader();
 			},
@@ -99,7 +99,7 @@
 		});
 
 		$("#btnLoad").click(function () {
-			//debugger;
+			// 
 			var datefrom = $("#txtDateFrom").val();
 			var dateTo = $("#txtDateTo").val();
 			ShowLoader();

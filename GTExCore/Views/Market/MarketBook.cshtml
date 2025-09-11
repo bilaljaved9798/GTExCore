@@ -581,7 +581,7 @@
 
 
 
-                                                    <label style="margin-top:6px !important; margin-left:-27px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
+                                                    <label style="margin-top:6px !important; margin-left:-32px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
                                                         @runner.RunnerName
                                                     </label>
                                                     <div>
@@ -638,7 +638,11 @@
                                                         <div>
                                                             <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class=" tooltip runners runnersnamenotrace" id="lblSelectionName@(runner.SelectionId)">
                                                                 @runner.RunnerName
+
+                                                            <span style="margin-left:-69px "class="tooltiptext">	@runner?.RunnerName </span>
                                                             </label>
+                                                          
+
                                                             @if (runner.ProfitandLoss >= 0)
                                                             {
                                                                 <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    width: 70% !important;    float: left !important;    text-align: left;    margin-left: 4px;    margin-top: -3px; font-size:16px">

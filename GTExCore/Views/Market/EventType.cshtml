@@ -1032,7 +1032,7 @@ else
         $("#BetSlipJori").hide();
         $("#joriBet").hide();
         $("#betslipcontentmultiple").hide();
-        //debugger;
+        // 
         fromclicklocation = fromclick;
         if (num == 1) {
             $(".usernameandliablity").toggle();
@@ -1188,7 +1188,7 @@ else
     //}
 
     function Toggleliabalitiesbymarkets() {
-        //debugger;
+        // 
 
         $("#libalitybymarket").hide();
         $("#libalitybymarket").show();
@@ -1397,7 +1397,7 @@ else
         }
     }
     function Toggleliabalitiesbymarkets1() {
-        //debugger;
+        // 
         $("#todayhorseraceui").hide();
         $("#inplayul").hide();
 
@@ -2080,7 +2080,7 @@ else
 
     var Carddisplay = true;
     $('#btnscorecard').click(function (ev) {
-        debugger;
+         
         $("#video").hide();
 
         var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
@@ -2095,7 +2095,7 @@ else
                 updatescores();
             },
             success: function (data) {
-                //debugger;
+                // 
                 var scorecarddata = JSON.parse(data);
                 var scorecard = scorecarddata.filter(x => x.EventID == eventID);
                 if (display == true && scorecard.length > 0) {
@@ -2533,7 +2533,7 @@ else
                 updatescoresnewTinnes();
             },
             success: function (data) {
-                //debugger;
+                // 
                 AssignDataToTinnesCard(data);
                 setTimeout(function () {
                     updatescoresnewTinnes();
@@ -2767,7 +2767,7 @@ else
 
 
     function LoadActiveMarketSoccerGaol() {
-        //debugger;
+        // 
 
         var marketstatus = $("#marketbookstatus" + $("#lastloadedmarket").val().toString().replace(".", "")).text();
         if (marketstatus != "GOING LIVE") {
@@ -3189,7 +3189,7 @@ else
             var marketbookID = marketbook.MarketId.toString().replace(".", "");
             for (j = 0; j <= marketbook.Runners.length - 1; j++) {
                 if ($("#marketbook" + marketbookID).length == 0) {
-                    //debugger;
+                    // 
                     LoadActiveMarketSoccer();
                     return;
                 }
@@ -3722,7 +3722,7 @@ else
         let existingRunners = new Set($(".marketbook4").map(function () {
             return $(this).data("marketid");
         }).get());
-        debugger;
+         
         $.each(marketbook1, function (index, runner) {
             let marketId = parseInt(runner.SelectionId.replace(/\s/g, ''), 10);
             let $runnerElement = $("#mainRunnerBook" + marketId);
@@ -3730,7 +3730,7 @@ else
             var a = $("#clickedlocation").val();
             var selectionId = $("#openedbetslipid").val();
             if ((runner.StatusStr == "Ball Running" || runner.StatusStr == "VOID_PROCESSING" || runner.StatusStr == "SUSPENDED" || runner.StatusStr == "Starting soon.") && runner.SelectionId == selectionId) {
-            debugger;
+             
             if (a == "9") {
                 $('#simpleBet').hide();
                 $('#myModalBetslipmob').modal('hide');
@@ -3777,7 +3777,7 @@ else
         // Start constructing the main runner HTML
         htmlContent += `
                                     <div id="mainRunnerBook${marketId}" class="marketbook4" data-marketid="${marketId}">
-                                <div id="selection${marketId.replace(/ /g, "")}" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="border-bottom:solid 1px black; height:44px;">
+                                <div id="selection${marketId.replace(/ /g, "")}" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper">
                                     <div id="nameProfitandlossdivf">
                                         <div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
                                             <label for="chkselection${marketId}" data-value="${marketId}" class="runners runnersname tooltip" id="lblSelectionName${marketId}" style="float: left;">
@@ -4891,7 +4891,7 @@ else
             //$(".loadingimg").show();
             $("#btnBetslipsubmitmob").hide();
             $("#btnloadermob").show();
-            debugger;
+        
 
             var categoryname = $("#marketbookCategory" + marketbookID).val();
             if (categoryname == undefined || categoryname == "") {
@@ -5183,7 +5183,7 @@ else
 
         $("#btnBetslipsubmit").click(function () {
             isfirstclick = true;
-            debugger;
+         
             $("#btnBetslipsubmit").prop('disabled', true);
             $("#btnBetslipReset").prop('disabled', true);
 
@@ -5883,7 +5883,7 @@ else
                 }
             }
 
-            debugger;
+             
 
             var marketbookrunners = $("#marketbookrunners" + marketbookdID).val();
             $.ajax({
@@ -6011,7 +6011,7 @@ else
 
     });
 
-    debugger;
+     
 
     function insertbetslipSimple() {
         var cuttinguserid = $("#allusersCuttingUsers" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
@@ -6158,7 +6158,7 @@ else
             MarketbookName: $("#loadedmarketbookname").val(),
         };
 
-        debugger;
+         
 
         $.ajax({
             url: '/UserBet/InsertUserBetNew',
@@ -7559,7 +7559,7 @@ else
 
                 data: { 'marektbookID': marketbookID },
                 success: function (result) {
-                    //debugger;
+                    // 
                     //$("#completedmatcedbetscontentFancy").html(result);
                     //$("#myModalposition").modal('show');
 
@@ -7595,7 +7595,7 @@ else
                     return false;
                 }
                 else {
-                    //debugger;
+                    // 
                     $("#marketbookTWT").html(data);
 
                     if ($("#lastsavedhtmlTWT").val().trim() == "") {
@@ -7607,7 +7607,7 @@ else
                     if ($("#lastloadedmarketTWT").val() == "") {
                         $("#lastloadedmarketTWT").val($(".nav-tabs li:last").attr("data-value"));
                     }
-                    //debugger;
+                    // 
                     LoadActiveMarketTWT();
 
                     var marketbbokname = $("#marketbookname" + $("#lastloadedmarketTWT").val().toString().replace(".", "")).val();
@@ -7783,7 +7783,7 @@ else
                                     $("#btnscorecard").click();
                                     display = true;
                                 }
-                                debugger;
+                                 
                                 if (mainsportcat1 == "Greyhound Racing" || mainsportcat1 == "Horse Racing" || mainsportcat1 == undefined || mainsportcat1 == "Racing" || mainsportcat1 == "winner") {
                                     $("#KJfancymarketbook").hide();
                                     $("#Indianfancymarketbook1").hide();
@@ -7916,7 +7916,7 @@ else
             });
     }
     function ReletedEvents(eventtype) {
-        //debugger;
+        // 
         var marketbookID = $("#lastloadedmarket").val().toString();
         $.ajax({
             type: "GET",
@@ -7984,7 +7984,7 @@ else
                 var oldvalue = $(oldpricesandsize[i]).html();
                 var newvalue = $(newpricesandsize[i]).html();
                 if (oldvalue != newvalue) {
-                    //debugger;
+                    // 
                     var id = $(newpricesandsize[i]).attr("id");
 
                     $("#marketbook" + marketbookID + " #" + id).addClass("highlighted").delay(50).queue(function () {
