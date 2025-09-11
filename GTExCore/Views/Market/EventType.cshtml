@@ -654,7 +654,7 @@ else{
                                         <label style="text-align:center;font-weight:800 !important">Selection</label>
 
                                     </div>
-                                    <div class="col-md-3   betslipoddmb" style="text-align:center">
+                                    <div class="col-md-3   betslipoddmb" style="text-align:center;margin-right:2px">
                                         <label style="text-align:center;font-weight:800 !important">Back</label>
                                     </div>
                                     <div class="col-md-3   betslipoddmb" style="text-align:center">
@@ -670,11 +670,11 @@ else{
                                         <label style="text-align:center; font-weight:600 !important"> Total </label>
                                     </div>
                                     <div class="col-md-3  betslipodd" style="/* border: 1px solid; */padding-right: 0px !important;padding-left: 0px !important;width: 19%;border-radius:2px">
-                                        <label id="betslipbackmultiplemb" style="background: #72bbef;/* border-radius: 2px; */width: 124.5%;text-align: center;border: 1px solid;color: black;font-weight:600 !important;"></label>
+                                        <label id="betslipbackmultiplemb" style="background: #72bbef;/* border-radius: 2px; */width: 119.5%;text-align: center;color: black;font-weight:600 !important;"></label>
                                     </div>
 
                                     <div class="col-md-3 betslipodd" style="  padding-left: 0px !important;    padding-right: 0px !important;    float: left;    width: 18.9%;">
-                                        <label id="betsliplaymultiplemb" style="background: #FF8A8E;/* border-radius: 4px; */width: 124.5%;text-align: center;border: 1px solid black;margin-left: 24%;font-weight:600 !important;"></label>
+                                        <label id="betsliplaymultiplemb" style="background: #FF8A8E;/* border-radius: 4px; */width: 119.5%;text-align: center;margin-left: 25%;font-weight:600 !important;margin-bottom:4px !important"></label>
                                     </div>
 
                                 </div>
@@ -4206,7 +4206,7 @@ else{
                 htmlstrmb += '<label style="white-space:nowrap;text-overflow:ellipsis;overflow:hidden;display:block !important; " id="lblbetsliprunnernamemb' + selectedrunners[i] + '">' + $("#lblSelectionName" + selectedrunners[i]).text() + '</label>';
 
                 htmlstrmb += '</div>';
-                htmlstrmb += '<div class="col-md-3  betslipoddmb"  style="background:#72bbef; text-align:center;">';
+                htmlstrmb += '<div class="col-md-3  betslipoddmb"  style="background:#72bbef; text-align:center;    margin-right: 4px;  ">';
                 htmlstrmb += '<label id="lblbetslipbackoddmb' + selectedrunners[i] + '">' + $("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim() + '</label>';
                 htmlstrmb += '</div>';
                 htmlstrmb += '<div class="col-md-3  betslipoddmb" style="background:#FF8A8E; text-align:center;">';
@@ -6617,7 +6617,7 @@ else{
             $.ajax({
                 url: '/userbet/GetBettingAllowedbyMarketIDandUserID',
                 type: 'post',
-                async: false,
+                async: true,
                 data: { 'marketbookid': marketbookID },
                 complete: function () { },
                 success: function (data) {
@@ -6637,7 +6637,7 @@ else{
             $.ajax({
                 url: '/userbet/GetBettingAllowedbyMarketIDandUserID',
                 type: 'post',
-                async: false,
+                async: true,
                 data: { 'marketbookid': marketbookID },
                 complete: function () { },
                 success: function (data) {
@@ -6920,7 +6920,7 @@ else{
                 url: '/UserBet/GetBettingAllowedbyMarketIDandUserID',
 
                 type: 'POST',
-                async: false,
+                async: true,
                 data: { 'MarketBookID': marketbookID },
 
                 complete: function () { },
