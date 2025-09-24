@@ -261,7 +261,7 @@ else
     }
     <br />
 
-    <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" @*src="../Content/Images/123.gif"*@ style="height: 250px ;display:none" id="video" frameborder="0" allowfullscreen> </iframe>
+    <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" @*src="../Content/Images/123.gif"*@ style="height: 320px ;display:none" id="video" frameborder="0" allowfullscreen> </iframe>
     <iframe control="0" class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" id="scorecaed" frameborder="0" style="text-align: center;display: inline;margin-top: 1px; margin-bottom:-4px;display:none"></iframe>
 
     <div class="col-md-4 col-sm-12 col-lg-4 no-padding" id="betsection">
@@ -641,13 +641,13 @@ else
         </div>
 
         <div id='myModalBetslipmultiple' class='modal'>
-            <div class="modal-dialog" style="background:darkseagreen !important">
-                <div class="modal-header" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
-                    <button type="button" id="btnmulipleslipclose" class="close" data-dismiss="modal">&times;</button>
+            <div class="modal-dialog" style="background:linear-gradient(to top, #00ff8a, #000000) !important">
+                <div class="modal-header" style="background:black !important">
+                    <button type="button" id="btnmulipleslipclose" style="font-size:16px; float:right; padding:0px !important; height:25px;width:30px;" class="close btn btn-danger" data-dismiss="modal">&times;</button>
                     <h4 id="betslipheadingmultiple" class="modal-title">You are going to place </h4>
                 </div>
                 <div id="betslipcontentmultiplemb" class="modal-content">
-                    <div id="betslipmultiple" style="height:auto; max-height:80vh; overflow-y:auto;">
+                    <div id="betslipmultiple" style="height:auto; max-height:80vh; overflow-y:auto;overflow-x:hidden;">
 
                         <div class="col-md-12 no-padding betslipselectionsmb">
                             <div class="col-md-6 no-padding" style="margin-left:2px;">
@@ -710,7 +710,7 @@ else
                                             </div>
                                             <div class="amountsmb">
                                                 <input type="button" style=" float: left;font-size:18px;margin-left:5px;letter-spacing:2px" class="btn btn-danger" data-dismiss="modal" value="Close" id="btnBetslipClosemultiple" />
-                                                <input type="button" class="btn btn-success" value="Submit" id="btnBetslipsubmitmultiplemb" style="font-size:18px;float:right;margin-right:3px " />
+                                                <input type="button" class="btn btn-success" value="Submit" id="btnBetslipsubmitmultiplemb" style="font-size:18px;float:right;margin-right:5px;letter-spacing:1px; " />
                                             </div>
                                         </div>
                                         <div class="clear-fix"></div>
@@ -3780,7 +3780,7 @@ else
                                 <div id="selection${marketId.replace(/ /g, "")}" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper">
                                     <div id="nameProfitandlossdivf">
                                         <div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
-                                            <label for="chkselection${marketId}" data-value="${marketId}" class="runners runnersname tooltip" id="lblSelectionName${marketId}" style="float: left;">
+                                                <label for="chkselection${marketId}" data-value="${marketId}" class="runners runnersname tooltip" id="lblSelectionName${marketId}" style="float: left;    width: 90% !important; margin-top: 3px; margin-left: 7px;font-size: 14px;">
                                                 ${runner.RunnerName}
                                                 <span class="tooltiptext">${runner.RunnerName}</span>
                                             </label>

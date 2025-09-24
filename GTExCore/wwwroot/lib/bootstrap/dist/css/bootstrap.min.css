@@ -6258,7 +6258,7 @@ a.list-group-item {
 
 .close {
     float: right;
-    font-size: 34px;
+    
     font-weight: bold;
     line-height: 1;
     color: white;
@@ -6277,10 +6277,10 @@ a.list-group-item {
     }
 
 button.close {
-    padding: 0;
+    
     cursor: pointer;
-    background: transparent;
-    border: 0;
+    
+   
     -webkit-appearance: none;
 }
 

@@ -260,7 +260,7 @@
                             @if (item.MainSportsname == "Horse Racing")
                             {
                                 <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1;" id="hh1">
-                                <label class="suspendbann glub" style=" font-size: 33px !important;   margin-top: 60px !important;    transform: rotate(65deg) !important;    border: 2px solid #dc143c;    margin-left: -12px width: 156px;">
+                                <label class="suspendbann glub" style=" font-size: 33px !important;   margin-top: 60px !important;    transform: rotate(65deg) !important;    border: 2px solid #dc143c;    margin-left: -12px; width:max-content; margin-right:15px;">
                                         Suspended
                                     </label>
                                 </div>
@@ -270,7 +270,7 @@
                                 <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1;" id="hh1">
 
 
-                                <label class="suspendbann glub1" style=" font-size: 33px !important;        transform: rotate(65deg) !important;        border: 2px solid #dc143c;        width: 156px;        margin-top: 64px !important;  margin-left: -8px;">
+                                <label class="suspendbann glub1" style=" font-size: 33px !important;        transform: rotate(65deg) !important;        border: 2px solid #dc143c;        width: max-content;        margin-top: 64px !important;  margin-left: -8px; margin-right:15px;">
                                         Suspended
                                     </label>
                                 </div>
@@ -286,7 +286,7 @@
                             @foreach (var runner in item.Runners)
                             {
 
-                            <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important" ;>
+                            <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%)" ;>
                                     <div id="nameProfitandlossdiv">
                                         <div id="runnernamediv@(runner.SelectionId)" class="no-padding runnernamediv runnerswrapper">
                                             <label style="display:none">
@@ -581,7 +581,7 @@
 
 
 
-                                                    <label style="margin-top:6px !important; margin-left:-32px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
+                                                    <label style="margin-top:6px !important; margin-left:-30px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
                                                         @runner.RunnerName
                                                     </label>
                                                     <div>

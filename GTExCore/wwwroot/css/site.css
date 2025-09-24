@@ -1412,8 +1412,9 @@ textarea {
 
 
 .runnerselectedhorse {
-    background: -moz-linear-gradient(top, #fbd150 0%, #faff8e 63%, #faff8e 42%);
-    background: -webkit-linear-gradient(top, #fbd150 0%,#faff8e 63%,#faff8e 42%);
+    background: -moz-linear-gradient(top, #fbd150 0%, #faff8e 63%, #faff8e 42%) !important;
+    background: -webkit-linear-gradient(top, #fbd150 0%,#faff8e 63%,#faff8e 42%) !important;
+    border: 1px solid white;
     background: linear-gradient(to bottom, #fbd150 0%,#faff8e 63%,#faff8e 42%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFC000', endColorstr='#feffe8',GradientType=0 );
 }
@@ -1461,7 +1462,7 @@ textarea {
 
 .marketstatusC {
     padding: 5px 10px !important;
-    border-top: 3px solid Red;
+    border-top: 1.65px solid Red;
     font-size: 12px;
     font-weight: bold;
     color: red;
@@ -1473,7 +1474,7 @@ textarea {
 
 .marketstatusS {
     padding: 5px 10px !important;
-    border-top: 3px solid Red;
+    border-top: 1.65px solid Red;
     font-size: 12px;
     font-weight: bold;
     margin-top: -5px !important;
@@ -1483,7 +1484,7 @@ textarea {
 
 .marketstatusG {
     padding: 5px 4px !important;
-    border-top: 3px solid #2dc3e8;
+    border-top: 1.65px solid #2dc3e8;
     font-size: 12px;
     font-weight: bold;
     margin-top: -5px !important;
@@ -1493,7 +1494,7 @@ textarea {
 
 .marketstatusI {
     padding: 5px 10px !important;
-    border-top: 3px solid Green !important;
+    border-top: 1.65px solid Green !important;
     font-size: 12px;
     font-weight: bold;
     margin-top: -5px !important;
@@ -5588,7 +5589,7 @@ a {
         margin-left: 4px;
         text-shadow: 0px 0.3px #000000;
         float: left;
-        width: 67%;
+        width: 62%;
         font-size: 14px;
         font-weight: 700;
         color: black;
@@ -5809,7 +5810,7 @@ a {
     .rule1 {
         text-shadow: 0.35px 0.35px #000000;
         padding: 5px 3px !important;
-        border-top: 3px solid #075E54;
+        border-top: 1.65px solid #075E54;
         font-size: 16px;
         font-weight: 300;
         margin-top: -5px !important;
@@ -6771,7 +6772,7 @@ a {
 
     .inplaymatchname {
         float: left;
-        width: 93%;
+        width: 91%;
         margin-right: 2px;
     }
 
