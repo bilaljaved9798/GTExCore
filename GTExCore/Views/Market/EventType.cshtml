@@ -1722,8 +1722,9 @@ else
                         console.warn("Retrying... Attempt: " + retryCountFigure);
                         setTimeout(LoadFigureMarket, 5000); // Retry after 5 seconds
                     } else {
-                        console.error("Max retry attempts reached. Stopping further requests.");
-                        $("#Figurefancymarketbook").html("<p>Error loading data. Please try again later.</p>");
+                        @* console.error("Max retry attempts reached. Stopping further requests.");
+                        $("#Figurefancymarketbook").html("<p>Error loading data. Please try again later.</p>"); *@
+                            setTimeout(LoadFigureMarket, 5000); // Retry after 5 seconds
                     }
                 }
             });
