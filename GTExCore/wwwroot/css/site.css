@@ -2573,7 +2573,7 @@ audio {
     float: left;
     max-height: 420px;
     overflow: hidden;
-    margin-top: 5px;
+    margin-top: 0px;
     box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
     background-color: white;
     width: 100%;
@@ -3292,7 +3292,7 @@ label {
     float: right;
     width: 46.5%;
     position: absolute;
-    z-index: 530 !important;
+    z-index: 10 !important;
     right: -3px;
     margin-top: 70px;
     text-align: right;
@@ -5825,9 +5825,9 @@ a {
 
     .backgroundimageforSuspended {
         float: right;
-        width: 39.4%;
+        width: 99.4%;
         position: absolute;
-        z-index: 530 !important;
+        z-index: 10 !important;
         right: 1px;
         margin-top: 43px;
         text-align: right;

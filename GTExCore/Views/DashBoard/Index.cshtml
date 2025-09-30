@@ -108,7 +108,8 @@
 <div class="col-md-12 no-padding">
 
 	@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
-	{<div class="mainheaderdivstatic" style="background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:@ViewBag.color; position:fixed;z-index:1000">
+	{
+		<div class="mainheaderdivstatic" style="background:linear-gradient(to top, #00ffec, #000000) !important;color:@ViewBag.color; position:fixed;z-index:1000">
 		<div class="logonew pull-left" onclick="logoClick()" id="logdiv">
 			<h9>GTEXCH</h9>		
 		</div>

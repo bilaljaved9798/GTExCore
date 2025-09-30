@@ -202,14 +202,14 @@ else
 else
 {
     <div class="upperlinks col-lg-12 col-md-12 col-sm-12 scrollmenu">
-        <a href="/DashBoard/Index" style="border-bottom: 4px solid #1D9BF0"><i class="fa fa-home" style="font-size:17px;"></i></a>
-        <a style="border-bottom: 4px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Inplay')" ondblclick="window.location.href='/DashBoard/Index'">
+        <a href="/DashBoard/Index" style="border-bottom: 1.6px solid #1D9BF0"><i class="fa fa-home" style="font-size:17px;"></i></a>
+        <a style="border-bottom: 1.6px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Inplay')" ondblclick="window.location.href='/DashBoard/Index'">
             <span style="animation: blinker 3s linear infinite; color:forestgreen;">In-Play </span>
             <sup id="marketcount" style="font-weight:700; color:forestgreen"></sup>
         </a>
-        <a style="border-bottom: 4px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Cricket')">Cricket </a>
-        <a style="border-bottom: 4px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Soccer')">Soccer</a>
-        <a style="border-bottom: 4px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Tennis')">Tennis  </a>
+        <a style="border-bottom: 1.6px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Cricket')">Cricket </a>
+        <a style="border-bottom: 1.6px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Soccer')">Soccer</a>
+        <a style="border-bottom: 1.6px solid #1D9BF0" onclick="LoadDefaultPageInPlay('Tennis')">Tennis  </a>
     </div>
 }
 <div id="otherdata"> </div>
@@ -244,25 +244,25 @@ else
 
     @if (LoggedinUserDetail.GetUserTypeID() == 3)
     {
-        <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;background:linear-gradient(to top, #00ff8a, #000000) !important">
-            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white">Live Video</button>
-            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white">Score Card</button>
+        <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;background:linear-gradient(to top, #00ff8a, #000000) !important;z-index:100">
+            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white;z-index:100">Live Video</button>
+            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white;z-index:100">Score Card</button>
         </div>
     }
     else
     {
         <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;">
-            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important;color:white">Live Video</button>
+            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important;color:white;z-index:100">Live Video</button>
             <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important
-;color:white">
+;color:white;z-index:100">
                 Score Card
             </button>
         </div>
     }
     <br />
 
-    <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" @*src="../Content/Images/123.gif"*@ style="height: 320px ;display:none" id="video" frameborder="0" allowfullscreen> </iframe>
-    <iframe control="0" class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" id="scorecaed" frameborder="0" style="text-align: center;display: inline;margin-top: 1px; margin-bottom:-4px;display:none"></iframe>
+    <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" @*src="../Content/Images/123.gif"*@ style="height: 320px ;display:none" id="video" frameborder="0" allowfullscreen;z-index:100> </iframe>
+    <iframe control="0" class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" id="scorecaed" frameborder="0" style="text-align: center;display: inline;margin-top: 1px; margin-bottom:-4px;display:none;z-index:100"></iframe>
 
     <div class="col-md-4 col-sm-12 col-lg-4 no-padding" id="betsection">
         @{
@@ -751,7 +751,7 @@ else
         <div id="mainuserbetdiv" class="col-md-12 no-padding">
             <div id="betslipkeyssections">
             </div>
-            <div id="userbets">
+            <div id="userbets" style="z-index:100">
             </div>
         </div>
         <br />

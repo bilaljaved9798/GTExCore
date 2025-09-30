@@ -586,18 +586,18 @@
                                                     </label>
                                                     <div>
 
-                                                        <i class="fa fa-caret-right" aria-hidden="true" style="text-align: left;float: left;margin-left: 14px;margin-top: -6px;"></i>
+                                                        <i class="fa fa-caret-right" aria-hidden="true" style="text-align: left;float: left;margin-left: 13px;margin-top: -2px;"></i>
 
 
                                                         @if (runner.ProfitandLoss >= 0)
                                                         {
-                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-top:-4px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
+                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-left:9px; margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
                                                                 @runner.ProfitandLoss
                                                             </label>
                                                         }
                                                         else
                                                         {
-                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="float: left;margin-top: -4px !important;width: 90% !important;text-align: left;font-size: 16px;">
+                                                        <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="margin-left:9px;float: left;margin-top: -2px !important;width: 90% !important;text-align: left;font-size: 16px;">
                                                                 @runner.ProfitandLoss
                                                             </label>
                                                         }
@@ -605,7 +605,7 @@
                                                         {
                                                             if (runner.Loss >= 0)
                                                             {
-                                                                <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-top:-4px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
+                                                                <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
                                                                     @runner.Loss
                                                                 </label>
                                                             }
