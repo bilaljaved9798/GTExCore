@@ -3747,7 +3747,76 @@ else
     }
 
 
-    
+    function assignDatatoMarketBookFancyIN(marketbooks) {
+        // --- helpers ---
+        const normalizeStatus = (s) =>
+            (s ? String(s) : "").trim().toLowerCase().replace(/\s+/g, "_"); // "Ball Running" -> "ball_running"
+
+        const getMarketId = (runner) => {
+            const safe = String(runner?.SelectionId ?? "").replace(/\s/g, "");
+            const id = parseInt(safe, 10);
+            return Number.isFinite(id) ? id : null;
+        };
+
+        let marketbook1;
+        try {
+            marketbook1 = JSON.parse(marketbooks);
+        } catch (e) {
+            console.error("Invalid JSON data:", e);
+            return;
+        }
+
+        if (!Array.isArray(marketbook1) || marketbook1.length === 0) {
+            GetActiveMarketINFancy();
+            return;
+        }
+
+        // collect currently rendered runners (by data-marketid)
+        const existingRunners = new Set(
+            $(".marketbook4")
+                .map(function () { return $(this).data("marketid"); })
+                .get()
+        );
+
+        // process incoming list
+        $.each(marketbook1, function (_, runner) {
+            const marketId = getMarketId(runner);
+            if (marketId == null) return; // skip bad ids
+
+            const $runnerElement = $("#mainRunnerBook" + marketId);
+
+            // (optional) betslip auto-close rule, keep your original logic
+            const clickedLocation = $("#clickedlocation").val();
+            const openedSelectionId = $("#openedbetslipid").val();
+            if (
+                (runner.StatusStr === "Ball Running" ||
+                    runner.StatusStr === "VOID_PROCESSING" ||
+                    runner.StatusStr === "SUSPENDED" ||
+                    runner.StatusStr === "Starting soon.") &&
+                runner.SelectionId == openedSelectionId &&
+                clickedLocation == "9"
+            ) {
+                $("#simpleBet").hide();
+                $("#myModalBetslipmob").modal("hide");
+            }
+
+            // add or update UI
+            if ($runnerElement.length) {
+                updateRunnerUI(runner, marketId); // pass suffix so IDs match
+            } else {
+                addRunner(runner); // must render with id="mainRunnerBook{marketId}" and class="marketbook4" data-marketid="{marketId}"
+            }
+
+            // mark as seen
+            existingRunners.delete(marketId);
+        });
+
+        // remove any runners that were on the page but not in the new list
+        existingRunners.forEach(function (staleId) {
+            $("#mainRunnerBook" + staleId).remove();
+        });
+    }
+
 
     function assignDatatoMarketBookFancyIN1(marketbooks) {
         let marketbook1;
