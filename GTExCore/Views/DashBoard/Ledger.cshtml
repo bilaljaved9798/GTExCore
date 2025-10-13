@@ -41,6 +41,30 @@
                     </div>
                     <script type="text/javascript">
 
+
+            
+                      // Use Font Awesome icons instead of Bootstrap 3 glyphicons
+                        $.fn.datetimepicker.Constructor.Default = $.extend(
+                        { },
+                        $.fn.datetimepicker.Constructor.Default,
+                        {
+                            icons: {
+                            time: 'fa fa-clock-o',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-chevron-up',
+                        down: 'fa fa-chevron-down',
+                        previous: 'fa fa-chevron-left',   // ← arrow left
+                        next: 'fa fa-chevron-right',      // ← arrow right
+                        today: 'fa fa-dot-circle-o',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-times'
+                          }
+                        }
+                        );
+           
+
+
+
                         $(document).ready(function () {
                             $.ajax({
                                 url: '/DashBoard/AllUsers',
@@ -90,6 +114,12 @@
         </div>
     </div>
 </div>
+
+<style>
+    .bootstrap-datetimepicker-widget .picker-switch td span {
+        line-height: 2.2;
+    }
+</style>
 
 <script type="text/javascript">
   

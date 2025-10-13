@@ -192,9 +192,9 @@ namespace Census.API.Controllers
 				{
 					if (getDataFancy != null)
 					{
-						getDataFancy.session = getDataFancy.session.Take(40).OrderBy(s => s.SelectionId).ToList();
+						getDataFancy.session = getDataFancy.session.Take(100).OrderBy(s => s.SelectionId).ToList();
 
-						foreach (var runners in getDataFancy.session.Take(15))
+						foreach (var runners in getDataFancy.session.Take(100))
 						{
 							var runner = new BettingServiceReference.RunnerForIndianFancy();
 							runner.BettingAllowed = true;

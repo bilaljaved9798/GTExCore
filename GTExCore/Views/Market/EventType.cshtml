@@ -245,26 +245,26 @@ else
     @if (LoggedinUserDetail.GetUserTypeID() == 3)
     {
         <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;background:linear-gradient(to top, #00ff8a, #000000) !important;z-index:100">
-            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white;z-index:100">Live Video</button>
-            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white;z-index:100">Score Card</button>
+            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white;z-index:100; border-bottom:5px solid white">Live Video</button>
+            <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:white;z-index:100;border-bottom:5px solid white;border-left:1px solid white;">Score Card</button>
         </div>
     }
     else
     {
         <div class="scard col-md-4 col-sm-12 col-lg-4 no-padding" id="multimedia" style="float:left;margin-bottom:-4px;">
-            <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important;color:white;z-index:100">Live Video</button>
+                <button type="submit" id="btnPlay" class="col-sm-6 tvmbl btntvcard buttonlove" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important;color:white;z-index:100;border-bottom:5px solid white;">Live Video</button>
             <button type="submit" id="btnscorecard" class="col-sm-6 tvmbl btntvcard buttonlove1" style="background:-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10)) !important
-;color:white;z-index:100">
+;color:white;z-index:100; border-bottom:5px solid white;border-left:1px solid white;">
                 Score Card
             </button>
         </div>
     }
     <br />
 
-    <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" @*src="../Content/Images/123.gif"*@ style="height: 320px ;display:none" id="video" frameborder="0" allowfullscreen;z-index:100> </iframe>
+    <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" style="; z-index:100; height: 320px ;display:none" id="video" frameborder="0"> </iframe>
     <iframe control="0" class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" id="scorecaed" frameborder="0" style="text-align: center;display: inline;margin-top: 1px; margin-bottom:-4px;display:none;z-index:100"></iframe>
 
-    <div class="col-md-4 col-sm-12 col-lg-4 no-padding" id="betsection">
+    <div class="col-md-4 col-sm-12 col-lg-4 no-padding" id="betsection"  style="margin-top:1px !important" >
         @{
             BetSlipKeys obj = _httpContextAccessor.HttpContext.Session.GetObject<BetSlipKeys>("BetSlipKeys");
             // if (obj == null)
@@ -748,7 +748,7 @@ else
             </div>
         </div>
 
-        <div id="mainuserbetdiv" class="col-md-12 no-padding">
+        <div id="mainuserbetdiv" class="col-md-12 no-padding" style="z-index:100;">
             <div id="betslipkeyssections">
             </div>
             <div id="userbets" style="z-index:100">

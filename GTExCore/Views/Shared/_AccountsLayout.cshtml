@@ -7,31 +7,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Global Trader | Reports</title>
     <link rel="icon" href="~/Content/Images/favicon.ico">
+
+    <!-- ================= Core Styles ================= -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GTExCore.styles.css" asp-append-version="true" />
     <link href="~/css/main.css" rel="stylesheet" />
     <link href="~/css/sidebar.css" rel="stylesheet" />
+
+    <!-- ================= Font Awesome (Calendar Icons) ================= -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    <!-- ================= jQuery ================= -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="~/lib/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-    <link href="~/lib/bootstrap/dist/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <!-- Bootstrap -->
-    @*  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-    *@
-    <!-- Moment.js -->
+
+    <!-- ================= Moment + Datetimepicker ================= -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <!-- Bootstrap DateTimePicker -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
 
-    <script type="text/javascript">
-    </script>
+    <!-- ================= jQuery UI (Optional Widgets) ================= -->
+    <link rel="stylesheet"
+          href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
 
+    <!-- ================= Custom Button Styles ================= -->
     <style>
-
-
         #myBtn {
             display: none;
             position: fixed;
@@ -52,20 +55,25 @@
                 background-color: #00a190;
             }
     </style>
-
 </head>
+
 <body>
+    @* Scroll-to-top button *@
     @if (LoggedinUserDetail.GetUserTypeID() == 3)
     {
-        <button onclick="topFunction()" id="myBtn" title="Go to top" style="background-color: #075e54;"> <i class="fa fa-angle-double-up"></i> </button>
+        <button onclick="topFunction()" id="myBtn" title="Go to top" style="background-color: #075e54;">
+            <i class="fa fa-angle-double-up"></i>
+        </button>
     }
     else
     {
-        <button onclick="topFunction()" id="myBtn" title="Go to top" style="background-color: #1D9BF0 ;"> <i class="fa fa-angle-double-up"></i> </button>
+        <button onclick="topFunction()" id="myBtn" title="Go to top" style="background-color: #1D9BF0;">
+            <i class="fa fa-angle-double-up"></i>
+        </button>
     }
 
     <script>
-        // Get the button
+        // Scroll Button Script
         let mybutton = document.getElementById("myBtn");
         window.onscroll = function () { scrollFunction() };
         function scrollFunction() {
@@ -81,96 +89,88 @@
         }
     </script>
 
+    <!-- ================= Navbar ================= -->
     <div class="container body-content" style="min-height:0% !important">
         <div class="navbaraccounts">
             <div class="navbar-inner">
                 <div class="navbar-container">
                     <div class="seven">
                         <a href="/DashBoard/Index" target="_self">
-                            <h1 class="seven">
-                                Full Reports
-                            </h1>
-                            <h2 style="color:red">
-                                << Back to Dash_board
-                            </h2>
+                            <h1 class="seven">Full Reports</h1>
+                            <h2 style="color:red">&lt;&lt; Back to Dash_board</h2>
                         </a>
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
+
+    <!-- ================= Top Buttons ================= -->
     @if (LoggedinUserDetail.GetUserTypeID() == 3)
     {
         <div class="btnacc">
-            <button class="btn btn-info btn-lg " style="margin:6px;width:120px" type="button">
+            <button class="btn btn-info btn-lg" style="margin:6px;width:120px">
                 <a href="/Accounts/AccStatement/">Statements</a>
             </button>
-            <button class="btn btn-info btn-lg" style="margin:6px; width:120px" type="button">
-                <a href="/Accounts/MyBets"> My Bets</a>
+            <button class="btn btn-info btn-lg" style="margin:6px;width:120px">
+                <a href="/Accounts/MyBets">My Bets</a>
             </button>
-            <button class="btn btn-info btn-lg" style="margin:6px;width:120px" type="button">
-                <a href="/Accounts/pl"> Profit/Loss</a>
+            <button class="btn btn-info btn-lg" style="margin:6px;width:120px">
+                <a href="/Accounts/pl">Profit/Loss</a>
             </button>
-            <button class="btn btn-info btn-lg" style="margin:6px; width:120px" type="button">
-                <a href="/Accounts/PlusMinusSummery"> P/L-Summry </a>
+            <button class="btn btn-info btn-lg" style="margin:6px;width:120px">
+                <a href="/Accounts/PlusMinusSummery">P/L-Summry</a>
             </button>
-            <button class="btn btn-info btn-lg" style="margin:6px; width:120px" type="button">
-                <a href="/Accounts/Stack"> My Button </a>
+            <button class="btn btn-info btn-lg" style="margin:6px;width:120px">
+                <a href="/Accounts/Stack">My Button</a>
             </button>
-
-            <button class="btn btn-info btn-lg" style="margin:6px; width:120px" type="button">
-                <a href="/Accounts/UserActivites">Activity Log </a>
-
+            <button class="btn btn-info btn-lg" style="margin:6px;width:120px">
+                <a href="/Accounts/UserActivites">Activity Log</a>
             </button>
         </div>
     }
     else
     {
         <div class="btnacc1">
-
-            <button class="glow-on-hover1 " type="button">
+            <button class="glow-on-hover1" type="button">
                 <a href="/Accounts/AccStatement/">Statements</a>
             </button>
-
-            <button class="glow-on-hover1 " type="button">
-                <a href="/Accounts/MyBets"> My Bets</a>
+            <button class="glow-on-hover1" type="button">
+                <a href="/Accounts/MyBets">My Bets</a>
             </button>
-
-            <button class="glow-on-hover1 " type="button">
-                <a href="/Accounts/pl"> Profit/Loss</a>
+            <button class="glow-on-hover1" type="button">
+                <a href="/Accounts/pl">Profit/Loss</a>
             </button>
-
-            <button class="glow-on-hover1 " type="button">
-                <a href="/Accounts/PlusMinusSummery"> P/L-Summry </a>
+            <button class="glow-on-hover1" type="button">
+                <a href="/Accounts/PlusMinusSummery">P/L-Summry</a>
             </button>
-
-            <button class="glow-on-hover1 " type="button">
-                <a href="/Accounts/Stack"> My Button </a>
+            <button class="glow-on-hover1" type="button">
+                <a href="/Accounts/Stack">My Button</a>
             </button>
-
-            <button class="glow-on-hover1 " type="button">
-                <a href="/Accounts/UserActivites">Activity Log </a>
+            <button class="glow-on-hover1" type="button">
+                <a href="/Accounts/UserActivites">Activity Log</a>
             </button>
-
         </div>
     }
-    <div class="col-md-12  no-padding">
+
+    <!-- ================= Page Body ================= -->
+    <div class="col-md-12 no-padding">
         <div class="pagecontent">
             @RenderBody()
         </div>
     </div>
+
+    <!-- ================= Loader ================= -->
     <div class="modalpopuploader">
         <div class="centerdiv">
-
             <label id="lblCounter"></label>
         </div>
     </div>
 
+    <!-- ================= Scripts ================= -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 
     <script type="text/javascript">
-
         $(document).ready(function () {
             var $url = $('#url');
             var options = {
@@ -192,6 +192,72 @@
         }
     </script>
 
+    <script>
+        if ($.fn.datetimepicker && $.fn.datetimepicker.Constructor) {
+            $.fn.datetimepicker.Constructor.Default = $.extend(
+                {},
+                $.fn.datetimepicker.Constructor.Default,
+                {
+                    icons: {
+                        time: 'fa fa-clock-o',
+                        date: 'fa fa-calendar',
+                        up: 'fa fa-chevron-up',
+                        down: 'fa fa-chevron-down',
+                        previous: 'fa fa-chevron-left',
+                        next: 'fa fa-chevron-right',
+                        today: 'fa fa-dot-circle-o',
+                        clear: 'fa fa-trash',
+                        close: 'fa fa-times'
+                    }
+                }
+            );
+        }
+    </script>
+    <style>
+        /* Force glyphicons used by the plugin to render as Font Awesome icons */
+        .bootstrap-datetimepicker-widget .glyphicon {
+            font: normal normal normal 14px/1 FontAwesome;
+            display: inline-block;
+        }
+
+        .bootstrap-datetimepicker-widget .glyphicon-chevron-left:before {
+            content: "\f053";
+        }
+        /* fa-chevron-left  */
+        .bootstrap-datetimepicker-widget .glyphicon-chevron-right:before {
+            content: "\f054";
+        }
+        /* fa-chevron-right */
+        .bootstrap-datetimepicker-widget .glyphicon-time:before {
+            content: "\f017";
+        }
+        /* fa-clock-o */
+        .bootstrap-datetimepicker-widget .glyphicon-calendar:before {
+            content: "\f073";
+        }
+        /* fa-calendar */
+        .bootstrap-datetimepicker-widget .glyphicon-chevron-up:before {
+            content: "\f077";
+        }
+
+        .bootstrap-datetimepicker-widget .glyphicon-chevron-down:before {
+            content: "\f078";
+        }
+
+        .bootstrap-datetimepicker-widget .glyphicon-remove:before {
+            content: "\f00d";
+        }
+        /* fa-times */
+        .bootstrap-datetimepicker-widget .glyphicon-trash:before {
+            content: "\f1f8";
+        }
+        /* fa-trash */
+        .bootstrap-datetimepicker-widget .glyphicon-screenshot:before {
+            content: "\f192";
+        }
+        /* fa-dot-circle-o */
+    </style>
+
+
 </body>
 </html>
-

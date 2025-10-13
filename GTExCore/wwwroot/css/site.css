@@ -14,6 +14,43 @@ body {
     display: normal;
 }
 
+/* --- Fix datetimepicker width & position on small screens --- */
+.bootstrap-datetimepicker-widget {
+    width: 100% !important;
+    max-width: 320px;
+    font-size: 14px;
+}
+
+    .bootstrap-datetimepicker-widget.dropdown-menu {
+        padding: 8px !important;
+        border-radius: 10px !important;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    .bootstrap-datetimepicker-widget table td,
+    .bootstrap-datetimepicker-widget table th {
+        padding: 5px !important;
+    }
+
+    /* Center the popup inside parent */
+    .bootstrap-datetimepicker-widget.bottom {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+/* On mobile screens */
+@media (max-width: 600px) {
+    .bootstrap-datetimepicker-widget {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        font-size: 13px;
+        max-width: 95% !important;
+    }
+
+        .bootstrap-datetimepicker-widget table {
+            width: 100%;
+        }
+}
 
 buttonslip {
     color: #090909;
@@ -96,7 +133,7 @@ h9 {
         color:black;
         text-align: center;
         border-top: 3px solid #f41e44;
-        border-right: 1px white solid !important;
+        
         border-left: 0px white solid !important;
     }
 
