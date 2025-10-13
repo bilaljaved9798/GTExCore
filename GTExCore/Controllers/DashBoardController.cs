@@ -1,4 +1,5 @@
-﻿using BettingServiceReference;
+﻿using AccountServiceReference;
+using BettingServiceReference;
 using Global.API;
 using GTCore.Models;
 using GTCore.ViewModel;
@@ -27,6 +28,7 @@ namespace GTExCore.Controllers
         BettingServiceClient BettingServiceClient = new BettingServiceClient();
         UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
+        AccountsServiceClient objAccountsService = new AccountsServiceClient();
         private readonly IRazorViewEngine _viewEngine;
         private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;
@@ -1652,6 +1654,309 @@ namespace GTExCore.Controllers
             catch (System.Exception ex)
             {
                 return PartialView("MatchHighlights", new DefaultPageModel());
+            }
+        }
+
+        public PartialViewResult CreateUser()
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+
+            return PartialView();
+        }
+        //[HttpPost]
+        //[NonAction]
+        public string GetUser(CreateUser User)
+        {
+            if (!User.IsValid())
+            {
+                return "Enter correct fields.";
+            }
+            LoggedinUserDetail.CheckifUserLogin();
+            var result = objUsersServiceCleint.CheckifUserExists(Crypto.Encrypt(User.UserName.ToLower()));
+            if (result == "0")
+            {
+                int CreatedbyID = LoggedinUserDetail.GetUserID();
+                string AccountBalance = objUsersServiceCleint.GetCurrentBalancebyUser(CreatedbyID, _passwordSettingsService.PasswordForValidate);
+                Decimal Newaccountbalance = Convert.ToDecimal(AccountBalance);
+
+                if (LoggedinUserDetail.GetUserTypeID() == 2)
+                {
+                    int HawalaID = objUsersServiceCleint.GetHawalaAccountIDbyUserID(CreatedbyID);
+                    //string AccountBalance = objUsersServiceCleint.GetCurrentBalancebyUser(HawalaID, _passwordSettingsService.PasswordForValidate);
+                    // Decimal Newaccountbalance = Convert.ToDecimal(AccountBalance);
+                    int MaxbalancetransferLimit = objUsersServiceCleint.GetMaxBalanceTransferLimit(CreatedbyID);
+                    int MaxagentrateLimit = objUsersServiceCleint.GetMaxAgentRate(CreatedbyID);
+                    if (Convert.ToInt32(User.AgentRateC) > MaxagentrateLimit)
+                    {
+                        return "Agent Rate cannot greater than " + MaxagentrateLimit.ToString() + " %.";
+                    }
+
+                    if (User.AccountBalance > MaxbalancetransferLimit && LoggedinUserDetail.GetUserID() != 73)
+                    {
+                        return "Account Balance should be not be greater than " + MaxbalancetransferLimit.ToString();
+                    }
+                    if (Newaccountbalance < User.AccountBalance)
+                    {
+                        return "Account Balance is more than available balance";
+                    }
+                    else
+                    {
+                        string userid = objUsersServiceCleint.AddUser(User.Name, User.PhoneNumber, User.EmailAddress, Crypto.Encrypt(User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(User.UserTypeID), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                        // objAccountsService.AddtoUsersAccounts("Amount Credit to your account", User.AccountBalance.ToString(), "0.00", Convert.ToInt32(userid), "", DateTime.Now, Crypto.Encrypt(User.AgentRateC), "", 0);
+                        objAccountsService.AddtoUsersAccountsAsync("Amount removed from your account (User created " + User.UserName.ToString() + ")", "0.00", User.AccountBalance.ToString(), HawalaID, "", DateTime.Now, "", "", "", "", Newaccountbalance, false, "", "", "", "", "");
+                        objUsersServiceCleint.UpdateAccountBalacnebyUser(HawalaID, User.AccountBalance, _passwordSettingsService.PasswordForValidate);
+                        int AhmadRate = objUsersServiceCleint.GetAhmadRate(LoggedinUserDetail.GetUserID());
+                        objUsersServiceCleint.UpdateAhmadRate(Convert.ToInt32(userid), AhmadRate);
+                        objUsersServiceCleint.UpdateMaxAgentRate(Convert.ToInt32(userid), Convert.ToInt32((User.AgentRateC)));
+                        List<AllUserMarkets> lstUserMarket = JsonConvert.DeserializeObject<List<AllUserMarkets>>(objUsersServiceCleint.GetAllUserMarketbyUserID(CreatedbyID));
+                        if (lstUserMarket.Count > 0)
+                        {
+                            List<string> allusersmarket = new List<string>();
+                            lstUserMarket = lstUserMarket.Where(x => x.EventTypeID == "4").ToList();
+                            foreach (var usermarket in lstUserMarket)
+                            {
+                                var objusermarket = usermarket.EventTypeID.ToString() + "#" + usermarket.EventTypeName.ToString() + "#" + usermarket.CompetitionID.ToString() + "#" + usermarket.CompetitionName.ToString() + "#" + usermarket.EventID.ToString() + "#" + usermarket.EventName.ToString() + "#" + usermarket.MarketCatalogueID.ToString() + "#" + usermarket.MarketCatalogueName + "#NotInsert#" + usermarket.EventOpenDate.ToString();
+                                allusersmarket.Add(objusermarket);
+                            }
+                            objUsersServiceCleint.InsertUserMarketAsync(allusersmarket, Convert.ToInt32(userid), CreatedbyID, false);
+                        }
+                        LoggedinUserDetail.InsertActivityLog(CreatedbyID, "Created new user (" + User.UserName.ToString() + ")");
+                        return "True";
+                    }
+                }
+                else
+                {
+                    if (LoggedinUserDetail.GetUserTypeID() == 8)
+                    {
+
+                        int HawalaID = objUsersServiceCleint.GetHawalaAccountIDbyUserID(CreatedbyID);
+                        //string AccountBalance = objUsersServiceCleint.GetCurrentBalancebyUser(HawalaID, _passwordSettingsService.PasswordForValidate);
+                        // Decimal Newaccountbalance = Convert.ToDecimal(AccountBalance);
+                        int MaxbalancetransferLimit = objUsersServiceCleint.GetMaxBalanceTransferLimit(CreatedbyID);
+                        int MaxagentrateLimit = objUsersServiceCleint.GetMaxAgentRate(CreatedbyID);
+
+                        if (Convert.ToInt32(User.AgentRateC) > MaxagentrateLimit)
+                        {
+                            return "Agent Rate cannot greater than " + MaxagentrateLimit.ToString() + " %.";
+                        }
+
+                        if (User.AccountBalance > MaxbalancetransferLimit && LoggedinUserDetail.GetUserID() != 73)
+                        {
+                            return "Account Balance should be not be greater than " + MaxbalancetransferLimit.ToString();
+                        }
+                        if (Newaccountbalance < User.AccountBalance)
+                        {
+                            return "Account Balance is more than available balance";
+                        }
+
+                        string userid = "0";
+                        if (Convert.ToInt32(User.UserTypeID) == 4)
+                        {
+                            userid = objUsersServiceCleint.AddUser(User.Name, User.PhoneNumber, User.EmailAddress, Crypto.Encrypt(User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(User.UserTypeID), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                        }
+                        else
+                        {
+                            userid = objUsersServiceCleint.AddUser(User.Name, User.PhoneNumber, User.EmailAddress, Crypto.Encrypt(User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(User.UserTypeID), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                        }
+                        if (Convert.ToInt32(User.UserTypeID) == 2)
+                        {
+                            try
+                            {
+                                string useridHawala = objUsersServiceCleint.AddUser("Hawala", User.PhoneNumber, User.EmailAddress, Crypto.Encrypt("Hawala" + User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(7), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                                objUsersServiceCleint.UpdateHawalaIDbyUserID(Convert.ToInt32(useridHawala), Convert.ToInt32(userid));
+                                objAccountsService.AddtoUsersAccountsAsync("Amount removed from your account (User created " + User.UserName.ToString() + ")", "0.00", User.AccountBalance.ToString(), HawalaID, "", DateTime.Now, "", "", "", "", Newaccountbalance, false, "", "", "", "", "");
+                                objUsersServiceCleint.UpdateAccountBalacnebyUser(HawalaID, User.AccountBalance, _passwordSettingsService.PasswordForValidate);
+                                int AhmadRate = objUsersServiceCleint.GetAhmadRate(LoggedinUserDetail.GetUserID());
+                                objUsersServiceCleint.UpdateAhmadRate(Convert.ToInt32(userid), AhmadRate);
+                                objUsersServiceCleint.UpdateMaxAgentRate(Convert.ToInt32(userid), Convert.ToInt32(User.AgentRateC));
+                                List<AllUserMarkets> lstUserMarket = JsonConvert.DeserializeObject<List<AllUserMarkets>>(objUsersServiceCleint.GetAllUserMarketbyUserID(73));
+                                if (lstUserMarket.Count > 0)
+                                {
+                                    List<string> allusersmarket = new List<string>();
+                                    foreach (var usermarket in lstUserMarket)
+                                    {
+                                        //  var datearr = usermarket.EventOpenDate.ToString().Split(' ');
+                                        //  var datearr2 = datearr[0].Split('/');
+                                        //  var orignalopendate = datearr2[1] + "/" + datearr2[0] + "/" + datearr2[2] + " " + datearr[1];
+                                        var orignalopendate = Convert.ToDateTime(usermarket.EventOpenDate).ToString("s");
+                                        var objusermarket = usermarket.EventTypeID.ToString() + "#" + usermarket.EventTypeName.ToString() + "#" + usermarket.CompetitionID.ToString() + "#" + usermarket.CompetitionName.ToString() + "#" + usermarket.EventID.ToString() + "#" + usermarket.EventName.ToString() + "#" + usermarket.MarketCatalogueID.ToString() + "#" + usermarket.MarketCatalogueName + "#NotInsert#" + usermarket.EventOpenDate.ToString();
+                                        allusersmarket.Add(objusermarket);
+                                    }
+                                    objUsersServiceCleint.InsertUserMarket(allusersmarket, Convert.ToInt32(userid), CreatedbyID, false);
+                                }
+                            }
+                            catch (System.Exception ex)
+                            {
+
+                            }
+                        }
+
+                        LoggedinUserDetail.InsertActivityLog(CreatedbyID, "Created new user (" + User.UserName + ")");
+
+                        GetUsersbyUsersType();
+
+                        return "True" + "|" + userid.ToString();
+                    }
+
+                    else
+                    {
+
+                        if (LoggedinUserDetail.GetUserTypeID() == 9)
+                        {
+
+                            int HawalaID = objUsersServiceCleint.GetHawalaAccountIDbyUserID(CreatedbyID);
+                            //string AccountBalance = objUsersServiceCleint.GetCurrentBalancebyUser(HawalaID, _passwordSettingsService.PasswordForValidate);
+                            // Decimal Newaccountbalance = Convert.ToDecimal(AccountBalance);
+                            int MaxbalancetransferLimit = objUsersServiceCleint.GetMaxBalanceTransferLimit(CreatedbyID);
+                            int MaxagentrateLimit = objUsersServiceCleint.GetMaxAgentRate(CreatedbyID);
+
+                            if (Convert.ToInt32(User.AgentRateC) > MaxagentrateLimit)
+                            {
+                                return "Agent Rate cannot greater than " + MaxagentrateLimit.ToString() + " %.";
+                            }
+
+                            if (User.AccountBalance > MaxbalancetransferLimit && LoggedinUserDetail.GetUserID() != 73)
+                            {
+                                return "Account Balance should be not be greater than " + MaxbalancetransferLimit.ToString();
+                            }
+                            if (Newaccountbalance < User.AccountBalance)
+                            {
+                                return "Account Balance is more than available balance";
+                            }
+
+                            string userid = "0";
+                            if (Convert.ToInt32(User.UserTypeID) == 4)
+                            {
+                                userid = objUsersServiceCleint.AddUser(User.Name, User.PhoneNumber, User.EmailAddress, Crypto.Encrypt(User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(User.UserTypeID), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                            }
+                            else
+                            {
+                                userid = objUsersServiceCleint.AddUser(User.Name, User.PhoneNumber, User.EmailAddress, Crypto.Encrypt(User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(User.UserTypeID), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                            }
+                            if (Convert.ToInt32(User.UserTypeID) == 8)
+                            {
+                                try
+                                {
+                                    string useridHawala = objUsersServiceCleint.AddUser("Hawala", User.PhoneNumber, User.EmailAddress, Crypto.Encrypt("Hawala" + User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(7), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                                    objUsersServiceCleint.UpdateHawalaIDbyUserID(Convert.ToInt32(useridHawala), Convert.ToInt32(userid));
+                                    objAccountsService.AddtoUsersAccountsAsync("Amount removed from your account (User created " + User.UserName.ToString() + ")", "0.00", User.AccountBalance.ToString(), HawalaID, "", DateTime.Now, "", "", "", "", Newaccountbalance, false, "", "", "", "", "");
+                                    objUsersServiceCleint.UpdateAccountBalacnebyUser(HawalaID, User.AccountBalance, _passwordSettingsService.PasswordForValidate);
+                                    int AhmadRate = objUsersServiceCleint.GetAhmadRate(LoggedinUserDetail.GetUserID());
+                                    objUsersServiceCleint.UpdateAhmadRate(Convert.ToInt32(userid), AhmadRate);
+                                    objUsersServiceCleint.UpdateMaxAgentRate(Convert.ToInt32(userid), Convert.ToInt32(User.AgentRateC));
+                                    objUsersServiceCleint.UpdateSuperRate(Convert.ToInt32(userid), Convert.ToInt32(User.AgentRateC));
+
+                                    List<AllUserMarkets> lstUserMarket = JsonConvert.DeserializeObject<List<AllUserMarkets>>(objUsersServiceCleint.GetAllUserMarketbyUserID(73));
+                                    if (lstUserMarket.Count > 0)
+                                    {
+                                        List<string> allusersmarket = new List<string>();
+                                        foreach (var usermarket in lstUserMarket)
+                                        {
+                                            var orignalopendate = Convert.ToDateTime(usermarket.EventOpenDate).ToString("s");
+                                            var objusermarket = usermarket.EventTypeID.ToString() + "#" + usermarket.EventTypeName.ToString() + "#" + usermarket.CompetitionID.ToString() + "#" + usermarket.CompetitionName.ToString() + "#" + usermarket.EventID.ToString() + "#" + usermarket.EventName.ToString() + "#" + usermarket.MarketCatalogueID.ToString() + "#" + usermarket.MarketCatalogueName + "#NotInsert#" + usermarket.EventOpenDate.ToString();
+                                            allusersmarket.Add(objusermarket);
+                                        }
+                                        objUsersServiceCleint.InsertUserMarket(allusersmarket, Convert.ToInt32(userid), CreatedbyID, false);
+                                    }
+                                }
+                                catch (System.Exception ex)
+                                {
+
+                                }
+
+
+                            }
+
+                            LoggedinUserDetail.InsertActivityLog(CreatedbyID, "Created new user (" + User.UserName + ")");
+
+                            GetUsersbyUsersType();
+
+                            return "True" + "|" + userid.ToString();
+                        }
+
+                        else
+                        {
+                            string userid = objUsersServiceCleint.AddUser(User.Name, User.PhoneNumber, User.EmailAddress, Crypto.Encrypt(User.UserName.ToLower()), Crypto.Encrypt(User.Password), User.Location, User.AccountBalance, Convert.ToInt32(User.UserTypeID), CreatedbyID, Crypto.Encrypt(User.AgentRateC), User.BetLowerLimit, User.BetUpperLimit, true, User.BetLowerLimitHorsePlace, User.BetUpperLimitHorsePlace, User.BetLowerLimitGrayHoundWin, User.BetUpperLimitGrayHoundWin, User.BetLowerLimitGrayHoundPlace, User.BetUpperLimitGrayHoundPlace, User.BetLowerLimitMatchOdds, User.BetUpperLimitMatchOdds, User.BetLowerLimitInningRuns, User.BetUpperLimitInningRuns, User.BetLowerLimitCompletedMatch, User.BetUpperLimitCompletedMatch, User.BetLowerLimitMatchOddsSoccer, User.BetUpperLimitMatchOddsSoccer, User.BetLowerLimitMatchOddsTennis, User.BetUpperLimitMatchOddsTennis, User.BetUpperLimitTiedMatch, User.BetLowerLimitTiedMatch, User.BetUpperLimitWinner, User.BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 1000);
+                            //   objAccountsService.AddtoUsersAccounts("Amount Credit to your account", User.AccountBalance.ToString(), "0.00", Convert.ToInt32(userid), "", DateTime.Now, "", "", 0);
+                            objAccountsService.AddtoUsersAccountsAsync("Amount removed from your account (User created " + User.UserName.ToString() + ")", "0.00", User.AccountBalance.ToString(), CreatedbyID, "", DateTime.Now, "", "", "", "", Newaccountbalance, false, "", "", "", "", "");
+                            objUsersServiceCleint.UpdateAccountBalacnebyUser(CreatedbyID, User.AccountBalance, _passwordSettingsService.PasswordForValidate);
+
+                            LoggedinUserDetail.InsertActivityLog(CreatedbyID, "Created new user (" + User.UserName.ToString() + ")");
+                            return "True" + "|" + userid.ToString();
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                return "Username already exists.";
+            }
+
+
+        }
+        public bool CheckUsername(string UserName)
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            var result = objUsersServiceCleint.CheckifUserExists(Crypto.Encrypt(UserName));
+            if (result == "0")
+            {
+                return true;
+            }
+            else { return false; }
+        }
+
+        public PartialViewResult ManageUser()
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            ManageUser user = new ManageUser();
+            objAccessrightsbyUserType = new AccessRightsbyUserType();
+            objAccessrightsbyUserType = JsonConvert.DeserializeObject<AccessRightsbyUserType>(objUsersServiceCleint.GetAccessRightsbyUserType(LoggedinUserDetail.GetUserTypeID(), _passwordSettingsService.PasswordForValidate));
+            user.CanBlockUser = objAccessrightsbyUserType.CanBlockUser;
+            user.CanDeleteUser = objAccessrightsbyUserType.CanDeleteUser;
+            user.CanChangeAgentRate = objAccessrightsbyUserType.CanChangeAgentRate;
+            user.CanChangeLoggedIN = objAccessrightsbyUserType.CanChangeLoggedIN;
+            return PartialView(user);
+        }
+
+        public async Task<IActionResult> EventType()
+        {
+            try
+            {
+                //var eventTypes = await objBettingClient
+                //    .listEventTypesAsync(false, _passwordSettingsService.PasswordForValidate);
+                var eventTypes = objBettingClient.listEventTypesAsync(false, _passwordSettingsService.PasswordForValidate);
+
+                //var model = (eventTypes ?? new List<EventTypeResult>())
+                //    .AsEnumerable();
+                
+                return PartialView("EventType", eventTypes);
+            }
+            catch (Exception ex)
+            {
+                return PartialView("EventType", Enumerable.Empty<BettingServiceReference.EventTypeResult>());
+            }
+        }
+        public PartialViewResult ResetPasswordView()
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            return PartialView();
+        }
+        public string ResetPassword(string Password)
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            if (Password.Length >= 6)
+            {
+                if (LoggedinUserDetail.GetUserID() > 0)
+                {
+                    objUsersServiceCleint.ResetPasswordofUser(LoggedinUserDetail.GetUserID(), Crypto.Encrypt(Password), LoggedinUserDetail.GetUserID(), DateTime.Now, _passwordSettingsService.PasswordForValidate);
+                }
+
+                return "True";
+            }
+            else
+            {
+                return "False";
             }
         }
     }

@@ -1,0 +1,16 @@
+﻿@using GTCore.Models
+@model IEnumerable<UserIDandUserType>
+
+
+<div class="form-group">
+	<label class="control-label col-md-2">Users</label>
+
+	<div class="col-md-10">
+		@Html.DropDownList("ddlUsers", Model.Select(item => new SelectListItem
+		{
+			Value = item.ID.ToString(),
+				Text = item.UserName.ToString()
+
+				}), new { @class = "selectpicker", data_live_search = "true", @multiple = "multiple" })
+	</div>
+</div>

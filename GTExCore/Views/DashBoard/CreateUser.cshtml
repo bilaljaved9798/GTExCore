@@ -1,0 +1,403 @@
+﻿@using GTCore.Models
+@using GTExCore.Models
+@model CreateUser
+
+
+
+
+<form id="CreateUserForm" autocomplete="off">
+    <div class="col-md-12 form-horizontal">
+
+        <div id="ManageUser">
+        </div>
+
+    </div>
+
+
+    <div class="container createuser">
+        <div class="col-md-12">
+            <div class="col-md-7 form-horizontal">
+                <div class="thirteen " style="margin-top: 25px;">
+                    <h1>Create User</h1>
+                </div>
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.EmailAddress, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.EmailAddress, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-3", autocomplete = "off" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3", autocomplete = "off" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", autocomplete = "off" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Location, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.AccountBalance, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.AccountBalance, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AccountBalance, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3">Agent Rate</label>
+
+                    <div class="col-md-8">
+                        @Html.EditorFor(model => model.AgentRateC, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.AgentRateC, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @if (LoggedinUserDetail.GetUserTypeID() == 1)
+                {
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimit, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimit, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimit, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Horse Place</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitHorsePlace, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitHorsePlace, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Horse Place</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitHorsePlace, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitHorsePlace, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Gray Hound Win</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitGrayHoundWin, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitGrayHoundWin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Gray Hound Win</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitGrayHoundWin, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitGrayHoundWin, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Gray Hound Place</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitGrayHoundPlace, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitGrayHoundPlace, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Gray Hound Place</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitGrayHoundPlace, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitGrayHoundPlace, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Match Odds</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitMatchOdds, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitMatchOdds, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Match Odds</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitMatchOdds, new { htmlAttributes = new { @class = "form-control", @Value = "500000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitMatchOdds, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Inning Runns</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitInningRuns, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitInningRuns, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Inning Runs</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitInningRuns, new { htmlAttributes = new { @class = "form-control", @Value = "500000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitInningRuns, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Completed Match</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitCompletedMatch, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitCompletedMatch, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Completed Match</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitCompletedMatch, new { htmlAttributes = new { @class = "form-control", @Value = "500000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitCompletedMatch, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Match Odds Soccer</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitMatchOddsSoccer, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsSoccer, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Match Odds Soccer</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitMatchOddsSoccer, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsSoccer, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Match Odds Tennis</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitMatchOddsTennis, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsTennis, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Match Odds Tennis</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitMatchOddsTennis, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsTennis, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Tied Match</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitTiedMatch, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitTiedMatch, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Tied Match</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitTiedMatch, new { htmlAttributes = new { @class = "form-control", @Value = "500000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitTiedMatch, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Lower Limit Winner</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetLowerLimitWinner, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                            @Html.ValidationMessageFor(model => model.BetLowerLimitWinner, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3">Bet Upper Limit Winner</label>
+
+                        <div class="col-md-8">
+                            @Html.EditorFor(model => model.BetUpperLimitWinner, new { htmlAttributes = new { @class = "form-control", @Value = "500000" } })
+                            @Html.ValidationMessageFor(model => model.BetUpperLimitWinner, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+                }
+                <div class="form-group">
+                    @if (LoggedinUserDetail.GetUserTypeID() == 1)
+                    {
+                        <label class="control-label col-md-3">User Type</label>
+                        <div class="col-md-8">
+                            <select id="ddlUserType" class="selectpicker">
+                                <option value="0">Please Select</option>
+                                <option value="1">Admin</option>
+                                <option value="8">Super Master</option>
+                                <option value="2">Agent</option>
+                                <option value="3">End User</option>
+
+                            </select>
+                        </div>
+                    }
+                    @if (LoggedinUserDetail.GetUserTypeID() == 8)
+                    {
+                        <label class="control-label col-md-3">User Type</label>
+                        <div class="col-md-8">
+                            <select id="ddlUserType" class="selectpicker">
+                                <option value="0">Please Select</option>
+                                <option value="2">Agent</option>
+                            </select>
+                        </div>
+                    }
+                    @if (LoggedinUserDetail.GetUserTypeID() == 9)
+                    {
+                        <label class="control-label col-md-3">User Type</label>
+                        <div class="col-md-8">
+                            <select id="ddlUserType" class="selectpicker">
+                                <option value="0">Please Select</option>
+                                <option value="8">Super Master</option>
+                            </select>
+                        </div>
+                    }
+                    @if (LoggedinUserDetail.GetUserTypeID() == 2)
+                    {
+                        <label class="control-label col-md-3">User Type</label>
+                        <div class="col-md-8">
+                            <select id="ddlUserType" class="selectpicker">
+                                <option value="3">End User</option>
+                            </select>
+                        </div>
+
+                    }
+
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <div class="col-md-offset-3 col-md-10">
+                        @*<input type="button" id="btnCreateUser" value="Create" class="btn btn-default" />*@
+                        <button class="buttonview" id="btnCreateUser" style="float: initial; margin-top: 21px;height:31px;margin-bottom:18px">Create</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                @if (LoggedinUserDetail.GetUserTypeID() == 1)
+                {
+                    <h4>Assign Market to User</h4>
+                    <hr />
+                    <div class="col-md-12">
+                        <div id="MarektPermissions">
+                            <div class="container">
+                                <div class="row">
+                                    <div id="MarketTreeView" class="acidjs-css3-treeview">
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+        $("#UserName").on("blur", function () {
+            var username = $("#UserName").val();
+            $.ajax({
+                url: '/DashBoard/CheckUsername',
+                async: true,
+                type: 'POST',
+
+                data: { 'username': username },
+
+                complete: function () { },
+                success: function (data) {
+
+                    if (data == "False") {
+                        ShowErrorMsg("Username already exists.");
+                    }
+                }
+            });
+        });
+        $(document).ready(function () {
+            ShowLoader();
+            $("#ManageUser").load("/DashBoard/ManageUser", function () {
+
+                if ($("#MarketTreeView").html() != undefined) {
+                    // var partialviewname = "/DashBoard/EventType";
+                    // $("#MarketTreeView").load(partialviewname, function () {
+
+                    // });
+                    $(".acidjs-css3-treeview").delegate("label:not([for]) input:checkbox", "change", function () {
+                        checkstatechange($(this))
+                    });
+                }
+            });
+
+
+
+        });
+    </script>
+
+</form>
