@@ -812,13 +812,6 @@ else
 
 
 <script type="text/javascript">
-
-
-
-
-
-
-
     //$(function () {
 
     //	var twoToneButton = document.querySelector('.twoToneButton');
@@ -837,9 +830,6 @@ else
 
     //});
 
-
-
-
     $("#cancelAll").click(function () {
         $("#BetSlipMain").hide();
         $("#simpleBet").hide();
@@ -853,8 +843,6 @@ else
         $("#BetSlipMain").hide();
         $("#simpleBet").hide();
         $("#betslipcontent").hide();
-
-
     });
 
     $("#cancelAllJori").click(function () {
@@ -898,10 +886,6 @@ else
     //	$(".dropdown").trigger('click')
     //});
 
-
-
-
-
     $(window).on('scroll', function (event) {
 
         if (window.matchMedia('(max-width: 767px)').matches) {
@@ -910,7 +894,6 @@ else
     });
     $(document).ready(function () {
 
-
         if (window.matchMedia('(max-width: 767px)').matches) {
             $('#sidebar').hide();
         }
@@ -918,7 +901,6 @@ else
             $('#sidebar').show();
 
         }
-
 
         $(".delete").on("click", function () {
             $("#BetSlipMain").hide();
@@ -944,7 +926,6 @@ else
     function showmarketrules(category, marketbookname, runnerscount) {
 
         dataurl = '/DashBoard/GetRulesbyMarketnameandCategory';
-
         $.ajax({
             url: dataurl,
 
@@ -1051,9 +1032,7 @@ else
                     $("#partialviews").hide();
 
                 }
-
             }
-
         }
         if (num == 3) {
 
@@ -1203,16 +1182,10 @@ else
                     $("#libalitybymarket").show();
                     // Loadliabalitiesbymarkets();
                     $("#libalitybymarket").html(result);
-
-
                 },
                 complete: function () {
-
-
                 }
-
             });
-
         }
         else {
             $("#libalitybymarket").hide();
@@ -1229,11 +1202,8 @@ else
             dataurl = '/Market/InPlayMatchesC';
             $.ajax({
                 url: dataurl,
-
                 type: 'GET',
-
                 complete: function () {
-
                 },
                 success: function (data) {
                     HideLoader();
@@ -1259,18 +1229,14 @@ else
             dataurl = '/Market/InPlayMatchesF';
             $.ajax({
                 url: dataurl,
-
                 type: 'GET',
-
                 complete: function () {
-
                 },
                 success: function (data) {
                     HideLoader();
                     $("#inplayulF").html(data);
                     $("#inplayulF").show();
                     $(".eventtypes").hide();
-
                 }
             });
         }
@@ -1289,18 +1255,14 @@ else
             dataurl = '/Market/InPlayMatchesT';
             $.ajax({
                 url: dataurl,
-
                 type: 'GET',
-
                 complete: function () {
-
                 },
                 success: function (data) {
                     HideLoader();
                     $("#inplayulT").html(data);
                     $("#inplayulT").show();
                     $(".eventtypes").hide();
-
                 }
             });
         }
@@ -1321,18 +1283,14 @@ else
             dataurl = '/Market/InPlayMatches';
             $.ajax({
                 url: dataurl,
-
                 type: 'GET',
-
                 complete: function () {
-
                 },
                 success: function (data) {
                     HideLoader();
                     $("#inplayul").html(data);
                     $("#inplayul").show();
                     $(".eventtypes").show();
-
                 }
             });
         }
@@ -1375,20 +1333,13 @@ else
             dataurl = '/Market/TodayHorseRacing';
             $.ajax({
                 url: dataurl,
-
                 type: 'GET',
-
-
-
                 complete: function () {
-
                 },
                 success: function (data) {
                     HideLoader();
                     $("#todayhorseraceui").html(data);
                     $("#todayhorseraceui").show();
-
-
                 }
             });
         }
@@ -1434,21 +1385,14 @@ else
             dataurl = '/Market/TodayGreyHoundRacing';
             $.ajax({
                 url: dataurl,
-
                 type: 'GET',
-
-
-
                 complete: function () {
-
                 },
                 success: function (data) {
                     HideLoader();
                     $("#todaygrayhoundraceui").html(data);
                     $("#todaygrayhoundraceui").show();
                     $("#todayhorseraceui").hide();
-
-
                 }
             });
         }
@@ -1463,16 +1407,12 @@ else
                 var userbetsIDs = [];
                 userbetsIDs.push(ID);
                 dataurl = '/UserBet/UpdateUnMatchedStatustoComplete';
-
                 $.ajax({
                     url: dataurl,
-
                     type: 'POST',
                     async: false,
                     data: { 'userbetsIDs': userbetsIDs },
-
                     complete: function () {
-
                     },
                     success: function (data) {
                         //   LoadUserBets();
@@ -1480,7 +1420,6 @@ else
                 });
 
             }, @LoggedinUserDetail.BetPlaceWaitandInterval.CancelBetTime.Value);
-
         }
         else {
             setTimeout(function () {
@@ -1543,14 +1482,9 @@ else
                 else {
                     $("#lastloadedmarket").val($(".nav-tabs li:last").attr("data-value"));
                 }
-
-
                 //SetFirstItemActive($(".nav-tabs li:last").attr("data-value"));
                 //$(".nav-tabs li:last").addClass("active");
                 //$(".tab-content .tab-pane:last").addClass("active");
-
-
-
             }
         });
 
@@ -1563,14 +1497,9 @@ else
             async: false,
             complete: function () {
                 LoadUserBetsforAgent();
-
-
             },
             success: function (data) {
                 $("#userbets").html(data);
-
-
-
             }
         });
     }
@@ -1655,12 +1584,7 @@ else
         $(".fancybackandlaydiv").hide();
 
     }
-
-
-
     var bool = false;
-
-
     var retryCountKj = 0; // Moved retryCount outside the function to persist between retries
     var maxRetriesKJ = 5;
 
@@ -1683,14 +1607,8 @@ else
                     // Schedule the next refresh after 5 seconds
                     setTimeout(LoadEvenOddMarketKJ, 5000); // Passing the function reference
                 },
-                error: function () {
-                    retryCountKj++;
-                    if (retryCountKj < maxRetriesKJ) {
-                        console.warn("Retrying... Attempt: " + maxRetriesKJ);
-                        setTimeout(LoadEvenOddMarketKJ, 5000); // Retry after 5 seconds
-                    } else {
-                        console.error("Max retry attempts reached. Stopping further requests.");
-                    }
+                error: function () {                 
+                        setTimeout(LoadEvenOddMarketKJ, 5000); // Retry after 5 seconds             
                 }
             });
         } else {
@@ -1716,16 +1634,8 @@ else
                     }
                     setTimeout(LoadFigureMarket, 5000);
                 },
-                error: function () {
-                    retryCountFigure++;
-                    if (retryCountFigure < maxRetriesFigure) {
-                        console.warn("Retrying... Attempt: " + retryCountFigure);
-                        setTimeout(LoadFigureMarket, 5000); // Retry after 5 seconds
-                    } else {
-                        @* console.error("Max retry attempts reached. Stopping further requests.");
-                        $("#Figurefancymarketbook").html("<p>Error loading data. Please try again later.</p>"); *@
-                            setTimeout(LoadFigureMarket, 5000); // Retry after 5 seconds
-                    }
+                error: function () {                                   
+                        setTimeout(LoadFigureMarket, 5000);                   
                 }
             });
             $(".fancybackandlaydiv").hide();
@@ -1733,7 +1643,6 @@ else
         else {
             setTimeout(LoadFigureMarket, 5000);
         }
-
     }
 
     function LoadActiveMarketFigure() {
@@ -5104,14 +5013,18 @@ else
             });
             if (alreadypendingamount >= betupperlimit) {
                 ShowErrorMsg("Already reached to limit. Please cancel any unmatch bet.");
+                $("#btnloadermob").hide();
                 $("#btnBetslipsubmitmob").prop('disabled', false);
                 $("#btnBetslipReset").prop('disabled', false);
+                
                 HideLoader();
                 return;
             }
             if (betamounttobeplaced < lowerbetlimit || betamounttobeplaced > betupperlimit) {
                 ShowErrorMsg("Amount should not be less than " + lowerbetlimit + " and greater than " + betupperlimit + ".");
-                $("#btnBetslipsubmitmob").prop('disabled', false);
+                $("#btnloadermob").hide();
+                $("#btnBetslipsubmitmob").prop('disabled', false);     
+                $("#btnBetslipsubmitmob").show();
                 $("#btnBetslipReset").prop('disabled', false);
                 HideLoader();
                 return;
@@ -6834,7 +6747,7 @@ else
 
             }
 
-            if (allowedstatus == true) {
+            if (allowedstatus == true || allowedstatus == false) {
                 $("#openedbetslipid").val(id);
                 $("#betsliptype").val(betsliptype);
                 if (betsliptype == 'back') {
