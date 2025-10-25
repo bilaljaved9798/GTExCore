@@ -2630,16 +2630,8 @@ namespace Census.API.Controllers
                     {
                         ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
-                        HttpClient _httpClient = new HttpClient();
-                        string url = $"https://serviceapi.fairgame7.com/getIframeUrl/{dID}?sportType=football&isTv=true&isScore=true";
-                        HttpResponseMessage response = await _httpClient.GetAsync(url);
-                        if (!response.IsSuccessStatusCode)
-                        {
-                            return "Failed to fetch data from API";
-                        }
-                        string dimondApiResponse = await response.Content.ReadAsStringAsync();
-                        var result = JsonConvert.DeserializeObject<DimondRoot>(dimondApiResponse);
-                        var tvlink1 = result.tvData.iframeUrl;
+                        // Directly create the iframe URL using DimondID (no external API call)
+                        string tvlink1 = $"https://e765432.diamondcricketid.com/dtv.php?id={dID}";
                         return tvlink1;
                     }
                     catch (System.Exception ex)
@@ -2647,6 +2639,26 @@ namespace Census.API.Controllers
                         return "";
                     }
                 }
+
+
+                if (sportId == 2)
+                {
+                    try
+                    {
+                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+                        // Directly create the iframe URL using DimondID (no external API call)
+                        string tvlink1 = $"https://e765432.diamondcricketid.com/dtv1.php?id={dID}";
+                        return tvlink1;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        return "";
+                    }
+                }
+
+
+
                 //https://serviceapi.fairgame7.com/getIframeUrl/471734455?sportType=football&isTv=true&isScore=true
                 return data.tvlink1;
             }

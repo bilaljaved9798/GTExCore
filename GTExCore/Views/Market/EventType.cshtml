@@ -262,7 +262,7 @@ else
     <br />
 
     <iframe class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" style="; z-index:100; height: 320px ;display:none" id="video" frameborder="0"> </iframe>
-    <iframe control="0" class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" id="scorecaed" frameborder="0" style="text-align: center;display: inline;margin-top: 1px; margin-bottom:-4px;display:none;z-index:100"></iframe>
+    <iframe control="0" class="cardsscore col-md-4 col-sm-12 col-lg-4 no-padding" id="scorecaed" frameborder="0" style="text-align: center;    margin-top: 1px;    height: 256px;    border-bottom: 5px solid white;    margin-bottom: -4px;    z-index: 100;"></iframe>
 
     <div class="col-md-4 col-sm-12 col-lg-4 no-padding" id="betsection"  style="margin-top:1px !important" >
         @{
@@ -624,9 +624,11 @@ else
                                             <td colspan="3" align="right">
 
                                                 <button class="btn btn-success" id="btnBetslipsubmitmob" style="font-size:18px !important; ">Submit</button>
-                                                <button class="btn btn-success" id="btnloadermob" style="font-size: 18px;color: #bfbfbf;height: 34px !important;width:85px !important;display: none;border: 2px solid black;"> Submit <img style="height: 47px !important;width: 93px !important;margin-top: -40px;" src="/Content/Images/love1.svg" /></button>
+                                                <button class="btn " id="btnloadermob" style="font-size: 18px; background: seagreen; margin-top: 1px; color: white !important; height: 39px !important; width: 77px !important; display: none;"> Submit <img style="height: 44px !important;width: 37px !important;margin-top: -12px;margin-left: -44px;" src="/ripple1.svg" /></button>
 
-                                            </td>
+
+
+                                                               </td>
                                         </tr>
                                 </table>
                                 <div class="clear-fix"></div>
@@ -3739,6 +3741,23 @@ else
             (statusKey === "suspended" || statusKey === "void_processing") ? runner.StatusStr : ""
         );
 
+        // Font-size tweak for void_processing
+        if (statusKey === "void_processing") {
+            $("#lblsuspend" + selectionId).each(function () {
+                this.style.setProperty("font-size", "13px", "important");
+            });
+            $susp.each(function () {
+                this.style.setProperty("font-size", "13px", "important");
+            });
+        } else {
+            $("#lblsuspend" + selectionId).each(function () {
+                this.style.removeProperty("font-size");
+            });
+            $susp.each(function () {
+                this.style.removeProperty("font-size");
+            });
+        }
+
         // Update prices/sizes (ids use SelectionId with spaces removed)
         $("#lblbackprice" + idSafe).text(runner.Backprice);
         $("#lblbacksize" + idSafe).text(runner.BackSize);
@@ -3837,33 +3856,44 @@ else
         }).get());
 
         $.each(marketbook1, function (index, runner) {
-            let marketId = parseInt(runner.SelectionId.replace(/\s/g, ''), 10);
+            let marketId = parseInt(String(runner.SelectionId).replace(/\s/g, ''), 10);
             let $runnerElement = $("#mainRunnerBook" + marketId);
 
             var a = $("#clickedlocation").val();
             var selectionId = $("#openedbetslipid").val();
             if ((runner.StatusStr == "Ball Running" || runner.StatusStr == "VOID_PROCESSING" || runner.StatusStr == "SUSPENDED" || runner.StatusStr == "Starting soon.") && runner.SelectionId == selectionId) {
-
                 if (a == "9") {
                     $('#simpleBet').hide();
                     $('#myModalBetslipmob').modal('hide');
                 }
             }
 
-
             if ($runnerElement.length > 0) {
                 let status = runner.StatusStr;
+                let statusKey = (status ? String(status) : "").trim().toLowerCase().replace(/\s+/g, "_");
                 let isSuspended = status.includes("SUSPENDED");
 
-                $("#backandlaySUSPENDED" + marketId).toggle(isSuspended);
+                $("#backandlaySUSPENDED" + marketId).toggle(isSuspended || statusKey === "void_processing");
                 $("#backandlayBallRunning" + marketId).toggle(status === "Ball Running");
-                $("#backandlayBallRunning" + marketId).toggle(status === "VOID_PROCESSING");
-                $("#backandlaydivMain" + marketId).toggle((!isSuspended && status !== "Ball Running") || status == "VOID_PROCESSING");
-                $("#backandlaydivMain" + marketId).toggle(status !== "VOID_PROCESSING");
 
+                // Main visibility (hide on suspended or void_processing or ball running)
+                const hideMain = isSuspended || statusKey === "void_processing" || statusKey === "ball_running";
+                $("#backandlaydivMain" + marketId).toggle(!hideMain);
+
+                // Texts
                 $("#lblballrunning" + marketId).text(status === "Ball Running" ? status : "");
-                $("#lblballrunning" + marketId).text(status === "VOID_PROCESSING" ? status : "");
-                $("#lblsuspend" + marketId).text(isSuspended ? status : "");
+                $("#lblsuspend" + marketId).text((isSuspended || statusKey === "void_processing") ? status : "");
+
+                // Font-size tweak for void_processing
+                if (statusKey === "void_processing") {
+                    $("#lblsuspend" + marketId).css("font-size", "13px");
+                    $("#backandlaySUSPENDED" + marketId).css("font-size", "13px");
+                } else {
+                    $("#lblsuspend" + marketId).css("font-size", "");
+                    $("#backandlaySUSPENDED" + marketId).css("font-size", "");
+                }
+
+                // Prices/sizes
                 $("#lblbackprice" + marketId).text(runner.Backprice);
                 $("#lblbacksize" + marketId).text(runner.BackSize);
                 $("#lbllayprice" + marketId).text(runner.Layprice);
@@ -3883,80 +3913,84 @@ else
 
 
     function addRunner(runner) {
+        const marketId = String(runner.SelectionId).replace(".", "");
+        const normalized = (runner.StatusStr ? String(runner.StatusStr) : "")
+            .trim().toLowerCase().replace(/\s+/g, "_");
+        const isVoidProcessing = normalized === "void_processing";
 
-        let marketId = runner.SelectionId.replace(".", "");
         let htmlContent = '';
 
         // Start constructing the main runner HTML
         htmlContent += `
-                                        <div id="mainRunnerBook${marketId}" class="marketbook4" data-marketid="${marketId}">
-                                    <div id="selection${marketId.replace(/ /g, "")}" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper">
-                                        <div id="nameProfitandlossdivf">
-                                            <div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
-                                                    <label for="chkselection${marketId}" data-value="${marketId}" class="runners runnersname tooltip" id="lblSelectionName${marketId}" style="float: left;    width: 90% !important; margin-top: 3px; margin-left: 7px;font-size: 14px;">
-                                                    ${runner.RunnerName}
-                                                    <span class="tooltiptext">${runner.RunnerName}</span>
-                                                </label>
-                                                    <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('${runner.MarketBookID}','${marketId}')">
-                                                    Book
-                                                </div>
-                                                     <div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">
-                                                            <label id="lblprofitandloss${runner.SelectionId}" class="runnersprofitlossgreenFancy ">
-                                                          ${runner.ProfitandLoss ?? 0}
-                                                </label>
-                                                    <label id="lblloss${runner.SelectionId}" class="runnersprofitlossred23">
-                                                        ${runner.Loss$ ?? 0}
-                                                </label>
-                                            </div>
-                                            </div>
-                                        </div>
-                                <div id="lastpricebackandlaydivf">`;
+            <div id="mainRunnerBook${marketId}" class="marketbook4" data-marketid="${marketId}">
+                <div id="selection${marketId.replace(/ /g, "")}" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper">
+                    <div id="nameProfitandlossdivf">
+                        <div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
+                            <label for="chkselection${marketId}" data-value="${marketId}" class="runners runnersname tooltip" id="lblSelectionName${marketId}" style="float: left; width: 90% !important; margin-top: 3px; margin-left: 7px;font-size: 14px;">
+                                ${runner.RunnerName}
+                                <span class="tooltiptext">${runner.RunnerName}</span>
+                            </label>
+                            <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('${runner.MarketBookID}','${marketId}')">
+                                Book
+                            </div>
+                            <div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">
+                                <label id="lblprofitandloss${runner.SelectionId}" class="runnersprofitlossgreenFancy ">
+                                    ${runner.ProfitandLoss ?? 0}
+                                </label>
+                                <label id="lblloss${runner.SelectionId}" class="runnersprofitlossred23">
+                                    ${runner.Loss$ ?? 0}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="lastpricebackandlaydivf">`;
 
-        // Handle different runner status conditions
-
+        // Ball Running
         htmlContent += `
-                                        <div id="backandlayBallRunning${marketId}" style="display:none" class="runnerbackandlaydivf">
-                                            <label id="lblballrunning" class="suspended" style="border-top:0px">${runner.StatusStr}</label>
-                                        </div>`;
+            <div id="backandlayBallRunning${marketId}" style="display:none" class="runnerbackandlaydivf">
+                <label id="lblballrunning${marketId}" class="suspended" style="border-top:0px">${runner.StatusStr}</label>
+            </div>`;
 
+        // Suspended / Void Processing (apply 13px if VOID_PROCESSING)
         htmlContent += `
-                                                    <div id="backandlaySUSPENDED${marketId}" style="display:none" class="runnerbackandlaydivf">
-                                            <label id="lblsuspend" class="suspended" style="border-top:0px">${runner.StatusStr}</label>
-                                        </div>`;
+            <div id="backandlaySUSPENDED${marketId}" style="display:none" class="runnerbackandlaydivf">
+                <label id="lblsuspend${marketId}" class="suspended" style="border-top:0px;${isVoidProcessing ? 'font-size:13px;' : ''}">
+                    ${runner.StatusStr}
+                </label>
+            </div>`;
 
-
+        // Main prices
         htmlContent += `
-                                                <div id="backandlaydivMain${marketId}" class="no-padding priceandsize matchcolors runnerbackandlaydivf">
-                                            <div id="backandlaydivsecond" class="no-padding">
-                                                <div id="backandlaydivthird" class="no-padding">
-                                                    <div class="col-md-4 col-sm-12 no-padding backitemf">
-                                                        <label style="font-size:21px; font-weight:bold" id="lblbackprice${marketId}" class="selectionprice" onclick="showbetslip('${marketId}','back','${runner.Backprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.BackSize}','9','${runner.MarketBookID}')">
-                                                            ${runner.Backprice}
-                                                        </label><br />
-                                                        <label id="lblbacksize${marketId}" class="selectionsize" onclick="showbetslip('${marketId}','back','${runner.Backprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.BackSize}','9','${runner.MarketBookID}')">
-                                                            ${runner.BackSize}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <div id="ExchangePricesmain" class="no-padding">
-                                                    <div class="no-padding layitemf">
-                                                        <label style="font-size:21px; font-weight:bold" id="lbllayprice${marketId}" class="selectionprice" onclick="showbetslip('${marketId}','lay','${runner.Layprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.LaySize}','9','${runner.MarketBookID}')">
-                                                            ${runner.Layprice}
-                                                        </label><br />
-                                                        <label id="lbllaysize${marketId}" class="selectionsize" onclick="showbetslip('${marketId}','lay','${runner.Layprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.LaySize}','9','${runner.MarketBookID}')">
-                                                            ${runner.LaySize}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>`;
-
+            <div id="backandlaydivMain${marketId}" class="no-padding priceandsize matchcolors runnerbackandlaydivf">
+                <div id="backandlaydivsecond" class="no-padding">
+                    <div id="backandlaydivthird" class="no-padding">
+                        <div class="col-md-4 col-sm-12 no-padding backitemf">
+                            <label style="font-size:21px; font-weight:bold" id="lblbackprice${marketId}" class="selectionprice" onclick="showbetslip('${marketId}','back','${runner.Backprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.BackSize}','9','${runner.MarketBookID}')">
+                                ${runner.Backprice}
+                            </label><br />
+                            <label id="lblbacksize${marketId}" class="selectionsize" onclick="showbetslip('${marketId}','back','${runner.Backprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.BackSize}','9','${runner.MarketBookID}')">
+                                ${runner.BackSize}
+                            </label>
+                        </div>
+                    </div>
+                    <div id="ExchangePricesmain" class="no-padding">
+                        <div class="no-padding layitemf">
+                            <label style="font-size:21px; font-weight:bold" id="lbllayprice${marketId}" class="selectionprice" onclick="showbetslip('${marketId}','lay','${runner.Layprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.LaySize}','9','${runner.MarketBookID}')">
+                                ${runner.Layprice}
+                            </label><br />
+                            <label id="lbllaysize${marketId}" class="selectionsize" onclick="showbetslip('${marketId}','lay','${runner.Layprice}','2000','0','${runner.MarketBookID}','${runner.RunnerName}','${runner.LaySize}','9','${runner.MarketBookID}')">
+                                ${runner.LaySize}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>`;
 
         // Close the main wrapper divs
         htmlContent += `
-                                    </div>
-                                    </div>
-                                </div>`;
+                    </div>
+                </div>
+            </div>`;
 
         if ($('#runnermain').length) {
             $('#runnermain').append(htmlContent);
@@ -3966,12 +4000,16 @@ else
     }
 
 
-
-
     function removeRunner(runnerToRemove) {
         // Use the SelectionId to remove the specific runner's HTML
         $("#marketbook" + runnerToRemove.MarketBookID.replace(".", "")).remove();
     }
+
+    // Helper used by updateRunnerUI (define once globally in your file if not already)
+    function normalizeStatus(s) {
+        return (s ? String(s) : "").trim().toLowerCase().replace(/\s+/g, "_");
+    }
+
 
     function AssignDatatoMarketBookFigure(marketbooks) {
         // ;
@@ -4555,84 +4593,105 @@ else
     // Global cache to avoid repeated parsing
     let cachedSelections = {};
 
-    function AddRunnersformultiplebets(id) {
-        // Cache frequently used DOM elements
-        const lastLoadedMarket = $("#lastloadedmarket");
-        const marketbookdID = lastLoadedMarket.val().toString().replace(".", "");
-        const marketbookElem = $(`#marketbook${marketbookdID}`);
+    (function (w, $) {
+        // ---- GLOBAL-SAFE SINGLETONS / GUARDS ----
+        w.cachedSelections = w.cachedSelections || Object.create(null);   // no const; reuse if it exists
+        if (w.__addRunnersInit) return;                                   // already wired once
+        w.__addRunnersInit = true;
 
-        // Retrieve elements once
-        const chkElem = marketbookElem.find(`#chkselection${id}`);
-        const selectionElem = marketbookElem.find(`#selection${id}`);
-        const clothNumStallDrawElem = marketbookElem.find(`#clothnumstalldrawimg${id}`);
-        const selectionClothLabel = marketbookElem.find(`#lblSelectionClothnumber${id}`);
-
-        // Get values once
-        const marketbookname = $(`#marketbookname${marketbookdID}`).val();
-        const mainsportcat = $(`#marketbookCategory${marketbookdID}`).val();
-        const marketstatus = $(`#marketbookstatus${marketbookdID}`).text();
-
-        // Early exit conditions
-        if (marketbookname.includes("To Be Placed") || !mainsportcat.includes("Racing") || marketbookname.includes("(US)")) {
-            chkElem.prop("checked", false);
-            return;
+        // ---- helpers ----
+        function getMarketId() {
+            const val = $("#lastloadedmarket").val() || "";
+            return val.toString().replace(".", "");
         }
 
-        if (marketstatus === "SUSPENDED" || marketstatus === "CLOSED") {
-            chkElem.prop("checked", false);
-            clothNumStallDrawElem.css("background-color", "white");
-            return;
-        }
+        function getMarketCache(marketId) {
+            const store = w.cachedSelections;
+            if (!store[marketId]) {
+                const $market = $(`#marketbook${marketId}`);
+                const runnersJson = $(`#selectedrunners${marketId}`).val() || "[]";
+                const clothJson = $(`#selectedrunnersclothnumber${marketId}`).val() || "[]";
 
-        // Get state once
-        const isChecked = chkElem.prop("checked");
+                const totalRunnerCount = $market.find(".runnerswrapper").length;
+                const maxSel =
+                    totalRunnerCount > 40 ? 7 :
+                        totalRunnerCount > 25 ? 6 :
+                            totalRunnerCount > 20 ? 4 :
+                                totalRunnerCount > 12 ? 3 : 2;
 
-        // Use cached selections to avoid repeated JSON parsing
-        if (!cachedSelections[marketbookdID]) {
-            cachedSelections[marketbookdID] = {
-                runners: JSON.parse($(`#selectedrunners${marketbookdID}`).val() || "[]"),
-                clothNumbers: JSON.parse($(`#selectedrunnersclothnumber${marketbookdID}`).val() || "[]")
-            };
-        }
-
-        let selectedRunners = cachedSelections[marketbookdID].runners;
-        let selectedCloth = cachedSelections[marketbookdID].clothNumbers;
-
-        // Handle uncheck action
-        if (!isChecked) {
-            const index = selectedRunners.indexOf(id);
-            if (index > -1) {
-                selectedRunners.splice(index, 1);
-                selectedCloth.splice(index, 1);
-                selectionElem.removeClass("runnerselectedhorse");
+                store[marketId] = {
+                    $market,
+                    runners: JSON.parse(runnersJson),
+                    cloth: JSON.parse(clothJson),
+                    maxSel,
+                    timers: { serialize: null }
+                };
             }
-        } else {
-            // Define selection limits
-            const totalRunnerCount = marketbookElem.find(".runnerswrapper").length;
-            const maxSelections =
-                totalRunnerCount > 40 ? 7 :
-                    totalRunnerCount > 25 ? 6 :
-                        totalRunnerCount > 20 ? 4 :
-                            totalRunnerCount > 12 ? 3 : 2;
+            return store[marketId];
+        }
 
-            // Prevent over-selection
-            if (selectedRunners.length >= maxSelections) {
-                ShowErrorMsg(`You can select only ${maxSelections} runners.`);
-                chkElem.prop("checked", false);
+        function scheduleSerialize(marketId) {
+            const cache = w.cachedSelections[marketId];
+            if (!cache) return;
+            if (cache.timers.serialize) clearTimeout(cache.timers.serialize);
+            cache.timers.serialize = setTimeout(() => {
+                $(`#selectedrunners${marketId}`).val(JSON.stringify(cache.runners));
+                $(`#selectedrunnersclothnumber${marketId}`).val(JSON.stringify(cache.cloth));
+                cache.timers.serialize = null;
+            }, 0);
+        }
+
+        // ---- public function (same name you already use) ----
+        w.AddRunnersformultiplebets = function AddRunnersformultiplebets(id) {
+            const marketId = getMarketId();
+            const cache = getMarketCache(marketId);
+            const $market = cache.$market;
+
+            const $chk = $market.find(`#chkselection${id}`);
+            const $selection = $market.find(`#selection${id}`);
+            const $clothWrap = $market.find(`#clothnumstalldrawimg${id}`);
+            const $clothLabel = $market.find(`#lblSelectionClothnumber${id}`);
+
+            const marketName = $(`#marketbookname${marketId}`).val() || "";
+            const categoryName = $(`#marketbookCategory${marketId}`).val() || "";
+            const marketStatus = ($(`#marketbookstatus${marketId}`).text() || "").toUpperCase();
+
+            if (marketName.includes("To Be Placed") || !categoryName.includes("Racing") || marketName.includes("(US)")) {
+                $chk.prop("checked", false);
                 return;
             }
 
-            // Add new selection
-            selectedRunners.push(id);
-            selectedCloth.push(selectionClothLabel.text());
-            selectionElem.addClass("runnerselectedhorse");
-        }
+            if (marketStatus === "SUSPENDED" || marketStatus === "CLOSED") {
+                $chk.prop("checked", false);
+                $clothWrap.css("background-color", "white");
+                return;
+            }
 
-        // Update inputs once at the end
-        $(`#selectedrunners${marketbookdID}`).val(JSON.stringify(selectedRunners));
-        $(`#selectedrunnersclothnumber${marketbookdID}`).val(JSON.stringify(selectedCloth));
-    }
+            const isChecked = $chk.prop("checked");
+            const runners = cache.runners;
+            const cloths = cache.cloth;
 
+            if (!isChecked) {
+                const idx = runners.indexOf(id);
+                if (idx > -1) {
+                    runners.splice(idx, 1);
+                    cloths.splice(idx, 1);
+                    requestAnimationFrame(() => $selection.removeClass("runnerselectedhorse"));
+                }
+            } else {
+                if (runners.length >= cache.maxSel) {
+                    if (typeof ShowErrorMsg === "function") ShowErrorMsg(`You can select only ${cache.maxSel} runners.`);
+                    $chk.prop("checked", false);
+                    return;
+                }
+                runners.push(id);
+                cloths.push($clothLabel.text());
+                requestAnimationFrame(() => $selection.addClass("runnerselectedhorse"));
+            }
+
+            scheduleSerialize(marketId);
+        };
+    })(window, jQuery);
 
     function LoadMarketTypeandUserBetsAgent() {
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
@@ -4997,7 +5056,7 @@ else
             $("#myModalBetslipmultiple").modal("hide");
         });
 
-
+        debugger;
         $("#btnBetslipsubmitmob").click(function () {
 
             isfirstclick = true;
