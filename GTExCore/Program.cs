@@ -1,4 +1,4 @@
-using GTExCore.Common;
+﻿using GTExCore.Common;
 using GTExCore.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;

@@ -127,7 +127,7 @@ h9 {
 
     .buttonlove:hover {
         flex: 1 0 auto;
-        box-shadow: inset 0 0 100px #068b7c;
+        
         color: black;
         Background: white;
         color:black;
@@ -168,7 +168,7 @@ h9 {
 
 .buttonlove1:hover {
     flex: 1 0 auto;
-    box-shadow: inset 0 0 100px #068b7c;
+   
     background-color: white;
     color: black;
     background-color: #068b7c;
@@ -2645,21 +2645,21 @@ label {
     float: left;
     text-align: left;
     font-weight: bold;
-    border-top: 1px solid white;
+  
 }
 
 .Odd {
     width: auto;
     float: left;
     font-weight: bold;
-    border-top: 1px solid white;
+   
 }
 
 .Amount {
     width: 11%;
     float: left;
     font-weight: bold;
-    border-top: 1px solid white;
+    
 }
 
 .bets-items {
@@ -4604,7 +4604,7 @@ a {
     float: left;
     width: 189px;
     font: icon;
-    
+    vertical-align:middle;
     margin-left: -264px;
     font-weight: 100;
     font-size: 18px;
@@ -4614,6 +4614,7 @@ a {
     float: left;
     width: 189px;
     font: icon;
+    vertical-align: middle;
     margin-top: 15px;
     margin-left: -816px;
     font-weight: 100;
@@ -4624,6 +4625,7 @@ a {
     float: left;
     width: 189px;
     font: icon;
+    vertical-align: middle;
     margin-top: 15px;
     margin-left: -200px;
     font-weight: 100;
@@ -5627,7 +5629,7 @@ a {
         text-shadow: 0px 0.3px #000000;
         float: left;
         width: 62%;
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
         color: black;
     }
@@ -5881,7 +5883,7 @@ a {
         padding: 0px 0px;
         margin-top: 0px;
        font-weight:bold;
-        font-size: 16px;
+        font-size: 18px;
         width: 23.5%;
         height: 50px;
         border-radius: 0px;
