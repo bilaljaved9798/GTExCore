@@ -2623,7 +2623,7 @@ namespace Census.API.Controllers
                 string jsonString = await objUsersServiceCleint.GetTvLinksAsync(eventId);
                 var obj = JsonConvert.DeserializeObject<List<TVlink>>(jsonString);
                 var data = obj.Where(x => x.EventID == eventId).FirstOrDefault();
-                long dID = Convert.ToInt64(data.DimondID);
+                long dID = Convert.ToInt64(data?.DimondID);
                 if (sportId == 1)
                 {
                     try
@@ -2660,7 +2660,7 @@ namespace Census.API.Controllers
 
 
                 //https://serviceapi.fairgame7.com/getIframeUrl/471734455?sportType=football&isTv=true&isScore=true
-                return data.tvlink1;
+                return "";
             }
             catch (System.Exception ex)
             {
