@@ -2660,7 +2660,7 @@ namespace Census.API.Controllers
 
 
                 //https://serviceapi.fairgame7.com/getIframeUrl/471734455?sportType=football&isTv=true&isScore=true
-                return "";
+                return data.tvlink1;
             }
             catch (System.Exception ex)
             {
