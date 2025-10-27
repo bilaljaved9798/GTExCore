@@ -3666,12 +3666,13 @@ else
                 this.style.removeProperty("font-size");
             });
         }
-
         // Update prices/sizes (ids use SelectionId with spaces removed)
         $("#lblbackprice" + idSafe).text(runner.Backprice);
         $("#lblbacksize" + idSafe).text(runner.BackSize);
         $("#lbllayprice" + idSafe).text(runner.Layprice);
         $("#lbllaysize" + idSafe).text(runner.LaySize);
+         $("#lblprofitandloss" + idSafe).text(runner.ProfitandLoss);
+          $("#lblloss" + idSafe).text(runner.Loss);
     }
 
 
