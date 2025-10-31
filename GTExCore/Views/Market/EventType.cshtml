@@ -1956,40 +1956,7 @@ else
     //}
 
 
-    var Carddisplay = true;
-
-    $('#btnscorecard').click(function (ev) {
-
-        $("#video").hide();
-        var eventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
-        $.ajax({
-            url: '/Market/GetTvLinks',
-            type: 'GET',
-            async: true,
-            data: { 'EventId': eventID },
-            complete: function () {
-            },
-            error: function () {
-                //updatescores();
-            },
-            success: function (data) {
-
-                var scorecarddata = JSON.parse(data);
-                var scorecard = scorecarddata.filter(x => x.EventID == eventID);
-                if (display == true && scorecard.length > 0) {
-                    $("#scorecaed")[0].src = scorecard[0].scorecard;
-                    $("#scorecaed").show();
-                    display = false;
-                }
-                else {
-                    display = true;
-                    $("#scorecaed").hide();
-                }
-            }
-        });
-        display = true;
-    })
-
+   
     var Carddisplay = true;
     $('#btnscorecard').click(function (ev) {
 
@@ -2007,7 +1974,7 @@ else
                 updatescores();
             },
             success: function (data) {
-                //
+                
                 var scorecarddata = JSON.parse(data);
                 var scorecard = scorecarddata.filter(x => x.EventID == eventID);
                 if (display == true && scorecard.length > 0) {
@@ -2045,6 +2012,7 @@ else
             $("#teamASquadbtn").removeClass("teamnamebtnactive");
         }
     }
+
     function showfullscorecard() {
         $(".fullscorecard").show();
 
