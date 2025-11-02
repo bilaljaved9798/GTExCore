@@ -2396,7 +2396,7 @@ namespace Census.API.Controllers
                         //  data.Add(item.MarketCatalogueID);
                         if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() != 1)
                         {
-                            objUsersServiceCleint.SetMarketBookOpenbyUSer(LoggedinUserDetail.GetUserID(), item.MarketCatalogueID);
+                          await  objUsersServiceCleint.SetMarketBookOpenbyUSerAsync(LoggedinUserDetail.GetUserID(), item.MarketCatalogueID);
                         }
                         if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() == 1)
                         {
@@ -2470,7 +2470,7 @@ namespace Census.API.Controllers
                                 }
                             }
                         }
-                        return await RenderRazorViewToStringAsync("MarketBookSoccerGoal", marketbooks.Take(2));
+                        return await RenderRazorViewToStringAsync("MarketBookSoccerGoal", marketbooks);
                     }
                     else
                     {
@@ -2581,7 +2581,7 @@ namespace Census.API.Controllers
 								}
 							}
 						}
-						return  ConvertListToJSONString(marketbooks.Take(2));
+						return  ConvertListToJSONString(marketbooks);
 					}
 					else
 					{
@@ -2639,8 +2639,6 @@ namespace Census.API.Controllers
                         return "";
                     }
                 }
-
-
                 if (sportId == 2)
                 {
                     try
@@ -2656,9 +2654,6 @@ namespace Census.API.Controllers
                         return "";
                     }
                 }
-
-
-
                 //https://serviceapi.fairgame7.com/getIframeUrl/471734455?sportType=football&isTv=true&isScore=true
                 return data.tvlink1;
             }
@@ -2679,6 +2674,14 @@ namespace Census.API.Controllers
             {
                 return "";
             }
+        }
+        public async Task<IActionResult> LoadHttpPage()
+        {
+            string url = "http://78.110.160.52:2121/";
+
+            using var http = new HttpClient();
+            var html = await http.GetStringAsync(url);
+            return Content(html, "text/html");
         }
     }
 }

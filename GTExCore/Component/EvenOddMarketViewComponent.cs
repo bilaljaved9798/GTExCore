@@ -58,8 +58,8 @@ namespace GTExCore.Component
 										 .ToList();
                 _httpContextAccessor.HttpContext.Session.SetObject("Allmarkets", convertedList);
                 MarketBook.KJMarkets = convertedList.Where(item => item.EventNamek__BackingField == "Kali v Jut").ToList();
-				MarketBook.KJMarkets.FirstOrDefault().EventIDk__BackingField = eventID;
-				MarketBook.KJMarkets = MarketBook.KJMarkets.Where(item => item.isOpenedbyUserk__BackingField == true).ToList();
+				//MarketBook.KJMarkets.FirstOrDefault().EventIDk__BackingField = eventID;
+				//MarketBook.KJMarkets = MarketBook.KJMarkets.Where(item => item.isOpenedbyUserk__BackingField == true).ToList();
 			}
 
 			List<BettingServiceReference.MarketBook> LastloadedLinMarkets = new List<BettingServiceReference.MarketBook>();

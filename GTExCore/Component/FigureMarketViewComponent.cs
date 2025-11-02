@@ -65,7 +65,8 @@ namespace GTExCore.Component
                             MarketBookFigure[0].MainSportsname = MarketBookFigure[0].MainSportsname;
                             if (LoggedinUserDetail.GetUserTypeID() == 3)
                             {
-                                List<UserBets> lstUserBets = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");
+                                List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+                                //List<UserBets> lstUserBets = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbets");
                                 //List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<Models.UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), ConfigurationManager.AppSettings["PasswordForValidate"]));
                                 lstUserBets = lstUserBets.Where(item2 => item2.isMatched == true && item2.MarketBookID == MarketBookFigure[0].MarketId).ToList();
                                 if (lstUserBets.Count > 0)
