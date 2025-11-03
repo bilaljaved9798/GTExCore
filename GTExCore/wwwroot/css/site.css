@@ -3899,7 +3899,7 @@ label {
     padding: 0px 0px;
     /*box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 0px -6px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;*/
     border-radius: 3px;
-    width: 50px;
+    width: 65px;
     margin-top: 1px;
     cursor: pointer;
     display: inline-block;
@@ -5563,7 +5563,7 @@ a {
     #BetSlipSection {
         text-align: left;
         float: left;
-        max-height: 425px;
+        max-height: 433px;
         overflow: hidden;
         box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
         margin: 0px 0px;
