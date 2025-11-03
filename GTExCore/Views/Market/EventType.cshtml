@@ -4213,7 +4213,6 @@ else
     }
 
     function GenerateHTMLForMultipleRunners() {
-
         var marketbookdID = $("#lastloadedmarket").val().toString().replace(".", "");
         var selectedrunners = $("#selectedrunners" + marketbookdID).val();
 
@@ -4600,8 +4599,7 @@ else
     }
     var isfirstclick = true;
     function triggerchangemethod(id, marketbookid) {
-
-
+        debugger;
         var check = $("#marketbook" + marketbookid + " #chkselection" + id).prop("checked");
         if (check == true) {
             $("#marketbook" + marketbookid + " #chkselection" + id).prop("checked", false);
@@ -5722,7 +5720,7 @@ else
                                 $("#clickedbetsize").val("");
                                 $("#clickedID").val(0);
                                 $("#betslipback").text($("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim())
-
+                                 $("#clickedbetsize").val($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipbackmob").text($("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsize").text($("#marketbook" + marketbookdID + " #lblbacksize0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsizemob").text($("#marketbook" + marketbookdID + " #lblbacksize0" + selectedrunners[i]).text().toString().trim())
@@ -5760,6 +5758,7 @@ else
                                 $("#betsliplay").text($("#marketbook" + marketbookdID + " #lbllayprice0" + selectedrunners[i]).text().toString().trim())
                                 $("#betsliplaymob").text($("#marketbook" + marketbookdID + " #lbllayprice0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsize").text($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
+                                 $("#clickedbetsize").val($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsizemob").text($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
                                 $("#openedbetslipid").val(selectedrunners[i]);
                                 var clothnumber = $("#lblSelectionClothnumber" + selectedrunners[i]).text().toString().trim();;
@@ -5936,7 +5935,7 @@ else
             var selectionIDs2 = [];
             var marketbookdID = $("#lastloadedmarket").val().toString().replace(".", "");
             var selectedrunners = $("#selectedrunners" + marketbookdID).val();
-
+            debugger;
             if (selectedrunners != "") {
                 selectedrunners = JSON.parse(selectedrunners);
 
@@ -5962,7 +5961,7 @@ else
                         isInserting = true;
                         // ShowLoader();
                         $('#myModalBetslipmultiple').modal('hide');
-
+                        debugger;
                         $("#btnBetslipsubmitmultiple").prop('disabled', false);
                         $("#btnBetslipResetmultiple").prop('disabled', false);
                         for (i = 0; i <= selectedrunners.length - 1; i++) {
@@ -5982,10 +5981,11 @@ else
                                 $("#clickedodd").val("");
                                 $("#clickedbetsize").val("");
                                 $("#clickedID").val(0);
-                                $("#betslipback").text($("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim())
-
+                                $("#betslipback").text($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
+                                var fff=$("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim();
                                 $("#betslipbackmob").text($("#marketbook" + marketbookdID + " #lblbackprice0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsize").text($("#marketbook" + marketbookdID + " #lblbacksize0" + selectedrunners[i]).text().toString().trim())
+                                 $("#clickedbetsize").val($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsizemob").text($("#marketbook" + marketbookdID + " #lblbacksize0" + selectedrunners[i]).text().toString().trim())
                                 $("#openedbetslipid").val(selectedrunners[i]);
                                 var clothnumber = $("#lblSelectionClothnumber" + selectedrunners[i]).text().toString().trim();;
@@ -5993,7 +5993,7 @@ else
                                 if (clothnumber != "" && clothnumber != undefined) {
                                     selectionname = clothnumber + "." + selectionname;
                                 }
-
+                                var ssss=$("#betslipsize").val();
 
                                 $("#betslipselection").html(selectionname);
 
@@ -6016,9 +6016,11 @@ else
                                 $("#clickedodd").val("");
                                 $("#clickedbetsize").val("");
                                 $("#clickedID").val(0);
+                                var fff=$("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim();
                                 $("#betsliplay").text($("#marketbook" + marketbookdID + " #lbllayprice0" + selectedrunners[i]).text().toString().trim())
                                 $("#betsliplaymob").text($("#marketbook" + marketbookdID + " #lbllayprice0" + selectedrunners[i]).text().toString().trim())
-                                $("#betslipsize").text($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
+                                 $("#betslipsize").text($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
+                                $("#clickedbetsize").val($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
                                 $("#betslipsizemob").text($("#marketbook" + marketbookdID + " #lbllaysize0" + selectedrunners[i]).text().toString().trim())
                                 $("#openedbetslipid").val(selectedrunners[i]);
                                 var clothnumber = $("#lblSelectionClothnumber" + selectedrunners[i]).text().toString().trim();;
