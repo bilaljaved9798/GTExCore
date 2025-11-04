@@ -43,6 +43,10 @@ namespace GTExCore.Controllers
 		{
 			return View();
 		}
+        public ActionResult MyBets()
+        {
+            return View();
+        }
         public ActionResult Stack()
         {
             var context = _httpContextAccessor.HttpContext;

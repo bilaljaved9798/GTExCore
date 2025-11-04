@@ -1,0 +1,169 @@
+﻿@using GTCore.Models
+@using GTExCore.Models
+@model IEnumerable<BetHistry>
+
+<div class="container">
+	<div>
+		<div style="margin-top:10px">
+			<div class="btnacc" style="margin-left:12%; margin-top:10px">
+				@if (LoggedinUserDetail.GetUserTypeID() == 3)
+				{
+					<button class="glow-on-hover" onclick="GetEvent('All')" type="button">All</button>
+					<button class="glow-on-hover" onclick="GetEvent('Cricket')" type="button">Cricket</button>
+					<button class="glow-on-hover " onclick="GetEvent('Hourse Race')" type="button">Fancy</button>
+					<button class="glow-on-hover" onclick="GetEvent('Soccor')" type="button">Soccer</button>
+					<button class="glow-on-hover" onclick="GetEvent('Hourse Race')" type="button">Horse Race</button>
+					<button class="glow-on-hover " onclick="GetEvent('Hourse Race')" type="button">Greyhound</button>
+				}
+				else
+				{
+					<button class="glow-on-hover1" onclick="GetEvent('All')" type="button" style="background:#1D9BF0 !important">All</button>
+					<button class="glow-on-hover1" onclick="GetEvent('Cricket')" type="button" style="background:#1D9BF0 !important">Cricket</button>
+					<button class="glow-on-hover1" onclick="GetEvent('Hourse Race')" type="button" style="background:#1D9BF0 !important">Fancy</button>
+					<button class="glow-on-hover1" onclick="GetEvent('Soccor')" type="button" style="background:#1D9BF0 !important">Soccer</button>
+					<button class="glow-on-hover1" onclick="GetEvent('Hourse Race')" type="button" style="background:#1D9BF0 !important">Horse Race</button>
+					<button class="glow-on-hover1" onclick="GetEvent('Hourse Race')" type="button" style="background:#1D9BF0 !important">Greyhound</button>
+
+				}
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<table class="table">
+	<tr>
+		<th>
+			Market Name
+		</th>
+		<th>
+			SelectionName
+		</th>
+		<th>
+			UserOdd
+		</th>
+		<th>
+			Amount
+		</th>
+
+		<th>
+			Betsize
+		</th>
+
+		<th>
+			Date
+		</th>
+	</tr>
+
+	@foreach (var item in Model)
+	{
+		if (item.BetType == "back")
+		{
+			<tr style="background-color:#72bbef">
+				<td>
+					@Html.DisplayFor(modelItem => item.MarketbookName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SelectionName)
+				</td>
+				<td class="ledgerdebit">
+					@Html.DisplayFor(modelItem => item.UserOdd)
+				</td>
+				<td class="ledgercredit">
+					@Html.DisplayFor(modelItem => item.Amount)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.BetSize)
+				</td>
+
+				<td class="ledgerbalance">
+					@Html.DisplayFor(modelItem => item.CreatedDate)
+				</td>
+			</tr>
+		}
+		else
+		{
+			<tr style="background-color:#FF8A8E">
+				<td>
+					@Html.DisplayFor(modelItem => item.MarketbookName)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.SelectionName)
+				</td>
+				<td class="ledgerdebit">
+					@Html.DisplayFor(modelItem => item.UserOdd)
+				</td>
+				<td class="ledgercredit">
+					@Html.DisplayFor(modelItem => item.Amount)
+				</td>
+
+				<td>
+					@Html.DisplayFor(modelItem => item.BetSize)
+				</td>
+
+				<td class="ledgerbalance">
+					@Html.DisplayFor(modelItem => item.CreatedDate)
+				</td>
+			</tr>
+		}
+	}
+	}
+	@{
+		decimal NetProfitorLoss = 0;
+		if (ViewBag.NetProfitorLoss != null)
+		{
+			NetProfitorLoss = ViewBag.NetProfitorLoss;
+		}
+		// if (Model.Count() > 0) { NetProfitorLoss = Model.Last().OpeningBalance - Model.First().OpeningBalance; };
+		if (NetProfitorLoss > 0)
+		{
+			<tr style="text-align:right">
+				<td>Net Profit or Loss</td>
+				<td class="ledgerdebit">@NetProfitorLoss</td>
+			</tr>
+		}
+		else
+		{
+			<tr style="text-align:right">
+				<td>Net Profit or Loss</td>
+				<td class="ledgercredit" style="text-align:right">@NetProfitorLoss</td>
+			</tr>
+		}
+	}
+</table>
+<div id='myModalCompletedMatchedBets' class='modal'>
+	<div class="modal-dialog">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+			<h4 class="modal-title">User Bets</h4>
+		</div>
+		<div id="completedmatcedbetscontent" class="modal-content">
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		</div>
+	</div>
+
+</div>
+<script type="text/javascript">
+	var fromclicklocation = "";
+	function showcompleteduserbets(userid, marketbookID) {
+		if (marketbookID != "") {
+			$.ajax({
+				type: "GET",
+				url: "/DashBoard/showcompleteduserbets",
+
+				data: { 'userid': userid, 'marektbookID': marketbookID },
+				success: function (result) {
+					//debugger;
+					$("#completedmatcedbetscontent").html(result);
+					$("#myModalCompletedMatchedBets").modal('show');
+
+				}
+
+			});
+		}
+
+	}
+</script>

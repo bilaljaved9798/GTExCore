@@ -2155,6 +2155,27 @@ namespace GTExCore.Controllers
             }
             else { return "False"; }
         }
+        public PartialViewResult BetsDetails(string DateFrom, string DateTo, int UserID)
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            try
+            {
+                DateFrom = ConvertDateFormat(DateFrom);
+                DateTo = ConvertDateFormat(DateTo);
+                if (UserID == 0)
+                {
+                    UserID = LoggedinUserDetail.GetUserID();
+                }
+                List<BetHistry> lstUserAccounts = JsonConvert.DeserializeObject<List<BetHistry>>(objUsersServiceCleint.GetBetHistry(UserID, DateFrom, DateTo));
+                return PartialView("BetHistry", lstUserAccounts.OrderByDescending(x => x.CreatedDate));
+            }
+            catch (System.Exception ex)
+            {
+                List<UserAccounts> lstUserAccounts = new List<UserAccounts>();
+                return PartialView("LedgerDetails", lstUserAccounts);
+            }
+
+        }
 
     }
 }
