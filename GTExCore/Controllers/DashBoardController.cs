@@ -16,6 +16,8 @@ using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
 using System.Data;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Web.Services.Description;
 using UserServiceReference;
 namespace GTExCore.Controllers
@@ -1959,5 +1961,200 @@ namespace GTExCore.Controllers
                 return "False";
             }
         }
+        public string GetUserDetailsbyID(int userID)
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            if (userID > 0)
+            {
+                var objuserDetails = getDetails(userID);
+                var result = ConverttoJSONString(objuserDetails);
+                return result;
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public string ConverttoJSONString(UserDetails result)
+        {
+
+            if (result != null)
+            {
+                DataContractJsonSerializer serializer = new DataContractJsonSerializer(result.GetType());
+                MemoryStream memoryStream = new MemoryStream();
+                serializer.WriteObject(memoryStream, result);
+                string json = Encoding.Default.GetString(memoryStream.ToArray());
+                return json;
+            }
+            else
+            {
+                return "";
+            }
+        }
+        public UserDetails getDetails(int UserID)
+        {
+            try
+            {
+                LoggedinUserDetail.CheckifUserLogin();
+                var results = JsonConvert.DeserializeObject<UserDetails>(objUsersServiceCleint.GetUserDetailsbyID(UserID, _passwordSettingsService.PasswordForValidate));
+                UserDetails objuserDetails = new UserDetails();
+                objuserDetails = results;
+                objuserDetails.Username = Crypto.Decrypt(objuserDetails.Username);
+                objuserDetails.Password = Crypto.Decrypt(objuserDetails.Password);
+                objuserDetails.RatePercent = Crypto.Decrypt(objuserDetails.RatePercent);
+
+                if (LoggedinUserDetail.GetUserTypeID() != 1)
+                {
+                    //objuserDetails.Password = "";
+                }
+                if (objuserDetails.isBlocked == true)
+                {
+                    objuserDetails.Status = "Blocked";
+                }
+                else
+                {
+                    if (objuserDetails.isDeleted == true)
+                    {
+                        objuserDetails.Status = "Deleted";
+                    }
+                    else
+                    {
+                        objuserDetails.Status = "Active";
+                    }
+                }
+                return objuserDetails;
+            }
+            catch (System.Exception ex)
+            {
+                return new UserDetails();
+            }
+        }
+        public PartialViewResult UserDetails(int userID)
+        {
+            LoggedinUserDetail.CheckifUserLogin();
+            if (userID > 0)
+            {
+
+                UserDetails objuserDetails = getDetails(userID);
+                if (LoggedinUserDetail.GetUserTypeID() == 1)
+                {
+                    List<UserMarketSelection> lstAssignedMarket = JsonConvert.DeserializeObject<List<UserMarketSelection>>(objUsersServiceCleint.GetUserMarketforSelection(userID));
+                    string[] AssingedMarket = lstAssignedMarket.Select(i => i.Items).Distinct().ToArray();
+                    foreach (var item in AssingedMarket)
+                    {
+                        if (objuserDetails.AssignedMarket == null)
+                        {
+                            objuserDetails.AssignedMarket = item;
+                        }
+                        else
+                        {
+                            objuserDetails.AssignedMarket = objuserDetails.AssignedMarket + "," + item;
+                        }
+                    }
+                }
+                return PartialView(objuserDetails);
+            }
+            else { return PartialView(new UserDetails()); }
+        }
+        public string UpdateUserPasswordandStatus(int UserID, bool IsDeleted, bool isBlocked, string Password, string AgentRate, bool LoggedIn, decimal BetLowerLimit, decimal BetUpperLimit, bool isAllowedGrayHound, bool isAllowedHorse, decimal BetLowerLimitHorsePlace, decimal BetUpperLimitHorsePlace, decimal BetLowerLimitGrayHoundWin, decimal BetUpperLimitGrayHoundWin, decimal BetLowerLimitGrayHoundPlace, decimal BetUpperLimitGrayHoundPlace, decimal BetLowerLimitMatchOdds, decimal BetUpperLimitMatchOdds, decimal BetLowerLimitInningsRunns, decimal BetUpperLimitInningsRunns, decimal BetLowerLimitCompletedMatch, decimal BetUpperLimitCompletedMatch, bool isTennisAllowed, bool isSoccerAllowed, int CommissionRate, decimal BetLowerLimitMatchOddsSoccer, decimal BetUpperLimitMatchOddsSoccer, decimal BetLowerLimitMatchOddsTennis, decimal BetUpperLimitMatchOddsTennis, decimal BetUpperLimitTiedMatch, decimal BetLowerLimitTiedMatch, decimal BetUpperLimitWinner, decimal BetLowerLimitWinner)
+        {
+
+            UserIDandUserType objSelectedUser = new UserIDandUserType();
+            if (UserID > 0)
+            {
+
+                int UpdatedBy = LoggedinUserDetail.GetUserID();
+                if (UpdatedBy > 0)
+                {
+                    if (AgentRate == "")
+                    {
+                        AgentRate = "0";
+
+                    }
+                    if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+                    {
+                        int CreatedbyID = LoggedinUserDetail.GetUserID();
+                        int MaxagentrateLimit = objUsersServiceCleint.GetMaxAgentRate(CreatedbyID);
+                        if (Convert.ToInt32(AgentRate) > MaxagentrateLimit)
+                        {
+                            return "Agent Rate cannot greater than  '" + MaxagentrateLimit + "' %.";
+                        }
+                    }
+                    AgentRate = Crypto.Encrypt(AgentRate);
+                    DateTime updatedtime = DateTime.Now;
+
+                    if (LoggedinUserDetail.GetUserTypeID() == 8)
+                    {
+                        var results = objUsersServiceCleint.GetAllUsersbyUserTypeNew(UserID, 2, _passwordSettingsService.PasswordForValidate);
+                        if (results != "")
+                        {
+                            List<UserIDandUserType> lstUsers = JsonConvert.DeserializeObject<List<UserIDandUserType>>(results);
+
+                            foreach (UserIDandUserType objuser in lstUsers)
+                            {
+
+                                objUsersServiceCleint.SetBlockedStatusofUser(Convert.ToInt32(objuser.ID), isBlocked, LoggedinUserDetail.PasswordForValidate);
+                            }
+                            //LoggedinUserDetail.InsertActivityLog(UpdatedBy, "Update User Block Status");
+                        }
+                    }
+                    if (LoggedinUserDetail.GetUserTypeID() == 9)
+                    {
+                        var results = objUsersServiceCleint.GetAllUsersbyUserTypeNew(UserID, 8, _passwordSettingsService.PasswordForValidate);
+                        if (results != "")
+                        {
+                            List<UserIDandUserType> lstUsers = JsonConvert.DeserializeObject<List<UserIDandUserType>>(results);
+                            if (isBlocked == true)
+                            {
+                                foreach (UserIDandUserType objuser in lstUsers)
+                                {
+                                    var results2 = objUsersServiceCleint.GetAllUsersbyUserTypeNew(objuser.ID, 2, _passwordSettingsService.PasswordForValidate);
+                                    List<UserIDandUserType> lstUsers2 = JsonConvert.DeserializeObject<List<UserIDandUserType>>(results2);
+                                    foreach (UserIDandUserType objuser2 in lstUsers2)
+                                    {
+                                        objUsersServiceCleint.SetBlockedStatusofUser(Convert.ToInt32(objuser2.ID), isBlocked, _passwordSettingsService.PasswordForValidate);
+                                    }
+                                }
+                            }
+                            if (isBlocked == false)
+                            {
+                                foreach (UserIDandUserType objuser in lstUsers)
+                                {
+                                    objUsersServiceCleint.SetBlockedStatusofUser(Convert.ToInt32(objuser.ID), isBlocked, _passwordSettingsService.PasswordForValidate);
+                                }
+                            }
+                            //LoggedinUserDetail.InsertActivityLog(UpdatedBy, "Update User Block Status");
+                        }
+                    }
+
+
+
+                    objUsersServiceCleint.SetBlockedStatusofUser(UserID, isBlocked, _passwordSettingsService.PasswordForValidate);
+                    LoggedinUserDetail.InsertActivityLog(UpdatedBy, "Update User Block Status");
+                    if (LoggedinUserDetail.GetUserTypeID() == 1)
+                    {
+                        objUsersServiceCleint.SetDeleteStatusofUser(UserID, IsDeleted, _passwordSettingsService.PasswordForValidate);
+                        LoggedinUserDetail.InsertActivityLog(UpdatedBy, "Update User Delete Status");
+                    }
+                    if (Password.Length >= 6)
+                    {
+                        objUsersServiceCleint.ResetPasswordofUser(UserID, Crypto.Encrypt(Password), UpdatedBy, updatedtime, _passwordSettingsService.PasswordForValidate);
+                        LoggedinUserDetail.InsertActivityLog(UpdatedBy, "Update User Password");
+                    }
+                    objUsersServiceCleint.SetAgentRateofUser(UserID, AgentRate, _passwordSettingsService.PasswordForValidate);
+                    LoggedinUserDetail.InsertActivityLog(UpdatedBy, "Set Rate of User " + UserID.ToString() + " " + Crypto.Decrypt(AgentRate).ToString());
+                    objUsersServiceCleint.SetLoggedinStatus(UserID, LoggedIn);
+                    if (LoggedinUserDetail.GetUserTypeID() == 1)
+                    {
+                        objUsersServiceCleint.UpdateBetLowerLimit(UserID, BetLowerLimit, BetUpperLimit, isAllowedGrayHound, isAllowedHorse, BetLowerLimitHorsePlace, BetUpperLimitHorsePlace, BetLowerLimitGrayHoundWin, BetUpperLimitGrayHoundWin, BetLowerLimitGrayHoundPlace, BetUpperLimitGrayHoundPlace, BetLowerLimitMatchOdds, BetUpperLimitMatchOdds, BetLowerLimitInningsRunns, BetUpperLimitInningsRunns, BetLowerLimitCompletedMatch, BetUpperLimitCompletedMatch, isTennisAllowed, isSoccerAllowed, CommissionRate, BetLowerLimitMatchOddsSoccer, BetUpperLimitMatchOddsSoccer, BetLowerLimitMatchOddsTennis, BetUpperLimitMatchOddsTennis, BetUpperLimitTiedMatch, BetLowerLimitTiedMatch, BetUpperLimitWinner, BetLowerLimitWinner, _passwordSettingsService.PasswordForValidate, 5000, 2000);
+                    }
+                    return "True";
+                }
+                else
+                { return "False"; }
+            }
+            else { return "False"; }
+        }
+
     }
 }

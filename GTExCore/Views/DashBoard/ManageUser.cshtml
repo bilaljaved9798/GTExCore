@@ -2,624 +2,609 @@
 @using GTExCore.Models
 @model ManageUser
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
-<div class="seven">
-	<a href="/DashBoard/Index" target="_self">
+@* <div class="seven">
+    <a href="/DashBoard/Index" target="_self">
 
-		<h2 style="color:red">
-			<< Back to Dash_board
-
-		</h2>
-
-	</a>
-
-</div>
+        <h2 style="color:red">
+            << Back to Dash_board
+        </h2>
+    </a>
+</div> *@
 
 
 
 <div class="thirteen " style="margin-top: 25px;">
-	<h1>Manage User</h1>
+    <h1>Manage User</h1>
 </div>
-
-
-
-@*<h4 style=" background: #1D9BF0; color: white;  font-size: 40px;">Manage User</h4>*@
 <hr />
 
 
 <div class="col-md-6">
-	<div class="col-md-offset-1">
-		<div id="allusers">
-		</div>
-	</div>
+    <div class="col-md-offset-1">
+        <div id="allusers">
+        </div>
+    </div>
 
-	@*<div class="form-group">
+    @* <div class="form-group">
 			<label class="control-label col-md-4">Users</label>
-
 			<div class="col-md-4">
-
-
-				@Html.DropDownList("ddlUsers",
-		new SelectList(ViewBag.AllUsers, "Id", "UserName"), new { @class = "selectpicker", data_live_search = "true" })
-
-
+				@Html.DropDownList("ddlUsers",new SelectList(ViewBag.AllUsers, "Id", "UserName"), new { @class = "selectpicker", data_live_search = "true" })
 			</div>
-		</div>*@
+	</div> *@
 
-	@if (Model.CanBlockUser == true)
-	{
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
+    @if (Model.CanBlockUser == true)
+    {
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
 
-				<input type="checkbox" id="chkBlockUser" value="Block User" class="checkbox-inline" />
-				<label class="control-label" for="chkBlockUser">Block User</label>
-			</div>
-		</div>
+                <input type="checkbox" id="chkBlockUser" value="Block User" class="checkbox-inline" />
+                <label class="control-label" for="chkBlockUser">Block User</label>
+            </div>
+        </div>
 
-	}
-	@if (Model.CanDeleteUser == true)
-	{
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
+    }
+    @if (Model.CanDeleteUser == true)
+    {
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
 
-				<input type="checkbox" id="chkDeleteUser" value="Delete User" class="checkbox-inline" />
-				<label class="control-label" for="chkDeleteUser">Delete User</label>
-			</div>
-		</div>
-
-
-	}
-	@if (Model.CanChangeLoggedIN == true)
-	{
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
-
-				<input type="checkbox" id="chkLoggedINUser" value="" class="checkbox-inline" />
-				<label class="control-label" for="chkLoggedINUser">Logged In</label>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
-
-				<input type="checkbox" id="chkAllowedGrayHound" value="" class="checkbox-inline" />
-				<label class="control-label" for="chkAllowedGrayHound">Gray Hound Race</label>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
-
-				<input type="checkbox" id="chkAllowedHorse" value="" class="checkbox-inline" />
-				<label class="control-label" for="chkAllowedHorse">Horse Race</label>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
-
-				<input type="checkbox" id="chkAllowedTennis" value="" class="checkbox-inline" />
-				<label class="control-label" for="chkAllowedTennis">Tennis</label>
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3"></label>
-			<div class="col-md-9">
-
-				<input type="checkbox" id="chkAllowedSoccer" value="" class="checkbox-inline" />
-				<label class="control-label" for="chkAllowedSoccer">Soccer</label>
-			</div>
-		</div>
-
-	}
-	@if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
-	{
-		<div class="form-group" style="display:none">
-			<label class="control-label col-md-3">Agent Rate %</label>
-
-			<div class="col-md-9">
-
-				@Html.EditorFor(model => model.AgentRate, new { htmlAttributes = new { @class = "form-control" } })
-
-			</div>
-		</div>
-
-	}
-	@if (LoggedinUserDetail.GetUserTypeID() == 1)
-	{
-		<div class="form-group">
-			<label class="control-label col-md-3">Comission Rate %</label>
-
-			<div class="col-md-9">
-
-				@Html.EditorFor(model => model.CommissionRate, new { htmlAttributes = new { @class = "form-control" } })
-
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Horse Win</label>
-
-			<div class="col-md-9">
-
-				@Html.EditorFor(model => model.BetLowerLimitU, new { htmlAttributes = new { @class = "form-control" } })
-
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Horse Win</label>
-
-			<div class="col-md-9">
-
-				@Html.EditorFor(model => model.BetUpperLimitU, new { htmlAttributes = new { @class = "form-control" } })
-
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Horse Place</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitHorsePlaceU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitHorsePlaceU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Horse Place</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitHorsePlaceU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitHorsePlaceU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Gray Hound Win</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitGrayHoundWinU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitGrayHoundWinU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Gray Hound Win</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitGrayHoundWinU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitGrayHoundWinU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Gray Hound Place</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitGrayHoundPlaceU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitGrayHoundPlaceU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Gray Hound Place</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitGrayHoundPlaceU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitGrayHoundPlaceU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Match Odds</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitMatchOddsU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Match Odds</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitMatchOddsU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Inning Runns</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitInningRunsU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitInningRunsU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Inning Runs</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitInningRunsU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitInningRunsU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Completed Match</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitCompletedMatchU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitCompletedMatchU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Completed Match</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitCompletedMatchU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitCompletedMatchU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Match Odds Soccer</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitMatchOddsSoccerU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsSoccerU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Match Odds Soccer</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitMatchOddsSoccerU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsSoccerU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Match Odds Tennis</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitMatchOddsTennisU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsTennisU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Match Odds Tennis</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitMatchOddsTennisU, new { htmlAttributes = new { @class = "form-control" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsTennisU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Tied Match</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitTiedMatchU, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitTiedMatchU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Tied Match</label>
-
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitTiedMatchU, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitTiedMatchU, "", new { @class = "text-danger" })
-			</div>
-		</div>
+                <input type="checkbox" id="chkDeleteUser" value="Delete User" class="checkbox-inline" />
+                <label class="control-label" for="chkDeleteUser">Delete User</label>
+            </div>
+        </div>
 
 
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Lower Limit Winner</label>
+    }
+    @if (Model.CanChangeLoggedIN == true)
+    {
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
 
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetLowerLimitWinnerU, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
-				@Html.ValidationMessageFor(model => model.BetLowerLimitWinnerU, "", new { @class = "text-danger" })
-			</div>
-		</div>
-		<div class="form-group">
-			<label class="control-label col-md-3">Bet Upper Limit Winner</label>
+                <input type="checkbox" id="chkLoggedINUser" value="" class="checkbox-inline" />
+                <label class="control-label" for="chkLoggedINUser">Logged In</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
 
-			<div class="col-md-8">
-				@Html.EditorFor(model => model.BetUpperLimitWinnerU, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
-				@Html.ValidationMessageFor(model => model.BetUpperLimitWinnerU, "", new { @class = "text-danger" })
-			</div>
-		</div>
+                <input type="checkbox" id="chkAllowedGrayHound" value="" class="checkbox-inline" />
+                <label class="control-label" for="chkAllowedGrayHound">Gray Hound Race</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
+
+                <input type="checkbox" id="chkAllowedHorse" value="" class="checkbox-inline" />
+                <label class="control-label" for="chkAllowedHorse">Horse Race</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
+
+                <input type="checkbox" id="chkAllowedTennis" value="" class="checkbox-inline" />
+                <label class="control-label" for="chkAllowedTennis">Tennis</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3"></label>
+            <div class="col-md-9">
+
+                <input type="checkbox" id="chkAllowedSoccer" value="" class="checkbox-inline" />
+                <label class="control-label" for="chkAllowedSoccer">Soccer</label>
+            </div>
+        </div>
+
+    }
+    @if (LoggedinUserDetail.GetUserTypeID() == 2 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+    {
+        <div class="form-group" style="display:none">
+            <label class="control-label col-md-3">Agent Rate %</label>
+
+            <div class="col-md-9">
+
+                @Html.EditorFor(model => model.AgentRate, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+
+    }
+    @if (LoggedinUserDetail.GetUserTypeID() == 1)
+    {
+        <div class="form-group">
+            <label class="control-label col-md-3">Comission Rate %</label>
+
+            <div class="col-md-9">
+
+                @Html.EditorFor(model => model.CommissionRate, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Horse Win</label>
+
+            <div class="col-md-9">
+
+                @Html.EditorFor(model => model.BetLowerLimitU, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Horse Win</label>
+
+            <div class="col-md-9">
+
+                @Html.EditorFor(model => model.BetUpperLimitU, new { htmlAttributes = new { @class = "form-control" } })
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Horse Place</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitHorsePlaceU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitHorsePlaceU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Horse Place</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitHorsePlaceU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitHorsePlaceU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Gray Hound Win</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitGrayHoundWinU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitGrayHoundWinU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Gray Hound Win</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitGrayHoundWinU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitGrayHoundWinU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Gray Hound Place</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitGrayHoundPlaceU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitGrayHoundPlaceU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Gray Hound Place</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitGrayHoundPlaceU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitGrayHoundPlaceU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Match Odds</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitMatchOddsU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Match Odds</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitMatchOddsU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Inning Runns</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitInningRunsU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitInningRunsU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Inning Runs</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitInningRunsU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitInningRunsU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Completed Match</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitCompletedMatchU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitCompletedMatchU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Completed Match</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitCompletedMatchU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitCompletedMatchU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Match Odds Soccer</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitMatchOddsSoccerU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsSoccerU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Match Odds Soccer</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitMatchOddsSoccerU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsSoccerU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Match Odds Tennis</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitMatchOddsTennisU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitMatchOddsTennisU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Match Odds Tennis</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitMatchOddsTennisU, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitMatchOddsTennisU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Tied Match</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitTiedMatchU, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitTiedMatchU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Tied Match</label>
+
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitTiedMatchU, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitTiedMatchU, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
 
-	}
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Lower Limit Winner</label>
 
-	<div class="form-group">
-		@Html.LabelFor(model => model.ResetPassword, htmlAttributes: new { @class = "control-label col-md-3" })
-		<div class="col-md-9">
-			@Html.EditorFor(model => model.ResetPassword, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetLowerLimitWinnerU, new { htmlAttributes = new { @class = "form-control", @Value = "2000" } })
+                @Html.ValidationMessageFor(model => model.BetLowerLimitWinnerU, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-3">Bet Upper Limit Winner</label>
 
-		</div>
-	</div>
-	<br />
-	<div class="form-group">
+            <div class="col-md-8">
+                @Html.EditorFor(model => model.BetUpperLimitWinnerU, new { htmlAttributes = new { @class = "form-control", @Value = "15000" } })
+                @Html.ValidationMessageFor(model => model.BetUpperLimitWinnerU, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-		<div class="col-md-offset-3 col-md-10">
-			<button class="buttonview" id="btnUpdate" style="float: initial; margin-top: 21px; height:31px; margin-bottom:18px">Update</button>
 
-			@*<input type="button" value="Update" id="btnUpdate" class="btncreate" />*@
+    }
 
-		</div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ResetPassword, htmlAttributes: new { @class = "control-label col-md-3" })
+        <div class="col-md-9">
+            @Html.EditorFor(model => model.ResetPassword, new { htmlAttributes = new { @class = "form-control" } })
 
-		<div class="col-md-offset-3 col-md-10">
-		</div>
-		<div class="col-md-offset-3 col-md-10">
-		</div>
-		<div class="col-md-offset-3 col-md-10">
-		</div>
-		@if (LoggedinUserDetail.GetUserTypeID() == 1)
-		{
-			<div class="col-md-offset-3 col-md-10">
-				<input type="button" value="Update Race Data" id="btnUpdateRace" class="btn btn-default" />
-			</div>
-		}
-		@if (LoggedinUserDetail.GetUserTypeID() == 1)
-		{
-			<div class="col-md-offset-3 col-md-10">
-				<input type="button" value="Send Balance Sheet" id="btnSendBalanceSheet" class="btn btn-default" />
-			</div>
-		}
-	</div>
+        </div>
+    </div>
+    <br />
+    <div class="form-group">
+
+        <div class="col-md-offset-3 col-md-10">
+            <button class="buttonview" id="btnUpdate" style="float: initial; margin-top: 21px; height:31px; margin-bottom:18px">Update</button>
+
+            @*<input type="button" value="Update" id="btnUpdate" class="btncreate" />*@
+
+        </div>
+
+        <div class="col-md-offset-3 col-md-10">
+        </div>
+        <div class="col-md-offset-3 col-md-10">
+        </div>
+        <div class="col-md-offset-3 col-md-10">
+        </div>
+        @if (LoggedinUserDetail.GetUserTypeID() == 1)
+        {
+            <div class="col-md-offset-3 col-md-10">
+                <input type="button" value="Update Race Data" id="btnUpdateRace" class="btn btn-default" />
+            </div>
+        }
+        @if (LoggedinUserDetail.GetUserTypeID() == 1)
+        {
+            <div class="col-md-offset-3 col-md-10">
+                <input type="button" value="Send Balance Sheet" id="btnSendBalanceSheet" class="btn btn-default" />
+            </div>
+        }
+    </div>
 </div>
 <div class="col-md-6">
-	<div id="UserDetails"></div>
+    <div id="UserDetails"></div>
 </div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <script type="text/javascript">
 
-	$(document).ready(function () {
-		$.ajax({
-			url: '/DashBoard/AllUsers',
-			async: true,
-			type: 'POST',
+    $(document).ready(function () {
+        $.ajax({
+            url: '/DashBoard/AllUsers',
+            async: true,
+            type: 'POST',
 
 
-			complete: function () {
-				$('.selectpicker').selectpicker();
-				$("#ddlUsers").change(function () {
-					if ($("#ddlUsers").val() > 0) {
-						$.ajax({
-							url: '/DashBoard/GetUserDetailsbyID',
-							async: true,
-							type: 'POST',
-							data: { 'UserID': $("#ddlUsers").val() },
+            complete: function () {
+                //$('.selectpicker').selectpicker();
+                    $('#ddlUsers').select2({
+        placeholder: "Select users",
+        allowClear: true,
+        width: "100%"
+    });
+                $("#ddlUsers").change(function () {
+                    if ($("#ddlUsers").val() > 0) {
+                        $.ajax({
+                            url: '/DashBoard/GetUserDetailsbyID',
+                            async: true,
+                            type: 'POST',
+                            data: { 'UserID': $("#ddlUsers").val() },
 
-							complete: function () { },
-							success: function (data) {
-								data = $.parseJSON(data)
-								debugger;
-								$('#ddlUsers').find('option[value="1"]').attr('selected', 'selected');
-								$("#chkBlockUser").prop('checked', data.isBlocked);
-								$("#chkDeleteUser").prop('checked', data.isDeleted);
-								$("#ResetPassword").val(data.Password);
-								$("#AgentRate").val(data.RatePercent);
-
-
-								if (@LoggedinUserDetail.GetUserTypeID() == 1)
-								{
-									$("#BetLowerLimitU").val(data.BetLowerLimit);
-									$("#BetUpperLimitU").val(data.BetUpperLimit);
-									$("#BetLowerLimitHorsePlaceU").val(data.BetLowerLimitHorsePlace);
-									$("#BetUpperLimitHorsePlaceU").val(data.BetUpperLimitHorsePlace);
-									$("#BetLowerLimitGrayHoundWinU").val(data.BetLowerLimitGrayHoundWin);
-									$("#BetUpperLimitGrayHoundWinU").val(data.BetUpperLimitGrayHoundWin);
-									$("#BetLowerLimitGrayHoundPlaceU").val(data.BetLowerLimitGrayHoundPlace);
-									$("#BetUpperLimitGrayHoundPlaceU").val(data.BetUpperLimitGrayHoundPlace);
-									$("#BetLowerLimitMatchOddsU").val(data.BetLowerLimitMatchOdds);
-									$("#BetUpperLimitMatchOddsU").val(data.BetUpperLimitMatchOdds);
-									$("#BetLowerLimitMatchOddsSoccerU").val(data.BetLowerLimitMatchOddsSoccer);
-									$("#BetUpperLimitMatchOddsSoccerU").val(data.BetUpperLimitMatchOddsSoccer);
-									$("#BetLowerLimitMatchOddsTennisU").val(data.BetLowerLimitMatchOddsTennis);
-									$("#BetUpperLimitMatchOddsTennisU").val(data.BetUpperLimitMatchOddsTennis);
-									$("#BetLowerLimitInningRunsU").val(data.BetLowerLimitInningRuns);
-									$("#BetUpperLimitInningRunsU").val(data.BetUpperLimitInningRuns);
-									$("#BetLowerLimitCompletedMatchU").val(data.BetLowerLimitCompletedMatch);
-									$("#BetUpperLimitCompletedMatchU").val(data.BetUpperLimitCompletedMatch);
-									$("#BetLowerLimitTiedMatchU").val(data.BetLowerLimitTiedMatch);
-									$("#BetUpperLimitTiedMatchU").val(data.BetUpperLimitTiedMatch);
-									$("#BetLowerLimitWinnerU").val(data.BetLowerLimitWinner);
-									$("#BetUpperLimitWinnerU").val(data.BetUpperLimitWinner);
-									$("#CommissionRate").val(data.CommissionRate);
-								}
-
-								$("#chkLoggedINUser").prop('checked', data.Loggedin);
-								$("#chkAllowedGrayHound").prop('checked', data.isGrayHoundRaceAllowed);
-								$("#chkAllowedHorse").prop('checked', data.isHorseRaceAllowed);
-								$("#chkAllowedTennis").prop('checked', data.isTennisAllowed);
-								$("#chkAllowedSoccer").prop('checked', data.isSoccerAllowed);
-								$("#callerfunction").val('manageuser');
-								LoadUserDetails();
-								//$("#UserDetails").html(data);
-							}
-						});
-					}
-				});
-				HideLoader();
-			},
-			success: function (data) {
-				$("#allusers").html(data);
-
-				//// $form.html(data);
-				// $form.removeData('validator');
-				// $form.removeData('unobtrusiveValidation');
-				// $.validator.unobtrusive.parse($form);
-			}
-		});
+                            complete: function () { },
+                            success: function (data) {
+                                data = $.parseJSON(data)
+                                debugger;
+                                $('#ddlUsers').find('option[value="1"]').attr('selected', 'selected');
+                                $("#chkBlockUser").prop('checked', data.isBlocked);
+                                $("#chkDeleteUser").prop('checked', data.isDeleted);
+                                $("#ResetPassword").val(data.Password);
+                                $("#AgentRate").val(data.RatePercent);
 
 
-		$("#btnUpdateRace").click(function () {
-			$.ajax({
-				url: '/DashBoard/UpdateHorseRace',
-				async: true,
-				type: 'POST',
+                                if (@LoggedinUserDetail.GetUserTypeID() == 1)
+                                {
+                                    $("#BetLowerLimitU").val(data.BetLowerLimit);
+                                    $("#BetUpperLimitU").val(data.BetUpperLimit);
+                                    $("#BetLowerLimitHorsePlaceU").val(data.BetLowerLimitHorsePlace);
+                                    $("#BetUpperLimitHorsePlaceU").val(data.BetUpperLimitHorsePlace);
+                                    $("#BetLowerLimitGrayHoundWinU").val(data.BetLowerLimitGrayHoundWin);
+                                    $("#BetUpperLimitGrayHoundWinU").val(data.BetUpperLimitGrayHoundWin);
+                                    $("#BetLowerLimitGrayHoundPlaceU").val(data.BetLowerLimitGrayHoundPlace);
+                                    $("#BetUpperLimitGrayHoundPlaceU").val(data.BetUpperLimitGrayHoundPlace);
+                                    $("#BetLowerLimitMatchOddsU").val(data.BetLowerLimitMatchOdds);
+                                    $("#BetUpperLimitMatchOddsU").val(data.BetUpperLimitMatchOdds);
+                                    $("#BetLowerLimitMatchOddsSoccerU").val(data.BetLowerLimitMatchOddsSoccer);
+                                    $("#BetUpperLimitMatchOddsSoccerU").val(data.BetUpperLimitMatchOddsSoccer);
+                                    $("#BetLowerLimitMatchOddsTennisU").val(data.BetLowerLimitMatchOddsTennis);
+                                    $("#BetUpperLimitMatchOddsTennisU").val(data.BetUpperLimitMatchOddsTennis);
+                                    $("#BetLowerLimitInningRunsU").val(data.BetLowerLimitInningRuns);
+                                    $("#BetUpperLimitInningRunsU").val(data.BetUpperLimitInningRuns);
+                                    $("#BetLowerLimitCompletedMatchU").val(data.BetLowerLimitCompletedMatch);
+                                    $("#BetUpperLimitCompletedMatchU").val(data.BetUpperLimitCompletedMatch);
+                                    $("#BetLowerLimitTiedMatchU").val(data.BetLowerLimitTiedMatch);
+                                    $("#BetUpperLimitTiedMatchU").val(data.BetUpperLimitTiedMatch);
+                                    $("#BetLowerLimitWinnerU").val(data.BetLowerLimitWinner);
+                                    $("#BetUpperLimitWinnerU").val(data.BetUpperLimitWinner);
+                                    $("#CommissionRate").val(data.CommissionRate);
+                                }
+
+                                $("#chkLoggedINUser").prop('checked', data.Loggedin);
+                                $("#chkAllowedGrayHound").prop('checked', data.isGrayHoundRaceAllowed);
+                                $("#chkAllowedHorse").prop('checked', data.isHorseRaceAllowed);
+                                $("#chkAllowedTennis").prop('checked', data.isTennisAllowed);
+                                $("#chkAllowedSoccer").prop('checked', data.isSoccerAllowed);
+                                $("#callerfunction").val('manageuser');
+                                LoadUserDetails();
+                                //$("#UserDetails").html(data);
+                            }
+                        });
+                    }
+                });
+                HideLoader();
+            },
+            success: function (data) {
+                $("#allusers").html(data);
+
+                //// $form.html(data);
+                // $form.removeData('validator');
+                // $form.removeData('unobtrusiveValidation');
+                // $.validator.unobtrusive.parse($form);
+            }
+        });
 
 
-				complete: function () { },
-				success: function (data) {
-					if (data == "True") {
-
-						ShowErrorMsg("Started Updating.");
-
-					}
-					else {
-
-					}
+        $("#btnUpdateRace").click(function () {
+            $.ajax({
+                url: '/DashBoard/UpdateHorseRace',
+                async: true,
+                type: 'POST',
 
 
-					//$("#UserDetails").html(data);
-				}
-			});
-		});
-		$("#btnSendBalanceSheet").click(function () {
-			$.ajax({
-				url: '/DashBoard/SendEmailToClient',
-				async: true,
-				type: 'POST',
+                complete: function () { },
+                success: function (data) {
+                    if (data == "True") {
+
+                        ShowErrorMsg("Started Updating.");
+
+                    }
+                    else {
+
+                    }
 
 
-				complete: function () { },
-				success: function (data) {
-					if (data == "True") {
-
-						ShowErrorMsg("Email has been sent.");
-
-					}
-					else {
-
-					}
-
-
-					//$("#UserDetails").html(data);
-				}
-			});
-		});
-		$("#btnUpdate").click(function () {
-
-			if ($("#ddlUsers").val()>0){
-				ShowLoader();
-				var BetLowerLimit = 2000;
-				var BetUpperLimit=15000;
-				var BetLowerLimitHorsePlace = 2000;
-				var BetUpperLimitHorsePlace=15000;
-				var BetLowerLimitGrayHoundWin = 2000;
-				var BetUpperLimitGrayHoundWin=15000;
-				var BetLowerLimitGrayHoundPlace = 2000;
-				var BetUpperLimitGrayHoundPlace=15000;
-				var BetLowerLimitMatchOdds = 2000;
-				var BetUpperLimitMatchOdds=500000;
-				var BetLowerLimitMatchOddsSoccer = 2000;
-				var BetUpperLimitMatchOddsSoccer=15000;
-				var BetLowerLimitMatchOddsTennis = 2000;
-				var BetUpperLimitMatchOddsTennis=15000;
-				var BetLowerLimitInningsRunns = 2000;
-				var BetUpperLimitInningsRunns=500000;
-				var BetLowerLimitCompletedMatch = 2000;
-				var BetUpperLimitCompletedMatch=500000;
-				var BetLowerLimitTiedMatch = 2000;
-				var BetUpperLimitTiedMatch=500000;
-				var BetLowerLimitWinner = 2000;
-				var BetUpperLimitWinner=500000;
-				var  CommissionRate=2;
-				if (@LoggedinUserDetail.GetUserTypeID() == 1  || @LoggedinUserDetail.GetUserTypeID() == 7 )
-				{
-					BetLowerLimit=$("#BetLowerLimitU").val();
-					BetUpperLimit=$("#BetUpperLimitU").val();
-					BetLowerLimitHorsePlace=$("#BetLowerLimitHorsePlaceU").val();
-					BetUpperLimitHorsePlace=$("#BetUpperLimitHorsePlaceU").val();
-					BetLowerLimitGrayHoundWin=$("#BetLowerLimitGrayHoundWinU").val();
-					BetUpperLimitGrayHoundWin=$("#BetUpperLimitGrayHoundWinU").val();
-					BetLowerLimitGrayHoundPlace=$("#BetLowerLimitGrayHoundPlaceU").val();
-					BetUpperLimitGrayHoundPlace=$("#BetUpperLimitGrayHoundPlaceU").val();
-					BetLowerLimitMatchOdds = $("#BetLowerLimitMatchOddsU").val();
-					BetUpperLimitMatchOdds=$("#BetUpperLimitMatchOddsU").val();
-					BetLowerLimitMatchOddsSoccer = $("#BetLowerLimitMatchOddsSoccerU").val();
-					BetUpperLimitMatchOddsSoccer=$("#BetUpperLimitMatchOddsSoccerU").val();
-					BetLowerLimitMatchOddsTennis = $("#BetLowerLimitMatchOddsTennisU").val();
-					BetUpperLimitMatchOddsTennis=$("#BetUpperLimitMatchOddsTennisU").val();
-					BetLowerLimitInningsRunns = $("#BetLowerLimitInningRunsU").val();
-					BetUpperLimitInningsRunns=$("#BetUpperLimitInningRunsU").val();
-					BetLowerLimitCompletedMatch = $("#BetLowerLimitCompletedMatchU").val();
-					BetUpperLimitCompletedMatch=$("#BetUpperLimitCompletedMatchU").val();
-				   BetLowerLimitTiedMatch=    $("#BetLowerLimitTiedMatchU").val();
-					BetUpperLimitTiedMatch= $("#BetUpperLimitTiedMatchU").val();
-				   BetLowerLimitWinner= $("#BetLowerLimitWinnerU").val();
-					BetUpperLimitWinner= $("#BetUpperLimitWinnerU").val();
-
-					CommissionRate=  $("#CommissionRate").val();
-				}
-			$.ajax({
-				url: '/DashBoard/UpdateUserPasswordandStatus',
-				async: true,
-				type: 'POST',
-				data: { 'UserID': $("#ddlUsers").val(), 'IsDeleted': $("#chkDeleteUser").is(":checked"), 'isBlocked': $("#chkBlockUser").is(":checked"), 'Password': $("#ResetPassword").val(), 'AgentRate': $("#AgentRate").val(), 'LoggedIn': $("#chkLoggedINUser").is(":checked"), 'BetLowerLimit': BetLowerLimit,'BetUpperLimit': BetUpperLimit,'isAllowedGrayHound':$("#chkAllowedGrayHound").is(":checked") ,'isAllowedHorse':$("#chkAllowedHorse").is(":checked"),'BetLowerLimitHorsePlace':BetLowerLimitHorsePlace, 'BetUpperLimitHorsePlace':BetUpperLimitHorsePlace, 'BetLowerLimitGrayHoundWin':BetLowerLimitGrayHoundWin,'BetUpperLimitGrayHoundWin':BetUpperLimitGrayHoundWin, 'BetLowerLimitGrayHoundPlace':BetLowerLimitGrayHoundPlace, 'BetUpperLimitGrayHoundPlace':BetUpperLimitGrayHoundPlace, 'BetLowerLimitMatchOdds':BetLowerLimitMatchOdds ,'BetUpperLimitMatchOdds':BetUpperLimitMatchOdds,'BetLowerLimitInningsRunns':BetLowerLimitInningsRunns , 'BetUpperLimitInningsRunns':BetUpperLimitInningsRunns, 'BetLowerLimitCompletedMatch':BetLowerLimitCompletedMatch ,'BetUpperLimitCompletedMatch':BetUpperLimitCompletedMatch,'isTennisAllowed':$("#chkAllowedTennis").is(":checked"),'isSoccerAllowed':$("#chkAllowedSoccer").is(":checked"),'CommissionRate':CommissionRate,'BetLowerLimitMatchOddsSoccer':BetLowerLimitMatchOddsSoccer ,'BetUpperLimitMatchOddsSoccer':BetUpperLimitMatchOddsSoccer,'BetLowerLimitMatchOddsTennis':BetLowerLimitMatchOddsTennis ,'BetUpperLimitMatchOddsTennis':BetUpperLimitMatchOddsTennis,'BetLowerLimitTiedMatch':BetLowerLimitTiedMatch,'BetUpperLimitTiedMatch':BetUpperLimitTiedMatch,'BetLowerLimitWinner':BetLowerLimitWinner,'BetUpperLimitWinner':BetUpperLimitWinner },
-
-				complete: function () { },
-				success: function (data) {
-					if (data == "True") {
-						HideLoader();
-						ShowErrorMsg("User Status updated successfully.");
-						$("#ddlUsers").val("0");
-						$('.selectpicker').selectpicker('val', 0);
-						$("#chkBlockUser").prop('checked', false);
-						$("#chkDeleteUser").prop('checked', false);
-						$("#chkLoggedINUser").prop('checked', false);
-						$("#chkAllowedGrayHound").prop('checked', false);
-						$("#chkAllowedHorse").prop('checked', false);
-						$("#chkAllowedTennis").prop('checked', false);
-						$("#chkAllowedSoccer").prop('checked', false);
-						$("#BetLowerLimitU").val('0');
-						$("#ResetPassword").val('');
-						$("#AgentRate").val('');
-						$("#BetUpperLimitU").val('0');
-					   $("#BetLowerLimitHorsePlaceU").val('0');
-					   $("#BetUpperLimitHorsePlaceU").val('0');
-					   $("#BetLowerLimitGrayHoundWinU").val('0');
-					   $("#BetUpperLimitGrayHoundWinU").val('0');
-					   $("#BetLowerLimitGrayHoundPlaceU").val('0');
-					   $("#BetUpperLimitGrayHoundPlaceU").val('0');
-					   $("#BetLowerLimitMatchOddsU").val('0');
-					   $("#BetUpperLimitMatchOddsU").val('0');
-					   $("#BetLowerLimitMatchOddsSoccerU").val('0');
-					   $("#BetUpperLimitMatchOddsSoccerU").val('0');
-					   $("#BetLowerLimitMatchOddsTennisU").val('0');
-					   $("#BetUpperLimitMatchOddsTennisU").val('0');
-					   $("#BetLowerLimitInningRunsU").val('0');
-					   $("#BetUpperLimitInningRunsU").val('0');
-					   $("#BetLowerLimitCompletedMatchU").val('0');
-					   $("#BetUpperLimitCompletedMatchU").val('0');
-					   $("#BetLowerLimitTiedMatchU").val('0');
-					   $("#BetUpperLimitTiedMatchU").val('0');
-					   $("#BetLowerLimitWinnerU").val('0');
-					   $("#BetUpperLimitWinnerU").val('0');
-					   $("#CommissionRate").val('0');
-					}
-					else {
-						HideLoader();
-						ShowErrorMsg(data);
-					}
+                    //$("#UserDetails").html(data);
+                }
+            });
+        });
+        $("#btnSendBalanceSheet").click(function () {
+            $.ajax({
+                url: '/DashBoard/SendEmailToClient',
+                async: true,
+                type: 'POST',
 
 
-					//$("#UserDetails").html(data);
-				}
-			});
-			}
-		});
-	});
+                complete: function () { },
+                success: function (data) {
+                    if (data == "True") {
+
+                        ShowErrorMsg("Email has been sent.");
+
+                    }
+                    else {
+
+                    }
+
+
+                    //$("#UserDetails").html(data);
+                }
+            });
+        });
+         $("#btnUpdate").click(function (e) {
+        e.preventDefault();
+            var selectedIds = $('#ddlUsers').val();
+               if (selectedIds.length > 0){
+                ShowLoader();
+                var BetLowerLimit = 2000;
+                var BetUpperLimit=15000;
+                var BetLowerLimitHorsePlace = 2000;
+                var BetUpperLimitHorsePlace=15000;
+                var BetLowerLimitGrayHoundWin = 2000;
+                var BetUpperLimitGrayHoundWin=15000;
+                var BetLowerLimitGrayHoundPlace = 2000;
+                var BetUpperLimitGrayHoundPlace=15000;
+                var BetLowerLimitMatchOdds = 2000;
+                var BetUpperLimitMatchOdds=500000;
+                var BetLowerLimitMatchOddsSoccer = 2000;
+                var BetUpperLimitMatchOddsSoccer=15000;
+                var BetLowerLimitMatchOddsTennis = 2000;
+                var BetUpperLimitMatchOddsTennis=15000;
+                var BetLowerLimitInningsRunns = 2000;
+                var BetUpperLimitInningsRunns=500000;
+                var BetLowerLimitCompletedMatch = 2000;
+                var BetUpperLimitCompletedMatch=500000;
+                var BetLowerLimitTiedMatch = 2000;
+                var BetUpperLimitTiedMatch=500000;
+                var BetLowerLimitWinner = 2000;
+                var BetUpperLimitWinner=500000;
+                var  CommissionRate=2;
+                if (@LoggedinUserDetail.GetUserTypeID() == 1  || @LoggedinUserDetail.GetUserTypeID() == 7 )
+                {
+                    BetLowerLimit=$("#BetLowerLimitU").val();
+                    BetUpperLimit=$("#BetUpperLimitU").val();
+                    BetLowerLimitHorsePlace=$("#BetLowerLimitHorsePlaceU").val();
+                    BetUpperLimitHorsePlace=$("#BetUpperLimitHorsePlaceU").val();
+                    BetLowerLimitGrayHoundWin=$("#BetLowerLimitGrayHoundWinU").val();
+                    BetUpperLimitGrayHoundWin=$("#BetUpperLimitGrayHoundWinU").val();
+                    BetLowerLimitGrayHoundPlace=$("#BetLowerLimitGrayHoundPlaceU").val();
+                    BetUpperLimitGrayHoundPlace=$("#BetUpperLimitGrayHoundPlaceU").val();
+                    BetLowerLimitMatchOdds = $("#BetLowerLimitMatchOddsU").val();
+                    BetUpperLimitMatchOdds=$("#BetUpperLimitMatchOddsU").val();
+                    BetLowerLimitMatchOddsSoccer = $("#BetLowerLimitMatchOddsSoccerU").val();
+                    BetUpperLimitMatchOddsSoccer=$("#BetUpperLimitMatchOddsSoccerU").val();
+                    BetLowerLimitMatchOddsTennis = $("#BetLowerLimitMatchOddsTennisU").val();
+                    BetUpperLimitMatchOddsTennis=$("#BetUpperLimitMatchOddsTennisU").val();
+                    BetLowerLimitInningsRunns = $("#BetLowerLimitInningRunsU").val();
+                    BetUpperLimitInningsRunns=$("#BetUpperLimitInningRunsU").val();
+                    BetLowerLimitCompletedMatch = $("#BetLowerLimitCompletedMatchU").val();
+                    BetUpperLimitCompletedMatch=$("#BetUpperLimitCompletedMatchU").val();
+                   BetLowerLimitTiedMatch=    $("#BetLowerLimitTiedMatchU").val();
+                    BetUpperLimitTiedMatch= $("#BetUpperLimitTiedMatchU").val();
+                   BetLowerLimitWinner= $("#BetLowerLimitWinnerU").val();
+                    BetUpperLimitWinner= $("#BetUpperLimitWinnerU").val();
+
+                    CommissionRate=  $("#CommissionRate").val();
+                    debugger;
+                }
+           $.ajax({
+                 url: '@Url.Action("UpdateUserPasswordandStatus", "DashBoard")',
+                 type: 'POST',
+                 async: true,
+                data: { 'UserID': $("#ddlUsers").val(), 'IsDeleted': $("#chkDeleteUser").is(":checked"), 'isBlocked': $("#chkBlockUser").is(":checked"), 'Password': $("#ResetPassword").val(), 'AgentRate': $("#AgentRate").val(), 'LoggedIn': $("#chkLoggedINUser").is(":checked"), 'BetLowerLimit': BetLowerLimit,'BetUpperLimit': BetUpperLimit,'isAllowedGrayHound':$("#chkAllowedGrayHound").is(":checked") ,'isAllowedHorse':$("#chkAllowedHorse").is(":checked"),'BetLowerLimitHorsePlace':BetLowerLimitHorsePlace, 'BetUpperLimitHorsePlace':BetUpperLimitHorsePlace, 'BetLowerLimitGrayHoundWin':BetLowerLimitGrayHoundWin,'BetUpperLimitGrayHoundWin':BetUpperLimitGrayHoundWin, 'BetLowerLimitGrayHoundPlace':BetLowerLimitGrayHoundPlace, 'BetUpperLimitGrayHoundPlace':BetUpperLimitGrayHoundPlace, 'BetLowerLimitMatchOdds':BetLowerLimitMatchOdds ,'BetUpperLimitMatchOdds':BetUpperLimitMatchOdds,'BetLowerLimitInningsRunns':BetLowerLimitInningsRunns , 'BetUpperLimitInningsRunns':BetUpperLimitInningsRunns, 'BetLowerLimitCompletedMatch':BetLowerLimitCompletedMatch ,'BetUpperLimitCompletedMatch':BetUpperLimitCompletedMatch,'isTennisAllowed':$("#chkAllowedTennis").is(":checked"),'isSoccerAllowed':$("#chkAllowedSoccer").is(":checked"),'CommissionRate':CommissionRate,'BetLowerLimitMatchOddsSoccer':BetLowerLimitMatchOddsSoccer ,'BetUpperLimitMatchOddsSoccer':BetUpperLimitMatchOddsSoccer,'BetLowerLimitMatchOddsTennis':BetLowerLimitMatchOddsTennis ,'BetUpperLimitMatchOddsTennis':BetUpperLimitMatchOddsTennis,'BetLowerLimitTiedMatch':BetLowerLimitTiedMatch,'BetUpperLimitTiedMatch':BetUpperLimitTiedMatch,'BetLowerLimitWinner':BetLowerLimitWinner,'BetUpperLimitWinner':BetUpperLimitWinner },                
+                success: function (data) {
+                    debugger;
+                    if (data == "True") {
+                        HideLoader();
+                        ShowErrorMsg("User Status updated successfully.");
+                         $('#ddlUsers').val('0');
+                        $("#chkBlockUser").prop('checked', false);
+                        $("#chkDeleteUser").prop('checked', false);
+                        $("#chkLoggedINUser").prop('checked', false);
+                        $("#chkAllowedGrayHound").prop('checked', false);
+                        $("#chkAllowedHorse").prop('checked', false);
+                        $("#chkAllowedTennis").prop('checked', false);
+                        $("#chkAllowedSoccer").prop('checked', false);
+                        $("#BetLowerLimitU").val('0');
+                        $("#ResetPassword").val('');
+                        $("#AgentRate").val('');
+                        $("#BetUpperLimitU").val('0');
+                       $("#BetLowerLimitHorsePlaceU").val('0');
+                       $("#BetUpperLimitHorsePlaceU").val('0');
+                       $("#BetLowerLimitGrayHoundWinU").val('0');
+                       $("#BetUpperLimitGrayHoundWinU").val('0');
+                       $("#BetLowerLimitGrayHoundPlaceU").val('0');
+                       $("#BetUpperLimitGrayHoundPlaceU").val('0');
+                       $("#BetLowerLimitMatchOddsU").val('0');
+                       $("#BetUpperLimitMatchOddsU").val('0');
+                       $("#BetLowerLimitMatchOddsSoccerU").val('0');
+                       $("#BetUpperLimitMatchOddsSoccerU").val('0');
+                       $("#BetLowerLimitMatchOddsTennisU").val('0');
+                       $("#BetUpperLimitMatchOddsTennisU").val('0');
+                       $("#BetLowerLimitInningRunsU").val('0');
+                       $("#BetUpperLimitInningRunsU").val('0');
+                       $("#BetLowerLimitCompletedMatchU").val('0');
+                       $("#BetUpperLimitCompletedMatchU").val('0');
+                       $("#BetLowerLimitTiedMatchU").val('0');
+                       $("#BetUpperLimitTiedMatchU").val('0');
+                       $("#BetLowerLimitWinnerU").val('0');
+                       $("#BetUpperLimitWinnerU").val('0');
+                       $("#CommissionRate").val('0');
+                    }
+                    else {
+                        HideLoader();
+                        ShowErrorMsg(data);
+                    }
+                }
+            });
+            }
+        });
+    });
 </script>
-
-<!-- ✅ jQuery first -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<!-- ✅ Bootstrap JS (before selectpicker) -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<!-- ✅ Bootstrap Select plugin -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-
-<!-- ✅ Bootstrap Select CSS -->
-<link rel="stylesheet"
-	  href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css" />
 

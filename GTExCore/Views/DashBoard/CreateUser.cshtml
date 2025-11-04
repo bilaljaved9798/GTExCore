@@ -2,25 +2,18 @@
 @using GTExCore.Models
 @model CreateUser
 
-
-
-
 <form id="CreateUserForm" autocomplete="off">
     <div class="col-md-12 form-horizontal">
-
         <div id="ManageUser">
         </div>
 
     </div>
-
-
     <div class="container createuser">
         <div class="col-md-12">
             <div class="col-md-7 form-horizontal">
                 <div class="thirteen " style="margin-top: 25px;">
                     <h1>Create User</h1>
                 </div>
-
                 <hr />
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <div class="form-group">
@@ -313,15 +306,16 @@
                             </select>
                         </div>
                     }
-                    @if (LoggedinUserDetail.GetUserTypeID() == 2)
+                    else
                     {
-                        <label class="control-label col-md-3">User Type</label>
-                        <div class="col-md-8">
-                            <select id="ddlUserType" class="selectpicker">
-                                <option value="3">End User</option>
-                            </select>
+                        <div class="form-group row">
+                            <label class="control-label col-md-3">User Type</label>
+                            <div class="col-md-8">
+                                <select id="ddlUserType" class="form-select">
+                                    <option value="3" selected>End User</option>
+                                </select>
+                            </div>
                         </div>
-
                     }
 
                 </div>
