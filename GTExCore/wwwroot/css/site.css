@@ -1744,19 +1744,23 @@ textarea {
 
 
 .errordivfixed {
-    width: 15%;
     position: fixed;
-    top: 300px;
-    margin-left: 400px;
-    background-color: red;
-    text-align: center;
-    color: white;
-    display: none;
-    font-size: 25px;
-    z-index: 2500;
-    padding: 7px;
-    border-radius: 4px;
+    top: 20px;
+    right: 20px;
+    background: #f44336;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    cursor: default;
 }
+
+    .errordivfixed .close-btn {
+        margin-left: 12px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
 .modalpopuploader {
     position: fixed;
@@ -3899,7 +3903,7 @@ label {
     padding: 0px 0px;
     /*box-shadow: rgba(0, 0, 0, 0.1) 0px 8px 0px -6px, rgba(0, 0, 0, 0) 0px 0px 0px 0px;*/
     border-radius: 3px;
-    width: 50px;
+    width: 65px;
     margin-top: 1px;
     cursor: pointer;
     display: inline-block;
@@ -5563,7 +5567,7 @@ a {
     #BetSlipSection {
         text-align: left;
         float: left;
-        max-height: 425px;
+        max-height: 433px;
         overflow: hidden;
         box-shadow: 1px 0 10px 1px rgba(0, 0, 0, .3);
         margin: 0px 0px;
@@ -5628,7 +5632,7 @@ a {
         margin-left: 4px;
         text-shadow: 0px 0.3px #000000;
         float: left;
-        width: 62%;
+        width: 55%;
         font-size: 15px;
         font-weight: 700;
         color: black;
@@ -6811,7 +6815,7 @@ a {
 
     .inplaymatchname {
         float: left;
-        width: 91%;
+        width: 93%;
         margin-right: 2px;
     }
 

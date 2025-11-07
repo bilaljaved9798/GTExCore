@@ -213,7 +213,7 @@ a[aria-expanded="true"]::before {
 
 
 ul ul a {
-    font-size: 0.65em !important;
+    font-size: 0.75em !important;
     padding-left: 18px !important;
     background: white;
     color: black;
