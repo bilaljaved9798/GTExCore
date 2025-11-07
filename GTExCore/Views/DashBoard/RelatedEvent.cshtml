@@ -14,9 +14,6 @@
         {
             DateTime marketnameandtype = Convert.ToDateTime(item.EventOpenDate);
             marketnameandtype = marketnameandtype.AddHours(5);
-
-
-
             <div class="inplaydatarow">
                 @{
                     bool isPastTime = marketnameandtype < DateTime.Now;

@@ -6610,6 +6610,7 @@ else
         if (isInserting == true) {
             return;
         }
+        debugger;
         $("#isBetSlipEdit").val(isEdit);
         $("#loadedmarketbook").val(marketbookID);
         $("#loadedmarketbookname").val(marketbookname);
@@ -6827,8 +6828,8 @@ else
 
                     $("#betslipheading").html('You are going to back ' + selectionname);
                     if (location == 9) {
-                        $("#betslipselection").html(id);
-                        $("#betslipselectionmob").html(id);
+                        $("#betslipselection").html(marketbookname);
+                        $("#betslipselectionmob").html(marketbookname);
                     }
                     else {
                         $("#betslipselection").html(command);
@@ -7509,6 +7510,11 @@ else
     }
     function lastLevelBreadcrumb(id) {
         // Hide the footer immediately when clicked
+        $("#KJfancymarketbook").hide();
+        $("#Figurefancymarketbook").hide();
+        $("#fancymarketbook").hide();
+        $("#Indianfancymarketbook1").hide();
+        $("#SFigfancymarketbook").hide();
         $("#divfooter").hide();
         $("#video").hide();
         $("#video")[0].removeAttribute("src");
@@ -7535,7 +7541,7 @@ else
     }
 
     function logoClick() {
-
+        $("#video")[0].removeAttribute("src");
         $("#marketdataall").hide();
         $("#BetSlipMain").hide();
         $("#simpleBet").hide();

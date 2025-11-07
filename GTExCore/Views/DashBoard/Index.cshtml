@@ -1426,7 +1426,8 @@ else
 		var partialviewname = "/DashBoard/" + partialviewid;
 		$("#partialviews").load(partialviewname, function () {
 			HideLoader();
-			$("#btnCreateUser").click(function () {
+			$("#btnCreateUser").click(function (e) {
+	             e.preventDefault();
 				if ($("#ddlUserType").val() == 0) {
 					ShowErrorMsg("Please select user type.");
 					return;
