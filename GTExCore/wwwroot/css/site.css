@@ -1744,19 +1744,23 @@ textarea {
 
 
 .errordivfixed {
-    width: 15%;
     position: fixed;
-    top: 300px;
-    margin-left: 400px;
-    background-color: red;
-    text-align: center;
-    color: white;
-    display: none;
-    font-size: 25px;
-    z-index: 2500;
-    padding: 7px;
-    border-radius: 4px;
+    top: 20px;
+    right: 20px;
+    background: #f44336;
+    color: #fff;
+    padding: 12px 20px;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    cursor: default;
 }
+
+    .errordivfixed .close-btn {
+        margin-left: 12px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
 .modalpopuploader {
     position: fixed;

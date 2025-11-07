@@ -1051,14 +1051,32 @@ else
 	//function addtofavourites(id) {
 
 	//}
+	// JS / jQuery
 	function ShowErrorMsg(msg) {
-		//PlaySound();
 		$("#lblMainError").text(msg);
-		//$('.errordivfixed').delay(200);
+		const $errorDiv = $(".errordivfixed");
 
-		$('.errordivfixed').fadeIn(500).delay(200).fadeOut(500).fadeIn(500).delay(2500).fadeOut(500);
+		// show animation
+		$errorDiv.stop(true, true)
+			.fadeIn(300)
+			.delay(2500)
+			.fadeOut(400);
 
+		// close on X click
+		$(".close-btn").off("click").on("click", function (e) {
+			e.stopPropagation();
+			$errorDiv.fadeOut(300);
+		});
+
+		// close when clicking anywhere else
+		$(document).off("click.errordiv").on("click.errordiv", function (e) {
+			if (!$(e.target).closest(".errordivfixed").length) {
+				$errorDiv.fadeOut(300);
+				$(document).off("click.errordiv"); // remove handler
+			}
+		});
 	}
+
 
 	function LoadMarketView(partialviewid) {
 		$('.mainheaderdiv').nextAll('div').remove();
