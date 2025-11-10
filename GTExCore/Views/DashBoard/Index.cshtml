@@ -425,12 +425,12 @@
 
 
 	<div id="fade-overlay" style="display: none;"></div>
-	<div class="container">
-		<div class="errordivfixed">
-			<label id="lblMainError"></label>
-		</div>
-
+	<div class="error-message" id="errorBox">
+		<span id="errorText"></span>
+		<span class="close-btn">&times;</span>
 	</div>
+
+
 
 
 	<div class="innerbodycontent innerbodycontent1">
@@ -1048,34 +1048,34 @@ else
 
 
 
-	//function addtofavourites(id) {
-
-	//}
-	// JS / jQuery
 	function ShowErrorMsg(msg) {
-		$("#lblMainError").text(msg);
-		const $errorDiv = $(".errordivfixed");
+		const $box = $("#errorBox");
+		$("#errorText").text(msg);
 
-		// show animation
-		$errorDiv.stop(true, true)
-			.fadeIn(300)
-			.delay(2500)
+		// slide up from bottom
+		$box.stop(true, true)
+			.css({ bottom: "-100px", display: "block" })
+			.animate({ bottom: 0 }, 500)
+			.delay(3000)
 			.fadeOut(400);
 
-		// close on X click
+		// close on cross click
 		$(".close-btn").off("click").on("click", function (e) {
 			e.stopPropagation();
-			$errorDiv.fadeOut(300);
+			$box.fadeOut(300);
 		});
 
-		// close when clicking anywhere else
-		$(document).off("click.errordiv").on("click.errordiv", function (e) {
-			if (!$(e.target).closest(".errordivfixed").length) {
-				$errorDiv.fadeOut(300);
-				$(document).off("click.errordiv"); // remove handler
+		// close when clicking outside
+		$(document).off("click.errorBox").on("click.errorBox", function (e) {
+			if (!$(e.target).closest("#errorBox").length) {
+				$box.fadeOut(300);
+				$(document).off("click.errorBox");
 			}
 		});
 	}
+
+
+
 
 
 	function LoadMarketView(partialviewid) {
