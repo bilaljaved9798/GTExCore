@@ -6779,7 +6779,7 @@ else
 
             }
 
-            if (allowedstatus == true || allowedstatus == false) {
+            if (allowedstatus == true) {
                 $("#openedbetslipid").val(id);
                 $("#betsliptype").val(betsliptype);
                 if (betsliptype == 'back') {
@@ -7509,7 +7509,6 @@ else
         }
     }
     function lastLevelBreadcrumb(id) {
-        // Hide the footer immediately when clicked
         $("#KJfancymarketbook").hide();
         $("#Figurefancymarketbook").hide();
         $("#fancymarketbook").hide();
@@ -7528,8 +7527,6 @@ else
         $("#inplayul").hide();
         $("#todaygrayhoundraceui").hide();
         togglemainsportsmenu(3, "");
-
-        // Load market type and ensure footer is shown after everything is loaded
         LoadMarketType(id);
 
         $("#lastloadedmarket").val(id);
