@@ -2622,46 +2622,32 @@ namespace Census.API.Controllers
             {
                 string jsonString = await objUsersServiceCleint.GetTvLinksAsync(eventId);
                 var obj = JsonConvert.DeserializeObject<List<TVlink>>(jsonString);
-                var data = obj.Where(x => x.EventID == eventId).FirstOrDefault();
-                long dID = Convert.ToInt64(data?.DimondID);
+                var data = obj.FirstOrDefault(x => x.EventID == eventId);
+
+                if (data == null)
+                    return "";
+
+                // Validate DimondID before converting
+                long dID;
+                if (!long.TryParse(data.DimondID, out dID))
+                    return ""; // DimondID is null or invalid
+
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
                 if (sportId == 1)
-                {
-                    try
-                    {
-                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    return $"https://e765432.diamondcricketid.com/dtv.php?id={dID}";
 
-                        // Directly create the iframe URL using DimondID (no external API call)
-                        string tvlink1 = $"https://e765432.diamondcricketid.com/dtv.php?id={dID}";
-                        return tvlink1;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        return "";
-                    }
-                }
                 if (sportId == 2)
-                {
-                    try
-                    {
-                        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                    return $"https://e765432.diamondcricketid.com/dtv1.php?id={dID}";
 
-                        // Directly create the iframe URL using DimondID (no external API call)
-                        string tvlink1 = $"https://e765432.diamondcricketid.com/dtv1.php?id={dID}";
-                        return tvlink1;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        return "";
-                    }
-                }
-                //https://serviceapi.fairgame7.com/getIframeUrl/471734455?sportType=football&isTv=true&isScore=true
                 return data.tvlink1;
             }
-            catch (System.Exception ex)
+            catch
             {
                 return "";
             }
         }
+
 
         public string GetCardLinks(string EventId)
         {
