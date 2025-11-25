@@ -3,7 +3,7 @@
 @foreach (var item in Model)
 {
     <li>
-        <a id="marketcatalogueitemtoday@(item.MarketCatalogueID.Replace(".",""))" class="active secondlevellink " style="background-color:@ViewBag.backgrod;color:@ViewBag.color;font-size:13px;" onclick="lastLevelBreadcrumb('@item.MarketCatalogueID.ToString()')"> @item.TodayHorseRace</a>
+        <a id="marketcatalogueitemtoday@(item.MarketCatalogueID.Replace(".",""))" class="active secondlevellink " style="background-color:@ViewBag.backgrod;color:@ViewBag.color;font-size:13px;" onclick="lastLevelBreadcrumb('@item.MarketCatalogueID.ToString()')"> @item.TodayHorseRace (@item.MarketCatalogueName)</a>
 
     </li>
 }
