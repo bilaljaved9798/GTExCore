@@ -1,0 +1,280 @@
+﻿@using BettingServiceReference
+@using GTExCore.Models
+@model IEnumerable<MarketBook>
+
+
+<ul class="nav nav-tabs marketbooksul">
+
+
+    @foreach (var item in Model)
+    {
+        <li id="marketbook@(item.MarketId.ToString().Replace(".", ""))li" data-value="@item.MarketId">
+
+            <a href="#marketbook@(item.MarketId.ToString().Replace(".", ""))" data-toggle="tab">@item.MarketBookName </a>
+            <span class="close" onclick="deletetab('@(item.MarketId.ToString())')">x</span>
+            <input type="hidden" id="selectedrunners@(item.MarketId.ToString().Replace(".", ""))" value="" />
+            <input type="hidden" id="selectedrunnersforavg@(item.MarketId.ToString().Replace(".", ""))" value="" />
+            <input type="hidden" id="selectedrunnersclothnumber@(item.MarketId.ToString().Replace(".", ""))" value="" />
+            <input type="hidden" id="marketbookCategory@(item.MarketId.ToString().Replace(".", ""))" value="@item.MainSportsname" />
+            <input type="hidden" id="marketbookorignalopendate@(item.MarketId.ToString().Replace(".", ""))" value="@item.OrignalOpenDate" />
+            <input type="hidden" id="marketbookname@(item.MarketId.ToString().Replace(".", ""))" value="@item.MarketBookName" />
+            <input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Count.ToString()" />
+            <input type="hidden" id="marketbookAllowedBetting@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowed).ToString()" />
+            <input type="hidden" id="marketbookAllowedBettingOverAll@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowedOverAll).ToString()" />
+            <input type="hidden" id="marketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))" value="@item.TotalMatched.ToString()" />
+            <input type="hidden" id="currentteamforSelection@(item.MarketId.ToString().Replace(".", ""))" value="A" />
+            <input type="hidden" id="currentview@(item.MarketId.ToString().Replace(".", ""))" value="0" />
+
+            <input type="hidden" id="eventidfor@(item.MarketId.ToString().Replace(".", ""))" value="@item.EventID" />
+
+        </li>
+    }
+</ul>
+
+<div class="marketbookwintthetoss">
+
+    @{
+        foreach (var item in Model)
+        {
+
+            int valueid = 0;
+            <div id="marketbook@(item.MarketId.ToString().Replace(".", ""))" data-marketid="@item.MarketId">
+                <input type="hidden" id="totalmarketsopened@(item.MarketId.ToString().Replace(".", ""))" value="@item.marketsopened" />
+                <input type="hidden" id="marketbooksheet@(item.MarketId.ToString().Replace(".", ""))" value="@item.SheetName" />
+
+                <div id="marketbookdataforshow">
+                    <div class="marketstatusrulesandmarkettype" id="markettype">
+                        @if (LoggedinUserDetail.GetUserTypeID() == 3)
+                        {
+                            <label class="rule2 active1" style="background:-webkit-linear-gradient(bottom,#3b9f71,#0a0a0a) !important;color:white">
+
+                                <span style="float:left;">Tied Match</span>
+                                <span style="float:right;margin-right: 20px;">
+                                    <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')"> </i>
+                                </span>
+                            </label>
+                        }
+                        else
+                        {
+                            <label class="rule2 active1" style="background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:white">
+                                <span style="float:left;">Tied Match</span>
+                                <span style="float:right;margin-right: 20px;">
+                                    <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')"> </i>
+                                </span>
+                            </label>
+                        }
+                    </div>
+
+                    <div class="table-responsive">
+
+                        <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead">
+                            <div class="col-md-2 col-sm-8 no-padding runnernamediv ">
+                                <label class="markettotalmatched" id="lblmarketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))">
+
+                                </label>
+                            </div>
+
+                            <div id="lastpricediv" class="col-md-1 col-sm-1 no-padding runnerlastpricediv">
+
+                                <label class="runnerstotalmatched" style="font-size:9px !important; font-weight:600 !important">
+
+                                </label>
+                            </div>
+
+
+                            <div class="col-md-7 col-sm-4 no-padding  runnerbackandlaydiv backandlaydivsecond1122">
+                                <div class="col-md-12 col-sm-12 no-padding">
+                                    <div class="col-md-6 col-sm-12 no-padding backhead">
+                                        <div id="BackDiv" class="col-md-12 col-sm-12 no-padding">
+                                            <div class="col-md-4 col-sm-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 no-padding">
+                                                <label style="font-weight:700 !important">BACK</label>
+                                                <i class="backcircle fa fa-arrow-circle-down"></i>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 no-padding layhead">
+                                        <div id="LayDiv" class="col-md-12 col-sm-12 no-padding">
+                                            <div class="col-md-4 col-sm-12 no-padding">
+                                                <label style="font-weight:700 !important">LAY</label>
+                                                <i class="laycircle fa fa-arrow-circle-down"></i>
+                                            </div>
+                                            <div class="col-md-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                        <div class="backgroundimageforSuspended">
+                        </div>
+                        @foreach (var runner in item.Runners)
+                        {
+                            <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="border-top: 1px solid ;">
+                                <div id="nameProfitandlossdiv">
+                                    <div id="runnernamediv@(runner.SelectionId)" class="col-md-2 col-sm-8 no-padding runnernamediv">
+                                        <label style="display:none">
+                                            @runner.SelectionId
+                                        </label>                                       
+                                        @if (item.MainSportsname == "Cricket")
+                                        {
+                                            <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
+                                            <div class="clothnumstalldrawimgemptynotshow" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
+                                            <div class="clothnumandstallnum">
+                                                <a>
+                                                    <i class="fa fa-bar-chart graph"></i>
+                                                    <i class="fas fa-caret-right"></i>
+                                                </a>
+                                            </div>
+                                            <div>
+                                                <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersnamenotrace" id="lblSelectionName@(runner.SelectionId)">
+                                                    @runner.RunnerName
+                                                </label>
+                                                @if (runner.ProfitandLoss >= 0)
+                                                {
+                                                    <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen">
+                                                        @runner.ProfitandLoss
+                                                    </label>
+                                                }
+                                                else
+                                                {
+                                                    <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred">
+                                                        @runner.ProfitandLoss
+                                                    </label>
+                                                }
+                                                @if (item.MarketBookName.Contains("To Be Placed"))
+                                                {
+                                                    if (runner.Loss >= 0)
+                                                    {
+                                                        <label id="lblloss@(runner.SelectionId)" class="runnersprofitlossgreen">
+                                                            @runner.Loss
+                                                        </label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label id="lblloss@(runner.SelectionId)" class="runnersprofitlossred">
+                                                            @runner.Loss
+                                                        </label>
+                                                    }
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+
+                                <div id="lastpricebackandlaydiv">
+                                    <div id="lastpricedivval" class="no-padding runnerlastpricediv">
+                                        <label style="font-size:20px;font-weight:bolder !important;" id="lblrunnerlastprice@(runner.SelectionId)" class="runnerslastprice">
+                                            @runner.LastPriceTraded
+                                        </label>
+                                    </div>
+                                    <div id="backandlaydivMain" class="no-padding priceandsize matchcolors runnerbackandlaydiv backandlaydivsecond12">
+                                        <div id="backandlaydivsecond " class="no-padding">
+                                            <div id="backandlaydivthird" class="no-padding">
+                                                @for (int i = 2; i >= 0; i--)
+                                                {
+                                                    if (runner.ExchangePrices.AvailableToBack.Count - 1 >= i && runner.ExchangePrices.AvailableToBack.Count > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
+                                                    {
+                                                        <div id="backitemval" class="no-padding backitem">
+                                                            <label class="labelup selectionprice winthetossmarket" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0',true)">
+                                                                @runner.ExchangePrices.AvailableToBack[i].Price
+                                                            </label>
+                                                            <label class="labeldown selectionsize" style="font-size:13px !important; font-weight:100 !important" id="lblbacksize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0',true)">
+                                                                @runner.ExchangePrices.AvailableToBack[i].Size
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div id="backitemvalelse" class="no-padding backitem">
+                                                            <label class="labelup selectionprice winthetossmarket" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+                                                            </label>
+                                                            <label class="labeldown selectionsize" style="font-size:13px !important; font-weight:100 !important" id="lblbacksize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+
+                                            <div id="ExchangePricesmain" class="no-padding">
+                                                @for (int i = 0; i < 3; i++)
+                                                {
+                                                    if (runner.ExchangePrices.AvailableToLay.Count > i && runner.ExchangePrices.AvailableToLay.Count > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
+                                                    {
+                                                        <div id="layitemmain" class="no-padding layitem">
+
+                                                            <label class="labelup selectionprice winthetossmarket" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0',true)">
+                                                                @runner.ExchangePrices.AvailableToLay[i].Price
+                                                            </label>
+                                                            <label class="labeldown selectionsize " style="font-size:13px !important; font-weight:100 !important" id="lbllaysize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0',true)">
+                                                                @runner.ExchangePrices.AvailableToLay[i].Size
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div id="layitemelse" class="no-padding layitem">
+                                                            <label class="labelup selectionprice winthetossmarket" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+
+                                                            </label>
+                                                            <label class="labeldown selectionsize" style="font-size:13px !important; font-weight:100 !important" id="lbllaysize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                }
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            valueid = valueid + 1;
+                        }
+
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+       
+        $(".runners").each(function () {
+
+            var id = $(this).attr("data-value");
+            //LoadRunnername(id);
+
+            if ($("#openedbetslipid").val() == id) {
+
+                SetBackandlayonbetslip(id);
+            }
+
+        });
+
+    });
+
+</script>
