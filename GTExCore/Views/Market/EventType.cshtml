@@ -220,10 +220,7 @@ else
             <div id="marketbook"></div>
         </div>
 
-        @*  <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
-
-        <div id="marketbookTWT"></div>
-        </div> *@
+        
 
         <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
             <div id="marketbooksoccer">
@@ -238,6 +235,9 @@ else
             <div id="KJfancymarketbook" style="display: none;"></div>
         </div>
 
+        <div class="col-md-12 col-sm-12 col-lg-12 no-padding">
+            <div id="marketbookTWT"></div>
+        </div>
 
     </div>
     
@@ -2545,18 +2545,11 @@ else
                 if ($(this).attr("id") != null) {
                     heightofidv += $(this).height();
                 }
-
-
             });
             var totrunnercount = $("#marketbook" + $("#lastloadedmarketTWT").val().toString().replace(".", "") + " .runnerswrapper").length;
             if (totrunnercount > 2) {
                 heightofidv = heightofidv + (1.05 * totrunnercount);
             }
-
-
-
-
-            orignalopendate
             //$("#marketbook"+$("#lastloadedmarketTWT").val().toString().replace(".","")+" .backgroundimageforSuspended").height(heightofidv);
         }
         if (marketbbokname == undefined) {
@@ -7785,16 +7778,12 @@ else
                         if (location.href != 'http://gtdexch.com/DashBoard/Index#') {
                             location.href = location.href + '#';
                         }
-
                         localStorage.setItem('id', id);
                         $("#betsection").show();
                         $("#marketbook").html(data);
-
                         if ($("#lastsavedhtml").val().trim() == "") {
                             $("#lastsavedhtml").val($("#marketbook").html());
                         }
-
-
                         if ($("#lastloadedmarket").val() == "") {
                             $("#lastloadedmarket").val($(".nav-tabs li:last").attr("data-value"));
                         }
@@ -7812,13 +7801,11 @@ else
                             LoadEvenOddMarketKJ();
                             LoadFigureMarket();
                             $("#btnscorecard").show();
-
                             LoadActiveMarketFancyIN();
                             $('#btnscorecard').click();
                             display = true;
                             $("#marketbooksoccer").hide();
                             $("#fancymarketbook").hide();
-
                             $("#Indianfancymarketbook1").length;
                         }
                         else {
@@ -7894,7 +7881,7 @@ else
                         }
                         $("#marketbookTWT").hide();
                         if (marketbbokname.indexOf("Match Odds") >= 0 && mainsportcat.indexOf("Cricket") >= 0 && parseInt(mainsportrunners) >= 2) {
-                            //CheckForWintTheTossMarket();
+                            CheckForWintTheTossMarket();
                             $(".checkboxrunnernameavg").slice(0, 2).each(function () {
                                 $(this).prop("checked", true);
                                 AddRunnersforaveragecal($(this).attr("data-value"));
