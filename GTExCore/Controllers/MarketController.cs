@@ -98,20 +98,20 @@ namespace Census.API.Controllers
                      objUsersServiceCleint.UpdateAllMarketClosedbyUserID(LoggedinUserDetail.GetUserID());
                 }
 
-                //if (ID != "" && LoggedinUserDetail.GetUserTypeID() != 1)
-                //{
-                //var resultsalreadyopened = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
-                //if (resultsalreadyopened != null && resultsalreadyopened.Count >= 10)
-                //{
-                //    return "Limit exceed";
-                //}
+                if (ID != "" && LoggedinUserDetail.GetUserTypeID() != 1)
+                {
+                var resultsalreadyopened = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
+                if (resultsalreadyopened != null && resultsalreadyopened.Count >= 10)
+                {
+                    return "Limit exceed";
+                }
                     objUsersServiceCleint.SetMarketBookOpenbyUSer(LoggedinUserDetail.GetUserID(), ID);
-                //}
-                //if (ID != "" && LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
-                //{
+                }
+                if (ID != "" && LoggedinUserDetail.GetUserTypeID() == 1 || LoggedinUserDetail.GetUserTypeID() == 8 || LoggedinUserDetail.GetUserTypeID() == 9)
+                {
 
-                //    objUsersServiceCleint.SetMarketBookOpenbyUSer(73, ID);
-                //}
+                    objUsersServiceCleint.SetMarketBookOpenbyUSer(73, ID);
+                }
                 if (LoggedinUserDetail.GetUserTypeID() == 3)
                 {
                     var results = JsonConvert.DeserializeObject<List<MarketCatalgoue>>(objUsersServiceCleint.GetMarketsOpenedbyUser(LoggedinUserDetail.GetUserID()));
