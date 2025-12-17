@@ -243,7 +243,8 @@ namespace Census.API.Controllers
                             marketbooks.Add(item2);
                         }
 
-                        List<UserBets> lstUserBet = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbets");
+                       // List<UserBets> lstUserBet = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbets");
+                        var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
                         List<UserBets> lstUserBets = lstUserBet.Where(item => item.isMatched == true && item.location != "9").ToList();
                         var lstMarketIDS = lstUserBets.Select(item => item.MarketBookID).Distinct().ToArray();
                         foreach (var item in lstMarketIDS)
@@ -1797,7 +1798,8 @@ namespace Census.API.Controllers
                                                 runneritem.StallDraw = runnermarketitem.StallDraw;
 
                                             }
-                                            List<UserBets> lstUserBet = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbets");
+                                            //List<UserBets> lstUserBet = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbets");
+                                            var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
                                             List<UserBets> lstUserBets = lstUserBet.Where(item3 => item3.isMatched == true && item3.MarketBookID == item2.MarketId).ToList();
                                             item2.DebitCredit = objUserBets.ceckProfitandLoss(item2, lstUserBets);
                                             runneritem.ProfitandLoss = Convert.ToInt64(item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Debit) - item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Credit));
