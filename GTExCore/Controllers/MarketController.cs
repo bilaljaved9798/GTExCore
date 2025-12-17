@@ -1689,7 +1689,7 @@ namespace Census.API.Controllers
 
                                             }
                                             var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-                                            List<UserBets> lstUserBets = lstUserBet.Where(item2 => item2.isMatched == true && item2.MarketBookID == marketbooks[0].MarketId).ToList();
+                                            List<UserBets> lstUserBets = lstUserBet.Where(x => x.isMatched == true && x.MarketBookID == item2.MarketId).ToList();
                                             item2.DebitCredit = objUserBets.ceckProfitandLoss(item2, lstUserBets);
                                             runneritem.ProfitandLoss = Convert.ToInt64(item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Debit) - item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Credit));
 
