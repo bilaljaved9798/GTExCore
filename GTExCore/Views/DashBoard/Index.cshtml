@@ -467,15 +467,15 @@ else
 
 @if (LoggedinUserDetail.GetUserTypeID() == 3)
 {
-    <div id='myModalCompletedMatchedBetsFacny' class='modal'>
-        <div class="modal-dialog">
+    <div id='myModalCompletedMatchedBetsFacny' class='modal' style="background: linear-gradient(to top, #00ff8a, #000000) !important;">
+        <div class="modal-dialog" style="background: linear-gradient(to top, #00ff8a, #000000) !important;">
             <div class="modal-header">
                 <h4 class="modal-title" id="bookheading">Book</h4>
             </div>
             <div id="completedmatcedbetscontentFancy" class="modal-content">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btncancelUnmatchedBets" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
             </div>
         </div>
     </div>
@@ -483,7 +483,7 @@ else
 else
 {
 
-    <div id='myModalCompletedMatchedBetsFacny' class='modal'>
+    <div id='myModalCompletedMatchedBetsFacny' class='modal' >
         <div class="modal-dialog" style="background-color:#1D9BF0">
             <div class="modal-header">
                 <h4 class="modal-title" id="bookheading">Book</h4>
@@ -491,33 +491,33 @@ else
             <div id="completedmatcedbetscontentFancy" class="modal-content">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btncancelUnmatchedBets" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
             </div>
         </div>
     </div>
 }
 
 <div id='myModalShowBlanceDetail' class='modal'>
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="background: linear-gradient(to top, #00ff8a, #000000) !important;" >
         <div class="modal-header">
             <h4 class="modal-title">Balance Details</h4>
         </div>
         <div id="balancedetailscontent" class="modal-content" style="color: white;"></div>
         <div class="modal-footer">
-            <button type="button" class="btncancelUnmatchedBets" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
         </div>
     </div>
 </div>
 
 <div id='myModalResult' class='modal'>
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="background: linear-gradient(to top, #00ff8a, #000000) !important;">
         <div class="modal-header">
             <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
             <h4 class="modal-title"> Results</h4>
         </div>
         <div id="resultdetails" class="modal-content"></div>
         <div class="modal-footer">
-            <button type="button" class="btncancelUnmatchedBets" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" style="font-size:18px; font-weight:800;">Close</button>
         </div>
     </div>
 </div>

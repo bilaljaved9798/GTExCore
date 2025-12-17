@@ -48,7 +48,7 @@
                         {
                             <label class="rule2 active1" style="background:linear-gradient(to top, #00ff8a, #000000)">
 
-                                <span style="float:left;">Tied Match</span>
+                                <span style="float:left;text-shadow:1px 1px black !important;letter-spacing:1px;font-size: 18px; font-weight: 500;">TIED MATCH</span>
                                 <span style="float:right;margin-right: 20px;">
                                     <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')"> </i>
                                 </span>
@@ -57,7 +57,7 @@
                         else
                         {
                             <label class="rule2 active1" style="background:-webkit-linear-gradient(bottom, #1D9BF0, #0a0a0a) !important;color:white">
-                                <span style="float:left;">Tied Match</span>
+                                <span style="float:left;text-shadow:1px 1px black !important;letter-spacing:1px;font-size: 18px; font-weight: 500;">TIED MATCH</span>
                                 <span style="float:right;margin-right: 20px;">
                                     <i class="far fa-star love" onclick="showmarketrules('Fancy', 'Paki', '1')"> </i>
                                 </span>
@@ -126,7 +126,7 @@
                         </div>
                         @foreach (var runner in item.Runners)
                         {
-                            <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="border-top: 1px solid ;">
+                            <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="background: linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) ;">
                                 <div id="nameProfitandlossdiv">
                                     <div id="runnernamediv@(runner.SelectionId)" class="col-md-2 col-sm-8 no-padding runnernamediv">
                                         <label style="display:none">
@@ -138,8 +138,8 @@
                                             <div class="clothnumstalldrawimgemptynotshow" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
                                             <div class="clothnumandstallnum">
                                                 <a>
-                                                    <i class="fa fa-bar-chart graph"></i>
-                                                    <i class="fas fa-caret-right"></i>
+                                                    <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+                                                    <i class="fas fa-caret-right" style="font-size: 14px;margin-top: 6px;"></i>
                                                 </a>
                                             </div>
                                             <div>

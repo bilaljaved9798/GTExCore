@@ -26,7 +26,7 @@ body {
     position: fixed;
     bottom: -100px; /* start hidden below screen */
     left: 0;
-    width: 100%; /* full width */
+    width: max-content%; /* full width */
     background-color: #e74c3c;
     color: #fff;
     font-size: 18px;
@@ -4863,7 +4863,7 @@ a {
 
     .loveforcric {
         width: 100% !important;
-        margin-top: -3px !important;
+        margin-top: -1px !important;
         float: left !important;
         margin-left: 0px !important;
         text-align: left !important;
@@ -5394,6 +5394,7 @@ a {
         background: white;
         margin-left: 0px;
         float: left;
+        overflow-x:hidden;
         margin-top: 0px;
     }
 
@@ -5500,7 +5501,7 @@ a {
 
 
     .innerbodycontent1 {
-        margin-top: 66px;
+        margin-top: 47px;
 
     }
 
@@ -6360,7 +6361,7 @@ a {
         float: left;
         margin-left: 0px;
         width: 100%;
-        margin-bottom: -7px !important;
+        margin-bottom: -17px !important;
     }
 
     #Figurefancymarketbook {
@@ -6382,7 +6383,7 @@ a {
         margin-top: 0px;
         float: left;
         width: 100%;
-        margin-bottom: 15px;
+        margin-bottom: 0px;
     }
 
     #fancymarketbook h3 {
@@ -6641,7 +6642,7 @@ a {
     #marketbookTWT {
         float: left;
         width: 100%;
-        margin-top: -9px;
+        margin-top: 0px;
     }
 
     .marketnamehead {
