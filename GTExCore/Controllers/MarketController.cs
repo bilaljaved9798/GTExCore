@@ -1727,21 +1727,23 @@ namespace Census.API.Controllers
                 UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
                 LoggedinUserDetail.CheckifUserLogin();
                 var Soccergoalmarket = objUsersServiceCleint.GetSoccergoalbyeventId(LoggedinUserDetail.GetUserID(), EventID);
-
-                if (Soccergoalmarket != null)
+                var tasks = new List<Task>();
+                foreach (var item in Soccergoalmarket)
                 {
-                    foreach (var item in Soccergoalmarket)
+                    if (!string.IsNullOrWhiteSpace(item.MarketCatalogueID))
                     {
-                        if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() != 1)
-                        {
-                            objUsersServiceCleint.SetMarketBookOpenbyUSer(LoggedinUserDetail.GetUserID(), item.MarketCatalogueID);
-                        }
-                        if (item.MarketCatalogueID != "" && LoggedinUserDetail.GetUserTypeID() == 1)
-                        {
-                            objUsersServiceCleint.SetMarketBookOpenbyUSer(73, item.MarketCatalogueID);
-                        }
+                        tasks.Add(
+                            objUsersServiceCleint.SetMarketBookOpenbyUSerAsync(
+                                LoggedinUserDetail.GetUserID(),
+                                item.MarketCatalogueID
+                            )
+                        );
                     }
                 }
+
+                // ⏳ WAIT for ALL calls to complete
+                await Task.WhenAll(tasks);
+            
 
                 if (LoggedinUserDetail.GetUserTypeID() == 3)
                 {
