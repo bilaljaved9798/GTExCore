@@ -7,8 +7,8 @@
 	@foreach (var item in Model)
 
 	{
-		if (item.MarketStatusstr == "In Play" || item.MarketStatusstr == "Going Live" || item.MarketStatusstr == "Active")
-		{
+		@* if (item.MarketStatusstr == "In Play" || item.MarketStatusstr == "Going Live" || item.MarketStatusstr == "Active")
+		{ *@
 			<div id="marketbook@(item.MarketId.ToString().Replace(".", ""))li" data-value="@item.MarketId" style="margin-top:20px; margin-bottom:-27px;">
 				<input type="hidden" id="selectedrunners@(item.MarketId.ToString().Replace(".", ""))" value="" />
 				<input type="hidden" id="selectedrunnersforavg@(item.MarketId.ToString().Replace(".", ""))" value="" />
@@ -223,7 +223,7 @@
 				<br />
 				<br />
 			</div>
-		}
+		@* } *@
 	}
 </div>
 

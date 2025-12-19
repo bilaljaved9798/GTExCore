@@ -7741,6 +7741,7 @@ else
             success: function (data) {
 
                 if (data != "") {
+                     $("#marketbooksoccer").show();
                     $("#marketbooksoccer").html(data);
                     LoadActiveMarketSoccer();
                     //setTimeout(function () {
@@ -7864,7 +7865,7 @@ else
                             }
                         }
 
-
+                        debugger;
                         ReletedEvents(mainsportcat1);
 
                         var marketbbokname = $("#marketbookname" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
@@ -7891,7 +7892,7 @@ else
                         }
 
                         if (marketbbokname.indexOf("Match Odds") >= 0 && mainsportcat.indexOf("Soccer") >= 0) {
-                            CheckForSoccergoalMarket();
+                            LoadMarketTypeSoccerGoal();
                             $(".checkboxrunnernameavg").slice(0, 2).each(function () {
                                 $(this).prop("checked", true);
                                 AddRunnersforaveragecal($(this).attr("data-value"));
