@@ -2642,60 +2642,7 @@ else
     }
 
 
-    function LoadActiveMarketSoccerGaol() {
-        //
-
-        var marketstatus = $("#marketbookstatus" + $("#lastloadedmarket").val().toString().replace(".", "")).text();
-        if (marketstatus != "GOING LIVE") {
-            $("#marketbookTWT").hide();
-            return;
-        }
-        var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
-
-        $.ajax({
-            url: '/Market/LoadActiveMarketSoccerGoal/',
-
-            type: 'GET',
-            async: true,
-            data: { 'EventID': eventid },
-
-            complete: function () {
-
-            },
-            error: function () {
-                LoadActiveMarketSoccerGaol();
-            },
-            success: function (data) {
-                setTimeout(function () {
-                    LoadActiveMarketSoccerGaol();
-
-                }, 5500);
-
-                if (data != "") {
-                    AssignDatatoMarketBookSoccerGoal(data);
-                }
-
-                $(".runners").each(function () {
-
-                    var id = $(this).attr("data-value");
-                    //LoadRunnername(id);
-
-                    if ($("#openedbetslipid").val() == id) {
-
-                        SetBackandlayonbetslip(id);
-                    }
-
-                });
-
-
-
-                //comparemarketbookTWT();
-
-
-            }
-
-        });
-    }
+   
 
     function LoadActiveMarket() {
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
@@ -7713,6 +7660,7 @@ else
             },
             success: function (data) {
                 if (data != "") {
+                    $("#marketbooksoccer").show();
                     AssignSoccerDatatoMarketBook(data);
                     setTimeout(function () {
                         LoadActiveMarketSoccer();
@@ -7725,32 +7673,25 @@ else
     }
 
     function LoadMarketTypeSoccerGoal() {
-
         var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
         $.ajax({
             url: '/Market/MarketBooksoccergoal/',
-
             type: 'GET',
             async: true,
             data: { 'EventID': eventid },
-
             complete: function () {
                 HideLoader();
-
+            },
+            error: function () {
+                setTimeout(LoadMarketTypeSoccerGoal, 500);
             },
             success: function (data) {
-
                 if (data != "") {
                      $("#marketbooksoccer").show();
                     $("#marketbooksoccer").html(data);
-                    LoadActiveMarketSoccer();
-                    //setTimeout(function () {
-                    //	LoadMarketTypeSoccerGoal();
-                    //}, 4000
-                    //);
-
+                    LoadActiveMarketSoccer();                   
                 }
-            }
+            }            
         });
     }
 
