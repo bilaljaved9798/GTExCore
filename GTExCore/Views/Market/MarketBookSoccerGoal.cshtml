@@ -117,7 +117,7 @@
 											@runner.RunnerName
 										</label>
 										<div class="no-padding runnerprofitandlossdivMobile">
-											@if (runner.ProfitandLoss > 0)
+											@if (runner.ProfitandLoss >= 0)
 											{
 												<label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen">
 													@runner.ProfitandLoss
@@ -230,15 +230,15 @@
 <script type="text/javascript">
 
 	$(document).ready(function () {		
-		$(".runners").each(function () {
+		// $(".runners").each(function () {
 
-			var id = $(this).attr("data-value");
-			//LoadRunnername(id);
+		// 	var id = $(this).attr("data-value");
+		// 	//LoadRunnername(id);
 
-			if ($("#openedbetslipid").val() == id) {
+		// 	if ($("#openedbetslipid").val() == id) {
 
-				SetBackandlayonbetslip(id);
-			}
-		});
+		// 		SetBackandlayonbetslip(id);
+		// 	}
+		// });
 	});
 </script>

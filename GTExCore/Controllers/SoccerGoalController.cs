@@ -22,30 +22,31 @@ namespace GTExCore.Controllers
         {
             ViewBag.backgrod = "-webkit-linear-gradient(top, rgb(29, 155, 240), rgb(10, 10, 10))";
             ViewBag.color = "white";
-            List<string> data = new List<string>();
-            int UserIDforLinevmarkets = 0;
-            if (LoggedinUserDetail.GetUserTypeID() == 1)
+
+            var data = new List<string>();
+
+            int userIdForLiveMarkets =
+                LoggedinUserDetail.GetUserTypeID() == 1
+                ? 73
+                : LoggedinUserDetail.GetUserID();
+
+            var soccerGoalMarket =
+                objUsersServiceCleint.GetSoccergoalbyeventId(userIdForLiveMarkets, EventID);
+
+            if (soccerGoalMarket != null)
             {
-                UserIDforLinevmarkets = 73;
-            }
-            else
-            {
-                UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
-            }
-            var Soccergoalmarket = objUsersServiceCleint.GetSoccergoalbyeventId(UserIDforLinevmarkets, EventID);
-            if (Soccergoalmarket != null)
-            {
-                foreach (var item in Soccergoalmarket)
+                foreach (var item in soccerGoalMarket)
                 {
-                    data.Add(item.MarketCatalogueID);
+                    if (!string.IsNullOrEmpty(item.MarketCatalogueID))
+                    {
+                        data.Add(item.MarketCatalogueID);
+                    }
                 }
-                _httpContextAccessor.HttpContext.Session.SetObject("SGMarket", data);
-                return data;
             }
-            _httpContextAccessor.HttpContext.Session.SetObject("SGMarket", null);
-            
-            return data;
+
+            return data; // ✅ always return List<string>
         }
+
         public IActionResult Index()
         {
             return View();

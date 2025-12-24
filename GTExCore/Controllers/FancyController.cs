@@ -40,7 +40,7 @@ namespace GTExCore.Controllers
 				UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
 			}
 			var linevmarkets = JsonConvert.DeserializeObject<List<BettingServiceReference.LinevMarkets>>(objUsersServiceCleint.GetLinevMarketsbyEventID(resultslinev.EventID, resultslinev.EventOpenDate.Value, UserIDforLinevmarkets));
-			_httpContextAccessor.HttpContext.Session.SetObject("linevmarkets", linevmarkets);
+			HttpContext.Session.SetObject("linevmarkets", linevmarkets);
 
 			List<string> lstIds = linevmarkets.Select(item => item.MarketCatalogueIDk__BackingField).ToList();
 

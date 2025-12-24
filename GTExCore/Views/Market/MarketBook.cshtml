@@ -1,501 +1,584 @@
-﻿    @using GTExCore.Models
-    @model IEnumerable<BettingServiceReference.MarketBook>
-    @if (Model.Count() > 0)
+﻿@using GTExCore.Models
+@model IEnumerable<BettingServiceReference.MarketBook>
+@if (Model.Count() > 0)
+{
+    <input type="hidden" id="totalmarketsopened" value="@Model.FirstOrDefault().marketsopened" />
+}
+else
+{
+    <input type="hidden" id="totalmarketsopened" value="0" />
+}
+<input type="hidden" id="lblallLiabalityNew" value="@ViewBag.totliabalityNew">
+<ul class="nav nav-tabs marketbooksul">
+    @foreach (var item in Model)
     {
-        <input type="hidden" id="totalmarketsopened" value="@Model.FirstOrDefault().marketsopened" />
-    }
-    else
-    {
-        <input type="hidden" id="totalmarketsopened" value="0" />
-    }
-    <input type="hidden" id="lblallLiabalityNew" value="@ViewBag.totliabalityNew">
-    <ul class="nav nav-tabs marketbooksul">
-        @foreach (var item in Model)
-        {
-            <li id="marketbook@(item.MarketId.ToString().Replace(".", ""))li" onclick="SetLastLoadedMarket('@item.MarketId')" data-value="@item.MarketId">
+        <li id="marketbook@(item.MarketId.ToString().Replace(".", ""))li" onclick="SetLastLoadedMarket('@item.MarketId')" data-value="@item.MarketId">
 
-                <a href="#marketbook@(item.MarketId.ToString().Replace(".", ""))" data-toggle="tab">@item.MarketBookName </a>
-                <span class="close" onclick="deletetab('@(item.MarketId.ToString())')">x</span>
-                <input type="hidden" id="selectedrunners@(item.MarketId.ToString().Replace(".", ""))" value="" />
-                <input type="hidden" id="selectedrunnersforavg@(item.MarketId.ToString().Replace(".", ""))" value="" />
-                <input type="hidden" id="selectedrunnersclothnumber@(item.MarketId.ToString().Replace(".", ""))" value="" />
-                <input type="hidden" id="marketbookCategory@(item.MarketId.ToString().Replace(".", ""))" value="@item.MainSportsname" />
-                <input type="hidden" id="marketbookorignalopendate@(item.MarketId.ToString().Replace(".", ""))" value="@item.OrignalOpenDate" />
-                <input type="hidden" id="marketbookname@(item.MarketId.ToString().Replace(".", ""))" value="@item.MarketBookName" />
-                <input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Count.ToString()" />
-                <input type="hidden" id="marketbookAllowedBetting@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowed).ToString()" />
-                <input type="hidden" id="marketbookAllowedBettingOverAll@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowedOverAll).ToString()" />
-                <input type="hidden" id="marketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))" value="@item.TotalMatched.ToString()" />
-                <input type="hidden" id="currentteamforSelection@(item.MarketId.ToString().Replace(".", ""))" value="A" />
-                <input type="hidden" id="currentview@(item.MarketId.ToString().Replace(".", ""))" value="0" />
-                <input type="hidden" id="getmatchupdatesfrom@(item.MarketId.ToString().Replace(".", ""))" value="@item.GetMatchUpdatesFrom" />
-                <input type="hidden" id="eventidfor@(item.MarketId.ToString().Replace(".", ""))" value="@item.EventID" />
-                @if (item.LineVMarkets != null)
-                {
-                    <input type="hidden" id="marketbookFancyIDs@(item.MarketId.ToString().Replace(".", ""))" value="true" />
-                    @*<input type="hidden" id="marketbookFancyMarket@(item.MarketId.ToString().Replace(".", ""))" value="@LoggedinUserDetail.ConverttoJSONString(@item.LineVMarkets)" />*@
-                }
-                else
-                {
-                    <input type="hidden" id="marketbookFancyIDs@(item.MarketId.ToString().Replace(".", ""))" value="false" />
-                }
-
-                <input type="hidden" id="marketbookFancyShown@(item.MarketId.ToString().Replace(".", ""))" value="true" />
-                @if (item.MainSportsname == "Cricket" && item.MarketBookName.Contains("Match Odds"))
-                {
-                    <input type="hidden" id="marketbookgetscores@(item.MarketId.ToString().Replace(".", ""))" value="true" />
-                    <input type="hidden" id="marketbookcricketkey@(item.MarketId.ToString().Replace(".", ""))" value="@item.CricketMatchKey" />
-                }
-                else
-                {
-                    <input type="hidden" id="marketbookgetscores@(item.MarketId.ToString().Replace(".", ""))" value="false" />
-                }
-            </li>
-        }
-    </ul>
-
-    <div class="tab-content">
-        @{
-            foreach (var item in Model)
+            <a href="#marketbook@(item.MarketId.ToString().Replace(".", ""))" data-toggle="tab">@item.MarketBookName </a>
+            <span class="close" onclick="deletetab('@(item.MarketId.ToString())')">x</span>
+            <input type="hidden" id="selectedrunners@(item.MarketId.ToString().Replace(".", ""))" value="" />
+            <input type="hidden" id="selectedrunnersforavg@(item.MarketId.ToString().Replace(".", ""))" value="" />
+            <input type="hidden" id="selectedrunnersclothnumber@(item.MarketId.ToString().Replace(".", ""))" value="" />
+            <input type="hidden" id="marketbookCategory@(item.MarketId.ToString().Replace(".", ""))" value="@item.MainSportsname" />
+            <input type="hidden" id="marketbookorignalopendate@(item.MarketId.ToString().Replace(".", ""))" value="@item.OrignalOpenDate" />
+            <input type="hidden" id="marketbookname@(item.MarketId.ToString().Replace(".", ""))" value="@item.MarketBookName" />
+            <input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Count.ToString()" />
+            <input type="hidden" id="marketbookAllowedBetting@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowed).ToString()" />
+            <input type="hidden" id="marketbookAllowedBettingOverAll@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowedOverAll).ToString()" />
+            <input type="hidden" id="marketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))" value="@item.TotalMatched.ToString()" />
+            <input type="hidden" id="currentteamforSelection@(item.MarketId.ToString().Replace(".", ""))" value="A" />
+            <input type="hidden" id="currentview@(item.MarketId.ToString().Replace(".", ""))" value="0" />
+            <input type="hidden" id="getmatchupdatesfrom@(item.MarketId.ToString().Replace(".", ""))" value="@item.GetMatchUpdatesFrom" />
+            <input type="hidden" id="eventidfor@(item.MarketId.ToString().Replace(".", ""))" value="@item.EventID" />
+            @if (item.LineVMarkets != null)
             {
-                int valueid = 0;
-                <div id="marketbook@(item.MarketId.ToString().Replace(".", ""))" class="tab-pane" data-marketid="@item.MarketId">
-                    <input type="hidden" id="totalmarketsopened@(item.MarketId.ToString().Replace(".", ""))" value="@item.marketsopened" />
-                    <input type="hidden" id="marketbooksheet@(item.MarketId.ToString().Replace(".", ""))" value="@item.SheetName" />
+                <input type="hidden" id="marketbookFancyIDs@(item.MarketId.ToString().Replace(".", ""))" value="true" />
+                @*<input type="hidden" id="marketbookFancyMarket@(item.MarketId.ToString().Replace(".", ""))" value="@LoggedinUserDetail.ConverttoJSONString(@item.LineVMarkets)" />*@
+            }
+            else
+            {
+                <input type="hidden" id="marketbookFancyIDs@(item.MarketId.ToString().Replace(".", ""))" value="false" />
+            }
 
-                    <div class="col-md-12 no-padding marketinfo">
-                        <div>
-                            @{
-                                var marketnameandtype = item.MarketBookName.Split('/');
-                                string marketname = marketnameandtype[0];
-                                string marketname1 = marketnameandtype[1];
+            <input type="hidden" id="marketbookFancyShown@(item.MarketId.ToString().Replace(".", ""))" value="true" />
+            @if (item.MainSportsname == "Cricket" && item.MarketBookName.Contains("Match Odds"))
+            {
+                <input type="hidden" id="marketbookgetscores@(item.MarketId.ToString().Replace(".", ""))" value="true" />
+                <input type="hidden" id="marketbookcricketkey@(item.MarketId.ToString().Replace(".", ""))" value="@item.CricketMatchKey" />
+            }
+            else
+            {
+                <input type="hidden" id="marketbookgetscores@(item.MarketId.ToString().Replace(".", ""))" value="false" />
+            }
+        </li>
+    }
+</ul>
 
-                                <div class="marketname" style="background:@ViewBag.backgrod;color:@ViewBag.color">
-                                    <span class="Maintime" id="lblStartTime@(item.MarketId.ToString().Replace(".", ""))">
-                                        @item.OrignalOpenDate.Value.AddHours(5).ToString("hh:mm")
-                                        <span class="Maintime" id="lblStartTime@(item.MarketId.ToString().Replace(".", ""))">@item.OrignalOpenDate.Value.AddHours(5).ToString("ddd, dd MMM")</span>
-                                    </span>
+<div class="tab-content">
+    @{
+        foreach (var item in Model)
+        {
+            int valueid = 0;
+            <div id="marketbook@(item.MarketId.ToString().Replace(".", ""))" class="tab-pane" data-marketid="@item.MarketId">
+                <input type="hidden" id="totalmarketsopened@(item.MarketId.ToString().Replace(".", ""))" value="@item.marketsopened" />
+                <input type="hidden" id="marketbooksheet@(item.MarketId.ToString().Replace(".", ""))" value="@item.SheetName" />
+
+                <div class="col-md-12 no-padding marketinfo">
+                    <div>
+                        @{
+                            var marketnameandtype = item.MarketBookName.Split('/');
+                            string marketname = marketnameandtype[0];
+                            string marketname1 = marketnameandtype[1];
+
+                            <div class="marketname" style="background:@ViewBag.backgrod;color:@ViewBag.color">
+                                <span class="Maintime" id="lblStartTime@(item.MarketId.ToString().Replace(".", ""))">
+                                    @item.OrignalOpenDate.Value.AddHours(5).ToString("hh:mm")
+                                    <span class="Maintime" id="lblStartTime@(item.MarketId.ToString().Replace(".", ""))">@item.OrignalOpenDate.Value.AddHours(5).ToString("ddd, dd MMM")</span>
+                                </span>
 
                                 <label style="text-shadow:0.5px 0.2px #ff0000" class="markettime" id="lbltimer@(item.MarketId.ToString().Replace(".", ""))">@item.OpenDate</label>
-                                    <br />
-                                    <span class="namestyle">
+                                <br />
+                                <span class="namestyle">
 
-                                        <span style="margin-top:3px !important;" title="Rules" class="rule active1" onclick="showmarketrules('@item.MainSportsname','@item.MarketBookName','@item.Runners.Count.ToString()')">
-                                        </span>
-
-                                        @if (item.MainSportsname == "Cricket")
-                                        {
-                                            <img class="timrimg" src="/ws4.png" style="height:35px" />
-                                        }
-                                        @if (item.MainSportsname == "Horse Racing")
-                                        {
-                                            <img class="timrimg" src="/ws7.png" style="height:35px" />
-                                        }
-                                        @if (item.MainSportsname == "Greyhound Racing")
-                                        {
-                                            <img class="timrimg" src="/ws4339.png" style="height:35px" />
-                                        }
-                                        @if (item.MainSportsname == "Tennis")
-                                        {
-                                            <img class="timrimg" src="/ws2.png" style="height:35px" />
-                                        }
-
-                                        @if (item.MainSportsname == "Soccer")
-                                        {
-                                            <img class="timrimg" src="/ws1.png" style="height:35px" />
-                                        }
-                                        @marketname
+                                    <span style="margin-top:3px !important;" title="Rules" class="rule active1" onclick="showmarketrules('@item.MainSportsname','@item.MarketBookName','@item.Runners.Count.ToString()')">
                                     </span>
-                                </div>
-                            }
-                        </div>
-                        @if (item.MainSportsname == "Cricket" || item.MainSportsname == "Soccer" || item.MainSportsname == "Tennis")
-                        {
 
-                            <div id="matchscores">
+                                    @if (item.MainSportsname == "Cricket")
+                                    {
+                                        <img class="timrimg" src="/ws4.png" style="height:35px" />
+                                    }
+                                    @if (item.MainSportsname == "Horse Racing")
+                                    {
+                                        <img class="timrimg" src="/ws7.png" style="height:35px" />
+                                    }
+                                    @if (item.MainSportsname == "Greyhound Racing")
+                                    {
+                                        <img class="timrimg" src="/ws4339.png" style="height:35px" />
+                                    }
+                                    @if (item.MainSportsname == "Tennis")
+                                    {
+                                        <img class="timrimg" src="/ws2.png" style="height:35px" />
+                                    }
+
+                                    @if (item.MainSportsname == "Soccer")
+                                    {
+                                        <img class="timrimg" src="/ws1.png" style="height:35px" />
+                                    }
+                                    @marketname
+                                </span>
                             </div>
                         }
                     </div>
+                    @if (item.MainSportsname == "Cricket" || item.MainSportsname == "Soccer" || item.MainSportsname == "Tennis")
+                    {
 
-                    <div id="favoriteselectionfixed@(item.MarketId.ToString().Replace(".", ""))" class="favoriteselection">
-                        <div class="favoriteselectionname">
-                            @if (item.FavoriteSelectionName != "")
-                            {
-                                <label id="lblfavoritename@(item.MarketId.ToString().Replace(".", ""))" style="font-size:20px;">@item.FavoriteSelectionName</label>
-                            }
-                            else
-                            {
-                                <label id="lblfavoritename@(item.MarketId.ToString().Replace(".", ""))" style="font-size:20px;"></label>
-                            }
-                            @{
-                                try
-                                {
-                                    string favID = item.FavoriteID;
-                                    <label id="lblfavoriteselection@(item.MarketId.ToString().Replace(".", ""))" style="display:none; font-size:20px;">@favID</label>
-                                }
-                                catch (System.Exception ex)
-                                {
-                                    var err = ex.Message;
-                                }
-                            }
+                        <div id="matchscores">
                         </div>
+                    }
+                </div>
 
-                        <div class="favoritepricebackandlay matchcolors">
-                            <div class="favoritebackprice">
-                                <label style="font-size:22px !important; cursor:cell; " id="lblfavoritebackprice@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','back',' @(Convert.ToDecimal(item.FavoriteBack) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteBackSize','0')">@item.FavoriteBack</label>
-                            </div>
-                            <div class="favoritelayprice">
-                                <label style="font-size:22px !important; cursor:cell;" id="lblfavoritelayprice@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','lay',' @(Convert.ToDecimal(item.FavoriteLay) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteLaySize','0')">@item.FavoriteLay</label>
-                            </div>
+                <div id="favoriteselectionfixed@(item.MarketId.ToString().Replace(".", ""))" class="favoriteselection">
+                    <div class="favoriteselectionname">
+                        @if (item.FavoriteSelectionName != "")
+                        {
+                            <label id="lblfavoritename@(item.MarketId.ToString().Replace(".", ""))" style="font-size:20px;">@item.FavoriteSelectionName</label>
+                        }
+                        else
+                        {
+                            <label id="lblfavoritename@(item.MarketId.ToString().Replace(".", ""))" style="font-size:20px;"></label>
+                        }
+                        @{
+                            try
+                            {
+                                string favID = item.FavoriteID;
+                                <label id="lblfavoriteselection@(item.MarketId.ToString().Replace(".", ""))" style="display:none; font-size:20px;">@favID</label>
+                            }
+                            catch (System.Exception ex)
+                            {
+                                var err = ex.Message;
+                            }
+                        }
+                    </div>
+
+                    <div class="favoritepricebackandlay matchcolors">
+                        <div class="favoritebackprice">
+                            <label style="font-size:22px !important; cursor:cell; " id="lblfavoritebackprice@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','back',' @(Convert.ToDecimal(item.FavoriteBack) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteBackSize','0')">@item.FavoriteBack</label>
                         </div>
-                        <div class="favoritesizebackandlay">
-                            <div class="favoritebacksize">
-                                <label style="font-size:20px !important;cursor:cell;" id="lblfavoritebacksize@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','back',' @(Convert.ToDecimal(item.FavoriteBack) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteBackSize','0')">@item.FavoriteBackSize</label>
-                            </div>
-                            <div class="favoritelaysize">
-                                <label style="font-size:20px !important; cursor:cell;" id="lblfavoritelaysize@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','lay',' @(Convert.ToDecimal(item.FavoriteLay) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteLaySize','0')">@item.FavoriteLaySize</label>
-                            </div>
+                        <div class="favoritelayprice">
+                            <label style="font-size:22px !important; cursor:cell;" id="lblfavoritelayprice@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','lay',' @(Convert.ToDecimal(item.FavoriteLay) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteLaySize','0')">@item.FavoriteLay</label>
                         </div>
                     </div>
-                    <div id="marketbookdataforshow">
-                        <div>
-                            @if (LoggedinUserDetail.GetUserTypeID() == 3)
+                    <div class="favoritesizebackandlay">
+                        <div class="favoritebacksize">
+                            <label style="font-size:20px !important;cursor:cell;" id="lblfavoritebacksize@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','back',' @(Convert.ToDecimal(item.FavoriteBack) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteBackSize','0')">@item.FavoriteBackSize</label>
+                        </div>
+                        <div class="favoritelaysize">
+                            <label style="font-size:20px !important; cursor:cell;" id="lblfavoritelaysize@(item.MarketId.ToString().Replace(".", ""))" onclick="showbetslipmultiple('@(item.FavoriteID)','lay',' @(Convert.ToDecimal(item.FavoriteLay) + 1)','4000','0','@item.MarketId','@item.MarketBookName','@item.FavoriteLaySize','0')">@item.FavoriteLaySize</label>
+                        </div>
+                    </div>
+                </div>
+                <div id="marketbookdataforshow">
+                    <div>
+                        @if (LoggedinUserDetail.GetUserTypeID() == 3)
+                        {
+                            if (item.BettingAllowed == false || item.BettingAllowedOverAll == false)
                             {
-                                if (item.BettingAllowed == false || item.BettingAllowedOverAll == false)
-                                {
-                                    <label id="marketbookbettingaloowed@(item.MarketId.ToString().Replace(".", ""))" class="marketbettingallowed" style="display:none">Betting Not Allowed</label>
-                                }
+                                <label id="marketbookbettingaloowed@(item.MarketId.ToString().Replace(".", ""))" class="marketbettingallowed" style="display:none">Betting Not Allowed</label>
                             }
-                            @if (LoggedinUserDetail.GetUserTypeID() == 3)
+                        }
+                        @if (LoggedinUserDetail.GetUserTypeID() == 3)
+                        {
+                            <span class="rule1 active1 s23e " style="float: left;">
+                                @marketname1 |
+                                <span class="winnerno"> 1 Winner </span>
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="rule1 active1 s23e " style="float: left;border-top:3px solid #1D9BF0 !important">
+                                @marketname1 |
+                                <span class="winnerno"> 1 Winner </span>
+                            </span>
+                        }
+                        @if (item.MarketStatusstr == "In Play")
+                        {
+                            <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusG s23e inplay">IN-PLAY</label>
+                        }
+                        else
+                        {
+                            if (item.MarketStatusstr == "Suspended")
                             {
-                                <span class="rule1 active1 s23e " style="float: left;">
-                                    @marketname1 |
-                                    <span class="winnerno"> 1 Winner </span>
-                                </span>
+                                <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusS s23e" style="color:Orange;">SUSPENDED</label>
                             }
                             else
                             {
-                                <span class="rule1 active1 s23e " style="float: left;border-top:3px solid #1D9BF0 !important">
-                                    @marketname1 |
-                                    <span class="winnerno"> 1 Winner </span>
-                                </span>
-                            }
-                            @if (item.MarketStatusstr == "In Play")
-                            {
-                                <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusG s23e inplay">IN-PLAY</label>
-                            }
-                            else
-                            {
-                                if (item.MarketStatusstr == "Suspended")
+                                if (item.MarketStatusstr == "Closed")
                                 {
-                                    <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusS s23e" style="color:Orange;">SUSPENDED</label>
+                                    <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusS s23e" style="color:red;border-top:2px solid red;">CLOSED</label>
                                 }
                                 else
                                 {
-                                    if (item.MarketStatusstr == "Closed")
-                                    {
-                                        <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusS s23e" style="color:red;border-top:2px solid red;">CLOSED</label>
-                                    }
-                                    else
-                                    {
-                                        <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusG s23e">GOING LIVE</label>
-                                    }
+                                    <label id="marketbookstatus@(item.MarketId.ToString().Replace(".", ""))" class="marketstatusG s23e">GOING LIVE</label>
                                 }
                             }
-                            <div class="marketstatusrulesandmarkettype">
-                            </div>
+                        }
+                        <div class="marketstatusrulesandmarkettype">
                         </div>
+                    </div>
 
-                        <div class="table-responsive" id="mainhight">
-                            <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead">
-                                <div class="col-md-2 col-sm-8 no-padding runnernamediv ">
-                                    <label class="markettotalmatched" id="lblmarketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))">
-                                        Total Matched:0
+                    <div class="table-responsive" id="mainhight">
+                        <div id="TotalMatchedBackandlay" class="col-md-12 col-sm-12 pull-left no-padding runnerswrapper runnerwrapperhead">
+                            <div class="col-md-2 col-sm-8 no-padding runnernamediv ">
+                                <label class="markettotalmatched" id="lblmarketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))">
+                                    Total Matched:0
 
-                                    </label>
-                                </div>
+                                </label>
+                            </div>
 
-                                <div id="lastpricediv" class="col-md-1 col-sm-1 no-padding runnerlastpricediv">
+                            <div id="lastpricediv" class="col-md-1 col-sm-1 no-padding runnerlastpricediv">
 
-                                    <label class="runnerstotalmatched" style="font-size:9px; font-weight:600; visibility:hidden;">
-                                        Total Match
-                                    </label>
-                                </div>
+                                <label class="runnerstotalmatched" style="font-size:9px; font-weight:600; visibility:hidden;">
+                                    Total Match
+                                </label>
+                            </div>
 
-                                <div class="col-md-7 col-sm-4 no-padding  runnerbackandlaydiv backandlaydivsecond1122">
-                                    <div class="col-md-12 col-sm-12 no-padding">
-                                        <div class="col-md-6 col-sm-12 no-padding backhead">
-                                            <div id="BackDiv" class="col-md-12 col-sm-12 no-padding">
-                                                <div class="col-md-4 col-sm-4 no-padding">
-                                                    <label></label>
-                                                </div>
-                                                <div class="col-md-4 no-padding">
-                                                    <label></label>
-                                                </div>
-                                                <div class="col-md-4 col-sm-12 no-padding">
-                                                    <label style="font-weight:700 !important">BACK</label>
-                                                    <i class="backcircle fa fa-arrow-circle-down"></i>
-                                                </div>
-
+                            <div class="col-md-7 col-sm-4 no-padding  runnerbackandlaydiv backandlaydivsecond1122">
+                                <div class="col-md-12 col-sm-12 no-padding">
+                                    <div class="col-md-6 col-sm-12 no-padding backhead">
+                                        <div id="BackDiv" class="col-md-12 col-sm-12 no-padding">
+                                            <div class="col-md-4 col-sm-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-4 col-sm-12 no-padding">
+                                                <label style="font-weight:700 !important">BACK</label>
+                                                <i class="backcircle fa fa-arrow-circle-down"></i>
                                             </div>
 
                                         </div>
-                                        <div class="col-md-6 col-sm-12 no-padding layhead">
-                                            <div id="LayDiv" class="col-md-12 col-sm-12 no-padding">
-                                                <div class="col-md-4 col-sm-12 no-padding">
-                                                    <label style="font-weight:700 !important">LAY</label>
-                                                    <i class="laycircle fa fa-arrow-circle-down"></i>
-                                                </div>
-                                                <div class="col-md-4 no-padding">
-                                                    <label></label>
-                                                </div>
-                                                <div class="col-md-4 no-padding">
-                                                    <label></label>
-                                                </div>
+
+                                    </div>
+                                    <div class="col-md-6 col-sm-12 no-padding layhead">
+                                        <div id="LayDiv" class="col-md-12 col-sm-12 no-padding">
+                                            <div class="col-md-4 col-sm-12 no-padding">
+                                                <label style="font-weight:700 !important">LAY</label>
+                                                <i class="laycircle fa fa-arrow-circle-down"></i>
+                                            </div>
+                                            <div class="col-md-4 no-padding">
+                                                <label></label>
+                                            </div>
+                                            <div class="col-md-4 no-padding">
+                                                <label></label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @if (item.MainSportsname == "Horse Racing")
-                            {
-                                <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1;" id="hh1">
+                        </div>
+                        @if (item.MainSportsname == "Horse Racing")
+                        {
+                            <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1;" id="hh1">
                                 <label class="suspendbann glub" style=" font-size: 33px !important;   margin-top: 60px !important;    transform: rotate(65deg) !important;    border: 2px solid #dc143c;    margin-left: -12px; width:max-content; margin-right:15px;">
-                                        Suspended
-                                    </label>
-                                </div>
-                            }
-                            else if (item.MainSportsname == "Greyhound Racing")
-                            {
-                                <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1;" id="hh1">
+                                    Suspended
+                                </label>
+                            </div>
+                        }
+                        else if (item.MainSportsname == "Greyhound Racing")
+                        {
+                            <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1;" id="hh1">
 
 
                                 <label class="suspendbann glub1" style=" font-size: 33px !important;        transform: rotate(65deg) !important;        border: 2px solid #dc143c;        width: max-content;        margin-top: 64px !important;  margin-left: -8px; margin-right:15px;">
-                                        Suspended
-                                    </label>
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1" id="hh1">
+                                    Suspended
+                                </label>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1" id="hh1">
                                 <label class="suspendbann" style="        margin-right: 9px;
-        font-size: 24px !important;
-        margin-top: 31px;
-        border: 2px solid #dc143c;
-        width: 35%;">
-                                        Suspended
-                                    </label>
-                                </div>
-                            }
-                            @foreach (var runner in item.Runners)
-                            {
+                                font-size: 24px !important;
+                                margin-top: 31px;
+                                border: 2px solid #dc143c;
+                                width: 35%;">
+                                    Suspended
+                                </label>
+                            </div>
+                        }
+                        @foreach (var runner in item.Runners)
+                        {
 
                             <div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper" style="background:linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%)" ;>
-                                    <div id="nameProfitandlossdiv">
-                                        <div id="runnernamediv@(runner.SelectionId)" class="no-padding runnernamediv runnerswrapper">
-                                            <label style="display:none">
-                                                @runner.SelectionId
-                                            </label>
-                                            @if (item.MainSportsname == "Horse Racing" && runner.JockeyName != "Not")
-                                            {
+                                <div id="nameProfitandlossdiv">
+                                    <div id="runnernamediv@(runner.SelectionId)" class="no-padding runnernamediv runnerswrapper">
+                                        <label style="display:none">
+                                            @runner.SelectionId
+                                        </label>
+                                        @if (item.MainSportsname == "Horse Racing" && runner.JockeyName != "Not")
+                                        {
 
-                                                <div>
-                                                    @if (runner.StatusStr == "REMOVED")
-
-
-                                                    {
-                                                        <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
-
-                                                    }
-
-                                                    else
-                                                    {
-
-                                                        <input type="checkbox" class="checkboxrunnername"
-                                                               id="chkselection@(runner.SelectionId.Replace(".", "_"))"
-                                                               data-selection-id="@runner.SelectionId"
-                                                               aria-label="Select runner @(runner.SelectionId)"
-                                                               onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
-
-                                                    }
-
-                                                </div>
-
-
-                                        
-
-                                                if (item.MarketBookName.Contains("(US)"))
-
-
+                                            <div>
+                                                @if (runner.StatusStr == "REMOVED")
 
 
                                                 {
-
-                                                   
-                                                
-                                                    if (runner.Clothnumber == ("1"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #bb2025;">1</span>
-                                                    }
-
-                                                    if (runner.Clothnumber == ("2"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #ffffff; color:black">2</span>
-                                                    }
-
-                                                    if (runner.Clothnumber == ("3"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background:#253b84;">3</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("4"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #cdb301;">4</span>
-                                                    }
-
-                                                    if (runner.Clothnumber == ("5"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #1c5b1b;">5</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("6"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: Black;">6</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("7"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #b63d13;">7</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("8"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #b27692;">8</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("9"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #13a19c;">9</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("10"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #610f9a;">10</span>
-                                                    }
-
-                                                    if (runner.Clothnumber == ("11"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #6b6b6b; ">11</span>
-                                                    }
-
-                                                    if (runner.Clothnumber == ("12"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #2f9a3b;">12</span>
-                                                    }
-
-                                                    if (runner.Clothnumber == ("13"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #cc276c;">13</span>
-                                                    }
-                                                    if (runner.Clothnumber == ("14"))
-                                                    {
-
-                                                        <span class="usracenumber" style="background: #a40042;">14</span>
-                                                    }
-
-
-                                                    <div class="runnerinfo ">
-
-
-
-
-                                                        <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
-                                                            @runner.RunnerName
-                                                        </label>
-
-                                                        <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
-                                                            (@runner.StallDraw) @runner.JockeyName
-
-                                                            <span class="tooltiptext">
-                                                                Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
-                                                                <br />
-                                                            </span>
-                                                        </label>
-                                                        @*<label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
-                                    <script>
-                                    getRunnerDetails(@(item.MarketId), @(runner.SelectionId));
-                                    </script>
-                                    </label>*@
-                                                    </div>
-
-
+                                                    <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
 
                                                 }
 
                                                 else
                                                 {
 
-                                                    <div class="clothnumstalldrawimg" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')" style="margin-left:21px">
-                                                        @{
+                                                    <input type="checkbox" class="checkboxrunnername"
+                                                           id="chkselection@(runner.SelectionId.Replace(".", "_"))"
+                                                           data-selection-id="@runner.SelectionId"
+                                                           aria-label="Select runner @(runner.SelectionId)"
+                                                           onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
+
+                                                }
+
+                                            </div>
+
+
+                                            if (item.MarketBookName.Contains("(US)"))
+                                            {
+
+                                                if (runner.Clothnumber == ("1"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #bb2025;">1</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("2"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #ffffff; color:black">2</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("3"))
+                                                {
+
+                                                    <span class="usracenumber" style="background:#253b84;">3</span>
+                                                }
+                                                if (runner.Clothnumber == ("4"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #cdb301;">4</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("5"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #1c5b1b;">5</span>
+                                                }
+                                                if (runner.Clothnumber == ("6"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: Black;">6</span>
+                                                }
+                                                if (runner.Clothnumber == ("7"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #b63d13;">7</span>
+                                                }
+                                                if (runner.Clothnumber == ("8"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #b27692;">8</span>
+                                                }
+                                                if (runner.Clothnumber == ("9"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #13a19c;">9</span>
+                                                }
+                                                if (runner.Clothnumber == ("10"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #610f9a;">10</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("11"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #6b6b6b; ">11</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("12"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #2f9a3b;">12</span>
+                                                }
+
+                                                if (runner.Clothnumber == ("13"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #cc276c;">13</span>
+                                                }
+                                                if (runner.Clothnumber == ("14"))
+                                                {
+
+                                                    <span class="usracenumber" style="background: #a40042;">14</span>
+                                                }
+
+                                                <div class="runnerinfo ">
+                                                    <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
+                                                        @runner.RunnerName
+                                                    </label>
+
+                                                    <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                                        (@runner.StallDraw) @runner.JockeyName
+
+                                                        <span class="tooltiptext">
+                                                            Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
+                                                            <br />
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            }
+
+                                            else
+                                            {
+
+                                                <div class="clothnumstalldrawimg" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')" style="margin-left:21px">
+                                                    @{
 
                                                         runner.WearingURL = runner.WearingURL.ToString().Replace("content-cache.betfair.com/feeds_images/Horses/SilkColours/", "score.ssfun.in/SilkColours/");
-
-
-                                                        }
-                                                        <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL"  onerror="this.src = '../Content/images/not-found.png';" /></div>
-                                                        <div class="clothnumandstallnum">
-                                                        </div>
+                                                    }
+                                                    <div class="wearingdiv"> <img class="runnerwearing" src="@runner.WearingURL" onerror="this.src = '../Content/images/not-found.png';" /></div>
+                                                    <div class="clothnumandstallnum">
                                                     </div>
+                                                </div>
 
 
-                                                    <div class="runnerinfo ">
+                                                <div class="runnerinfo ">
 
 
 
 
-                                                        <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
-                                                            @runner.Clothnumber.       @runner.RunnerName
-                                                        </label>
+                                                    <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
+                                                        @runner.Clothnumber.       @runner.RunnerName
+                                                    </label>
 
-                                                        <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
-                                                            (@runner.StallDraw) @runner.JockeyName
+                                                    <label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                                        (@runner.StallDraw) @runner.JockeyName
 
-                                                            <span class="tooltiptext">
-                                                                Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
-                                                                <br />
-                                                            </span>
-                                                        </label>
-                                                        @*<label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
+                                                        <span class="tooltiptext">
+                                                            Runner: @runner.RunnerName <br />  Jockey: @runner.JockeyName
+                                                            <br />
+                                                        </span>
+                                                    </label>
+                                                    @*<label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
                                     <script>
                                     getRunnerDetails(@(item.MarketId), @(runner.SelectionId));
                                     </script>
                                     </label>*@
-                                                    </div>
+                                                </div>
 
 
+                                            }
+
+
+
+
+                                            <div>
+
+                                                @if (runner.ProfitandLoss >= 0)
+                                                {
+                                                    <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen1">
+                                                        @runner.ProfitandLoss
+                                                    </label>
+                                                }
+                                                else
+                                                {
+                                                    <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred1">
+                                                        @runner.ProfitandLoss
+                                                    </label>
+                                                }
+                                                @if (item.MarketBookName.Contains("To Be Placed"))
+                                                {
+                                                    if (runner.Loss >= 0)
+                                                    {
+                                                        <label id="lblloss@(runner.SelectionId)" class="jockeynameplGreen">
+                                                            @runner.Loss
+                                                        </label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label id="lblloss@(runner.SelectionId)" class="jockeynameplRed">
+                                                            @runner.Loss
+                                                        </label>
+
+                                                    }
+                                                }
+
+
+                                            </div>
+                                        }
+
+
+
+                                        else
+                                        {
+                                            if (item.MainSportsname == "Greyhound Racing")
+
+
+                                            {
+
+
+
+                                                <div class="clothnumstalldrawimgempty" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
+                                                <div class="clothnumandstallnum">
+
+                                                    <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+
+                                                </div>
+
+                                                if (runner.RunnerName.Contains("1"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #bb2025;  color: white;">1</span>
+                                                }
+
+                                                if (runner.RunnerName.Contains("2"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #253d83;  color: white;">2</span>
+                                                }
+
+                                                if (runner.RunnerName.Contains("3"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background:#fff;     color: black;">3</span>
+                                                }
+                                                if (runner.RunnerName.Contains("4"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #1e1e1e;  color: white;">4</span>
+                                                }
+
+                                                if (runner.RunnerName.Contains("5"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #ffb80c;    color: black;">5</span>
+                                                }
+                                                if (runner.RunnerName.Contains("6"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: linear-gradient(180deg,#1e1e1e,4px,#fff 4px,6px,#1e1e1e 6px,11px,#fff 11px,13px,#1e1e1e 13px,18px,#fff 18px,20px,#1e1e1e 20px);    color: darkred;">6</span>
+                                                }
+                                                if (runner.RunnerName.Contains("7"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #212121;       color: white;">7</span>
+                                                }
+                                                if (runner.RunnerName.Contains("8"))
+                                                {
+
+                                                    <span class="Greyoundnumber" style="background: #cc276c;       color: white;">8</span>
                                                 }
 
 
 
 
+                                                <label style="margin-top:6px !important; margin-left:-30px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
+                                                    @runner.RunnerName
+                                                </label>
                                                 <div>
+
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="text-align: left;float: left;margin-left: 13px;margin-top: -2px;"></i>
+
 
                                                     @if (runner.ProfitandLoss >= 0)
                                                     {
-                                                        <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen1">
+                                                        <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-left:9px; margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
                                                             @runner.ProfitandLoss
                                                         </label>
                                                     }
                                                     else
                                                     {
-                                                        <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred1">
+                                                        <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="margin-left:9px;float: left;margin-top: -2px !important;width: 90% !important;text-align: left;font-size: 16px;">
                                                             @runner.ProfitandLoss
                                                         </label>
                                                     }
@@ -503,105 +586,53 @@
                                                     {
                                                         if (runner.Loss >= 0)
                                                         {
-                                                            <label id="lblloss@(runner.SelectionId)" class="jockeynameplGreen">
+                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
                                                                 @runner.Loss
                                                             </label>
                                                         }
                                                         else
                                                         {
-                                                            <label id="lblloss@(runner.SelectionId)" class="jockeynameplRed">
+                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="float: left;margin-top: -4px !important;width: 90% !important;text-align: left;font-size: 16px;">
                                                                 @runner.Loss
                                                             </label>
-
                                                         }
+
                                                     }
 
 
                                                 </div>
                                             }
 
-
-
                                             else
                                             {
-                                                if (item.MainSportsname == "Greyhound Racing")
-
+                                                if (item.MainSportsname == "Cricket" || item.MainSportsname == "Soccer" || item.MainSportsname == "Tennis")
 
                                                 {
-
-
-
-                                                    <div class="clothnumstalldrawimgempty" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
+                                                    <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
+                                                    <div class="clothnumstalldrawimgemptynotshow" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
                                                     <div class="clothnumandstallnum">
-
-                                                        <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
-
+                                                        <a>
+                                                            <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+                                                            <i class="fas fa-caret-right" style="    margin-top: 4px;"></i>
+                                                        </a>
                                                     </div>
-
-                                                    if (runner.RunnerName.Contains("1"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: #bb2025;  color: white;">1</span>
-                                                    }
-
-                                                    if (runner.RunnerName.Contains("2"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: #253d83;  color: white;">2</span>
-                                                    }
-
-                                                    if (runner.RunnerName.Contains("3"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background:#fff;     color: black;">3</span>
-                                                    }
-                                                    if (runner.RunnerName.Contains("4"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: #1e1e1e;  color: white;">4</span>
-                                                    }
-
-                                                    if (runner.RunnerName.Contains("5"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: #ffb80c;    color: black;">5</span>
-                                                    }
-                                                    if (runner.RunnerName.Contains("6"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: linear-gradient(180deg,#1e1e1e,4px,#fff 4px,6px,#1e1e1e 6px,11px,#fff 11px,13px,#1e1e1e 13px,18px,#fff 18px,20px,#1e1e1e 20px);    color: darkred;">6</span>
-                                                    }
-                                                    if (runner.RunnerName.Contains("7"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: #212121;       color: white;">7</span>
-                                                    }
-                                                    if (runner.RunnerName.Contains("8"))
-                                                    {
-
-                                                        <span class="Greyoundnumber" style="background: #cc276c;       color: white;">8</span>
-                                                    }
-
-
-
-
-                                                    <label style="margin-top:6px !important; margin-left:-30px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
-                                                        @runner.RunnerName
-                                                    </label>
                                                     <div>
+                                                        <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class=" tooltip runners runnersnamenotrace" id="lblSelectionName@(runner.SelectionId)">
+                                                            @runner.RunnerName
 
-                                                        <i class="fa fa-caret-right" aria-hidden="true" style="text-align: left;float: left;margin-left: 13px;margin-top: -2px;"></i>
+                                                            <span style="margin-left:-69px " class="tooltiptext">	@runner?.RunnerName </span>
+                                                        </label>
 
 
                                                         @if (runner.ProfitandLoss >= 0)
                                                         {
-                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-left:9px; margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
+                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    width: 70% !important;    float: left !important;    text-align: left;    margin-left: 4px;    margin-top: -1px; font-size:16px">
                                                                 @runner.ProfitandLoss
                                                             </label>
                                                         }
                                                         else
                                                         {
-                                                        <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="margin-left:9px;float: left;margin-top: -2px !important;width: 90% !important;text-align: left;font-size: 16px;">
+                                                            <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred loveforcric">
                                                                 @runner.ProfitandLoss
                                                             </label>
                                                         }
@@ -609,157 +640,103 @@
                                                         {
                                                             if (runner.Loss >= 0)
                                                             {
-                                                                <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
+                                                                <label id="lblloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    width: 70% !important;    float: left !important;    text-align: left;    margin-left: 4px;    margin-top: -1px;font-size:16px">
                                                                     @runner.Loss
                                                                 </label>
                                                             }
                                                             else
                                                             {
-                                                                <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="float: left;margin-top: -4px !important;width: 90% !important;text-align: left;font-size: 16px;">
+                                                                <label id="lblloss@(runner.SelectionId)" class="runnersprofitlossred loveforcric">
                                                                     @runner.Loss
                                                                 </label>
                                                             }
-
                                                         }
-
-
                                                     </div>
                                                 }
+                                            }
+                                        }
+                                    </div>
+                                </div>
 
-                                                else
+                                <div id="lastpricebackandlaydiv">
+                                    <div id="lastpricedivval" class="no-padding runnerlastpricediv">
+                                        <label style="font-size:22px;font-weight:bolder !important;" id="lblrunnerlastprice@(runner.SelectionId)" class="runnerslastprice">
+                                            @runner.LastPriceTraded
+                                        </label>
+                                        <label style="font-size:13px; font-weight:100 !important;" id="lblrunnertotalmatched@(runner.SelectionId)" class="runnertotalmatch">
+                                            @runner.TotalMatched
+                                        </label>
+
+                                    </div>
+
+                                    <div id="backandlaydivMain@(runner.SelectionId)" class="no-padding priceandsize matchcolors runnerbackandlaydiv backandlaydivsecond12 backandlaydivMain">
+                                        <div id="backandlaydivsecond@(runner.SelectionId)" class="no-padding">
+                                            <div id="backandlaydivthird" class="no-padding">
+                                                @for (int i = 2; i >= 0; i--)
                                                 {
-                                                    if (item.MainSportsname == "Cricket" || item.MainSportsname == "Soccer" || item.MainSportsname == "Tennis")
-
+                                                    if (runner.ExchangePrices.AvailableToBack.Count - 1 >= i && runner.ExchangePrices.AvailableToBack.Count > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
                                                     {
-                                                        <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
-                                                        <div class="clothnumstalldrawimgemptynotshow" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
-                                                        <div class="clothnumandstallnum">
-                                                            <a>
-                                                                <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
-                                                                <i class="fas fa-caret-right" style="    margin-top: 4px;"></i>
-                                                            </a>
-                                                        </div>
-                                                        <div>
-                                                            <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class=" tooltip runners runnersnamenotrace" id="lblSelectionName@(runner.SelectionId)">
-                                                                @runner.RunnerName
-
-                                                            <span style="margin-left:-69px "class="tooltiptext">	@runner?.RunnerName </span>
+                                                        <div id="backitemval" class="no-padding backitem">
+                                                            <label class="labelup selectionprice" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0')">
+                                                                @runner.ExchangePrices.AvailableToBack[i].Price
                                                             </label>
-                                                          
-
-                                                            @if (runner.ProfitandLoss >= 0)
-                                                            {
-                                                                <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    width: 70% !important;    float: left !important;    text-align: left;    margin-left: 4px;    margin-top: -1px; font-size:16px">
-                                                                    @runner.ProfitandLoss
-                                                                </label>
-                                                            }
-                                                            else
-                                                            {
-                                                                <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred loveforcric">
-                                                                    @runner.ProfitandLoss
-                                                                </label>
-                                                            }
-                                                            @if (item.MarketBookName.Contains("To Be Placed"))
-                                                            {
-                                                                if (runner.Loss >= 0)
-                                                                {
-                                                                    <label id="lblloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    width: 70% !important;    float: left !important;    text-align: left;    margin-left: 4px;    margin-top: -1px;font-size:16px">
-                                                                        @runner.Loss
-                                                                    </label>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <label id="lblloss@(runner.SelectionId)" class="runnersprofitlossred loveforcric">
-                                                                        @runner.Loss
-                                                                    </label>
-                                                                }
-                                                            }
+                                                            <label class="labeldown selectionsize" id="lblbacksize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0')">
+                                                                @runner.ExchangePrices.AvailableToBack[i].Size
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div id="backitemvalelse" class="no-padding backitem">
+                                                            <label class="labelup selectionprice" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+                                                            </label>
+                                                            <label class="labeldown selectionsize" id="lblbacksize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+                                                            </label>
                                                         </div>
                                                     }
                                                 }
-                                            }
-                                        </div>
-                                    </div>
-
-                                    <div id="lastpricebackandlaydiv">
-                                        <div id="lastpricedivval" class="no-padding runnerlastpricediv">
-                                            <label style="font-size:22px;font-weight:bolder !important;" id="lblrunnerlastprice@(runner.SelectionId)" class="runnerslastprice">
-                                                @runner.LastPriceTraded
-                                            </label>
-                                            <label style="font-size:13px; font-weight:100 !important;" id="lblrunnertotalmatched@(runner.SelectionId)" class="runnertotalmatch">
-                                                @runner.TotalMatched
-                                            </label>
-
-                                        </div>
-
-                                        <div id="backandlaydivMain@(runner.SelectionId)" class="no-padding priceandsize matchcolors runnerbackandlaydiv backandlaydivsecond12 backandlaydivMain">
-                                            <div id="backandlaydivsecond@(runner.SelectionId)" class="no-padding">
-                                                <div id="backandlaydivthird" class="no-padding">
-                                                    @for (int i = 2; i >= 0; i--)
-                                                    {
-                                                        if (runner.ExchangePrices.AvailableToBack.Count - 1 >= i && runner.ExchangePrices.AvailableToBack.Count > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
-                                                        {
-                                                            <div id="backitemval" class="no-padding backitem">
-                                                                <label class="labelup selectionprice" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0')">
-                                                                    @runner.ExchangePrices.AvailableToBack[i].Price
-                                                                </label>
-                                                                <label class="labeldown selectionsize" id="lblbacksize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0')">
-                                                                    @runner.ExchangePrices.AvailableToBack[i].Size
-                                                                </label>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div id="backitemvalelse" class="no-padding backitem">
-                                                                <label class="labelup selectionprice" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
-                                                                </label>
-                                                                <label class="labeldown selectionsize" id="lblbacksize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
-                                                                </label>
-                                                            </div>
-                                                        }
-                                                    }
-                                                </div>
-                                                <div id="ExchangePricesmain" class="no-padding">
-                                                    @for (int i = 0; i < 3; i++)
-                                                    {
-                                                        if (runner.ExchangePrices.AvailableToLay.Count > i && runner.ExchangePrices.AvailableToLay.Count > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
-                                                        {
-                                                            <div id="layitemmain" class="no-padding layitem">
-
-                                                                <label class="labelup selectionprice" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0')">
-                                                                    @runner.ExchangePrices.AvailableToLay[i].Price
-                                                                </label>
-                                                                <label class="labeldown selectionsize" id="lbllaysize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0')">
-                                                                    @runner.ExchangePrices.AvailableToLay[i].Size
-                                                                </label>
-                                                            </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <div id="layitemelse" class="no-padding layitem">
-                                                                <label class="labelup selectionprice" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
-
-                                                                </label>
-                                                                <label class="labeldown selectionsize" id="lbllaysize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
-
-                                                                </label>
-                                                            </div>
-                                                        }
-
-                                                    }
-                                                </div>
-
                                             </div>
-                                            <label id="lblsuspend@(runner.SelectionId)" class="suspendedForRace" style="border-top:0px;">Non Runner</label>
+                                            <div id="ExchangePricesmain" class="no-padding">
+                                                @for (int i = 0; i < 3; i++)
+                                                {
+                                                    if (runner.ExchangePrices.AvailableToLay.Count > i && runner.ExchangePrices.AvailableToLay.Count > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
+                                                    {
+                                                        <div id="layitemmain" class="no-padding layitem">
+
+                                                            <label class="labelup selectionprice" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0')">
+                                                                @runner.ExchangePrices.AvailableToLay[i].Price
+                                                            </label>
+                                                            <label class="labeldown selectionsize" id="lbllaysize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0')">
+                                                                @runner.ExchangePrices.AvailableToLay[i].Size
+                                                            </label>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div id="layitemelse" class="no-padding layitem">
+                                                            <label class="labelup selectionprice" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+
+                                                            </label>
+                                                            <label class="labeldown selectionsize" id="lbllaysize@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))">
+
+                                                            </label>
+                                                        </div>
+                                                    }
+
+                                                }
+                                            </div>
+
                                         </div>
+                                        <label id="lblsuspend@(runner.SelectionId)" class="suspendedForRace" style="border-top:0px;">Non Runner</label>
                                     </div>
                                 </div>
-                                valueid = valueid + 1;
-                            }
-                        </div>
+                            </div>
+                            valueid = valueid + 1;
+                        }
                     </div>
                 </div>
-            }
+            </div>
         }
-    </div>
+    }
+</div>
 
