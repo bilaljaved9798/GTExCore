@@ -18,6 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="src\app\models\market-book.model.ts" />
+    <None Remove="src\app\models\runner.model.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Lib.Azure.WebJobs.Extensions.WebPush" Version="1.4.1" />
     <PackageReference Include="log4net" Version="3.0.0-preview.2" />
@@ -78,6 +83,11 @@
     <Folder Include="wwwroot\lib\jquery-validation\dist\" />
     <Folder Include="wwwroot\lib\jquery\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <TypeScriptCompile Include="src\app\models\market-book.model.ts" />
+    <TypeScriptCompile Include="src\app\models\runner.model.ts" />
   </ItemGroup>
 
 </Project>
