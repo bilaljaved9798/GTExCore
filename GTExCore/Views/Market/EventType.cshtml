@@ -7793,8 +7793,6 @@ function LoadActiveMarketSoccer() {
         $("#multimedia").hide();
         $("#liscorecard").hide();
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
-        dataurl = '/Market/MarketBook/';
-    @*  ShowLoader(); *@
             $.ajax({
                 url: '/Market/MarketBook/',
                 type: 'GET',
@@ -7809,9 +7807,10 @@ function LoadActiveMarketSoccer() {
                         if (location.href != 'http://gtdexch.com/DashBoard/Index#') {
                             location.href = location.href + '#';
                         }
+                        $("#marketbook").html(data);
                         localStorage.setItem('id', id);
                         $("#betsection").show();
-                        $("#marketbook").html(data);
+                        
                         if ($("#lastsavedhtml").val().trim() == "") {
                             $("#lastsavedhtml").val($("#marketbook").html());
                         }
@@ -7831,10 +7830,10 @@ function LoadActiveMarketSoccer() {
                             $("#marketbooksoccer").hide();
                             $("#fancymarketbook").hide();
                             GetActiveMarketINFancy();
-                            LoadEvenOddMarketKJ();
-                            LoadFigureMarket();
+                           // LoadEvenOddMarketKJ();
+                           // LoadFigureMarket();
                             $("#btnscorecard").show();
-                            LoadActiveMarketFancyIN();
+                            //LoadActiveMarketFancyIN();
                             $('#btnscorecard').click();
                             display = true;
                                 $("#marketbooksoccer").hide();

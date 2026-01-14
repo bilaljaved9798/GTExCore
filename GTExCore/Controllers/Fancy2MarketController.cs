@@ -54,7 +54,7 @@ namespace Census.API.Controllers
 				UserIDforLinevmarkets = LoggedinUserDetail.GetUserID();
 			}
 
-			var linevmarkets = JsonConvert.DeserializeObject<List<LineVMarket>>(objUsersServiceCleint.GetLinevMarketsbyEventID(EventID, DateTime.Now, UserIDforLinevmarkets));
+			//var linevmarkets = JsonConvert.DeserializeObject<List<LineVMarket>>(objUsersServiceCleint.GetLinevMarketsbyEventID(EventID, DateTime.Now, UserIDforLinevmarkets));
 
 			try
 			{
@@ -95,14 +95,14 @@ namespace Census.API.Controllers
 
 					BettingServiceReference.MarketBookForindianFancy currentmarketsfancyPL = new BettingServiceReference.MarketBookForindianFancy();
 
-					if (LoggedinUserDetail.GetUserTypeID() == 3)
-					{
-						List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-						if (lstUserBets.Count != 0)
-						{
-							currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
-						}
-					}
+					//if (LoggedinUserDetail.GetUserTypeID() == 3)
+					//{
+					//	List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
+					//	if (lstUserBets.Count != 0)
+					//	{
+					//		currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
+					//	}
+					//}
 
 					if (LoggedinUserDetail.GetUserTypeID() == 2)
 					{
