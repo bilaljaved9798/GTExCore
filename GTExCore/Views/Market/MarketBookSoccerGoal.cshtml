@@ -7,8 +7,8 @@
 	@foreach (var item in Model)
 
 	{
-		if (item.MarketStatusstr == "In Play" || item.MarketStatusstr == "Going Live" || item.MarketStatusstr == "Active")
-		{
+		@* if (item.MarketStatusstr == "In Play" || item.MarketStatusstr == "Going Live" || item.MarketStatusstr == "Active")
+		{ *@
 			<div id="marketbook@(item.MarketId.ToString().Replace(".", ""))li" data-value="@item.MarketId" style="margin-top:20px; margin-bottom:-27px;">
 				<input type="hidden" id="selectedrunners@(item.MarketId.ToString().Replace(".", ""))" value="" />
 				<input type="hidden" id="selectedrunnersforavg@(item.MarketId.ToString().Replace(".", ""))" value="" />
@@ -117,7 +117,7 @@
 											@runner.RunnerName
 										</label>
 										<div class="no-padding runnerprofitandlossdivMobile">
-											@if (runner.ProfitandLoss > 0)
+											@if (runner.ProfitandLoss >= 0)
 											{
 												<label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    margin-top: 1.5px;
     /* float: left !important; */
@@ -229,22 +229,22 @@
 				<br />
 				<br />
 			</div>
-		}
+		@* } *@
 	}
 </div>
 
 <script type="text/javascript">
 
 	$(document).ready(function () {		
-		$(".runners").each(function () {
+		// $(".runners").each(function () {
 
-			var id = $(this).attr("data-value");
-			//LoadRunnername(id);
+		// 	var id = $(this).attr("data-value");
+		// 	//LoadRunnername(id);
 
-			if ($("#openedbetslipid").val() == id) {
+		// 	if ($("#openedbetslipid").val() == id) {
 
-				SetBackandlayonbetslip(id);
-			}
-		});
+		// 		SetBackandlayonbetslip(id);
+		// 	}
+		// });
 	});
 </script>

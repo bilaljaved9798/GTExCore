@@ -1510,23 +1510,20 @@ else
     }
 
     function LoadUserBets() {
-        $.ajax({
-            url: '/UserBet/UserBets',
-            type: 'GET',
-            async: true,
-            error: function () {
-                setTimeout(function () {
-                    LoadUserBets();
-                }, 5000);
-            },
-            success: function (data) {
-                $("#userbets").html(data);
-                setTimeout(function () {
-                    LoadUserBets();
-                }, 5000);
-            }
-        });
-    }
+    $.ajax({
+        url: '/UserBet/UserBets',
+        type: 'GET',
+        cache: false,
+        success: function (data) {
+            $("#userbets").html(data);
+            setTimeout(LoadUserBets, 5000);
+        },
+        error: function () {
+            setTimeout(LoadUserBets, 5000);
+        }
+    });
+}
+
 
     function SetSelectedRunnersforDropdowns() {
 
@@ -2377,27 +2374,51 @@ else
         }
     }
 
-    function updatescoresnewsoccer() {
-        var EventID = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
-        $.ajax({
-            url: '/CricketScore/CreateSoccerCardNew/',
-            type: 'GET',
-            async: true,
-            data: { 'EventID': EventID },
-            complete: function () {
-            },
-            error: function () {
-                updatescoresnewsoccer();
-            },
-            success: function (data) {
+    let soccerScoreRequestRunning = false;
 
-                AssignDataToSoccerCard(data);
-                setTimeout(function () {
-                    updatescoresnewsoccer();
-                }, 5000);
-            }
-        });
+function updatescoresnewsoccer() {
+
+     var mainsportcat=$("#marketbookCategory"+$("#lastloadedmarket").val().toString().replace(".","")).val();
+         if (!mainsportcat.includes("Soccer")) {
+        return;
+         }
+
+    var lastLoaded = $("#lastloadedmarket").val();
+    if (!lastLoaded) {
+        setTimeout(updatescoresnewsoccer, 10000);
+        return;
     }
+
+    var EventID = $("#eventidfor" + lastLoaded.toString().replace(".", "")).val();
+    if (!EventID) {
+        setTimeout(updatescoresnewsoccer, 10000);
+        return;
+    }
+
+    $.ajax({
+        url: '/CricketScore/CreateSoccerCardNew/',
+        type: 'GET',
+        data: { EventID: EventID },
+
+        success: function (data) {
+            AssignDataToSoccerCard(data);
+        },
+
+        complete: function () {
+            // 🔓 unlock and run again after 10 sec
+            setTimeout(function () {
+                soccerScoreRequestRunning = false;
+                updatescoresnewsoccer();
+            }, 10000);
+        },
+
+        error: function () {
+            // retry after 10 sec (NOT immediately)
+            soccerScoreRequestRunning = false;
+            setTimeout(updatescoresnewsoccer, 10000);
+        }
+    });
+}
 
     function updatescoresnewTinnes() {
 
@@ -2614,88 +2635,37 @@ else
     //
 
     //Soccergoal
-    function CheckForSoccergoalMarket() {
+   function CheckForSoccergoalMarket() {
 
-        var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
+    var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
 
-        $.ajax({
-            url: '/SoccerGoal/CheckforSoccergoalMarket/',
-            data: { 'EventID': eventid },
-            type: 'GET',
-            async: true,
+    if (!eventid) return;
 
-            complete: function () {
+    $.ajax({
+        url: '/SoccerGoal/CheckforSoccergoalMarket/',
+        type: 'GET',
+        data: { EventID: eventid },
+        success: function (data) {
 
-            },
-            error: function () {
-
-            },
-            success: function (data) {
-                if (data != "") {
-                    $("#marketbooksoccer").show();
-                    LoadMarketTypeSoccerGoal();
-                }
+            // ✅ data is null OR empty array
+            if (!data || data.length === 0) {
+                $("#marketbooksoccer").hide();
+                return;
             }
 
-        });
-
-    }
-
-
-    function LoadActiveMarketSoccerGaol() {
-        //
-
-        var marketstatus = $("#marketbookstatus" + $("#lastloadedmarket").val().toString().replace(".", "")).text();
-        if (marketstatus != "GOING LIVE") {
-            $("#marketbookTWT").hide();
-            return;
+            // ✅ data exists
+            $("#marketbooksoccer").show();
+            LoadMarketTypeSoccerGoal();
+        },
+        error: function () {
+            $("#marketbooksoccer").hide();
         }
-        var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
-
-        $.ajax({
-            url: '/Market/LoadActiveMarketSoccerGoal/',
-
-            type: 'GET',
-            async: true,
-            data: { 'EventID': eventid },
-
-            complete: function () {
-
-            },
-            error: function () {
-                LoadActiveMarketSoccerGaol();
-            },
-            success: function (data) {
-                setTimeout(function () {
-                    LoadActiveMarketSoccerGaol();
-
-                }, 5500);
-
-                if (data != "") {
-                    AssignDatatoMarketBookSoccerGoal(data);
-                }
-
-                $(".runners").each(function () {
-
-                    var id = $(this).attr("data-value");
-                    //LoadRunnername(id);
-
-                    if ($("#openedbetslipid").val() == id) {
-
-                        SetBackandlayonbetslip(id);
-                    }
-
-                });
+    });
+}
 
 
 
-                //comparemarketbookTWT();
-
-
-            }
-
-        });
-    }
+   
 
     function LoadActiveMarket() {
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
@@ -2795,7 +2765,7 @@ else
                 }
 
                 setTimeout(LoadActiveMarket, 500); // Continue polling
-            }
+                }
         });
     }
 
@@ -6756,10 +6726,10 @@ else
                             }
                         }
 
-                        var color = $("#lbltimer" + newid).css('color');
+                       @*  var color = $("#lbltimer" + newid).css('color');
                         if (color == "rgb(255, 0, 0)") {
                             allowedstatus = false;
-                        }
+                        } *@
                     }
                 }
             }
@@ -7503,12 +7473,13 @@ else
             //$("#detailsselecteditem").html(competitionname[0]);
         }
     }
-    function lastLevelBreadcrumb(id) {
-        $("#KJfancymarketbook").hide();
-        $("#Figurefancymarketbook").hide();
-        $("#fancymarketbook").hide();
-        $("#Indianfancymarketbook1").hide();
-        $("#SFigfancymarketbook").hide();
+    function lastLevelBreadcrumb(id) {        
+        $("#KJfancymarketbook").empty().hide();
+        $("#marketbooksoccer").empty().hide();
+        $("#Figurefancymarketbook").empty().hide();
+        $("#fancymarketbook").empty().hide();
+        $("#Indianfancymarketbook1").empty().hide();
+        $("#SFigfancymarketbook").empty().hide();
         $("#divfooter").hide();
         $("#video").hide();
         $("#video")[0].removeAttribute("src");
@@ -7605,12 +7576,6 @@ else
         }
 
 
-
-
-    @*if(@LoggedinUserDetail.GetUserTypeID()==1){
-            ShowAverageSection();
-            }*@
-
                             }
 
     function Position(marketbookID) {
@@ -7701,57 +7666,121 @@ else
 
     }
 
-    function LoadActiveMarketSoccer() {
-        var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
-        $.ajax({
-            url: '/Market/GetMarketBooksoccergoal/',
-            type: 'GET',
-            async: true,
-            data: { 'EventID': eventid },
-            complete: function () {
-                HideLoader();
-            },
-            success: function (data) {
-                if (data != "") {
-                    AssignSoccerDatatoMarketBook(data);
-                    setTimeout(function () {
-                        LoadActiveMarketSoccer();
-                    }, 10000
-                    );
+    let soccerMarketRequestRunning = false;
 
-                }
-            }
-        });
+function LoadActiveMarketSoccer() {
+
+
+    var lastLoaded = $("#lastloadedmarket").val();
+    if (!lastLoaded) {
+        setTimeout(LoadActiveMarketSoccer, 4000);
+        return;
     }
+
+    var eventid = $("#eventidfor" + lastLoaded.toString().replace(".", "")).val();
+
+     var mainsportcat=$("#marketbookCategory"+$("#lastloadedmarket").val().toString().replace(".","")).val();
+         debugger;
+         if (!mainsportcat.includes("Soccer")) {
+    return;
+}
+    // ⏳ Wait until eventid exists
+    if (!eventid) {
+        setTimeout(LoadActiveMarketSoccer, 4000);
+        return;
+    }
+
+    // 🔐 Lock request
+    soccerMarketRequestRunning = true;
+
+    $.ajax({
+        url: '/Market/GetMarketBooksoccergoal/',
+        type: 'GET',
+        data: { EventID: eventid },
+
+        success: function (data) {
+            if (data) {
+                if (!$("#marketbooksoccer").is(":visible")) {
+                    $("#marketbooksoccer").show();
+                }
+
+                AssignSoccerDatatoMarketBook(data);
+            }
+        },
+
+        complete: function () {
+            HideLoader();
+
+            // 🔓 Allow next refresh after 10 sec
+            setTimeout(function () {
+                soccerMarketRequestRunning = false;
+                LoadActiveMarketSoccer();
+            }, 10000);
+        },
+
+        error: function () {
+            // retry after failure
+            soccerMarketRequestRunning = false;
+            setTimeout(LoadActiveMarketSoccer, 4000);
+        }
+    });
+}
+
+
 
     function LoadMarketTypeSoccerGoal() {
 
-        var eventid = $("#eventidfor" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
-        $.ajax({
-            url: '/Market/MarketBooksoccergoal/',
+    var marketId = $("#lastloadedmarket").val();
+    if (!marketId) return;
 
-            type: 'GET',
-            async: true,
-            data: { 'EventID': eventid },
+    var mainsportcat = $("#marketbookCategory" + marketId.toString().replace(".", "")).val();
 
-            complete: function () {
-                HideLoader();
-
-            },
-            success: function (data) {
-
-                if (data != "") {
-                    $("#marketbooksoccer").html(data);
-                    LoadActiveMarketSoccer();
-                    //setTimeout(function () {
-                    //	LoadMarketTypeSoccerGoal();
-                    //}, 4000
-                    //);
-
-                }
-            }
-        });
+    // ❌ Not Soccer → stop completely
+    if (!mainsportcat || !mainsportcat.includes("Soccer")) {
+        return;
     }
+
+    var eventid = $("#eventidfor" + marketId.toString().replace(".", "")).val();
+
+    // ⏳ EventID not ready → retry
+    if (!eventid) {
+        setTimeout(LoadMarketTypeSoccerGoal, 4000);
+        return;
+    }
+
+    $.ajax({
+        url: '/Market/MarketBooksoccergoal/',
+        type: 'GET',
+        data: { EventID: eventid },
+
+        success: function (data) {
+
+            // 🔁 Backend says try again
+            if (!data || data === "NO_DATA") {
+                setTimeout(LoadMarketTypeSoccerGoal, 4000);
+                return;
+            }
+
+            if (data === "Limit exceed") {
+                ShowErrorMsg("You already have opened ten markets please close some markets and try again.");
+                return;
+            }
+
+            // ✅ SUCCESS
+            $("#marketbooksoccer").show().html(data);
+            LoadActiveMarketSoccer();
+        },
+
+        error: function () {
+            // 🔁 Network/server error → retry
+            setTimeout(LoadMarketTypeSoccerGoal, 4000);
+        },
+
+        complete: function () {
+            HideLoader();
+        }
+    });
+}
 
 
 
@@ -7764,8 +7793,6 @@ else
         $("#multimedia").hide();
         $("#liscorecard").hide();
         $("#lastsavedhtml").val($("div[data-marketid='" + $("#lastloadedmarket").val() + "']").html());
-        dataurl = '/Market/MarketBook/';
-    @*  ShowLoader(); *@
             $.ajax({
                 url: '/Market/MarketBook/',
                 type: 'GET',
@@ -7780,9 +7807,10 @@ else
                         if (location.href != 'http://gtdexch.com/DashBoard/Index#') {
                             location.href = location.href + '#';
                         }
+                        $("#marketbook").html(data);
                         localStorage.setItem('id', id);
                         $("#betsection").show();
-                        $("#marketbook").html(data);
+                        
                         if ($("#lastsavedhtml").val().trim() == "") {
                             $("#lastsavedhtml").val($("#marketbook").html());
                         }
@@ -7799,16 +7827,19 @@ else
 
                         var mainsportcat1 = $("#marketbookCategory" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
                         if (mainsportcat1 == "Cricket") {
-                            GetActiveMarketINFancy();
-                            LoadEvenOddMarketKJ();
-                            LoadFigureMarket();
-                            $("#btnscorecard").show();
-                            LoadActiveMarketFancyIN();
-                            $('#btnscorecard').click();
-                            display = true;
                             $("#marketbooksoccer").hide();
                             $("#fancymarketbook").hide();
+                            GetActiveMarketINFancy();
+                           // LoadEvenOddMarketKJ();
+                           // LoadFigureMarket();
+                            $("#btnscorecard").show();
+                            //LoadActiveMarketFancyIN();
+                            $('#btnscorecard').click();
+                            display = true;
+                                $("#marketbooksoccer").hide();
+                                $("#fancymarketbook").hide();
                             $("#Indianfancymarketbook1").length;
+                                    
                         }
                         else {
                             if (mainsportcat1 == "Soccer") {
@@ -7823,7 +7854,6 @@ else
                                 $("#video").css("height", "250px");
                                 
                                 $('#btnscorecard').click();
-                                $("#marketbooksoccer").hide();
                                 display = true;
 
                             }
@@ -7864,7 +7894,6 @@ else
                             }
                         }
 
-
                         ReletedEvents(mainsportcat1);
 
                         var marketbbokname = $("#marketbookname" + $("#lastloadedmarket").val().toString().replace(".", "")).val();
@@ -7883,6 +7912,7 @@ else
                         }
                         $("#marketbookTWT").hide();
                         if (marketbbokname.indexOf("Match Odds") >= 0 && mainsportcat.indexOf("Cricket") >= 0 && parseInt(mainsportrunners) >= 2) {
+                           debugger;
                             CheckForWintTheTossMarket();
                             $(".checkboxrunnernameavg").slice(0, 2).each(function () {
                                 $(this).prop("checked", true);

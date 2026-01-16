@@ -107,7 +107,6 @@ namespace GTExCore.Controllers
                     _httpContextAccessor.HttpContext.Session.SetObject("firsttimeload", false);
                     LoggedinUserDetail.UpdateCurrentLoggedInID();
                 }
-                _httpContextAccessor.HttpContext.Session.SetObject("linevmarkets", null);
                 return View(objAccessrightsbyUserType);
             }
             else
@@ -575,8 +574,8 @@ namespace GTExCore.Controllers
         }
         public async Task<List<AllMarketsInPlay>> GetManagers()
         {
-            List<AllMarketsInPlay> lstGridMarkets = _httpContextAccessor.HttpContext.Session.GetObject<List<AllMarketsInPlay>>("marketsData");
-            var session = _httpContextAccessor.HttpContext.Session;
+            List<AllMarketsInPlay> lstGridMarkets = HttpContext.Session.GetObject<List<AllMarketsInPlay>>("marketsData");
+            var session = HttpContext.Session;
 
             if (lstGridMarkets != null)
             {

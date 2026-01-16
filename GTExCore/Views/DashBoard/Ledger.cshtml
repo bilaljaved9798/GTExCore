@@ -1,8 +1,87 @@
 ﻿@using GTExCore.Models
+<style>
+    .date-range {
+        display: flex;
+        gap: 15px;
+    }
 
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css">
-</head>
+    .date-box {
+        position: relative;
+        width: 220px;
+    }
+
+        .date-box input {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+    .calendar {
+        position: absolute;
+        top: 45px;
+        left: 0;
+        width: 220px;
+        background: #fff;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0,0,0,.15);
+        padding: 10px;
+        z-index: 100;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .calendar-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+    }
+
+        .calendar-header button {
+            cursor: pointer;
+        }
+
+    .calendar-days,
+    .calendar-dates {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+    }
+
+        .calendar-days div {
+            font-weight: bold;
+        }
+
+        .calendar-dates div {
+            padding: 6px;
+            cursor: pointer;
+        }
+
+            .calendar-dates div:hover {
+                background: #007bff;
+                color: #fff;
+            }
+
+    .disabled {
+        color: #ccc;
+        pointer-events: none;
+    }
+
+    .selected {
+        background: #007bff;
+        color: #fff;
+    }
+
+    .in-range {
+        background: #cfe2ff;
+    }
+
+</style>
+
+
 <div class="ledgerwraper" >
     <div class="container" >
         <div class="seven">
@@ -18,20 +97,18 @@
                 </div>
             </div>
             <div class="col-md-5 col-sm-12">
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3">From:</label>
-                    <div class="col-md-7 col-sm-6">
-                        <input type="text" id="txtDateFrom" class="form-control datepicker input1123" />
+                <div class="date-range">
+                    <div class="date-box">
+                        <input type="text" id="fromDate" placeholder="From date" readonly>
+                        <div class="calendar hidden" id="fromCalendar"></div>
+                    </div>
+
+                    <div class="date-box">
+                        <input type="text" id="toDate" placeholder="To date" readonly>
+                        <div class="calendar hidden" id="toCalendar"></div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-5 col-sm-12">
-                <div class="form-group">
-                    <label class="control-label col-md-3"> To:</label>
-                    <div class="col-md-7">
-                        <input type="text" id="txtDateTo" class="form-control datepicker input1123" />
-                    </div>
-                </div>
+              
             </div>
             <br />
 
@@ -44,30 +121,6 @@
                         </div>
                     </div>
                     <script type="text/javascript">
-
-
-            
-                      // Use Font Awesome icons instead of Bootstrap 3 glyphicons
-                        $.fn.datetimepicker.Constructor.Default = $.extend(
-                        { },
-                        $.fn.datetimepicker.Constructor.Default,
-                        {
-                            icons: {
-                            time: 'fa fa-clock-o',
-                        date: 'fa fa-calendar',
-                        up: 'fa fa-chevron-up',
-                        down: 'fa fa-chevron-down',
-                        previous: 'fa fa-chevron-left',   // ← arrow left
-                        next: 'fa fa-chevron-right',      // ← arrow right
-                        today: 'fa fa-dot-circle-o',
-                        clear: 'fa fa-trash',
-                        close: 'fa fa-times'
-                          }
-                        }
-                        );
-           
-
-
 
                         $(document).ready(function () {
                             $.ajax({
@@ -119,37 +172,29 @@
     </div>
 </div>
 
-<style>
-    .bootstrap-datetimepicker-widget .picker-switch td span {
-        line-height: 2.2;
-    }
-</style>
 
 
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <script type="text/javascript">
   
-    $(document).ready(function () {
-        var dateNow = new Date();
-        var newdate = new Date(dateNow).setDate(dateNow.getDate() - 1);
-        $('#txtDateFrom').datetimepicker({
-            format: 'DD-MM-YYYY',
-            defaultDate: newdate
+    $(document).ready(function () {        
+        // var dateNow = new Date();
+        // var newdate = new Date(dateNow).setDate(dateNow.getDate() - 5);
+        // $('#fromDate').datetimepicker({
+        //     format: 'YYYY-MM-DD hh:mm',
+        //     defaultDate: newdate
 
-        });
-        $('#txtDateTo').datetimepicker({
-            format: 'DD-MM-YYYY',
-            defaultDate: dateNow
+        // });
 
-        });
+        // $('#toDate').datetimepicker({
+        //     format: 'YYYY-MM-DD hh:mm',
+        //     defaultDate: dateNow
+        // });
 
         $.ajax({
             type: "GET",
             async: true,
             url: "/DashBoard/GetBalnceDetails",
-            success: function (result) {
-                 
+            success: function (result) {                
                 $("#BalanceDetails").html(result);
                 HideLoader();
             },
@@ -158,8 +203,8 @@
 
         });
         $("#btnLoad").click(function () {
-            var datefrom = $("#txtDateFrom").val();
-            var dateTo = $("#txtDateTo").val();
+            var datefrom = $("#fromDate").val();
+            var dateTo = $("#toDate").val();
             ShowLoader();
             var userID = 0;
             if ($("#ddlUsers").val() != undefined) {
@@ -206,4 +251,138 @@
             });
         });
     });
+                 let fromDate = null;
+    let toDate = null;
+
+    let viewMonth = new Date().getMonth();
+    let viewYear = new Date().getFullYear();
+
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
+    const fromInput = document.getElementById('fromDate');
+    const toInput = document.getElementById('toDate');
+    const fromCal = document.getElementById('fromCalendar');
+    const toCal = document.getElementById('toCalendar');
+
+    fromInput.addEventListener('click', () => openCalendar(fromCal, 'from'));
+    toInput.addEventListener('click', () => openCalendar(toCal, 'to'));
+
+    document.addEventListener('click', e => {
+        if (!e.target.closest('.date-box')) {
+            fromCal.classList.add('hidden');
+            toCal.classList.add('hidden');
+        }
+    });
+
+    function openCalendar(cal, type) {
+        fromCal.classList.add('hidden');
+        toCal.classList.add('hidden');
+        cal.classList.remove('hidden');
+        renderCalendar(cal, type);
+    }
+
+       function renderCalendar(cal, type) {
+        const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+        const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+        cal.innerHTML = `
+            <div class="calendar-header">
+                <button type="button" id="prevBtn">&lt;</button>
+                <strong>${viewYear}-${viewMonth + 1}</strong>
+                <button type="button" id="nextBtn">&gt;</button>
+            </div>
+            <div class="calendar-days">
+                <div>Su</div><div>Mo</div><div>Tu</div>
+                <div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+            </div>
+            <div class="calendar-dates"></div>
+        `;
+
+        // ✅ IMPORTANT: stop calendar from closing on click
+        cal.addEventListener('click', function (e) {
+            e.stopPropagation();
+        });
+
+        const datesDiv = cal.querySelector('.calendar-dates');
+
+        // Empty cells before first day
+        for (let i = 0; i < firstDay; i++) {
+            datesDiv.appendChild(document.createElement('div'));
+        }
+
+        // Dates
+        for (let d = 1; d <= daysInMonth; d++) {
+            const date = new Date(viewYear, viewMonth, d);
+            const cell = document.createElement('div');
+            cell.textContent = d;
+
+            if (date > today) {
+                cell.classList.add('disabled');
+            } else {
+                // ✅ Date click works now
+                cell.addEventListener('click', function () {
+                    selectDate(date, type);
+                });
+            }
+
+            if (fromDate && sameDate(date, fromDate)) cell.classList.add('selected');
+            if (toDate && sameDate(date, toDate)) cell.classList.add('selected');
+            if (fromDate && toDate && date > fromDate && date < toDate)
+                cell.classList.add('in-range');
+
+            datesDiv.appendChild(cell);
+        }
+
+        // Previous month
+        cal.querySelector('#prevBtn').addEventListener('click', function (e) {
+            e.stopPropagation();
+            viewMonth--;
+            if (viewMonth < 0) {
+                viewMonth = 11;
+                viewYear--;
+            }
+            renderCalendar(cal, type);
+        });
+
+        // Next month
+        cal.querySelector('#nextBtn').addEventListener('click', function (e) {
+            e.stopPropagation();
+            viewMonth++;
+            if (viewMonth > 11) {
+                viewMonth = 0;
+                viewYear++;
+            }
+            renderCalendar(cal, type);
+        });
+    }
+
+
+    function selectDate(date, type) {
+        if (type === 'from') {
+            fromDate = date;
+            toDate = null;
+            fromInput.value = formatDate(date);
+            toInput.value = '';
+            fromCal.classList.add('hidden');
+        } else {
+            if (!fromDate || date < fromDate) {
+                alert('End date must be after From date');
+                return;
+            }
+            toDate = date;
+            toInput.value = formatDate(date);
+            toCal.classList.add('hidden');
+        }
+    }
+
+    function formatDate(d) {
+        return `${String(d.getDate()).padStart(2,'0')}-${String(d.getMonth()+1).padStart(2,'0')}-${d.getFullYear()}`;
+    }
+
+    function sameDate(a, b) {
+        return a.getFullYear() === b.getFullYear() &&
+               a.getMonth() === b.getMonth() &&
+               a.getDate() === b.getDate();
+    }
 </script>
