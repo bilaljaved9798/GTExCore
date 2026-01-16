@@ -15,6 +15,13 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor(); // Correct registration
@@ -35,7 +42,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddSingleton<IPasswordSettingsService, PasswordSettingsService>();
 var app = builder.Build();
-
+app.UseResponseCompression();
 var httpContextAccessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 LoggedinUserDetail.Configure(httpContextAccessor);
 

@@ -55,16 +55,30 @@
 			<div id="marketbook@(item.MarketId.ToString().Replace(".", ""))" data-marketid="@item.MarketId">
 
 				@foreach (var runner in item.Runners)
+
+
 				{
 					<div id="selection@(runner.SelectionId.Replace(" ", ""))" class="col-md-12 pull-left col-sm-12 no-padding runnerswrapper figselectionheight" style="background: linear-gradient(to top, #ffffff2b 92%, #00ff451f 53%) !important;">
 						<div id="runnernamediv@(runner.SelectionId)" class="col-md-2 col-sm-8 no-padding runnernamediv" style="display:none">
-							<label style="display:none">
+							
+						
+						
+						<label style="display:none">
 								@runner.SelectionId
 							</label>
 						</div>
 						<div id="nameProfitandlossdivf">
+
 							<div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
-								<label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)" style="float: left; margin-left: 7px; font-size: 14px;width: 100% !important;margin-top:5px">
+								<div class="clothnumandstallnum">
+									<a>
+										<img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+										<i class="fas fa-caret-right" style="    margin-top: 6px;"></i>
+									</a>
+								</div>
+
+
+								<label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)" style="float: left; margin-left: 7px; font-size: 14px;width: 75% !important;margin-top:5px">
 									@runner.RunnerName
 								</label>
 								<div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">
