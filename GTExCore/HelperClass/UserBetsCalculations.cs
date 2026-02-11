@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using UserServiceReference;
 
 namespace GTExCore.HelperClasses
 {
@@ -54,6 +55,18 @@ namespace GTExCore.HelperClasses
         public string Rule { get; set; }      
         public List<string> ModalContent { get; set; }
         public List<AllMarketsInPlay> AllMarkets { get; set; }
+        public List<TodayHorseRacing> TodayHorseRacing { get; set; }
+        public List<TodayHorseRacing> TodayGreyRacing { get; set; }
+        public string ViewType { get; set; }
+
+    }
+    public class DefaultPageModel1
+    {
+        public string WelcomeMessage { get; set; }
+        public string WelcomeHeading { get; set; }
+        public string Rule { get; set; }
+        public List<string> ModalContent { get; set; }
+        public List<BettingServiceReference.MarketBook> AllMarkets { get; set; }
         public List<TodayHorseRacing> TodayHorseRacing { get; set; }
         public List<TodayHorseRacing> TodayGreyRacing { get; set; }
         public string ViewType { get; set; }

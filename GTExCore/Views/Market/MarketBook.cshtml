@@ -279,10 +279,10 @@ else
                         {
                             <div class="backgroundimageforSuspended" style="cursor:not-allowed; opacity:1" id="hh1">
                                 <label class="suspendbann" style="        margin-right: 9px;
-                                font-size: 24px !important;
-                                margin-top: 31px;
-                                border: 2px solid #dc143c;
-                                width: 35%;">
+                                            font-size: 24px !important;
+                                            margin-top: 31px;
+                                            border: 2px solid #dc143c;
+                                            width: 35%;">
                                     Suspended
                                 </label>
                             </div>
@@ -301,27 +301,19 @@ else
 
                                             <div>
                                                 @if (runner.StatusStr == "REMOVED")
-
-
                                                 {
                                                     <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
-
                                                 }
 
                                                 else
                                                 {
-
                                                     <input type="checkbox" class="checkboxrunnername"
                                                            id="chkselection@(runner.SelectionId.Replace(".", "_"))"
                                                            data-selection-id="@runner.SelectionId"
                                                            aria-label="Select runner @(runner.SelectionId)"
                                                            onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
-
                                                 }
-
                                             </div>
-
-
                                             if (item.MarketBookName.Contains("(US)"))
                                             {
 
@@ -431,12 +423,7 @@ else
                                                     </div>
                                                 </div>
 
-
                                                 <div class="runnerinfo ">
-
-
-
-
                                                     <label for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="  runners runnersnameHorse new112233" id="lblSelectionName@(runner.SelectionId)">
                                                         @runner.Clothnumber.       @runner.RunnerName
                                                     </label>
@@ -449,19 +436,8 @@ else
                                                             <br />
                                                         </span>
                                                     </label>
-                                                    @*<label id="lbljockey@(runner.SelectionId)" class=" tooltip jockeyname jockey new112234" style="font-size:14px; font-weight:200 ">
-                                    <script>
-                                    getRunnerDetails(@(item.MarketId), @(runner.SelectionId));
-                                    </script>
-                                    </label>*@
                                                 </div>
-
-
                                             }
-
-
-
-
                                             <div>
 
                                                 @if (runner.ProfitandLoss >= 0)
@@ -492,84 +468,55 @@ else
 
                                                     }
                                                 }
-
-
                                             </div>
                                         }
-
-
-
                                         else
                                         {
                                             if (item.MainSportsname == "Greyhound Racing")
-
-
                                             {
-
-
-
                                                 <div class="clothnumstalldrawimgempty" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>
                                                 <div class="clothnumandstallnum">
-
                                                     <img style="height: 19px; width: 20px; float: left;  margin-top: 2px;" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
-
                                                 </div>
 
                                                 if (runner.RunnerName.Contains("1"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: #bb2025;  color: white;">1</span>
                                                 }
-
                                                 if (runner.RunnerName.Contains("2"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: #253d83;  color: white;">2</span>
                                                 }
-
                                                 if (runner.RunnerName.Contains("3"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background:#fff;     color: black;">3</span>
                                                 }
                                                 if (runner.RunnerName.Contains("4"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: #1e1e1e;  color: white;">4</span>
                                                 }
-
                                                 if (runner.RunnerName.Contains("5"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: #ffb80c;    color: black;">5</span>
                                                 }
                                                 if (runner.RunnerName.Contains("6"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: linear-gradient(180deg,#1e1e1e,4px,#fff 4px,6px,#1e1e1e 6px,11px,#fff 11px,13px,#1e1e1e 13px,18px,#fff 18px,20px,#1e1e1e 20px);    color: darkred;">6</span>
                                                 }
                                                 if (runner.RunnerName.Contains("7"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: #212121;       color: white;">7</span>
                                                 }
                                                 if (runner.RunnerName.Contains("8"))
                                                 {
-
                                                     <span class="Greyoundnumber" style="background: #cc276c;       color: white;">8</span>
                                                 }
-
-
-
-
                                                 <label style="margin-top:6px !important; margin-left:-30px" for="chkselection@(runner.SelectionId)" data-value="@runner.SelectionId" class="runners runnersname" id="lblSelectionName@(runner.SelectionId)">
                                                     @runner.RunnerName
                                                 </label>
                                                 <div>
 
                                                     <i class="fa fa-caret-right" aria-hidden="true" style="text-align: left;float: left;margin-left: 13px;margin-top: -2px;"></i>
-
-
                                                     @if (runner.ProfitandLoss >= 0)
                                                     {
                                                         <label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="margin-left:9px; margin-top:-2px !important;width: 80% !important;float: left !important;text-align: left;font-size: 16px;">
@@ -596,17 +543,12 @@ else
                                                                 @runner.Loss
                                                             </label>
                                                         }
-
                                                     }
-
-
                                                 </div>
                                             }
-
                                             else
                                             {
                                                 if (item.MainSportsname == "Cricket" || item.MainSportsname == "Soccer" || item.MainSportsname == "Tennis")
-
                                                 {
                                                     <input type="checkbox" id="chkselection@(runner.SelectionId)" class="checkboxrunnername" onchange="AddRunnersformultiplebets('@runner.SelectionId')" />
                                                     <div class="clothnumstalldrawimgemptynotshow" id="clothnumstalldrawimg@(runner.SelectionId)" onclick="triggerchangemethod('@runner.SelectionId','@item.MarketId.Replace(".", "")')"></div>

@@ -284,8 +284,6 @@ namespace GTExCore.Controllers
 
                     return RedirectToAction("Index", "DashBoard");
                 }
-
-
             }
             else
             {

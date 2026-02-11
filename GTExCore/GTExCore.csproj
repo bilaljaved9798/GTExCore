@@ -26,6 +26,7 @@
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="Lib.Azure.WebJobs.Extensions.WebPush" Version="1.4.1" />
     <PackageReference Include="log4net" Version="3.0.0-preview.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.1.0" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.0-preview1.24240.8" />
