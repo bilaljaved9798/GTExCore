@@ -125,18 +125,26 @@
                             <div id="nameProfitandlossdivf">
                                 <div id="runnernamediv" class="no-padding runnernamedivf runnerswrapper">
 
-                                    <label for="chkselection@(runner?.SelectionId)" data-value="@runner?.SelectionId" class="runners runnersname tooltip" id="lblSelectionName@(runner?.SelectionId)" style="float: left; width:90% !important;margin-top:3px;margin-left:7px;font-size:14px">
-                                       <i class="fas fa-caret-right" style="    margin-top: 4px;"></i>  @runner?.RunnerName
+                                    <img style="height: 15px; width: 16px; float: left;  margin-top: 3px;margin-right:2px" src="/Screenshot_2025-02-17_020603-removebg-preview.png">
+
+                                    <label for="chkselection@(runner?.SelectionId)" data-value="@runner?.SelectionId" class="runners runnersname tooltip" id="lblSelectionName@(runner?.SelectionId)" style="float: left; width:88% !important;margin-top:4px;margin-left:1px;font-size:14px">
+                                     
+                                    
+                                      @runner?.RunnerName
                                         <span class="tooltiptext">	@runner?.RunnerName </span>
                                     </label>
+
+
+                                    <i class="fas fa-caret-right" style="    margin-top: 2px;float:left;margin-left:5px;"></i>
+
                                     <div class="bookbutton" onclick="showcompleteduserbetsFacnyIN('@runner?.MarketBookID','@runner?.SelectionId')">
                                         Book
                                     </div>
                                     <div class="runnerprofitandlossdivMobile" style="width:0px; display:inline-block">
-                                        <label id="lblprofitandloss@(runner?.SelectionId)" class="runnersprofitlossgreenFancy ">
+                                        <label id="lblprofitandloss@(runner?.SelectionId)" class="runnersprofitlossgreenFancy " style="margin-top: 1px;">
                                             @runner?.ProfitandLoss
                                         </label>
-                                        <label id="lblloss@(runner?.SelectionId)" class="runnersprofitlossred23">
+                                        <label style="        margin-top: 1px;            " id="lblloss@(runner?.SelectionId)" class="runnersprofitlossred23">
                                             @runner?.Loss
                                         </label>
                                     </div>

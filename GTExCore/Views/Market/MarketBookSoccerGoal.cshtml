@@ -119,7 +119,10 @@
 										<div class="no-padding runnerprofitandlossdivMobile">
 											@if (runner.ProfitandLoss >= 0)
 											{
-												<label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen">
+												<label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossgreen" style="    margin-top: 1.5px;
+    /* float: left !important; */
+    text-align: left;
+    margin-right: 67px;">
 													@runner.ProfitandLoss
 												</label>
 												<label id="lblaverage@(runner.SelectionId)" class="runnersaveragegreen">
@@ -128,7 +131,10 @@
 											}
 											@if (runner.ProfitandLoss < 0)
 											{
-												<label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred">
+												<label id="lblprofitandloss@(runner.SelectionId)" class="runnersprofitlossred" style="
+    margin-right: -14px;
+    margin-top: 1.5px;
+				">
 													@runner.ProfitandLoss
 												</label>
 												<label id="lblaverage@(runner.SelectionId)" class="runnersaveragered">
