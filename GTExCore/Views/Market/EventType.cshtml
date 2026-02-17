@@ -6,6 +6,22 @@
 
 <head>
     <style>
+
+
+.sr-bb{
+
+        background: #141435 !important;
+}
+.sr-bb .srt-fill-primary-12 {
+    fill: #FD2954 !important;
+}
+
+.sr-bb .srt-base-1-primary {
+    background-color: transparent;
+    color: beige;
+    border-color: #FD2954 !important;
+}
+
         input[type="number"] {
             -webkit-appearance: textfield;
             -moz-appearance: textfield;
@@ -548,8 +564,8 @@ else
                                         <tr id="b-349" data-handicap="0.000000" dtata-slip="b">
                                             <td colspan="3" class="oddsH" style="height: 39px;vertical-align: bottom;">
                                                 <div>
-                                                    <div class="odd-left" style="font-size: 15px;margin-top: 0px;margin-left: 1px;">
-                                                        <div class="number-input" style="border:1px solid brown; border-radius: 3px;">
+                                                    <div class="odd-left" style="font-size: 15px;margin-top: 0px;">
+                                                        <div class="number-input" style="border:1px solid brown; border-radius: 3px;margin-left: 2px">
                                                             <button id="bdownmob-349" onclick="decrement(); return false;" class="minus" style="background:#d9534f;border-color:#d43f3a; height:37px;"></button>
                                                             <input tabindex="1" type="text" id="betslipoddmob" max="1000" style="font-family: 'Times New Roman', Times, serif !important;width:60px; font-size:17px;border:none;text-align:center;height:37px !important">
 
@@ -559,7 +575,7 @@ else
                                                 </div>
                                             </td>
                                             <td colspan="3" class="stake" style="height: 40px;vertical-align: middle;text-align:right !important">
-                                                <div class="number-input" style="    margin-top: -3px;">
+                                                <div class="number-input" style="    margin-top: -3px;margin-right:1.5px;">
                                                     <input id="betslipamountmob" type="number" onmouseup="calculateamountsmob()" min="500" max="5000000000" step="1" maxlength="7" onkeyup="calculateamountsmob() " style="font-family: 'Times New Roman', Times, serif !important;height:38px !important;border-radius: 4px;border: 1px solid brown;">
                                                 </div>
                                             </td>
@@ -585,19 +601,18 @@ else
                                             <th width="50%" colspan="5" style="text-align:center;padding:2px;">
                                                 <label class="runnername " id="betslipselectionmob" style="font-weight: 600 !important;  margin-top:26px;  text-align: initial !important;    font-family: 'Times New Roman', Times, serif !important;    font-size: 15px;    float: left;    width: 50%;    overflow: hidden;    text-overflow: ellipsis;    white-space: nowrap;">
                                                 </label>
-                                                <label style="border-radius: 4px;  width: 23.5%;  text-align: center;    padding: 0px !important;    margin-left: 1px;    border: 1px solid #72bbef;">
+                                                <label style="border-radius: 4px;  width: 23.5%;  text-align: center;    padding: 0px !important;    margin-left: 1px;margin-bottom:4px ">
 
                                                     <label style="font-weight: 700; margin-left:3%;font-family: 'Times New Roman', Times, serif !important;font-size:14px "> BACK</label>
                                                     <br />
-                                                    <label id="betslipbackmob" style=" background: #72bbef;text-align: center;font-weight: 700;width:100%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important"></label>
-                                                    <label id="betslipsizemob" style="background: #72bbef;text-align: center;font-weight: 400;width:100%; font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" "></label>
+                                                    <label id="betslipbackmob" style="  background: #72bbef; text-align: center; font-weight: 700; width: 100%; font-size: 20px;  padding: 0px !important;   display: block; font-family: 'Times New Roman', Times, serif !important;  border-radius: 4px 4px 0 0;"> </label>
+                                                    <label id="betslipsizemob" style="background: #72bbef;text-align: center;font-weight: 400;width:100%; font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important; border-radius: 0 0 4px 4px;" ></label>
                                                 </label>
-                                                <label style="width: 23.5%;text-align: center;margin-left: 0px;border: 1px solid #FF8A8E;padding: 0px !important;border-radius: 4px;    ">
+                                                <label style="width: 23.5%;text-align: center;margin-left: 0px;padding: 0px !important;    ">
                                                     <label style="font-weight:700;font-family: 'Times New Roman', Times, serif !important;font-size:14px;margin-left:-1%  ">LAY</label>
                                                     <br />
-                                                    <label id="betsliplaymob" style="background: #FF8A8E;text-align: center;font-weight: 700;width:100%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" ">
-                                                    </label>
-                                                    <label id="betslipsizelaymob" style="background: #FF8A8E;text-align: center;font-weight: 400;width:100%;font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important" "></label>
+                                                    <label id="betsliplaymob" style="background: #FF8A8E;text-align: center;font-weight: 700;width:100%;font-size:20px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important; border-radius: 4px 4px 0 0;">                                                    </label>
+                                                    <label id="betslipsizelaymob" style="background: #FF8A8E;text-align: center;font-weight: 400;width:100%;font-size:13px;padding: 0px !important;display: block;font-family:'Times New Roman', Times, serif !important ;border-radius: 0 0 4px 4px; "></label>
                                                 </label>
                                             </th>
                                         </tr>
@@ -627,7 +642,7 @@ else
                                             <td colspan="3" align="right">
 
                                                 <button class="btn btn-success" id="btnBetslipsubmitmob" style="font-size:18px !important; ">Submit</button>
-                                                <button class="btn " id="btnloadermob" style="display:none;font-size: 18px;background: #90bea4;margin-top: 1px;color: white !important;height: 39px !important;width: 77px !important;"> Submit <img style="margin-right: 13px;height: 36px !important;width: 77px !important;margin-top: -3px;margin-left: -67px;" src="/Ripple@1x-1.2s-54px-54px.svg" /></button>
+                                                <button class="btn " id="btnloadermob" style="display:none;font-size: 18px;background: #90bea4;margin-top: 1px;color: white !important;height: 39px !important;width: 77px !important;"> Submit <img style="margin-right: 13px;height: 36px !important;width: 77px !important;margin-top: -6px;margin-left: -66px;" src="/Ripple@1x-1.2s-54px-54px.svg" /></button>
 
 
 
