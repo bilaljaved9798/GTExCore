@@ -1165,7 +1165,7 @@ cta-8:hover {
     position: absolute;
     z-index: 1;
     bottom: 95%;
-    left: 100%;
+    left: 5%;
     /* float: left; */
     margin-left: -165px;
     transition: opacity 0.3s;
