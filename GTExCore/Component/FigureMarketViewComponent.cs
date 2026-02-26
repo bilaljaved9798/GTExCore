@@ -45,9 +45,9 @@ namespace GTExCore.Component
 
             if (Figurevmarket !=null && Figurevmarket.Count > 0)
             {
-                FigureMarket.FigureMarkets = Figurevmarket;
+                FigureMarket.FigureMarkets = Figurevmarket.ToArray();
                 FigureMarket.FigureMarkets.FirstOrDefault().EventIDk__BackingField = eventID;
-                FigureMarket.FigureMarkets = FigureMarket.FigureMarkets.Where(item => item.isOpenedbyUserk__BackingField == true && item.EventNamek__BackingField == "Figure").ToList();
+                FigureMarket.FigureMarkets = FigureMarket.FigureMarkets.Where(item => item.isOpenedbyUserk__BackingField == true && item.EventNamek__BackingField == "Figure").ToArray();
             }
 
             if (FigureMarket.FigureMarkets != null)
@@ -121,7 +121,7 @@ namespace GTExCore.Component
                 pricesize.Price = i;
                 lstpricelist.Add(pricesize);
                 runner.ExchangePrices = new BettingServiceReference.ExchangePrices();
-                runner.ExchangePrices.AvailableToBack = lstpricelist;
+                runner.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                 lstpricelist = new List<BettingServiceReference.PriceSize>();
 
                 var pricesize1 = new BettingServiceReference.PriceSize();
@@ -129,12 +129,12 @@ namespace GTExCore.Component
                 pricesize1.Price = i;
                 lstpricelist.Add(pricesize1);
 
-                runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>();
-                runner.ExchangePrices.AvailableToLay = lstpricelist;
+                runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>().ToArray();
+                runner.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
                 lstRunners.Add(runner);
 
             }
-            marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners);
+            marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners).ToArray();
             return marketbook;
         }
 

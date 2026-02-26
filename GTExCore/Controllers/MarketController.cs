@@ -135,10 +135,12 @@ namespace Census.API.Controllers
                         }
                         foreach (var item in results)
                         {
+                           
                             foreach (var item2 in marketbooks)
                             {
                                 if (item.ID == item2.MarketId)
                                 {
+                                   
                                     item2.MarketBookName = item.EventName + " / " + item.Name;
                                     item2.OrignalOpenDate = item.EventOpenDate;
                                     item2.MainSportsname = item.EventTypeName;
@@ -194,8 +196,8 @@ namespace Census.API.Controllers
                             item2.MarketStatusstr = "Active";
 
                             var runnerdesc = await objUsersServiceCleint.GetSelectionNamesbyMarketIDAsync(item2.MarketId);
-                            item2.Runners = new List<BettingServiceReference.Runner>();
-
+                            item2.Runners = new List<BettingServiceReference.Runner>().ToArray();
+                            var runnerList = new List<BettingServiceReference.Runner>();
                             foreach (var runnermarketitem in runnerdesc)
                             {
                                 var runneritem = new BettingServiceReference.Runner();
@@ -219,7 +221,7 @@ namespace Census.API.Controllers
 
                                     lstpricelist.Add(pricesize);
                                 }
-                                runneritem.ExchangePrices.AvailableToBack = lstpricelist;
+                                runneritem.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                                 lstpricelist = new List<BettingServiceReference.PriceSize>();
                                 for (int i = 0; i < 3; i++)
                                 {
@@ -231,9 +233,10 @@ namespace Census.API.Controllers
 
                                     lstpricelist.Add(pricesize);
                                 }
-                                runneritem.ExchangePrices.AvailableToLay = lstpricelist;
-                                item2.Runners.Add(runneritem);
+                                runneritem.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
+                                runnerList.Add(runneritem);
                             }
+                            item2.Runners = runnerList.ToArray();
                             item2.FavoriteID = "0";
                             item2.FavoriteBack = "0";
                             item2.FavoriteBackSize = "0";
@@ -385,8 +388,8 @@ namespace Census.API.Controllers
                                 item2.MarketStatusstr = "Active";
 
                                 var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
-                                item2.Runners = new List<BettingServiceReference.Runner>();
-
+                                item2.Runners = new List<BettingServiceReference.Runner>().ToArray();
+                                var runnerList = new List<BettingServiceReference.Runner>();
                                 foreach (var runnermarketitem in runnerdesc)
                                 {
                                     var runneritem = new BettingServiceReference.Runner();
@@ -409,7 +412,7 @@ namespace Census.API.Controllers
 
                                         lstpricelist.Add(pricesize);
                                     }
-                                    runneritem.ExchangePrices.AvailableToBack = lstpricelist;
+                                    runneritem.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                                     lstpricelist = new List<BettingServiceReference.PriceSize>();
                                     for (int i = 0; i < 3; i++)
                                     {
@@ -421,9 +424,10 @@ namespace Census.API.Controllers
 
                                         lstpricelist.Add(pricesize);
                                     }
-                                    runneritem.ExchangePrices.AvailableToLay = lstpricelist;
-                                    item2.Runners.Add(runneritem);
+                                    runneritem.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
+                                    runnerList.Add(runneritem);
                                 }
+                                item2.Runners = runnerList.ToArray();
                                 item2.FavoriteID = "0";
                                 item2.FavoriteBack = "0";
                                 item2.FavoriteBackSize = "0";
@@ -1127,7 +1131,7 @@ namespace Census.API.Controllers
                 };
                 if (LoggedinUserDetail.GetCricketDataFrom == "Live")
                 {
-                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
+                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds.ToArray(), sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
                     if (marketbook.Count() > 0)
                     {
                         return marketbook[0];
@@ -1139,7 +1143,7 @@ namespace Census.API.Controllers
                 }
                 else
                 {
-                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
+                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds.ToArray(), sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
                     if (marketbook.Count() > 0)
                     {
                         return marketbook[0];
@@ -1316,7 +1320,7 @@ namespace Census.API.Controllers
                         }
 
                         runner.ExchangePrices = new BettingServiceReference.ExchangePrices();
-                        runner.ExchangePrices.AvailableToBack = lstpricelist;
+                        runner.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                         lstpricelist = new List<BettingServiceReference.PriceSize>();
                         if (runneritem.ExchangePrices.AvailableToLay != null && runneritem.ExchangePrices.AvailableToLay.Count() > 0)
                         {
@@ -1377,11 +1381,11 @@ namespace Census.API.Controllers
                             }
                         }
 
-                        runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>();
-                        runner.ExchangePrices.AvailableToLay = lstpricelist;
+                        runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>().ToArray();
+                        runner.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
                         lstRunners.Add(runner);
                     }
-                    marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners);
+                    marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners).ToArray();
 
                     double lastback = 0;
                     double lastbackSize = 0;
@@ -1394,7 +1398,7 @@ namespace Census.API.Controllers
                         string selectionIDfav = marketbook.Runners[0].SelectionId;
                         foreach (var favoriteitem in marketbook.Runners)
                         {
-                            if (favoriteitem.ExchangePrices.AvailableToBack != null && favoriteitem.ExchangePrices.AvailableToBack.Count > 0)
+                            if (favoriteitem.ExchangePrices.AvailableToBack != null && favoriteitem.ExchangePrices.AvailableToBack.Length > 0)
                                 if (marketbook.MainSportsname.Contains("Racing"))
                                 {
                                     if (favoriteitem.ExchangePrices.AvailableToBack[0].Price < favBack && favoriteitem.ExchangePrices.AvailableToBack[0].Price > 0)
@@ -1423,14 +1427,14 @@ namespace Census.API.Controllers
                         }
                         var favoriteteam = marketbook.Runners.Where(ii => ii.SelectionId == selectionIDfav).FirstOrDefault();
                         string selectionname = favoriteteam.RunnerName;
-                        if (favoriteteam.ExchangePrices.AvailableToBack.Count > 0)
+                        if (favoriteteam.ExchangePrices.AvailableToBack.Length > 0)
                         {
                             lastback = favoriteteam.ExchangePrices.AvailableToBack[0].Price;
                             lastbackSize = favoriteteam.ExchangePrices.AvailableToBack[0].Size;
 
 
                         }
-                        if (favoriteteam.ExchangePrices.AvailableToLay.Count > 0)
+                        if (favoriteteam.ExchangePrices.AvailableToLay.Length > 0)
                         {
 
                             lastLaySize = favoriteteam.ExchangePrices.AvailableToLay[0].Size;
@@ -1985,8 +1989,8 @@ namespace Census.API.Controllers
                             item2.MarketStatusstr = "Active";
 
                             var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
-                            item2.Runners = new List<BettingServiceReference.Runner>();
-
+                            item2.Runners = new List<BettingServiceReference.Runner>().ToArray();
+                            var lstRunner = new List<BettingServiceReference.Runner>();
                             foreach (var runnermarketitem in runnerdesc)
                             {
                                 var runneritem = new BettingServiceReference.Runner();
@@ -2009,7 +2013,7 @@ namespace Census.API.Controllers
 
                                     lstpricelist.Add(pricesize);
                                 }
-                                runneritem.ExchangePrices.AvailableToBack = lstpricelist;
+                                runneritem.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                                 lstpricelist = new List<BettingServiceReference.PriceSize>();
                                 for (int i = 0; i < 3; i++)
                                 {
@@ -2021,9 +2025,10 @@ namespace Census.API.Controllers
 
                                     lstpricelist.Add(pricesize);
                                 }
-                                runneritem.ExchangePrices.AvailableToLay = lstpricelist;
-                                item2.Runners.Add(runneritem);
+                                runneritem.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
+                                lstRunner.Add(runneritem);
                             }
+                            item2.Runners = lstRunner.ToArray();
                             item2.FavoriteID = "0";
                             item2.FavoriteBack = "0";
                             item2.FavoriteBackSize = "0";
@@ -2129,8 +2134,8 @@ namespace Census.API.Controllers
                                 item2.MarketStatusstr = "Active";
 
                                 var runnerdesc = objUsersServiceCleint.GetSelectionNamesbyMarketID(item2.MarketId);
-                                item2.Runners = new List<BettingServiceReference.Runner>();
-
+                                item2.Runners = new List<BettingServiceReference.Runner>().ToArray();
+                                var lstRunner = new List<BettingServiceReference.Runner>();
                                 foreach (var runnermarketitem in runnerdesc)
                                 {
                                     var runneritem = new BettingServiceReference.Runner();
@@ -2153,7 +2158,7 @@ namespace Census.API.Controllers
 
                                         lstpricelist.Add(pricesize);
                                     }
-                                    runneritem.ExchangePrices.AvailableToBack = lstpricelist;
+                                    runneritem.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                                     lstpricelist = new List<BettingServiceReference.PriceSize>();
                                     for (int i = 0; i < 3; i++)
                                     {
@@ -2165,9 +2170,10 @@ namespace Census.API.Controllers
 
                                         lstpricelist.Add(pricesize);
                                     }
-                                    runneritem.ExchangePrices.AvailableToLay = lstpricelist;
-                                    item2.Runners.Add(runneritem);
+                                    runneritem.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
+                                    lstRunner.Add(runneritem);
                                 }
+                                item2.Runners = lstRunner.ToArray();
                                 item2.FavoriteID = "0";
                                 item2.FavoriteBack = "0";
                                 item2.FavoriteBackSize = "0";

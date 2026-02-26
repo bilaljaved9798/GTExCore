@@ -57,7 +57,7 @@ namespace GTExCore.Component
 										 })
 										 .ToList();
                 _httpContextAccessor.HttpContext.Session.SetObject("Allmarkets", convertedList);
-                MarketBook.KJMarkets = convertedList.Where(item => item.EventNamek__BackingField == "Kali v Jut").ToList();
+                MarketBook.KJMarkets = convertedList.Where(item => item.EventNamek__BackingField == "Kali v Jut").ToArray();
 				//MarketBook.KJMarkets.FirstOrDefault().EventIDk__BackingField = eventID;
 				//MarketBook.KJMarkets = MarketBook.KJMarkets.Where(item => item.isOpenedbyUserk__BackingField == true).ToList();
 			}
@@ -181,17 +181,17 @@ namespace GTExCore.Component
 				lstpricelist.Add(pricesize);
 
 				runner.ExchangePrices = new BettingServiceReference.ExchangePrices();
-				runner.ExchangePrices.AvailableToBack = lstpricelist;
+				runner.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
 				lstpricelist = new List<BettingServiceReference.PriceSize>();
 				var pricesize1 = new BettingServiceReference.PriceSize();
 				pricesize1.OrignalSize = Convert.ToDouble(0);
 				pricesize1.Size = 102;               
 				pricesize1.Price = 1; 
 				lstpricelist.Add(pricesize1);
-				runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>();
-				runner.ExchangePrices.AvailableToLay = lstpricelist;
+				runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>().ToArray();
+				runner.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
 				lstRunners.Add(runner);
-				marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners);
+				marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners).ToArray();
 
 				return marketbook;
 			

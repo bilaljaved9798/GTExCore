@@ -47,7 +47,7 @@ namespace GTExCore.Controllers
 
 			if (LoggedinUserDetail.GetCricketDataFrom == "Live")
 			{
-				var list = objBettingClient.GetAllMarketsFancyAsync(lstIds);
+				var list = objBettingClient.GetAllMarketsFancyAsync(lstIds.ToArray());
 
 				if (list.Result.Count() > 0)
 				{
@@ -76,7 +76,7 @@ namespace GTExCore.Controllers
 			{
 
 
-				var list = (objBettingClient.GetAllMarketsOthersFancyAsync(lstIds));
+				var list = (objBettingClient.GetAllMarketsOthersFancyAsync(lstIds.ToArray()));
 
 				if (list.Result.Count() > 0)
 				{
@@ -371,7 +371,7 @@ namespace GTExCore.Controllers
 					}
 
 					runner.ExchangePrices = new BettingServiceReference.ExchangePrices();
-					runner.ExchangePrices.AvailableToBack = lstpricelist;
+					runner.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
 					lstpricelist = new List<BettingServiceReference.PriceSize>();
 					if (runnerlaydata.Count() > 0)
 					{
@@ -459,13 +459,13 @@ namespace GTExCore.Controllers
 						}
 					}
 
-					runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>();
-					runner.ExchangePrices.AvailableToLay = lstpricelist;
+					runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>().ToArray();
+					runner.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
 					lstRunners.Add(runner);
 				}
 
 
-				marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners);
+				marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners).ToArray();
 
 				return marketbook;
 
@@ -617,7 +617,7 @@ namespace GTExCore.Controllers
 						}
 
 						runner.ExchangePrices = new BettingServiceReference.ExchangePrices();
-						runner.ExchangePrices.AvailableToBack = lstpricelist;
+						runner.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
 						lstpricelist = new List<BettingServiceReference.PriceSize>();
 						if (runneritem.ExchangePrices.AvailableToLay != null && runneritem.ExchangePrices.AvailableToLay.Count() > 0)
 						{
@@ -678,11 +678,11 @@ namespace GTExCore.Controllers
 							}
 						}
 
-						runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>();
-						runner.ExchangePrices.AvailableToLay = lstpricelist;
+						runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>().ToArray();
+						runner.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
 						lstRunners.Add(runner);
 					}
-					marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners);
+					marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners).ToArray();
 
 
 					return marketbook;

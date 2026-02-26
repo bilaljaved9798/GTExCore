@@ -204,7 +204,7 @@ namespace GTExCore.Controllers
                    };
                 if (LoggedinUserDetail.GetCricketDataFrom == "Live")
                 {
-                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
+                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds.ToArray(), sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
                     if (marketbook.Count() > 0)
                     {
                         return marketbook[0];
@@ -218,7 +218,7 @@ namespace GTExCore.Controllers
                 {
 
 
-                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds, sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
+                    var marketbook = await objBettingClient.GetMarketDatabyIDAsync(marketIds.ToArray(), sheetname, marketopendate, MainSportsCategory, _passwordSettingsService.PasswordForValidate);
                     if (marketbook.Count() > 0)
                     {
                         return marketbook[0];
@@ -405,7 +405,7 @@ namespace GTExCore.Controllers
                         }
 
                         runner.ExchangePrices = new BettingServiceReference.ExchangePrices();
-                        runner.ExchangePrices.AvailableToBack = lstpricelist;
+                        runner.ExchangePrices.AvailableToBack = lstpricelist.ToArray();
                         lstpricelist = new List<BettingServiceReference.PriceSize>();
                         if (runneritem.ExchangePrices.AvailableToLay != null && runneritem.ExchangePrices.AvailableToLay.Count() > 0)
                         {
@@ -466,11 +466,11 @@ namespace GTExCore.Controllers
                             }
                         }
 
-                        runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>();
-                        runner.ExchangePrices.AvailableToLay = lstpricelist;
+                        runner.ExchangePrices.AvailableToLay = new List<BettingServiceReference.PriceSize>().ToArray();
+                        runner.ExchangePrices.AvailableToLay = lstpricelist.ToArray();
                         lstRunners.Add(runner);
                     }
-                    marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners);
+                    marketbook.Runners = new List<BettingServiceReference.Runner>(lstRunners).ToArray();
 
                     double lastback = 0;
                     double lastbackSize = 0;
@@ -484,7 +484,7 @@ namespace GTExCore.Controllers
                         string selectionIDfav = marketbook.Runners[0].SelectionId;
                         foreach (var favoriteitem in marketbook.Runners)
                         {
-                            if (favoriteitem.ExchangePrices.AvailableToBack != null && favoriteitem.ExchangePrices.AvailableToBack.Count > 0)
+                            if (favoriteitem.ExchangePrices.AvailableToBack != null && favoriteitem.ExchangePrices.AvailableToBack.Length > 0)
                                 if (marketbook.MainSportsname.Contains("Racing"))
                                 {
                                     if (favoriteitem.ExchangePrices.AvailableToBack[0].Price < favBack && favoriteitem.ExchangePrices.AvailableToBack[0].Price > 0)
@@ -517,14 +517,14 @@ namespace GTExCore.Controllers
 
 
                         string selectionname = favoriteteam.RunnerName;
-                        if (favoriteteam.ExchangePrices.AvailableToBack.Count > 0)
+                        if (favoriteteam.ExchangePrices.AvailableToBack.Length > 0)
                         {
                             lastback = favoriteteam.ExchangePrices.AvailableToBack[0].Price;
                             lastbackSize = favoriteteam.ExchangePrices.AvailableToBack[0].Size;
 
 
                         }
-                        if (favoriteteam.ExchangePrices.AvailableToLay.Count > 0)
+                        if (favoriteteam.ExchangePrices.AvailableToLay.Length > 0)
                         {
 
                             lastLaySize = favoriteteam.ExchangePrices.AvailableToLay[0].Size;
@@ -637,7 +637,7 @@ namespace GTExCore.Controllers
                                 objGridMarket.Runner2Back = marketbooks[0].Runners[1].ExchangePrices.AvailableToBack[0].Price.ToString();
                                 objGridMarket.Runner2BackSize = marketbooks[0].Runners[1].ExchangePrices.AvailableToBack[0].SizeStr.ToString();
 
-                                if (marketbooks[0].Runners.Count == 3)
+                                if (marketbooks[0].Runners.Length == 3)
                                 {
                                     objGridMarket.Runner3Back = marketbooks[0].Runners[2].ExchangePrices.AvailableToBack[0].Price.ToString();
                                     objGridMarket.Runner3BackSize = marketbooks[0].Runners[2].ExchangePrices.AvailableToBack[0].SizeStr.ToString();
@@ -667,7 +667,7 @@ namespace GTExCore.Controllers
                                 objGridMarket.Runner2Back = marketbooks[0].Runners[1].ExchangePrices.AvailableToBack[0].Price.ToString();
                                 objGridMarket.Runner2BackSize = marketbooks[0].Runners[1].ExchangePrices.AvailableToBack[0].SizeStr.ToString();
 
-                                if (marketbooks[0].Runners.Count == 3)
+                                if (marketbooks[0].Runners.Length == 3)
                                 {
                                     objGridMarket.Runner3Back = marketbooks[0].Runners[2].ExchangePrices.AvailableToBack[0].Price.ToString();
                                     objGridMarket.Runner3BackSize = marketbooks[0].Runners[2].ExchangePrices.AvailableToBack[0].SizeStr.ToString();
@@ -899,7 +899,7 @@ namespace GTExCore.Controllers
                         lstCurrentMarketBets = lstCurrentMarketBets.OrderBy(item => Convert.ToInt32(item.UserOdd)).ToList();
                         var maxuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[0].UserOdd) - 1);
                         var minuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[lstCurrentMarketBets.Count - 1].UserOdd) + 1);
-                        CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToList();
+                        CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToArray();
                     }
                 }
 
@@ -925,7 +925,7 @@ namespace GTExCore.Controllers
                             lstCurrentMarketBets = lstCurrentMarketBets.OrderBy(item => Convert.ToInt32(item.UserOdd)).ToList();
                             var maxuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[0].UserOdd) - 1);
                             var minuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[lstCurrentMarketBets.Count - 1].UserOdd) + 1);
-                            CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToList();
+                            CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToArray();
                         }
                     }
 
@@ -951,7 +951,7 @@ namespace GTExCore.Controllers
                                 lstCurrentMarketBets = lstCurrentMarketBets.OrderBy(item => Convert.ToInt32(item.UserOdd)).ToList();
                                 var maxuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[0].UserOdd) - 1);
                                 var minuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[lstCurrentMarketBets.Count - 1].UserOdd) + 1);
-                                CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToList();
+                                CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToArray();
                             }
                         }
 
@@ -973,7 +973,7 @@ namespace GTExCore.Controllers
                                 lstCurrentMarketBets = lstCurrentMarketBets.OrderBy(item => Convert.ToInt32(item.UserOdd)).ToList();
                                 var maxuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[0].UserOdd) - 1);
                                 var minuserodd = -1 * (Convert.ToInt32(lstCurrentMarketBets[lstCurrentMarketBets.Count - 1].UserOdd) + 1);
-                                CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToList();
+                                CurrentMarketProfitandloss.RunnersForindianFancy = CurrentMarketProfitandloss.RunnersForindianFancy.Where(item => item.Handicap >= minuserodd && item.Handicap <= maxuserodd).ToArray();
                             }
                         }
 
