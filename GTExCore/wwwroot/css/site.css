@@ -13,7 +13,65 @@ body {
 .hideer {
     display: normal;
 }
+/* Fullscreen Loader - White Background */
+#gamingLoader {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
 
+/* Loader Wrapper */
+.loader-wrapper {
+    text-align: center;
+}
+
+/* Neon Ring - Blue Accent */
+.neon-ring {
+    width: 120px;
+    height: 120px;
+    border: 6px solid rgba(0, 0, 0, 0.05);
+    border-top: 6px solid #007bff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
+}
+
+/* Loading Text */
+.loader-text {
+    margin-top: 20px;
+    font-size: 18px;
+    letter-spacing: 4px;
+    color: #007bff;
+    font-weight: 600;
+    animation: pulse 1.5s infinite alternate;
+}
+
+/* Spin Animation */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Text Fade Animation */
+@keyframes pulse {
+    0% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
 
 * {
     margin: 0;
@@ -1165,7 +1223,7 @@ cta-8:hover {
     position: absolute;
     z-index: 1;
     bottom: 95%;
-    left: 5%;
+    left: 100%;
     /* float: left; */
     margin-left: -165px;
     transition: opacity 0.3s;
