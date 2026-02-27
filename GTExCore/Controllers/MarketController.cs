@@ -88,6 +88,14 @@ namespace Census.API.Controllers
 
 
         }
+
+        [HttpPost]
+        public async Task<string> MarketBookData([FromBody] BettingServiceReference.MarketBook marketbooks)
+        {
+            var marketbooks2 = new List<BettingServiceReference.MarketBook>();
+            marketbooks2.Add(marketbooks);
+            return await RenderRazorViewToStringAsync("MarketBook", marketbooks2);
+        }
         public async Task<string> MarketBook(string ID)
         {
             try

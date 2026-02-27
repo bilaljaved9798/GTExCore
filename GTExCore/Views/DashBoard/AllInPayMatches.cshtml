@@ -1,5 +1,9 @@
-﻿@using GTExCore.HelperClasses
+﻿@using BettingServiceReference
+@using GTExCore.HelperClasses
+@using GTExCore.Models
 @using Microsoft.AspNetCore.Html
+@using System.Text.Json
+
 @model DefaultPageModel
 <head>
     <style>
@@ -52,200 +56,392 @@
                     <strong>Sport Highlights</strong>
                 </span>
             </div>
-
-            <div class="sporthighlightsuldiv">
-                <ul class="inplaymatchheading">
-                    @{
-                        var line = Model.AllMarkets.GroupBy(info => info.CategoryName).Select(group => new
-                        {
-                            Metric = group.Key,
-                            Count = group.Count()
-                        });
-                        List<string> eventtypes = Model.AllMarkets.Select(x => x.CategoryName).Distinct().ToList();
-                        foreach (var item in eventtypes)
-                        {
-
-                            <li role="presentation">
-                                @if (item == "Cricket")
-                                {
-                                    <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
-                                        <i><img src="/cric.svg" width="30" height="30" /></i>
-                                        @item (@line.Select(x => x.Count).FirstOrDefault())
-                                    </a>
-                                }
-                                @if (item == "Horse Racing")
-                                {
-                                    <a onclick="setactiveinplaycategory('Horse')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingHorse">
-                                        <i><img src="/2132.svg" width="30" height="30" /></i>
-                                        Horse (@line.Select(x => x.Count).Skip(3).Take(1).FirstOrDefault())
-                                    </a>
-                                }
-                                @if (item == "Greyhound Racing")
-                                {
-                                    <a onclick="setactiveinplaycategory('Greyhound')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingGreyhound">
-                                        <i><img src="/gre.svg" width="30" height="30" /></i>
-                                        Greyhound (@line.Select(x => x.Count).Skip(4).Take(1).FirstOrDefault())
-                                    </a>
-                                }
-                                @if (item == "Soccer")
-                                {
-                                    <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
-                                        <i><img src="/soc.svg" width="30" height="30" /></i>
-
-                                        @item (@line.Select(x => x.Count).Skip(1).Take(1).FirstOrDefault())
-                                    </a>
-                                }
-                                @if (item == "Tennis")
-                                {
-                                    <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
-                                        <i><img src="/tenn.svg" width="30" height="30" /></i>
-
-                                        @item (@line.Select(x => x.Count).Skip(2).Take(1).FirstOrDefault())
-                                    </a>
-                                }
-                            </li>
-                        }
-                    }
-                </ul>
-
-
-                <div class="col-md-12 no-padding">
-
-                    <div style="background:linear-gradient(to top, #00ff8a, #000000) !important; color:white; border-top:1px solid white;">
-                        <table>
-                            <thead>
-                                <tr style="linear-gradient(to top, #00ff8a, #000000) !important; color:white">
-                                    <th class="En" style="width:45%">Event Name</th>
-                                    <th class="od" style="width:20%">Open Date</th>
-                                    <th class="two2">1</th>
-                                    <th class="two2">X</th>
-                                    <th class="two2">2</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-
-                    @{
-                        @foreach (var item in eventtypes)
-                        {
-                            var data = item switch
+            @if (LoggedinUserDetail.GetCricketDataFrom != "Live")
+            {
+                <div class="sporthighlightsuldiv">
+                    <ul class="inplaymatchheading">
+                        @{
+                            var line = Model.AllMarketsData.GroupBy(info => info.MainSportsname).Select(group => new
                             {
-                                "Horse Racing" => "Horse",
-                                "Greyhound Racing" => "Greyhound",
-                                _ => item
-                            };
+                                Metric = group.Key,
+                                Count = group.Count()
+                            });
+                            List<string> eventtypes = Model.AllMarketsData.Select(x => x.MainSportsname).Distinct().ToList();
+                            foreach (var item in eventtypes)
+                            {
 
-                            var lstMatchesbytype = Model.AllMarkets.Where(x => x.CategoryName == item).ToList();
+                                <li role="presentation">
+                                    @if (item == "Cricket")
+                                    {
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
+                                            <i><img src="/cric.svg" width="30" height="30" /></i>
+                                            @item (@line.Select(x => x.Count).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Horse Racing")
+                                    {
+                                        <a onclick="setactiveinplaycategory('Horse')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingHorse">
+                                            <i><img src="/2132.svg" width="30" height="30" /></i>
+                                            Horse (@line.Select(x => x.Count).Skip(3).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Greyhound Racing")
+                                    {
+                                        <a onclick="setactiveinplaycategory('Greyhound')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingGreyhound">
+                                            <i><img src="/gre.svg" width="30" height="30" /></i>
+                                            Greyhound (@line.Select(x => x.Count).Skip(4).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Soccer")
+                                    {
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
+                                            <i><img src="/soc.svg" width="30" height="30" /></i>
 
-                            <div class="inplaydatabycategory" id="inplaydatafor@(data.Trim())">
-                                @foreach (var matchitem in lstMatchesbytype)
+                                            @item (@line.Select(x => x.Count).Skip(1).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Tennis")
+                                    {
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
+                                            <i><img src="/tenn.svg" width="30" height="30" /></i>
+
+                                            @item (@line.Select(x => x.Count).Skip(2).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+
+
+                    <div class="col-md-12 no-padding">
+
+                        <div style="background:linear-gradient(to top, #00ff8a, #000000) !important; color:white; border-top:1px solid white;">
+                            <table>
+                                <thead>
+                                    <tr style="linear-gradient(to top, #00ff8a, #000000) !important; color:white">
+                                        <th class="En" style="width:45%">Event Name</th>
+                                        <th class="od" style="width:20%">Open Date</th>
+                                        <th class="two2">1</th>
+                                        <th class="two2">X</th>
+                                        <th class="two2">2</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        @{
+                            @foreach (var item in eventtypes)
+                            {
+                                var data = item switch
                                 {
-                                    var isRacing = item == "Horse Racing" || item == "Greyhound Racing";
-                                    var isCricket = item == "Cricket";
-                                    var isSoccer = item == "Soccer";
-                                    var isTennis = item == "Tennis";
+                                    "Horse Racing" => "Horse",
+                                    "Greyhound Racing" => "Greyhound",
+                                    _ => item
+                                };
 
-                                    <div class="inplaydatarow">
-                                        <i class="fa fa-share-alt" aria-hidden="true" style="float: right;margin-top: 14px;margin-right: 10px;"></i>
-                                        <div class="inplaymatchname">
-                                            
-                                            @if (isRacing)
-                                            {
-                                                <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
-                                                var imageUrl = Url.Content($"/{matchitem.CountryCode}.svg");
-                                                <img src="@imageUrl" alt="Country Flag" style="height:25px;width:25px;float:left;margin-top:5px" />
-                                                <a onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.EventName - @matchitem.MarketBookName</a>
-                                            }
-                                            else if (isCricket && matchitem.MarketBookName == "Winner")
-                                            {
-                                                   <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
-                                                <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.EventName</a>
-                                            }
-                                            else if (matchitem.MarketStatus == "In Play")
-                                            {
-                                                   <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
-                                                <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.Runner1 v @matchitem.Runner2
+                                var lstMatchesbytype = Model.AllMarketsData.Where(x => x.MainSportsname == item).ToList();
 
-                                                    <img class="loveoflives" src="/play.png" style="height:25px;width:25px;float:initial;margin-top:0px" />
-                                                
-                                                </a>
-                                               
+                                <div class="inplaydatabycategory" id="inplaydatafor@(data.Trim())">
+                                    @foreach (var matchitem in lstMatchesbytype)
+                                    {
+                                        var isRacing = item == "Horse Racing" || item == "Greyhound Racing";
+                                        var isCricket = item == "Cricket";
+                                        var isSoccer = item == "Soccer";
+                                        var isTennis = item == "Tennis";
+
+                                        <div class="inplaydatarow">
+                                            <i class="fa fa-share-alt" aria-hidden="true" style="float: right;margin-top: 14px;margin-right: 10px;"></i>
+                                            <div class="inplaymatchname">
+
+                                                @if (isRacing)
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    var imageUrl = Url.Content($"/{matchitem.GetHashCode}.svg");
+                                                    <img src="@imageUrl" alt="Country Flag" style="height:25px;width:25px;float:left;margin-top:5px" />
+                                                    <a onclick='lastLevelBreadcrumbData(@Html.Raw(JsonSerializer.Serialize(matchitem)))'> @matchitem.MarketBookName</a>
+                                                }
+                                                else if (isCricket && matchitem.MarketBookName == "Winner")
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    <a style="color:green;" onclick='lastLevelBreadcrumbData(@Html.Raw(JsonSerializer.Serialize(matchitem)))'>@matchitem.MarketBookName</a>
+                                                }
+                                                else if (matchitem.MarketStatusstr == "In Play")
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    <a style="color:green;" onclick='lastLevelBreadcrumbData(@Html.Raw(JsonSerializer.Serialize(matchitem)))'>
+                                                        @matchitem.MarketBookName
+
+                                                        <img class="loveoflives" src="/play.png" style="height:25px;width:25px;float:initial;margin-top:0px" />
+
+                                                    </a>
+
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    <a style="color:@(GetMatchStatusColor(matchitem))" onclick='lastLevelBreadcrumbData(@Html.Raw(JsonSerializer.Serialize(matchitem)))'>@matchitem.MarketBookName</a>
+                                                }
+
+                                                <div class="inplaytime">
+                                                    @matchitem.OpenDate
+                                                </div>
+
+
+                                            </div>
+
+                                            @if (isCricket || isSoccer || isTennis)
+                                            {
+                                                <div class="inplaymatchbackandlay">
+                                                    @RenderRunner(matchitem.Runners[0].ExchangePrices.AvailableToBack[0].Price.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToBack[0].Size.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToLay[0].Price.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToLay[0].Size.ToString())
+                                                </div>
+                                                <div class="inplaymatchbackandlay1">
+                                                    @RenderRunner(matchitem.Runners[0].ExchangePrices.AvailableToBack[0].Price.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToBack[0].Size.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToLay[0].Price.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToLay[0].Size.ToString())
+                                                </div>
+                                                <div class="inplaymatchbackandlay2">
+                                                    @RenderRunner(matchitem.Runners[0].ExchangePrices.AvailableToBack[0].Price.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToBack[0].Size.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToLay[0].Price.ToString(), matchitem.Runners[0].ExchangePrices.AvailableToLay[0].Size.ToString())
+                                                </div>
                                             }
                                             else
                                             {
-                                                <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
-                                                <a style="color:@(GetMatchStatusColor(matchitem))" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.Runner1 v @matchitem.Runner2</a>
+
+                                                <div class="moleucule"
+                                                     style="float:right; margin-right:10%; cursor:pointer;"
+                                                     onclick='lastLevelBreadcrumbData(@Html.Raw(JsonSerializer.Serialize(matchitem)))'>
+                                                    @matchitem.MarketId.Replace("1.2", "")
+                                                </div>
                                             }
-
-                                            <div class="inplaytime">
-                                                @matchitem.MarketStartTime
-                                            </div>
-
-
                                         </div>
-                                        
-                                        @if (isCricket || isSoccer || isTennis)
-                                        {
-                                            <div class="inplaymatchbackandlay">
-                                                @RenderRunner(matchitem.Runner1Back, matchitem.Runner1BackSize, matchitem.Runner1Lay, matchitem.Runner1LaySize)
-                                            </div>
-                                            <div class="inplaymatchbackandlay1">
-                                                @RenderRunner(matchitem.Runner3Back, matchitem.Runner3BackSize, matchitem.Runner3Lay, matchitem.Runner3LaySize)
-                                            </div>
-                                            <div class="inplaymatchbackandlay2">
-                                                @RenderRunner(matchitem.Runner2Back, matchitem.Runner2BackSize, matchitem.Runner2Lay, matchitem.Runner2LaySize)
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="moleucule" style="float: right; margin-right: 10%;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.MarketBookID.Replace("1.2", "")</div>
-                                        }
-                                    </div>
-                                }
-                            </div>
+                                    }
+                                </div>
+                            }
+
+                    @functions {
+                        private string GetCaretColor(MarketBook matchitem, bool isCricket)
+                        {
+                            if (isCricket && matchitem.MarketBookName == "Winner") return "green";
+                            return matchitem.MarketStatusstr switch
+                            {
+                                "In Play" => "green",
+                                "Closed" or "suspended" => "#bb2d3b",
+                                _ => "black"
+                            };
                         }
 
-                        @functions {
-                            private string GetCaretColor(AllMarketsInPlay matchitem, bool isCricket)
+                        private string GetMatchStatusColor(MarketBook matchitem)
+                        {
+                            return matchitem.MarketStatusstr switch
                             {
-                                if (isCricket && matchitem.MarketBookName == "Winner") return "green";
-                                return matchitem.MarketStatus switch
-                                {
-                                    "In Play" => "green",
-                                    "Closed" or "suspended" => "#bb2d3b",
-                                    _ => "black"
-                                };
-                            }
-
-                            private string GetMatchStatusColor(AllMarketsInPlay matchitem)
-                            {
-                                return matchitem.MarketStatus switch
-                                {
-                                    "In Play" => "green",
-                                    "Closed" or "suspended" => "#bb2d3b",
-                                    _ => "black"
-                                };
-                            }
-
-                            private IHtmlContent RenderRunner(string back, string backSize, string lay, string laySize)
-                            {
-                                return new HtmlString($@"
-                    <div class='inplayrunner1'>
-                    <div class='inplayback'>
-                    <span style='font-size: 22px;font-weight: 800;'>{back}</span><br />
-                    <span style='font-size: 14px;font-weight: 500;'>{backSize}</span>
-                    </div>
-                    <div class='inplaylay'>
-                    <span style='font-size: 22px;font-weight: 800;'>{lay}</span><br />
-                    <span style='font-size: 14px;font-weight: 500;'>{laySize}</span>
-                    </div>
-                    </div>");
-                            }
+                                "In Play" => "green",
+                                "Closed" or "suspended" => "#bb2d3b",
+                                _ => "black"
+                            };
                         }
 
+                        private IHtmlContent RenderRunner(string back, string backSize, string lay, string laySize)
+                        {
+                            return new HtmlString($@"
+                                        <div class='inplayrunner1'>
+                                        <div class='inplayback'>
+                                        <span style='font-size: 22px;font-weight: 800;'>{back}</span><br />
+                                        <span style='font-size: 14px;font-weight: 500;'>{backSize}</span>
+                                        </div>
+                                        <div class='inplaylay'>
+                                        <span style='font-size: 22px;font-weight: 800;'>{lay}</span><br />
+                                        <span style='font-size: 14px;font-weight: 500;'>{laySize}</span>
+                                        </div>
+                                        </div>");
+                        }
                     }
+
+                                        }
                 </div>
             </div>
+                        }
+                        else
+            {
+                <div class="sporthighlightsuldiv">
+                    <ul class="inplaymatchheading">
+                        @{
+                            var line = Model.AllMarkets.GroupBy(info => info.CategoryName).Select(group => new
+                            {
+                                Metric = group.Key,
+                                Count = group.Count()
+                            });
+                            List<string> eventtypes = Model.AllMarkets.Select(x => x.CategoryName).Distinct().ToList();
+                            foreach (var item in eventtypes)
+                            {
+
+                                <li role="presentation">
+                                    @if (item == "Cricket")
+                                    {
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
+                                            <i><img src="/cric.svg" width="30" height="30" /></i>
+                                            @item (@line.Select(x => x.Count).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Horse Racing")
+                                    {
+                                        <a onclick="setactiveinplaycategory('Horse')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingHorse">
+                                            <i><img src="/2132.svg" width="30" height="30" /></i>
+                                            Horse (@line.Select(x => x.Count).Skip(3).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Greyhound Racing")
+                                    {
+                                        <a onclick="setactiveinplaycategory('Greyhound')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingGreyhound">
+                                            <i><img src="/gre.svg" width="30" height="30" /></i>
+                                            Greyhound (@line.Select(x => x.Count).Skip(4).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Soccer")
+                                    {
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
+                                            <i><img src="/soc.svg" width="30" height="30" /></i>
+
+                                            @item (@line.Select(x => x.Count).Skip(1).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                    @if (item == "Tennis")
+                                    {
+                                        <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
+                                            <i><img src="/tenn.svg" width="30" height="30" /></i>
+
+                                            @item (@line.Select(x => x.Count).Skip(2).Take(1).FirstOrDefault())
+                                        </a>
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+
+
+                    <div class="col-md-12 no-padding">
+
+                        <div style="background:linear-gradient(to top, #00ff8a, #000000) !important; color:white; border-top:1px solid white;">
+                            <table>
+                                <thead>
+                                    <tr style="linear-gradient(to top, #00ff8a, #000000) !important; color:white">
+                                        <th class="En" style="width:45%">Event Name</th>
+                                        <th class="od" style="width:20%">Open Date</th>
+                                        <th class="two2">1</th>
+                                        <th class="two2">X</th>
+                                        <th class="two2">2</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+
+                        @{
+                            @foreach (var item in eventtypes)
+                            {
+                                var data = item switch
+                                {
+                                    "Horse Racing" => "Horse",
+                                    "Greyhound Racing" => "Greyhound",
+                                    _ => item
+                                };
+
+                                var lstMatchesbytype = Model.AllMarkets.Where(x => x.CategoryName == item).ToList();
+
+                                <div class="inplaydatabycategory" id="inplaydatafor@(data.Trim())">
+                                    @foreach (var matchitem in lstMatchesbytype)
+                                    {
+                                        var isRacing = item == "Horse Racing" || item == "Greyhound Racing";
+                                        var isCricket = item == "Cricket";
+                                        var isSoccer = item == "Soccer";
+                                        var isTennis = item == "Tennis";
+
+                                        <div class="inplaydatarow">
+                                            <i class="fa fa-share-alt" aria-hidden="true" style="float: right;margin-top: 14px;margin-right: 10px;"></i>
+                                            <div class="inplaymatchname">
+
+                                                @if (isRacing)
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    var imageUrl = Url.Content($"/{matchitem.CountryCode}.svg");
+                                                    <img src="@imageUrl" alt="Country Flag" style="height:25px;width:25px;float:left;margin-top:5px" />
+                                                    <a onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.EventName - @matchitem.MarketBookName</a>
+                                                }
+                                                else if (isCricket && matchitem.MarketBookName == "Winner")
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.EventName</a>
+                                                }
+                                                else if (matchitem.MarketStatus == "In Play")
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    <a style="color:green;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">
+                                                        @matchitem.Runner1 v @matchitem.Runner2
+
+                                                        <img class="loveoflives" src="/play.png" style="height:25px;width:25px;float:initial;margin-top:0px" />
+
+                                                    </a>
+
+                                                }
+                                                else
+                                                {
+                                                    <i class="fa fa-caret-right" aria-hidden="true" style="float: left; margin-top: 5px; color:@(GetCaretColor(matchitem, isCricket)); font-size: 19px;"></i>
+                                                    <a style="color:@(GetMatchStatusColor(matchitem))" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.Runner1 v @matchitem.Runner2</a>
+                                                }
+
+                                                <div class="inplaytime">
+                                                    @matchitem.MarketStartTime
+                                                </div>
+
+
+                                            </div>
+
+                                            @if (isCricket || isSoccer || isTennis)
+                                            {
+                                                <div class="inplaymatchbackandlay">
+                                                    @RenderRunner(matchitem.Runner1Back, matchitem.Runner1BackSize, matchitem.Runner1Lay, matchitem.Runner1LaySize)
+                                                </div>
+                                                <div class="inplaymatchbackandlay1">
+                                                    @RenderRunner(matchitem.Runner3Back, matchitem.Runner3BackSize, matchitem.Runner3Lay, matchitem.Runner3LaySize)
+                                                </div>
+                                                <div class="inplaymatchbackandlay2">
+                                                    @RenderRunner(matchitem.Runner2Back, matchitem.Runner2BackSize, matchitem.Runner2Lay, matchitem.Runner2LaySize)
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="moleucule" style="float: right; margin-right: 10%;" onclick="lastLevelBreadcrumb('@matchitem.MarketBookID')">@matchitem.MarketBookID.Replace("1.2", "")</div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                    @functions {
+                        private string GetCaretColor(AllMarketsInPlay matchitem, bool isCricket)
+                        {
+                            if (isCricket && matchitem.MarketBookName == "Winner") return "green";
+                            return matchitem.MarketStatus switch
+                            {
+                                "In Play" => "green",
+                                "Closed" or "suspended" => "#bb2d3b",
+                                _ => "black"
+                            };
+                        }
+
+                        private string GetMatchStatusColor(AllMarketsInPlay matchitem)
+                        {
+                            return matchitem.MarketStatus switch
+                            {
+                                "In Play" => "green",
+                                "Closed" or "suspended" => "#bb2d3b",
+                                _ => "black"
+                            };
+                        }
+
+
+                    }
+
+                                        }
+                </div>
+            </div>
+                        }
         </div>
     </div>
 

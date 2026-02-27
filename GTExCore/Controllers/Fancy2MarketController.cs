@@ -64,7 +64,7 @@ namespace Census.API.Controllers
 				string jsonResult = await objBettingClient.GetRunnersForFancyAsync(EventID, MarketBookID);
 				LineMarketData getDataFancy = JsonConvert.DeserializeObject<LineMarketData>(jsonResult);
 
-				foreach (var runners in getDataFancy.session)
+				foreach (var runners in getDataFancy?.session)
 				{
 					var runner = new BettingServiceReference.RunnerForIndianFancy();
 					runner.BettingAllowed = true;

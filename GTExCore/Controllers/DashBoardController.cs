@@ -788,14 +788,28 @@ namespace GTExCore.Controllers
                 }
                 if (LoggedinUserDetail.GetUserTypeID() == 3)
                 {
-                    var data = GetManagers();
+                    if (LoggedinUserDetail.URLsData.Count == 0)
+                    {
+                        SetURLsData();
+                    }
                     var model = new DefaultPageModel();
+                    if (LoggedinUserDetail.GetCricketDataFrom != "Live")
+                    {
+                        BettingServiceReference.MarketBook[] lstGridMarkets = objBettingClient.GetMarketDataList(_passwordSettingsService.PasswordForValidate);
+                        model.AllMarketsData = lstGridMarkets.ToList();
+                    }
+                    else
+                    {
+                        var data = GetManagers();
+                        model.AllMarkets= data.Result;
+                    }
+                        
 
                     model.WelcomeMessage = "Please enjoy the non-stop intriguing betting experience only on www.gt-exch.com. Thanks";
                     model.WelcomeHeading = "Notice";
                     model.Rule = "Rule & Regs";
                     model.WelcomeMessage = "All bets apply to Full Time according to the match officials, plus any stoppage time. Extra - time / penalty shoot - outs are not included.If this market is re - opened for In - Play betting, unmatched bets will be cancelled at kick off and the market turned in play.The market will be suspended if it appears that a goal has been scored, a penalty will be given, or a red card will be shown.With the exception of bets for which the 'keep' option has been selected, unmatched bets will be cancelled in the event of a confirmed goal or sending off.Please note that should our data feeds fail we may be unable to manage this game in-play.Customers should be aware   that:Transmissions described as â€œliveâ€ by some broadcasters may actually be delayed.The extent of any such delay may vary, depending on the set-up through which they are receiving pictures or data.If this market is scheduled to go in-play, but due to unforeseen circumstances we are unable to offer the market in-play, then this market will be re-opened for the half-time interval and suspended again an hour after the scheduled kick-off time.";
-                    model.AllMarkets = data.Result;
+                    
                     model.TodayHorseRacing = new List<TodayHorseRacing>();
 
                     model.ModalContent = new List<string>();
@@ -808,45 +822,16 @@ namespace GTExCore.Controllers
                 }
                 else
                 {
+                    BettingServiceReference.MarketBook[] lstGridMarkets = objBettingClient.GetMarketDataList(_passwordSettingsService.PasswordForValidate);
                     var results = objUsersServiceCleint.GetInPlayMatcheswithRunners1(userid);
                     List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(results);
                     List<string> lstIds = lstInPlayMatches.Where(item => item.EventTypeName == "Cricket").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList();
                     lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Soccer").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
                     lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Tennis").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
-                    List<AllMarketsInPlay> lstGridMarkets = new List<AllMarketsInPlay>();
+                    //List<AllMarketsInPlay> lstGridMarkets = new List<AllMarketsInPlay>();
                     ViewBag.backgrod = "#1D9BF0 !important";
                     ViewBag.color = "white";
-                    foreach (var item in lstIds)
-                    {
-                        try
-                        {
-                            InPlayMatches objMarketLocal = lstInPlayMatches.Where(item2 => item2.MarketCatalogueID == item).FirstOrDefault();
-                            AllMarketsInPlay objGridMarket = new AllMarketsInPlay();
-                            objGridMarket.CategoryName = objMarketLocal.EventTypeName;
-                            objGridMarket.MarketBookID = objMarketLocal.MarketCatalogueID;
-                            objGridMarket.MarketBookName = objMarketLocal.MarketCatalogueName;
-                            objGridMarket.EventName = objMarketLocal.EventName;
-                            objGridMarket.CompetitionName = objMarketLocal.CompetitionName;
-                            objGridMarket.MarketStartTime = objMarketLocal.EventOpenDate.Value.AddHours(5).ToString("dd-MM-yyyy hh:mm tt");
-                            objGridMarket.MarketStatus = objMarketLocal.MarketStatus;
-
-                            List<InPlayMatches> lstRunnersID = lstInPlayMatches.Where(item2 => item2.MarketCatalogueID == item).ToList();
-                            try
-                            {
-                                objGridMarket.Runner1 = lstRunnersID.Where(x => !x.SelectionName.Contains("Draw")).FirstOrDefault().SelectionName;
-                                objGridMarket.Runner2 = lstRunnersID.Where(x => !x.SelectionName.Contains("Draw")).LastOrDefault().SelectionName;
-                                if (lstRunnersID.Count == 3)
-                                {
-                                    objGridMarket.Runner3 = lstRunnersID.Where(x => x.SelectionName.Contains("Draw")).FirstOrDefault().SelectionName;
-                                }
-                            }
-                            catch (System.Exception ex)
-                            { }
-                            lstGridMarkets.Add(objGridMarket);
-                        }
-                        catch (System.Exception ex)
-                        { }
-                    }
+                    
 
 
                     var model = new DefaultPageModel();
@@ -855,9 +840,6 @@ namespace GTExCore.Controllers
                     model.WelcomeHeading = "Notice";
                     model.Rule = "Rule & Regs";
                     model.WelcomeMessage = "All bets apply to Full Time according to the match officials, plus any stoppage time. Extra - time / penalty shoot - outs are not included.If this market is re - opened for In - Play betting, unmatched bets will be cancelled at kick off and the market turned in play.The market will be suspended if it appears that a goal has been scored, a penalty will be given, or a red card will be shown.With the exception of bets for which the 'keep' option has been selected, unmatched bets will be cancelled in the event of a confirmed goal or sending off.Please note that should our data feeds fail we may be unable to manage this game in-play.Customers should be aware   that:Transmissions described as â€œliveâ€ by some broadcasters may actually be delayed.The extent of any such delay may vary, depending on the set-up through which they are receiving pictures or data.If this market is scheduled to go in-play, but due to unforeseen circumstances we are unable to offer the market in-play, then this market will be re-opened for the half-time interval and suspended again an hour after the scheduled kick-off time.";
-
-                    model.AllMarkets = lstGridMarkets;
-
 
                     model.ModalContent = new List<string>();
                     string modalli1 = "Dummy text";

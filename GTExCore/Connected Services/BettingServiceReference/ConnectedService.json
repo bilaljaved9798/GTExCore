@@ -1,7 +1,7 @@
 {
   "ExtendedData": {
     "inputs": [
-      "http://78.110.160.52:8960/bfnexchangeServices/Services/BettingService.svc?wsdl,
+      "http://78.110.160.52:8960/bfnexchangeServices/Services/BettingService.svc?wsdl
       //"http://localhost:54524/Services/BettingService.svc"
     ],
     "collectionTypes": [
