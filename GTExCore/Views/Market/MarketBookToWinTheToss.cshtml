@@ -18,7 +18,7 @@
             <input type="hidden" id="marketbookCategory@(item.MarketId.ToString().Replace(".", ""))" value="@item.MainSportsname" />
             <input type="hidden" id="marketbookorignalopendate@(item.MarketId.ToString().Replace(".", ""))" value="@item.OrignalOpenDate" />
             <input type="hidden" id="marketbookname@(item.MarketId.ToString().Replace(".", ""))" value="@item.MarketBookName" />
-            <input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Count.ToString()" />
+            <input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Length.ToString()" />
             <input type="hidden" id="marketbookAllowedBetting@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowed).ToString()" />
             <input type="hidden" id="marketbookAllowedBettingOverAll@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowedOverAll).ToString()" />
             <input type="hidden" id="marketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))" value="@item.TotalMatched.ToString()" />
@@ -189,7 +189,7 @@
                                             <div id="backandlaydivthird" class="no-padding">
                                                 @for (int i = 2; i >= 0; i--)
                                                 {
-                                                    if (runner.ExchangePrices.AvailableToBack.Count - 1 >= i && runner.ExchangePrices.AvailableToBack.Count > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
+                                                    if (runner.ExchangePrices.AvailableToBack.Length - 1 >= i && runner.ExchangePrices.AvailableToBack.Length > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
                                                     {
                                                         <div id="backitemval" class="no-padding backitem">
                                                             <label class="labelup selectionprice winthetossmarket" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0',true)">
@@ -215,7 +215,7 @@
                                             <div id="ExchangePricesmain" class="no-padding">
                                                 @for (int i = 0; i < 3; i++)
                                                 {
-                                                    if (runner.ExchangePrices.AvailableToLay.Count > i && runner.ExchangePrices.AvailableToLay.Count > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
+                                                    if (runner.ExchangePrices.AvailableToLay.Length > i && runner.ExchangePrices.AvailableToLay.Length > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
                                                     {
                                                         <div id="layitemmain" class="no-padding layitem">
 

@@ -24,7 +24,7 @@
 				}
 				<input type="hidden" id="marketbookorignalopendate@(item.MarketId.ToString().Replace(".", ""))" value="@item.OrignalOpenDate" />
 				<input type="hidden" id="marketbookname@(item.MarketId.ToString().Replace(".", ""))" value="@item.MarketBookName" />
-				<input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Count.ToString()" />
+				<input type="hidden" id="marketbookrunners@(item.MarketId.ToString().Replace(".", ""))" value="@item.Runners.Length.ToString()" />
 				<input type="hidden" id="marketbookAllowedBetting@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowed).ToString()" />
 				<input type="hidden" id="marketbookAllowedBettingOverAll@(item.MarketId.ToString().Replace(".", ""))" value="@Convert.ToInt32(item.BettingAllowedOverAll).ToString()" />
 				<input type="hidden" id="marketbookTotalMatched@(item.MarketId.ToString().Replace(".", ""))" value="@item.TotalMatched.ToString()" />
@@ -44,7 +44,7 @@
 						string marketname2 = marketnameandtype[2];
 						<label class="rule2 active1" style="background:linear-gradient(to top, #00ff8a, #000000) !important;color:@ViewBag.color">
 							<span style="float:left;text-shadow:0.35px 0.35px white;">@marketname1/@marketname2</span>
-							<span style="float:right;margin-right: 20px;" onclick="showmarketrules('@item.MainSportsname','@item.MarketBookName','@item.Runners.Count.ToString()')"><i class="far fa-star love"></i></span>
+							<span style="float:right;margin-right: 20px;" onclick="showmarketrules('@item.MainSportsname','@item.MarketBookName','@item.Runners.Length.ToString()')"><i class="far fa-star love"></i></span>
 						</label>
 					}
 				</div>
@@ -159,7 +159,7 @@
 
 												@for (int i = 2; i >= 0; i--)
 												{
-													if (runner.ExchangePrices.AvailableToBack.Count - 1 >= i && runner.ExchangePrices.AvailableToBack.Count > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
+													if (runner.ExchangePrices.AvailableToBack.Length - 1 >= i && runner.ExchangePrices.AvailableToBack.Length > 0 && runner.ExchangePrices.AvailableToBack[i].Price > 0)
 													{
 														<div id="backitemval" class="no-padding backitem">
 															<label style="font-family:'Times New Roman', Times, serif !important;" id="lblbackprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" class="selectionprice lableupgoals" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','back',' @runner.ExchangePrices.AvailableToBack[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToBack[i].Size','@i','0')">
@@ -190,8 +190,8 @@
 											<div id="ExchangePricesmain" class="no-padding">
 												@for (int i = 0; i < 3; i++)
 												{
-													if (runner.ExchangePrices.AvailableToLay.Count > i && runner.ExchangePrices.AvailableToLay.Count > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
-													{
+												if (runner.ExchangePrices.AvailableToLay.Length > i && runner.ExchangePrices.AvailableToLay.Length > 0 && runner.ExchangePrices.AvailableToLay[i].Price > 0)
+																			{
 														<div id="layitemmain" class="no-padding layitem">
 
 															<label style="font-family:'Times New Roman', Times, serif !important;" id="lbllayprice@(i.ToString() + runner.SelectionId.ToString().Replace(" ", ""))" class="selectionprice lableupgoals" onclick="showbetslip('@runner.SelectionId.Replace(" ", "")','lay',' @runner.ExchangePrices.AvailableToLay[i].Price','2000','0','@item.MarketId','@item.MarketBookName','@runner.ExchangePrices.AvailableToLay[i].Size','@i','0')">

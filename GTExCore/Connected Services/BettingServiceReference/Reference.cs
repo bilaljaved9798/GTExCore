@@ -9,11 +9,12 @@
 
 namespace BettingServiceReference
 {
+    using Humanizer;
     using System.Runtime.Serialization;
     
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketCatalogue", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class MarketCatalogue : object
     {
@@ -32,7 +33,7 @@ namespace BettingServiceReference
         
         private string MarketNameField;
         
-        private System.Collections.Generic.List<BettingServiceReference.RunnerDescription> RunnersField;
+        private BettingServiceReference.RunnerDescription[] RunnersField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public BettingServiceReference.Competition Competition
@@ -126,7 +127,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.RunnerDescription> Runners
+        public BettingServiceReference.RunnerDescription[] Runners
         {
             get
             {
@@ -140,7 +141,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Competition", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Competition : object
     {
@@ -192,7 +193,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketDescription", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class MarketDescription : object
     {
@@ -424,7 +425,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Event", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Event : object
     {
@@ -536,7 +537,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EventType", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class EventType : object
     {
@@ -588,7 +589,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RunnerDescription", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class RunnerDescription : object
     {
@@ -669,7 +670,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketBettingType", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum MarketBettingType : int
     {
@@ -712,7 +713,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketBook", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class MarketBook : object
     {
@@ -727,7 +728,7 @@ namespace BettingServiceReference
         
         private string CricketMatchKeyField;
         
-        private System.Collections.Generic.List<BettingServiceReference.DebitCredit> DebitCreditField;
+        private BettingServiceReference.DebitCredit[] DebitCreditField;
         
         private string EventIDField;
         
@@ -743,7 +744,7 @@ namespace BettingServiceReference
         
         private string FavoriteSelectionNameField;
         
-        private System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result> FigureMarketsField;
+        private BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[] FigureMarketsField;
         
         private string GetMatchUpdatesFromField;
         
@@ -759,13 +760,13 @@ namespace BettingServiceReference
         
         private bool IsRunnersVoidableField;
         
-        private System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result> KJMarketsField;
+        private BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[] KJMarketsField;
         
         private System.Nullable<System.DateTime> LastMatchTimeField;
         
-        private System.Collections.Generic.List<BettingServiceReference.LinevMarkets> LineVMarketsField;
+        private BettingServiceReference.LinevMarkets[] LineVMarketsField;
         
-        private System.Collections.Generic.List<BettingServiceReference.LinevMarketsIN> LineVMarketsINField;
+        private BettingServiceReference.LinevMarketsIN[] LineVMarketsINField;
         
         private string MainSportsnameField;
         
@@ -787,9 +788,9 @@ namespace BettingServiceReference
         
         private decimal PoundRateField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Runner> RunnersField;
+        private BettingServiceReference.Runner[] RunnersField;
         
-        private System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result> SFigMarketsField;
+        private BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[] SFigMarketsField;
         
         private string SheetNameField;
         
@@ -813,7 +814,7 @@ namespace BettingServiceReference
         
         private bool isWinTheTossMarketField;
         
-        private System.Collections.Generic.List<string> lstMultipleSelectionforBetsField;
+        private string[] lstMultipleSelectionforBetsField;
         
         private int marketsopenedField;
         
@@ -883,7 +884,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.DebitCredit> DebitCredit
+        public BettingServiceReference.DebitCredit[] DebitCredit
         {
             get
             {
@@ -987,7 +988,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result> FigureMarkets
+        public BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[] FigureMarkets
         {
             get
             {
@@ -1091,7 +1092,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result> KJMarkets
+        public BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[] KJMarkets
         {
             get
             {
@@ -1117,7 +1118,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.LinevMarkets> LineVMarkets
+        public BettingServiceReference.LinevMarkets[] LineVMarkets
         {
             get
             {
@@ -1130,7 +1131,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.LinevMarketsIN> LineVMarketsIN
+        public BettingServiceReference.LinevMarketsIN[] LineVMarketsIN
         {
             get
             {
@@ -1273,7 +1274,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.Runner> Runners
+        public BettingServiceReference.Runner[] Runners
         {
             get
             {
@@ -1286,7 +1287,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result> SFigMarkets
+        public BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[] SFigMarkets
         {
             get
             {
@@ -1442,7 +1443,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<string> lstMultipleSelectionforBets
+        public string[] lstMultipleSelectionforBets
         {
             get
             {
@@ -1469,7 +1470,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="DebitCredit", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class DebitCredit : object
     {
@@ -1521,7 +1522,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SP_UserMarket_GetDistinctKJMarketsbyEventID_Result", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class SP_UserMarket_GetDistinctKJMarketsbyEventID_Result : object
     {
@@ -1648,7 +1649,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LinevMarkets", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class LinevMarkets : object
     {
@@ -1820,7 +1821,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LinevMarketsIN", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class LinevMarketsIN : object
     {
@@ -1872,7 +1873,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Runner", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Runner : object
     {
@@ -1899,9 +1900,9 @@ namespace BettingServiceReference
         
         private string MarketStatusStrField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Match> MatchesField;
+        private BettingServiceReference.Match[] MatchesField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Order> OrdersField;
+        private BettingServiceReference.Order[] OrdersField;
         
         private long ProfitandLossField;
         
@@ -2073,7 +2074,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.Match> Matches
+        public BettingServiceReference.Match[] Matches
         {
             get
             {
@@ -2086,7 +2087,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.Order> Orders
+        public BettingServiceReference.Order[] Orders
         {
             get
             {
@@ -2268,7 +2269,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketStatus", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum MarketStatus : int
     {
@@ -2287,19 +2288,19 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ExchangePrices", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class ExchangePrices : object
     {
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize> AvailableToBackField;
+        private BettingServiceReference.PriceSize[] AvailableToBackField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize> AvailableToLayField;
+        private BettingServiceReference.PriceSize[] AvailableToLayField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize> TradedVolumeField;
+        private BettingServiceReference.PriceSize[] TradedVolumeField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize> AvailableToBack
+        public BettingServiceReference.PriceSize[] AvailableToBack
         {
             get
             {
@@ -2312,7 +2313,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize> AvailableToLay
+        public BettingServiceReference.PriceSize[] AvailableToLay
         {
             get
             {
@@ -2325,7 +2326,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize> TradedVolume
+        public BettingServiceReference.PriceSize[] TradedVolume
         {
             get
             {
@@ -2339,18 +2340,18 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="StartingPrices", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class StartingPrices : object
     {
         
         private double ActualSPField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize> BackStakeTakenField;
+        private BettingServiceReference.PriceSize[] BackStakeTakenField;
         
         private double FarPriceField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize> LayLiabilityTakenField;
+        private BettingServiceReference.PriceSize[] LayLiabilityTakenField;
         
         private double NearPriceField;
         
@@ -2368,7 +2369,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize> BackStakeTaken
+        public BettingServiceReference.PriceSize[] BackStakeTaken
         {
             get
             {
@@ -2394,7 +2395,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize> LayLiabilityTaken
+        public BettingServiceReference.PriceSize[] LayLiabilityTaken
         {
             get
             {
@@ -2421,7 +2422,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Match", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Match : object
     {
@@ -2503,7 +2504,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Order", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Order : object
     {
@@ -2734,7 +2735,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RunnerStatus", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum RunnerStatus : int
     {
@@ -2756,7 +2757,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PriceSize", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class PriceSize : object
     {
@@ -2822,7 +2823,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Side", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum Side : int
     {
@@ -2834,7 +2835,7 @@ namespace BettingServiceReference
         LAY = 1,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderType", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum OrderType : int
     {
@@ -2849,7 +2850,7 @@ namespace BettingServiceReference
         MARKET_ON_CLOSE = 2,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PersistenceType", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum PersistenceType : int
     {
@@ -2864,7 +2865,7 @@ namespace BettingServiceReference
         MARKET_ON_CLOSE = 2,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderStatus", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public enum OrderStatus : int
     {
@@ -2877,7 +2878,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EventTypeResult", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class EventTypeResult : object
     {
@@ -2914,7 +2915,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="CompetitionResult", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class CompetitionResult : object
     {
@@ -2951,7 +2952,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="EventResult", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class EventResult : object
     {
@@ -2988,7 +2989,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketBookForindianFancy", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class MarketBookForindianFancy : object
     {
@@ -3003,7 +3004,7 @@ namespace BettingServiceReference
         
         private string CricketMatchKeyField;
         
-        private System.Collections.Generic.List<BettingServiceReference.DebitCredit> DebitCreditField;
+        private BettingServiceReference.DebitCredit[] DebitCreditField;
         
         private string EventIDField;
         
@@ -3035,7 +3036,7 @@ namespace BettingServiceReference
         
         private System.Nullable<System.DateTime> LastMatchTimeField;
         
-        private System.Collections.Generic.List<BettingServiceReference.LinevMarkets> LineVMarketsField;
+        private BettingServiceReference.LinevMarkets[] LineVMarketsField;
         
         private string MainSportsnameField;
         
@@ -3057,7 +3058,7 @@ namespace BettingServiceReference
         
         private decimal PoundRateField;
         
-        private System.Collections.Generic.List<BettingServiceReference.RunnerForIndianFancy> RunnersForindianFancyField;
+        private BettingServiceReference.RunnerForIndianFancy[] RunnersForindianFancyField;
         
         private string SheetNameField;
         
@@ -3081,7 +3082,7 @@ namespace BettingServiceReference
         
         private bool isWinTheTossMarketField;
         
-        private System.Collections.Generic.List<string> lstMultipleSelectionforBetsField;
+        private string[] lstMultipleSelectionforBetsField;
         
         private int marketsopenedField;
         
@@ -3151,7 +3152,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.DebitCredit> DebitCredit
+        public BettingServiceReference.DebitCredit[] DebitCredit
         {
             get
             {
@@ -3359,7 +3360,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.LinevMarkets> LineVMarkets
+        public BettingServiceReference.LinevMarkets[] LineVMarkets
         {
             get
             {
@@ -3502,7 +3503,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.RunnerForIndianFancy> RunnersForindianFancy
+        public BettingServiceReference.RunnerForIndianFancy[] RunnersForindianFancy
         {
             get
             {
@@ -3658,7 +3659,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<string> lstMultipleSelectionforBets
+        public string[] lstMultipleSelectionforBets
         {
             get
             {
@@ -3685,7 +3686,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RunnerForIndianFancy", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class RunnerForIndianFancy : object
     {
@@ -3720,9 +3721,9 @@ namespace BettingServiceReference
         
         private string MarketStatusStrField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Match> MatchesField;
+        private BettingServiceReference.Match[] MatchesField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Order> OrdersField;
+        private BettingServiceReference.Order[] OrdersField;
         
         private double ProfitandLossField;
         
@@ -3946,7 +3947,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.Match> Matches
+        public BettingServiceReference.Match[] Matches
         {
             get
             {
@@ -3959,7 +3960,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.Order> Orders
+        public BettingServiceReference.Order[] Orders
         {
             get
             {
@@ -4142,7 +4143,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Home", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Home : object
     {
@@ -4674,7 +4675,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Con", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Con : object
     {
@@ -4801,7 +4802,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Cs", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Cs : object
     {
@@ -4838,7 +4839,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="I1", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class I1 : object
     {
@@ -4905,7 +4906,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="T1", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class T1 : object
     {
@@ -4957,7 +4958,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="UpdateNew", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class UpdateNew : object
     {
@@ -5054,7 +5055,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Root", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Root : object
     {
@@ -5106,7 +5107,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Result", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Result : object
     {
@@ -5203,7 +5204,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RootSCT", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class RootSCT : object
     {
@@ -5240,7 +5241,7 @@ namespace BettingServiceReference
         
         private BettingServiceReference.Runners RunnersField;
         
-        private System.DateTimeOffset StartTimeField;
+        private BettingServiceReference.DateTimeOffset StartTimeField;
         
         private BettingServiceReference.State StateField;
         
@@ -5453,7 +5454,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTimeOffset StartTime
+        public BettingServiceReference.DateTimeOffset StartTime
         {
             get
             {
@@ -5480,7 +5481,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Broadcasts", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Broadcasts : object
     {
@@ -5497,7 +5498,7 @@ namespace BettingServiceReference
         
         private BettingServiceReference.Radio RadioField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Tv> TvField;
+        private BettingServiceReference.Tv[] TvField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public BettingServiceReference.MatchInfo BfLiveVideo
@@ -5578,7 +5579,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<BettingServiceReference.Tv> Tv
+        public BettingServiceReference.Tv[] Tv
         {
             get
             {
@@ -5592,14 +5593,14 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MatchInfo", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class MatchInfo : object
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Runners", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Runners : object
     {
@@ -5696,7 +5697,44 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="DateTimeOffset", Namespace="http://schemas.datacontract.org/2004/07/System")]
+    public partial struct DateTimeOffset
+    {
+        
+        private System.DateTime DateTimeField;
+        
+        private short OffsetMinutesField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public System.DateTime DateTime
+        {
+            get
+            {
+                return this.DateTimeField;
+            }
+            set
+            {
+                this.DateTimeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
+        public short OffsetMinutes
+        {
+            get
+            {
+                return this.OffsetMinutesField;
+            }
+            set
+            {
+                this.OffsetMinutesField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="State", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class State : object
     {
@@ -5716,6 +5754,8 @@ namespace BettingServiceReference
         private string MatchStatusField;
         
         private BettingServiceReference.Score ScoreField;
+        
+        private BettingServiceReference.StateOfBall StateOfBallField;
         
         private string StatusField;
         
@@ -5828,6 +5868,19 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public BettingServiceReference.StateOfBall StateOfBall
+        {
+            get
+            {
+                return this.StateOfBallField;
+            }
+            set
+            {
+                this.StateOfBallField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Status
         {
             get
@@ -5868,7 +5921,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Radio", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Radio : object
     {
@@ -5890,16 +5943,16 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Tv", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Tv : object
     {
         
         private string ChannelField;
         
-        private System.DateTimeOffset EndTimeField;
+        private BettingServiceReference.DateTimeOffset EndTimeField;
         
-        private System.DateTimeOffset StartTimeField;
+        private BettingServiceReference.DateTimeOffset StartTimeField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Channel
@@ -5915,7 +5968,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTimeOffset EndTime
+        public BettingServiceReference.DateTimeOffset EndTime
         {
             get
             {
@@ -5928,7 +5981,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTimeOffset StartTime
+        public BettingServiceReference.DateTimeOffset StartTime
         {
             get
             {
@@ -5942,7 +5995,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="FullTimeElapsed", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class FullTimeElapsed : object
     {
@@ -5994,7 +6047,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Score", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class Score : object
     {
@@ -6003,7 +6056,7 @@ namespace BettingServiceReference
         
         private System.Nullable<long> BookingPointsField;
         
-        private System.Collections.Generic.List<long> GameSequenceField;
+        private long[] GameSequenceField;
         
         private BettingServiceReference.Away HomeField;
         
@@ -6048,7 +6101,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<long> GameSequence
+        public long[] GameSequence
         {
             get
             {
@@ -6166,19 +6219,236 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="StateOfBall", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
+    public partial class StateOfBall : object
+    {
+        
+        private string appealIdField;
+        
+        private string appealTypeNameField;
+        
+        private string batsmanNameField;
+        
+        private string batsmanRunsField;
+        
+        private string bowlerNameField;
+        
+        private string byeField;
+        
+        private string dismissalTypeNameField;
+        
+        private string legByeField;
+        
+        private string noBallField;
+        
+        private string outcomeIdField;
+        
+        private string overBallNumberField;
+        
+        private string overNumberField;
+        
+        private string referralOutcomeField;
+        
+        private string wideField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string appealId
+        {
+            get
+            {
+                return this.appealIdField;
+            }
+            set
+            {
+                this.appealIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string appealTypeName
+        {
+            get
+            {
+                return this.appealTypeNameField;
+            }
+            set
+            {
+                this.appealTypeNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string batsmanName
+        {
+            get
+            {
+                return this.batsmanNameField;
+            }
+            set
+            {
+                this.batsmanNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string batsmanRuns
+        {
+            get
+            {
+                return this.batsmanRunsField;
+            }
+            set
+            {
+                this.batsmanRunsField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string bowlerName
+        {
+            get
+            {
+                return this.bowlerNameField;
+            }
+            set
+            {
+                this.bowlerNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string bye
+        {
+            get
+            {
+                return this.byeField;
+            }
+            set
+            {
+                this.byeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string dismissalTypeName
+        {
+            get
+            {
+                return this.dismissalTypeNameField;
+            }
+            set
+            {
+                this.dismissalTypeNameField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string legBye
+        {
+            get
+            {
+                return this.legByeField;
+            }
+            set
+            {
+                this.legByeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string noBall
+        {
+            get
+            {
+                return this.noBallField;
+            }
+            set
+            {
+                this.noBallField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string outcomeId
+        {
+            get
+            {
+                return this.outcomeIdField;
+            }
+            set
+            {
+                this.outcomeIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string overBallNumber
+        {
+            get
+            {
+                return this.overBallNumberField;
+            }
+            set
+            {
+                this.overBallNumberField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string overNumber
+        {
+            get
+            {
+                return this.overNumberField;
+            }
+            set
+            {
+                this.overNumberField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string referralOutcome
+        {
+            get
+            {
+                return this.referralOutcomeField;
+            }
+            set
+            {
+                this.referralOutcomeField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string wide
+        {
+            get
+            {
+                return this.wideField;
+            }
+            set
+            {
+                this.wideField = value;
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Away", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.MarketBook1>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBook1[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBook1))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Runner1>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Runner1[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Runner1))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.ExchangePrices1))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.PriceSize1>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.PriceSize1[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.PriceSize1))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Match1>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Match1[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Match1))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Side1))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Order1>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Order1[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Order1))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.OrderType1))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.PersistenceType1))]
@@ -6186,35 +6456,35 @@ namespace BettingServiceReference
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.StartingPrices1))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RunnerStatus1))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketStatus1))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.DateTimeOffset))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.MarketCatalogue>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.DateTimeOffset))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketCatalogue[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketCatalogue))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Competition))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketDescription))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBettingType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Event))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.EventType))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.RunnerDescription>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RunnerDescription[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RunnerDescription))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.MarketBook>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBook[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBook))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.DebitCredit>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.DebitCredit[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.DebitCredit))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.SP_UserMarket_GetDistinctKJMarketsbyEventID_Result))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.LinevMarkets>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.LinevMarkets[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.LinevMarkets))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.LinevMarketsIN>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.LinevMarketsIN[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.LinevMarketsIN))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Runner>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Runner[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Runner))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.ExchangePrices))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.PriceSize>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.PriceSize[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.PriceSize))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Match>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Match[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Match))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Side))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Order>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Order[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Order))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.OrderType))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.PersistenceType))]
@@ -6222,14 +6492,14 @@ namespace BettingServiceReference
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.StartingPrices))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RunnerStatus))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketStatus))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.EventTypeResult>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.EventTypeResult[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.EventTypeResult))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.CompetitionResult>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.CompetitionResult[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.CompetitionResult))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.EventResult>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.EventResult[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.EventResult))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBookForindianFancy))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.RunnerForIndianFancy>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RunnerForIndianFancy[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RunnerForIndianFancy))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Home))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Con))]
@@ -6239,23 +6509,24 @@ namespace BettingServiceReference
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.UpdateNew))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Root))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Result))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.RootSCT>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RootSCT[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.RootSCT))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Broadcasts))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MatchInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Radio))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.Tv>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Tv[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Tv))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Runners))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.State))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.FullTimeElapsed))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.Score))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<BettingServiceReference.MarketBookString>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.StateOfBall))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBookString[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(BettingServiceReference.MarketBookString))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<string>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(string[]))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.Dictionary<string, string>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<long>))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(System.Collections.Generic.List<object>))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(long[]))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(object[]))]
     public partial class Away : object
     {
         
@@ -6263,7 +6534,7 @@ namespace BettingServiceReference
         
         private string FullTimeScoreField;
         
-        private System.Collections.Generic.List<long> GameSequenceField;
+        private long[] GameSequenceField;
         
         private string GamesField;
         
@@ -6287,7 +6558,7 @@ namespace BettingServiceReference
         
         private string PenaltiesScoreField;
         
-        private System.Collections.Generic.List<object> PenaltiesSequenceField;
+        private object[] PenaltiesSequenceField;
         
         private System.Nullable<long> ScoreField;
         
@@ -6322,7 +6593,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<long> GameSequence
+        public long[] GameSequence
         {
             get
             {
@@ -6478,7 +6749,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Collections.Generic.List<object> PenaltiesSequence
+        public object[] PenaltiesSequence
         {
             get
             {
@@ -6531,7 +6802,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketBook", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class MarketBook1 : object
     {
@@ -6560,7 +6831,7 @@ namespace BettingServiceReference
         
         private int numberOfWinnersFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Runner1> runnersFieldField;
+        private BettingServiceReference.Runner1[] runnersFieldField;
         
         private string sPricesFieldField;
         
@@ -6729,7 +7000,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.Runner1> runnersField
+        public BettingServiceReference.Runner1[] runnersField
         {
             get
             {
@@ -6808,7 +7079,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Runner", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class Runner1 : object
     {
@@ -6821,9 +7092,9 @@ namespace BettingServiceReference
         
         private System.Nullable<double> lastPriceTradedFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Match1> matchesFieldField;
+        private BettingServiceReference.Match1[] matchesFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.Order1> ordersFieldField;
+        private BettingServiceReference.Order1[] ordersFieldField;
         
         private System.Nullable<System.DateTime> removalDateFieldField;
         
@@ -6888,7 +7159,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.Match1> matchesField
+        public BettingServiceReference.Match1[] matchesField
         {
             get
             {
@@ -6901,7 +7172,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.Order1> ordersField
+        public BettingServiceReference.Order1[] ordersField
         {
             get
             {
@@ -6980,19 +7251,19 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ExchangePrices", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class ExchangePrices1 : object
     {
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize1> availableToBackFieldField;
+        private BettingServiceReference.PriceSize1[] availableToBackFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize1> availableToLayFieldField;
+        private BettingServiceReference.PriceSize1[] availableToLayFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize1> tradedVolumeFieldField;
+        private BettingServiceReference.PriceSize1[] tradedVolumeFieldField;
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize1> availableToBackField
+        public BettingServiceReference.PriceSize1[] availableToBackField
         {
             get
             {
@@ -7005,7 +7276,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize1> availableToLayField
+        public BettingServiceReference.PriceSize1[] availableToLayField
         {
             get
             {
@@ -7018,7 +7289,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize1> tradedVolumeField
+        public BettingServiceReference.PriceSize1[] tradedVolumeField
         {
             get
             {
@@ -7032,7 +7303,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PriceSize", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class PriceSize1 : object
     {
@@ -7069,7 +7340,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Match", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class Match1 : object
     {
@@ -7150,7 +7421,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Side", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public enum Side1 : int
     {
@@ -7163,7 +7434,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Order", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class Order1 : object
     {
@@ -7394,7 +7665,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderType", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public enum OrderType1 : int
     {
@@ -7409,7 +7680,7 @@ namespace BettingServiceReference
         MARKET_ON_CLOSE = 2,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="PersistenceType", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public enum PersistenceType1 : int
     {
@@ -7424,7 +7695,7 @@ namespace BettingServiceReference
         MARKET_ON_CLOSE = 2,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="OrderStatus", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public enum OrderStatus1 : int
     {
@@ -7437,18 +7708,18 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="StartingPrices", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public partial class StartingPrices1 : object
     {
         
         private double actualSPFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize1> backStakeTakenFieldField;
+        private BettingServiceReference.PriceSize1[] backStakeTakenFieldField;
         
         private double farPriceFieldField;
         
-        private System.Collections.Generic.List<BettingServiceReference.PriceSize1> layLiabilityTakenFieldField;
+        private BettingServiceReference.PriceSize1[] layLiabilityTakenFieldField;
         
         private double nearPriceFieldField;
         
@@ -7466,7 +7737,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize1> backStakeTakenField
+        public BettingServiceReference.PriceSize1[] backStakeTakenField
         {
             get
             {
@@ -7492,7 +7763,7 @@ namespace BettingServiceReference
         }
         
         [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true)]
-        public System.Collections.Generic.List<BettingServiceReference.PriceSize1> layLiabilityTakenField
+        public BettingServiceReference.PriceSize1[] layLiabilityTakenField
         {
             get
             {
@@ -7518,7 +7789,7 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="RunnerStatus", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public enum RunnerStatus1 : int
     {
@@ -7542,7 +7813,7 @@ namespace BettingServiceReference
         HIDDEN = 5,
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketStatus", Namespace="http://schemas.datacontract.org/2004/07/bfnexchange.wrBF")]
     public enum MarketStatus1 : int
     {
@@ -7561,7 +7832,7 @@ namespace BettingServiceReference
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MarketBookString", Namespace="http://schemas.datacontract.org/2004/07/ExternalAPI.TO")]
     public partial class MarketBookString : object
     {
@@ -7597,96 +7868,181 @@ namespace BettingServiceReference
         }
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="BettingServiceReference.IBettingService")]
     public interface IBettingService
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listMarketCatalogue", ReplyAction="http://tempuri.org/IBettingService/listMarketCatalogueResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketCatalogue>> listMarketCatalogueAsync(string ID, System.Collections.Generic.List<string> lstMarketCatalogues, bool isInPlay, string Password);
+        BettingServiceReference.MarketCatalogue[] listMarketCatalogue(string ID, string[] lstMarketCatalogues, bool isInPlay, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listMarketCatalogue", ReplyAction="http://tempuri.org/IBettingService/listMarketCatalogueResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketCatalogue[]> listMarketCatalogueAsync(string ID, string[] lstMarketCatalogues, bool isInPlay, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listMarketBookALL", ReplyAction="http://tempuri.org/IBettingService/listMarketBookALLResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> listMarketBookALLAsync(System.Collections.Generic.List<string> ID, int UserID, int UserTypeID, string Password);
+        BettingServiceReference.MarketBook[] listMarketBookALL(string[] ID, int UserID, int UserTypeID, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listMarketBookALL", ReplyAction="http://tempuri.org/IBettingService/listMarketBookALLResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> listMarketBookALLAsync(string[] ID, int UserID, int UserTypeID, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listMarketBook", ReplyAction="http://tempuri.org/IBettingService/listMarketBookResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> listMarketBookAsync(string ID, int UserID, int UserTypeID, string Password);
+        BettingServiceReference.MarketBook[] listMarketBook(string ID, int UserID, int UserTypeID, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listMarketBook", ReplyAction="http://tempuri.org/IBettingService/listMarketBookResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> listMarketBookAsync(string ID, int UserID, int UserTypeID, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listEventTypes", ReplyAction="http://tempuri.org/IBettingService/listEventTypesResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.EventTypeResult>> listEventTypesAsync(bool isInPlay, string Password);
+        BettingServiceReference.EventTypeResult[] listEventTypes(bool isInPlay, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listEventTypes", ReplyAction="http://tempuri.org/IBettingService/listEventTypesResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.EventTypeResult[]> listEventTypesAsync(bool isInPlay, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listEventTypesWithMarketFilter", ReplyAction="http://tempuri.org/IBettingService/listEventTypesWithMarketFilterResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.EventTypeResult>> listEventTypesWithMarketFilterAsync(bool isInPlay, string Password);
+        BettingServiceReference.EventTypeResult[] listEventTypesWithMarketFilter(bool isInPlay, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listEventTypesWithMarketFilter", ReplyAction="http://tempuri.org/IBettingService/listEventTypesWithMarketFilterResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.EventTypeResult[]> listEventTypesWithMarketFilterAsync(bool isInPlay, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listCompetitions", ReplyAction="http://tempuri.org/IBettingService/listCompetitionsResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.CompetitionResult>> listCompetitionsAsync(string ID, bool isInPlay, string Password);
+        BettingServiceReference.CompetitionResult[] listCompetitions(string ID, bool isInPlay, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listCompetitions", ReplyAction="http://tempuri.org/IBettingService/listCompetitionsResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.CompetitionResult[]> listCompetitionsAsync(string ID, bool isInPlay, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listEvents", ReplyAction="http://tempuri.org/IBettingService/listEventsResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.EventResult>> listEventsAsync(string ID, bool isInPlay, string Password);
+        BettingServiceReference.EventResult[] listEvents(string ID, bool isInPlay, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/listEvents", ReplyAction="http://tempuri.org/IBettingService/listEventsResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.EventResult[]> listEventsAsync(string ID, bool isInPlay, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyIDResultsOnly", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDResultsOnlyResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetMarketDatabyIDResultsOnlyAsync(string marketID);
+        BettingServiceReference.MarketBook[] GetMarketDatabyIDResultsOnly(string marketID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyIDResultsOnly", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDResultsOnlyResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDatabyIDResultsOnlyAsync(string marketID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyID", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetMarketDatabyIDAsync(System.Collections.Generic.List<string> marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password);
+        BettingServiceReference.MarketBook[] GetMarketDatabyID(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyID", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDatabyIDAsync(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDataList", ReplyAction="http://tempuri.org/IBettingService/GetMarketDataListResponse")]
+        BettingServiceReference.MarketBook[] GetMarketDataList(string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDataList", ReplyAction="http://tempuri.org/IBettingService/GetMarketDataListResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDataListAsync(string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyIDIndianFancy", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDIndianFancyResponse")]
+        BettingServiceReference.MarketBookForindianFancy GetMarketDatabyIDIndianFancy(string EventID, string MarketBookID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyIDIndianFancy", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDIndianFancyResponse")]
         System.Threading.Tasks.Task<BettingServiceReference.MarketBookForindianFancy> GetMarketDatabyIDIndianFancyAsync(string EventID, string MarketBookID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetRunnersForFancy", ReplyAction="http://tempuri.org/IBettingService/GetRunnersForFancyResponse")]
+        string GetRunnersForFancy(string EventID, string MarketBookID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetRunnersForFancy", ReplyAction="http://tempuri.org/IBettingService/GetRunnersForFancyResponse")]
         System.Threading.Tasks.Task<string> GetRunnersForFancyAsync(string EventID, string MarketBookID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetSoccorUpdate", ReplyAction="http://tempuri.org/IBettingService/GetSoccorUpdateResponse")]
+        string GetSoccorUpdate(string EventID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetSoccorUpdate", ReplyAction="http://tempuri.org/IBettingService/GetSoccorUpdateResponse")]
+        System.Threading.Tasks.Task<string> GetSoccorUpdateAsync(string EventID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdate", ReplyAction="http://tempuri.org/IBettingService/GetUpdateResponse")]
+        BettingServiceReference.Home GetUpdate(string EventID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdate", ReplyAction="http://tempuri.org/IBettingService/GetUpdateResponse")]
         System.Threading.Tasks.Task<BettingServiceReference.Home> GetUpdateAsync(string EventID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdateNew", ReplyAction="http://tempuri.org/IBettingService/GetUpdateNewResponse")]
+        BettingServiceReference.UpdateNew GetUpdateNew(string EventID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdateNew", ReplyAction="http://tempuri.org/IBettingService/GetUpdateNewResponse")]
         System.Threading.Tasks.Task<BettingServiceReference.UpdateNew> GetUpdateNewAsync(string EventID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdate2", ReplyAction="http://tempuri.org/IBettingService/GetUpdate2Response")]
+        BettingServiceReference.Root GetUpdate2(string EventID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdate2", ReplyAction="http://tempuri.org/IBettingService/GetUpdate2Response")]
         System.Threading.Tasks.Task<BettingServiceReference.Root> GetUpdate2Async(string EventID);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdateSCT", ReplyAction="http://tempuri.org/IBettingService/GetUpdateSCTResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.RootSCT>> GetUpdateSCTAsync(string Eventtypeid);
+        BettingServiceReference.RootSCT[] GetUpdateSCT(string Eventtypeid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetUpdateSCT", ReplyAction="http://tempuri.org/IBettingService/GetUpdateSCTResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.RootSCT[]> GetUpdateSCTAsync(string Eventtypeid);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetDataFromBetfairReadOnly", ReplyAction="http://tempuri.org/IBettingService/GetDataFromBetfairReadOnlyResponse")]
+        void GetDataFromBetfairReadOnly();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetDataFromBetfairReadOnly", ReplyAction="http://tempuri.org/IBettingService/GetDataFromBetfairReadOnlyResponse")]
         System.Threading.Tasks.Task GetDataFromBetfairReadOnlyAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetBallbyBallSummary", ReplyAction="http://tempuri.org/IBettingService/GetBallbyBallSummaryResponse")]
+        void GetBallbyBallSummary();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetBallbyBallSummary", ReplyAction="http://tempuri.org/IBettingService/GetBallbyBallSummaryResponse")]
         System.Threading.Tasks.Task GetBallbyBallSummaryAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetBallbyBallSummaryNew", ReplyAction="http://tempuri.org/IBettingService/GetBallbyBallSummaryNewResponse")]
+        void GetBallbyBallSummaryNew();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetBallbyBallSummaryNew", ReplyAction="http://tempuri.org/IBettingService/GetBallbyBallSummaryNewResponse")]
         System.Threading.Tasks.Task GetBallbyBallSummaryNewAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetCurrentMarketBookNew", ReplyAction="http://tempuri.org/IBettingService/GetCurrentMarketBookNewResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook1>> GetCurrentMarketBookNewAsync(string marketid, string sheetname, string MainSportsCategory, System.DateTime marketopendate, bool BettingAllowed, System.Collections.Generic.List<BettingServiceReference.Runner> OldRunners, BettingServiceReference.MarketBook currentmarketobject, string Password);
+        BettingServiceReference.MarketBook1[] GetCurrentMarketBookNew(string marketid, string sheetname, string MainSportsCategory, System.DateTime marketopendate, bool BettingAllowed, BettingServiceReference.Runner[] OldRunners, BettingServiceReference.MarketBook currentmarketobject, string Password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetCurrentMarketBookNew", ReplyAction="http://tempuri.org/IBettingService/GetCurrentMarketBookNewResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook1[]> GetCurrentMarketBookNewAsync(string marketid, string sheetname, string MainSportsCategory, System.DateTime marketopendate, bool BettingAllowed, BettingServiceReference.Runner[] OldRunners, BettingServiceReference.MarketBook currentmarketobject, string Password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyIDLive", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDLiveResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetMarketDatabyIDLiveAsync(System.Collections.Generic.List<string> marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password, string PasswordS);
+        BettingServiceReference.MarketBook[] GetMarketDatabyIDLive(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password, string PasswordS);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetMarketDatabyIDLive", ReplyAction="http://tempuri.org/IBettingService/GetMarketDatabyIDLiveResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDatabyIDLiveAsync(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password, string PasswordS);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsBP", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsBPResponse")]
-        System.Threading.Tasks.Task<string> GetAllMarketsBPAsync(System.Collections.Generic.List<string> marketIDs);
+        string GetAllMarketsBP(string[] marketIDs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsBP", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsBPResponse")]
+        System.Threading.Tasks.Task<string> GetAllMarketsBPAsync(string[] marketIDs);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsOthers", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsOthersResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBookString>> GetAllMarketsOthersAsync(System.Collections.Generic.List<string> marketIDs);
+        BettingServiceReference.MarketBookString[] GetAllMarketsOthers(string[] marketIDs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsOthers", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsOthersResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBookString[]> GetAllMarketsOthersAsync(string[] marketIDs);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsOthersFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsOthersFancyResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBookString>> GetAllMarketsOthersFancyAsync(System.Collections.Generic.List<string> marketIDs);
+        BettingServiceReference.MarketBookString[] GetAllMarketsOthersFancy(string[] marketIDs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsOthersFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsOthersFancyResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBookString[]> GetAllMarketsOthersFancyAsync(string[] marketIDs);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsBPFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsBPFancyResponse")]
-        System.Threading.Tasks.Task<string> GetAllMarketsBPFancyAsync(System.Collections.Generic.List<string> marketIDs);
+        string GetAllMarketsBPFancy(string[] marketIDs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsBPFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsBPFancyResponse")]
+        System.Threading.Tasks.Task<string> GetAllMarketsBPFancyAsync(string[] marketIDs);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsFancyResponse")]
-        System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetAllMarketsFancyAsync(System.Collections.Generic.List<string> marketIDs);
-        [System.ServiceModel.OperationContractAttribute(Action = "http://tempuri.org/IBettingService/GetSoccorUpdate", ReplyAction = "http://tempuri.org/IBettingService/GetSoccorUpdateResponse")]
-        System.Threading.Tasks.Task<string> GetSoccorUpdateAsync(string EventID);
+        BettingServiceReference.MarketBook[] GetAllMarketsFancy(string[] marketIDs);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBettingService/GetAllMarketsFancy", ReplyAction="http://tempuri.org/IBettingService/GetAllMarketsFancyResponse")]
+        System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetAllMarketsFancyAsync(string[] marketIDs);
     }
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     public interface IBettingServiceChannel : BettingServiceReference.IBettingService, System.ServiceModel.IClientChannel
     {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "2.1.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Tools.ServiceModel.Svcutil", "8.0.0")]
     public partial class BettingServiceClient : System.ServiceModel.ClientBase<BettingServiceReference.IBettingService>, BettingServiceReference.IBettingService
     {
         
@@ -7730,49 +8086,109 @@ namespace BettingServiceReference
         {
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketCatalogue>> listMarketCatalogueAsync(string ID, System.Collections.Generic.List<string> lstMarketCatalogues, bool isInPlay, string Password)
+        public BettingServiceReference.MarketCatalogue[] listMarketCatalogue(string ID, string[] lstMarketCatalogues, bool isInPlay, string Password)
+        {
+            return base.Channel.listMarketCatalogue(ID, lstMarketCatalogues, isInPlay, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketCatalogue[]> listMarketCatalogueAsync(string ID, string[] lstMarketCatalogues, bool isInPlay, string Password)
         {
             return base.Channel.listMarketCatalogueAsync(ID, lstMarketCatalogues, isInPlay, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> listMarketBookALLAsync(System.Collections.Generic.List<string> ID, int UserID, int UserTypeID, string Password)
+        public BettingServiceReference.MarketBook[] listMarketBookALL(string[] ID, int UserID, int UserTypeID, string Password)
+        {
+            return base.Channel.listMarketBookALL(ID, UserID, UserTypeID, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> listMarketBookALLAsync(string[] ID, int UserID, int UserTypeID, string Password)
         {
             return base.Channel.listMarketBookALLAsync(ID, UserID, UserTypeID, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> listMarketBookAsync(string ID, int UserID, int UserTypeID, string Password)
+        public BettingServiceReference.MarketBook[] listMarketBook(string ID, int UserID, int UserTypeID, string Password)
+        {
+            return base.Channel.listMarketBook(ID, UserID, UserTypeID, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> listMarketBookAsync(string ID, int UserID, int UserTypeID, string Password)
         {
             return base.Channel.listMarketBookAsync(ID, UserID, UserTypeID, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.EventTypeResult>> listEventTypesAsync(bool isInPlay, string Password)
+        public BettingServiceReference.EventTypeResult[] listEventTypes(bool isInPlay, string Password)
+        {
+            return base.Channel.listEventTypes(isInPlay, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.EventTypeResult[]> listEventTypesAsync(bool isInPlay, string Password)
         {
             return base.Channel.listEventTypesAsync(isInPlay, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.EventTypeResult>> listEventTypesWithMarketFilterAsync(bool isInPlay, string Password)
+        public BettingServiceReference.EventTypeResult[] listEventTypesWithMarketFilter(bool isInPlay, string Password)
+        {
+            return base.Channel.listEventTypesWithMarketFilter(isInPlay, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.EventTypeResult[]> listEventTypesWithMarketFilterAsync(bool isInPlay, string Password)
         {
             return base.Channel.listEventTypesWithMarketFilterAsync(isInPlay, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.CompetitionResult>> listCompetitionsAsync(string ID, bool isInPlay, string Password)
+        public BettingServiceReference.CompetitionResult[] listCompetitions(string ID, bool isInPlay, string Password)
+        {
+            return base.Channel.listCompetitions(ID, isInPlay, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.CompetitionResult[]> listCompetitionsAsync(string ID, bool isInPlay, string Password)
         {
             return base.Channel.listCompetitionsAsync(ID, isInPlay, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.EventResult>> listEventsAsync(string ID, bool isInPlay, string Password)
+        public BettingServiceReference.EventResult[] listEvents(string ID, bool isInPlay, string Password)
+        {
+            return base.Channel.listEvents(ID, isInPlay, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.EventResult[]> listEventsAsync(string ID, bool isInPlay, string Password)
         {
             return base.Channel.listEventsAsync(ID, isInPlay, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetMarketDatabyIDResultsOnlyAsync(string marketID)
+        public BettingServiceReference.MarketBook[] GetMarketDatabyIDResultsOnly(string marketID)
+        {
+            return base.Channel.GetMarketDatabyIDResultsOnly(marketID);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDatabyIDResultsOnlyAsync(string marketID)
         {
             return base.Channel.GetMarketDatabyIDResultsOnlyAsync(marketID);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetMarketDatabyIDAsync(System.Collections.Generic.List<string> marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password)
+        public BettingServiceReference.MarketBook[] GetMarketDatabyID(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password)
+        {
+            return base.Channel.GetMarketDatabyID(marketID, sheetname, OrignalOpenDate, MainSportsCategory, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDatabyIDAsync(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password)
         {
             return base.Channel.GetMarketDatabyIDAsync(marketID, sheetname, OrignalOpenDate, MainSportsCategory, Password);
+        }
+        
+        public BettingServiceReference.MarketBook[] GetMarketDataList(string Password)
+        {
+            return base.Channel.GetMarketDataList(Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDataListAsync(string Password)
+        {
+            return base.Channel.GetMarketDataListAsync(Password);
+        }
+        
+        public BettingServiceReference.MarketBookForindianFancy GetMarketDatabyIDIndianFancy(string EventID, string MarketBookID)
+        {
+            return base.Channel.GetMarketDatabyIDIndianFancy(EventID, MarketBookID);
         }
         
         public System.Threading.Tasks.Task<BettingServiceReference.MarketBookForindianFancy> GetMarketDatabyIDIndianFancyAsync(string EventID, string MarketBookID)
@@ -7780,9 +8196,29 @@ namespace BettingServiceReference
             return base.Channel.GetMarketDatabyIDIndianFancyAsync(EventID, MarketBookID);
         }
         
+        public string GetRunnersForFancy(string EventID, string MarketBookID)
+        {
+            return base.Channel.GetRunnersForFancy(EventID, MarketBookID);
+        }
+        
         public System.Threading.Tasks.Task<string> GetRunnersForFancyAsync(string EventID, string MarketBookID)
         {
             return base.Channel.GetRunnersForFancyAsync(EventID, MarketBookID);
+        }
+        
+        public string GetSoccorUpdate(string EventID)
+        {
+            return base.Channel.GetSoccorUpdate(EventID);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetSoccorUpdateAsync(string EventID)
+        {
+            return base.Channel.GetSoccorUpdateAsync(EventID);
+        }
+        
+        public BettingServiceReference.Home GetUpdate(string EventID)
+        {
+            return base.Channel.GetUpdate(EventID);
         }
         
         public System.Threading.Tasks.Task<BettingServiceReference.Home> GetUpdateAsync(string EventID)
@@ -7790,9 +8226,19 @@ namespace BettingServiceReference
             return base.Channel.GetUpdateAsync(EventID);
         }
         
+        public BettingServiceReference.UpdateNew GetUpdateNew(string EventID)
+        {
+            return base.Channel.GetUpdateNew(EventID);
+        }
+        
         public System.Threading.Tasks.Task<BettingServiceReference.UpdateNew> GetUpdateNewAsync(string EventID)
         {
             return base.Channel.GetUpdateNewAsync(EventID);
+        }
+        
+        public BettingServiceReference.Root GetUpdate2(string EventID)
+        {
+            return base.Channel.GetUpdate2(EventID);
         }
         
         public System.Threading.Tasks.Task<BettingServiceReference.Root> GetUpdate2Async(string EventID)
@@ -7800,9 +8246,19 @@ namespace BettingServiceReference
             return base.Channel.GetUpdate2Async(EventID);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.RootSCT>> GetUpdateSCTAsync(string Eventtypeid)
+        public BettingServiceReference.RootSCT[] GetUpdateSCT(string Eventtypeid)
+        {
+            return base.Channel.GetUpdateSCT(Eventtypeid);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.RootSCT[]> GetUpdateSCTAsync(string Eventtypeid)
         {
             return base.Channel.GetUpdateSCTAsync(Eventtypeid);
+        }
+        
+        public void GetDataFromBetfairReadOnly()
+        {
+            base.Channel.GetDataFromBetfairReadOnly();
         }
         
         public System.Threading.Tasks.Task GetDataFromBetfairReadOnlyAsync()
@@ -7810,9 +8266,19 @@ namespace BettingServiceReference
             return base.Channel.GetDataFromBetfairReadOnlyAsync();
         }
         
+        public void GetBallbyBallSummary()
+        {
+            base.Channel.GetBallbyBallSummary();
+        }
+        
         public System.Threading.Tasks.Task GetBallbyBallSummaryAsync()
         {
             return base.Channel.GetBallbyBallSummaryAsync();
+        }
+        
+        public void GetBallbyBallSummaryNew()
+        {
+            base.Channel.GetBallbyBallSummaryNew();
         }
         
         public System.Threading.Tasks.Task GetBallbyBallSummaryNewAsync()
@@ -7820,48 +8286,87 @@ namespace BettingServiceReference
             return base.Channel.GetBallbyBallSummaryNewAsync();
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook1>> GetCurrentMarketBookNewAsync(string marketid, string sheetname, string MainSportsCategory, System.DateTime marketopendate, bool BettingAllowed, System.Collections.Generic.List<BettingServiceReference.Runner> OldRunners, BettingServiceReference.MarketBook currentmarketobject, string Password)
+        public BettingServiceReference.MarketBook1[] GetCurrentMarketBookNew(string marketid, string sheetname, string MainSportsCategory, System.DateTime marketopendate, bool BettingAllowed, BettingServiceReference.Runner[] OldRunners, BettingServiceReference.MarketBook currentmarketobject, string Password)
+        {
+            return base.Channel.GetCurrentMarketBookNew(marketid, sheetname, MainSportsCategory, marketopendate, BettingAllowed, OldRunners, currentmarketobject, Password);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook1[]> GetCurrentMarketBookNewAsync(string marketid, string sheetname, string MainSportsCategory, System.DateTime marketopendate, bool BettingAllowed, BettingServiceReference.Runner[] OldRunners, BettingServiceReference.MarketBook currentmarketobject, string Password)
         {
             return base.Channel.GetCurrentMarketBookNewAsync(marketid, sheetname, MainSportsCategory, marketopendate, BettingAllowed, OldRunners, currentmarketobject, Password);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetMarketDatabyIDLiveAsync(System.Collections.Generic.List<string> marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password, string PasswordS)
+        public BettingServiceReference.MarketBook[] GetMarketDatabyIDLive(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password, string PasswordS)
+        {
+            return base.Channel.GetMarketDatabyIDLive(marketID, sheetname, OrignalOpenDate, MainSportsCategory, Password, PasswordS);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetMarketDatabyIDLiveAsync(string[] marketID, string sheetname, System.DateTime OrignalOpenDate, string MainSportsCategory, string Password, string PasswordS)
         {
             return base.Channel.GetMarketDatabyIDLiveAsync(marketID, sheetname, OrignalOpenDate, MainSportsCategory, Password, PasswordS);
         }
         
-        public System.Threading.Tasks.Task<string> GetAllMarketsBPAsync(System.Collections.Generic.List<string> marketIDs)
+        public string GetAllMarketsBP(string[] marketIDs)
+        {
+            return base.Channel.GetAllMarketsBP(marketIDs);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAllMarketsBPAsync(string[] marketIDs)
         {
             return base.Channel.GetAllMarketsBPAsync(marketIDs);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBookString>> GetAllMarketsOthersAsync(System.Collections.Generic.List<string> marketIDs)
+        public BettingServiceReference.MarketBookString[] GetAllMarketsOthers(string[] marketIDs)
+        {
+            return base.Channel.GetAllMarketsOthers(marketIDs);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBookString[]> GetAllMarketsOthersAsync(string[] marketIDs)
         {
             return base.Channel.GetAllMarketsOthersAsync(marketIDs);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBookString>> GetAllMarketsOthersFancyAsync(System.Collections.Generic.List<string> marketIDs)
+        public BettingServiceReference.MarketBookString[] GetAllMarketsOthersFancy(string[] marketIDs)
+        {
+            return base.Channel.GetAllMarketsOthersFancy(marketIDs);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBookString[]> GetAllMarketsOthersFancyAsync(string[] marketIDs)
         {
             return base.Channel.GetAllMarketsOthersFancyAsync(marketIDs);
         }
         
-        public System.Threading.Tasks.Task<string> GetAllMarketsBPFancyAsync(System.Collections.Generic.List<string> marketIDs)
+        public string GetAllMarketsBPFancy(string[] marketIDs)
+        {
+            return base.Channel.GetAllMarketsBPFancy(marketIDs);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetAllMarketsBPFancyAsync(string[] marketIDs)
         {
             return base.Channel.GetAllMarketsBPFancyAsync(marketIDs);
         }
         
-        public System.Threading.Tasks.Task<System.Collections.Generic.List<BettingServiceReference.MarketBook>> GetAllMarketsFancyAsync(System.Collections.Generic.List<string> marketIDs)
+        public BettingServiceReference.MarketBook[] GetAllMarketsFancy(string[] marketIDs)
+        {
+            return base.Channel.GetAllMarketsFancy(marketIDs);
+        }
+        
+        public System.Threading.Tasks.Task<BettingServiceReference.MarketBook[]> GetAllMarketsFancyAsync(string[] marketIDs)
         {
             return base.Channel.GetAllMarketsFancyAsync(marketIDs);
         }
-        public System.Threading.Tasks.Task<string> GetSoccorUpdateAsync(string EventID)
-        {
-            return base.Channel.GetSoccorUpdateAsync(EventID);
-        }
+        
         public virtual System.Threading.Tasks.Task OpenAsync()
         {
             return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginOpen(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndOpen));
         }
+        
+        #if !NET6_0_OR_GREATER
+        public virtual System.Threading.Tasks.Task CloseAsync()
+        {
+            return System.Threading.Tasks.Task.Factory.FromAsync(((System.ServiceModel.ICommunicationObject)(this)).BeginClose(null, null), new System.Action<System.IAsyncResult>(((System.ServiceModel.ICommunicationObject)(this)).EndClose));
+        }
+        #endif
         
         private static System.ServiceModel.Channels.Binding GetBindingForEndpoint(EndpointConfiguration endpointConfiguration)
         {
@@ -7882,6 +8387,8 @@ namespace BettingServiceReference
             if ((endpointConfiguration == EndpointConfiguration.BasicHttpBinding_IUserServices))
             {
                 return new System.ServiceModel.EndpointAddress("http://78.110.160.52:8960/bfnexchangeServices/Services/BettingService.svc");
+                //return new System.ServiceModel.EndpointAddress("http://localhost:54524/Services/BettingService.svc");
+
             }
             throw new System.InvalidOperationException(string.Format("Could not find endpoint with name \'{0}\'.", endpointConfiguration));
         }
