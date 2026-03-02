@@ -140,7 +140,10 @@
                                     _ => item
                                 };
 
-                                var lstMatchesbytype = Model.AllMarketsData.Where(x => x.MainSportsname == item).ToList();
+                                var lstMatchesbytype = Model.AllMarketsData
+                                .Where(x => x.MainSportsname == item)
+                                .OrderBy(x => x.OrignalOpenDate)
+                                .ToList();
 
                                 <div class="inplaydatabycategory" id="inplaydatafor@(data.Trim())">
                                     @foreach (var matchitem in lstMatchesbytype)
@@ -184,7 +187,7 @@
                                                 }
 
                                                 <div class="inplaytime">
-                                                    @matchitem.OpenDate
+                                                    @matchitem.OrignalOpenDate.Value.AddHours(5).ToString("dd-MM-yy hh:mm tt")                                                   
                                                 </div>
 
 
