@@ -61,12 +61,24 @@
                 <div class="sporthighlightsuldiv">
                     <ul class="inplaymatchheading">
                         @{
-                            var line = Model.AllMarketsData.GroupBy(info => info.MainSportsname).Select(group => new
-                            {
-                                Metric = group.Key,
-                                Count = group.Count()
-                            });
-                            List<string> eventtypes = Model.AllMarketsData.Select(x => x.MainSportsname).Distinct().ToList();
+                            var eventCounts = Model.AllMarketsData
+                            .GroupBy(x => x.MainSportsname)
+                            .ToDictionary(g => g.Key, g => g.Count());
+
+                            var customOrder = new List<string>
+                                        {
+                                        "Cricket",
+                                        "Soccer",
+                                        "Tennis",
+                                        "Horse Racing",
+                                        "Greyhound Racing"
+                                        };
+
+                            var eventtypes = Model.AllMarketsData
+                            .Select(x => x.MainSportsname)
+                            .Distinct()
+                            .OrderBy(x => customOrder.IndexOf(x) == -1 ? 999 : customOrder.IndexOf(x))
+                            .ToList();
                             foreach (var item in eventtypes)
                             {
 
@@ -75,21 +87,21 @@
                                     {
                                         <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
                                             <i><img src="/cric.svg" width="30" height="30" /></i>
-                                            @item (@line.Select(x => x.Count).FirstOrDefault())
+                                            @item (@(eventCounts.ContainsKey(item) ? eventCounts[item] : 0))
                                         </a>
                                     }
                                     @if (item == "Horse Racing")
                                     {
                                         <a onclick="setactiveinplaycategory('Horse')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingHorse">
                                             <i><img src="/2132.svg" width="30" height="30" /></i>
-                                            Horse (@line.Select(x => x.Count).Skip(3).Take(1).FirstOrDefault())
+                                            Horse  (@(eventCounts.ContainsKey(item) ? eventCounts[item] : 0))
                                         </a>
                                     }
                                     @if (item == "Greyhound Racing")
                                     {
                                         <a onclick="setactiveinplaycategory('Greyhound')" class="inplaymatchheadinglink ipshead" id="inplaymatchheadingGreyhound">
                                             <i><img src="/gre.svg" width="30" height="30" /></i>
-                                            Greyhound (@line.Select(x => x.Count).Skip(4).Take(1).FirstOrDefault())
+                                            Greyhound  (@(eventCounts.ContainsKey(item) ? eventCounts[item] : 0))
                                         </a>
                                     }
                                     @if (item == "Soccer")
@@ -97,7 +109,7 @@
                                         <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
                                             <i><img src="/soc.svg" width="30" height="30" /></i>
 
-                                            @item (@line.Select(x => x.Count).Skip(1).Take(1).FirstOrDefault())
+                                            @item  (@(eventCounts.ContainsKey(item) ? eventCounts[item] : 0))
                                         </a>
                                     }
                                     @if (item == "Tennis")
@@ -105,7 +117,7 @@
                                         <a onclick="setactiveinplaycategory('@(item.Trim())')" class="inplaymatchheadinglink ipshead" id="inplaymatchheading@(item.Trim())">
                                             <i><img src="/tenn.svg" width="30" height="30" /></i>
 
-                                            @item (@line.Select(x => x.Count).Skip(2).Take(1).FirstOrDefault())
+                                            @item  (@(eventCounts.ContainsKey(item) ? eventCounts[item] : 0))
                                         </a>
                                     }
                                 </li>
