@@ -1699,7 +1699,7 @@ else
         var isMarketINFancyLoaded = false; // Flag to prevent re-entry
 
         function GetActiveMarketINFancy() {
-            debugger;
+
             if (isMarketINFancyLoaded) {
                 return; // Exit if the function has already succeeded
             }
@@ -4500,8 +4500,7 @@ else
                 }, 0);
             }
 
-            // ---- public function (same name you already use) ----
-            w.AddRunnersformultiplebets = function AddRunnersformultiplebets(id) {
+             function AddRunnersformultiplebets(id) {
                 const marketId = getMarketId();
                 const cache = getMarketCache(marketId);
                 const $market = cache.$market;
@@ -6706,10 +6705,10 @@ else
                 });
             }
 
-            if (betttingallowedmarket == "0" || betttingallowedmarketoverall == "0") {
+            if (betttingallowedmarket == "1" || betttingallowedmarketoverall == "1") {
                 allowedstatus == false;
                 ShowErrorMsg("Betting not allowed.");
-                $('#simpleBet').hide();
+                $('#simpleBet').hide(); 
             }
             else {
                 if (categoryname.indexOf("Racing") >= 0) {
@@ -6742,11 +6741,8 @@ else
                                 }
                             }
 
-                           @*  var color = $("#lbltimer" + newid).css('color');
-                        if (color == "rgb(255, 0, 0)") {
-                            allowedstatus = false;
-                        } *@
-                        }
+                          }
+                        
                     }
                 }
                 else {
@@ -6760,7 +6756,7 @@ else
 
                 }
 
-                if (allowedstatus == true) {
+                if (allowedstatus == false) {
                     $("#openedbetslipid").val(id);
                     $("#betsliptype").val(betsliptype);
                     if (betsliptype == 'back') {

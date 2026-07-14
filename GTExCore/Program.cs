@@ -3,6 +3,7 @@ using GTExCore.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json;
@@ -13,14 +14,24 @@ var allowedOrigins = builder.Configuration
     .GetSection("Cors:AllowedOrigins")
     .Get<string[]>();
 // Add CORS policy
+//builder.Services.AddCors(options =>
+//{
+//    options.AddPolicy("AllowAngularApp",
+//        policy => policy
+//            .WithOrigins(allowedOrigins!) // Angular dev server
+//            .AllowAnyHeader()
+//            .AllowAnyMethod()
+//            .AllowCredentials());
+//});
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngularApp",
-        policy => policy
-            .WithOrigins(allowedOrigins!) // Angular dev server
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials());
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials()
+              .SetIsOriginAllowed(_ => true);
+    });
 });
 
 builder.Services.AddResponseCompression(options =>
@@ -33,6 +44,8 @@ builder.Services.AddResponseCompression(options =>
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor(); // Correct registration
+// Memory Cache
+builder.Services.AddMemoryCache();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSignalR();
 builder.Services.AddSession(options =>
@@ -94,7 +107,17 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 builder.Services.AddSingleton<IPasswordSettingsService, PasswordSettingsService>();
+builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
+//builder.Services.AddSingleton<IMarketCacheService, MarketCacheService>();
+//builder.Services.AddScoped<IMarketService, MarketService>();
+//builder.Services.AddHostedService<MarketWorker>();
+builder.Services.AddScoped<UserBetCacheService>();
+builder.Services.AddSignalR();
+
+
 var app = builder.Build();
+app.MapHub<BetHub>("/bethub");
+app.MapHub<MarketHub>("/marketHub");
 app.UseResponseCompression();
 var httpContextAccessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 LoggedinUserDetail.Configure(httpContextAccessor);
@@ -105,12 +128,12 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-
 app.MapHub<UserBetsHub>("/UserBetsHub");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 // Use CORS middleware
 app.UseCors("AllowAngularApp");  // <-- apply the policy
+app.UseCors("AllowAll");
 app.UseRouting();
 app.UseSession();
 app.UseAuthentication();

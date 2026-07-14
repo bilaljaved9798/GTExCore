@@ -17,12 +17,13 @@ namespace GTExCore.Component
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private BettingServiceClient objBettingClient = new BettingServiceClient();
 		UserServicesClient objUsersServiceCleint = new UserServicesClient();
-		UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
+		UserBetsUpdateUnmatcedBets _objUserbets;
 		private readonly IPasswordSettingsService _passwordSettingsService;
 		private readonly IHttpContextAccessor _httpContextAccessor;
-		public EvenOddMarketViewComponent(IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+		public EvenOddMarketViewComponent(IPasswordSettingsService passwordSettingsService, UserBetsUpdateUnmatcedBets objUserbets, IHttpContextAccessor httpContextAccessor)
 		{
 			_httpContextAccessor = httpContextAccessor;
+			_objUserbets = objUserbets;
 			_passwordSettingsService = passwordSettingsService;
 		}
 
@@ -108,7 +109,7 @@ namespace GTExCore.Component
 						lstUserBets = lstUserBets.Where(item => item.MarketBookID == marketbook.MarketId).ToList();
 						if (lstUserBets.Count != 0)
 						{
-							currentmarketsfancyPL = objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
+							currentmarketsfancyPL = _objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
 						}
 					}
 					else
@@ -119,7 +120,7 @@ namespace GTExCore.Component
 							lstUserBets = lstUserBets.Where(item => item.MarketBookID == marketbook.MarketId).ToList();
 							if (lstUserBets.Count != 0)
 							{
-								currentmarketsfancyPL = objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<UserBets>());
+								currentmarketsfancyPL = _objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<UserBets>());
 							}
 						}
 						else
@@ -130,7 +131,7 @@ namespace GTExCore.Component
 								lstUserBets = lstUserBets.Where(item => item.MarketBookID == marketbook.MarketId).ToList();
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
+									currentmarketsfancyPL = _objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
 								}
 							}
 							if (LoggedinUserDetail.GetUserTypeID() == 9)
@@ -139,7 +140,7 @@ namespace GTExCore.Component
 								lstUserBets = lstUserBets.Where(item => item.MarketBookID == marketbook.MarketId).ToList();
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<UserBets>());
+									currentmarketsfancyPL = _objUserbets.GetBookPositioninKJ(marketid, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<UserBets>());
 								}
 							}
 							else
@@ -148,7 +149,7 @@ namespace GTExCore.Component
 								lstUserBets = lstUserBets.Where(item => item.MarketBookID == marketbook.MarketId).ToList();
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositioninKJ(marketid, lstUserBets, new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
+									currentmarketsfancyPL = _objUserbets.GetBookPositioninKJ(marketid, lstUserBets, new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
 								}
 							}
 						}

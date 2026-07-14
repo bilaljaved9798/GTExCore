@@ -16,7 +16,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
+using NuGet.Common;
 using System.Globalization;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -48,6 +51,7 @@ namespace GTExCore.Controllers
         public static wsnew ws4339 = new wsnew();
         public static wsnew wsFancy = new wsnew();
         private wsnew wsBFMatch = new wsnew();
+        List<ProfitandLossEventType> lstProfitandLossAll = new List<ProfitandLossEventType>();
         public DashBoardApiController(IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -61,34 +65,41 @@ namespace GTExCore.Controllers
         {
             try
             {
-
                 if (userid == 1)
                 {
                     userid = 73;
                 }
-                // if (LoggedinUserDetail.GetUserTypeID() == 3)
-                //{
-                //var data = GetManagers(userid);
-                BettingServiceReference.MarketBook[] lstGridMarkets = objBettingClient.GetMarketDataList(_passwordSettingsService.PasswordForValidate);
+                //var results = objUsersServiceCleint.GetInPlayMatcheswithRunners1(userid);
+                //List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(results);
+                //List<string> lstIds = lstInPlayMatches.Where(item => item.EventTypeName == "Cricket").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList();
+                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Soccer").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
+                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Tennis").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
+                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Horse Racing").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
+                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Greyhound Racing").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
+                var results = objUsersServiceCleint.GetInPlayMatcheswithRunners1(userid);
+                List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(results);
+
+                List<BettingServiceReference.MarketBook> marketBooks = lstInPlayMatches
+                .Select(x => new BettingServiceReference.MarketBook
+                {
+                    EventID = x.EventID,
+                    MarketId = x.MarketCatalogueID,
+
+                    MainSportsname = x.EventTypeName,
+                    MarketStatusstr = x.MarketStatus,
+                    MarketBookName = x.EventName,
+                    OrignalOpenDate = x.EventOpenDate,
+                    SheetName = x.SheetName,
+
+
+                    // map remaining properties
+                })
+                .ToList();
+
+                //BettingServiceReference.MarketBook[] lstGridMarkets = objBettingClient.GetMarketDataList(_passwordSettingsService.PasswordForValidate);
                 var model = new DefaultPageModel1();
-
-                model.WelcomeMessage = "Please enjoy the non-stop intriguing betting experience only on www.gt-exch.com. Thanks";
-                model.WelcomeHeading = "Notice";
-                model.Rule = "Rule & Regs";
-                model.WelcomeMessage = "All bets apply to Full Time according to the match officials, plus any stoppage time. Extra - time / penalty shoot - outs are not included.If this market is re - opened for In - Play betting, unmatched bets will be cancelled at kick off and the market turned in play.The market will be suspended if it appears that a goal has been scored, a penalty will be given, or a red card will be shown.With the exception of bets for which the 'keep' option has been selected, unmatched bets will be cancelled in the event of a confirmed goal or sending off.Please note that should our data feeds fail we may be unable to manage this game in-play.Customers should be aware   that:Transmissions described as â€œliveâ€ by some broadcasters may actually be delayed.The extent of any such delay may vary, depending on the set-up through which they are receiving pictures or data.If this market is scheduled to go in-play, but due to unforeseen circumstances we are unable to offer the market in-play, then this market will be re-opened for the half-time interval and suspended again an hour after the scheduled kick-off time.";
-                model.AllMarkets = lstGridMarkets.ToList();
-                model.TodayHorseRacing = new List<TodayHorseRacing>();
-
-                model.ModalContent = new List<string>();
-                string modalli1 = "Dummy text";
-                string modalli2 = "Dummy text";
-                model.ModalContent.Add(modalli1);
-                model.ModalContent.Add(modalli2);
-
+                model.AllMarkets = marketBooks;
                 return Ok(new { page = model });
-                //}
-
-                //return BadRequest("Invalid model");
             }
             catch (System.Exception ex)
             {
@@ -113,6 +124,264 @@ namespace GTExCore.Controllers
             LoggedinUserDetail.GetCricketDataFrom = LoggedinUserDetail.URLsData.Where(item => item.EventType == "Cricket").FirstOrDefault().GetDataFrom;
         }
 
+        [Route("InPlayMatches")]
+        [HttpGet]
+        public async Task<IActionResult> InPlayMatches(int userid, int mainSportsCategory)
+        {
+            try
+            {
+                List<TodayHorseRacing> lstTodayHorseRacing = JsonConvert.DeserializeObject<List<TodayHorseRacing>>(await objUsersServiceCleint.GetTodayHorseRacingAsync(userid, mainSportsCategory.ToString()));
+                return Ok(new { page = lstTodayHorseRacing });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        [Route("GetBalnceDetails")]
+        [HttpGet]
+        public async Task<IActionResult> GetBalnceDetails(int userId)
+        {
 
+            double CurrentAccountBalance = 0;
+            string CurrentLiabality = "";
+            try
+            {
+                LoggedinUserDetail.CurrentAccountBalance = Convert.ToDouble(await objUsersServiceCleint.GetStartingBalanceAsync(userId, _passwordSettingsService.PasswordForValidate));
+                CurrentAccountBalance = Convert.ToDouble(objUsersServiceCleint.GetCurrentBalancebyUser(userId, _passwordSettingsService.PasswordForValidate));
+            }
+            catch (System.Exception ex)
+            {
+            }
+
+            double laboddmarket = 0;
+            double othermarket = 0;
+            List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<Models.UserBets>>(await objUsersServiceCleint.GetUserbetsbyUserIDAsync(userId, _passwordSettingsService.PasswordForValidate));
+            List<UserBets> lstUserBetsOdds = lstUserBets.Where(x => x.location != "9").ToList();
+            List<UserBets> lstUserBetsfncy = lstUserBets.Where(x => x.location == "9").ToList();
+            laboddmarket = objUserBets.GetLiabalityofCurrentUser(userId, lstUserBetsOdds);
+            othermarket = objUserBets.GetLiabalityofCurrentUserfancy(userId, lstUserBetsfncy);
+            CurrentLiabality = (laboddmarket + othermarket).ToString("F2");
+            LoggedinUserDetail.CurrentAvailableBalance = CurrentAccountBalance + Convert.ToDouble(CurrentLiabality);
+
+            List<UserLiabality> lstUserLiabality = JsonConvert.DeserializeObject<List<UserLiabality>>(objUsersServiceCleint.GetCurrentLiabality(userId));
+            decimal totalLiability = lstUserLiabality
+    .Sum(x =>
+    {
+        decimal value;
+        return decimal.TryParse(x.Liabality, out value)
+            ? value
+            : 0;
+    });
+            var NetBalance = objUsersServiceCleint.GetProfitorLossbyUserID(userId, false, _passwordSettingsService.PasswordForValidate).ToString();
+
+
+            return Ok(new { page = CurrentLiabality });
+
+        }
+
+        [Route("ProfitandLoss")]
+        [HttpPost]
+        public async Task<IActionResult> ProfitandLoss([FromBody] ProfitLossRequest request)
+        {
+            try
+            {
+                //string DateFrom = ConvertDateFormat(request.DateFrom);
+                //string DateTo = ConvertDateFormat(request.DateTo);
+
+                if (request.chkfancy == true && request.chkseassion == true)
+                {
+                    Getdataforfancybysession(request.DateFrom, request.DateTo, request.chkfancy.Value, request.userid.Value);
+                }
+
+                if (request.chkByMarket == false)
+                {
+                    List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
+                    lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventtypeuserIDandDateRange(request.userid.Value, request.DateFrom, request.DateTo, _passwordSettingsService.PasswordForValidate));
+                    var data = JsonConvert.DeserializeObject(await objUsersServiceCleint.GetDatabyAgentIDForCommisionandDateRangeAsync(request.userid.Value, request.DateFrom, request.DateTo, _passwordSettingsService.PasswordForValidate));
+                    ProfitandLossEventType objProfitandLossCommission = new ProfitandLossEventType();
+                    objProfitandLossCommission.EventType = "Commission";
+                    objProfitandLossCommission.NetProfitandLoss = Convert.ToDecimal(data); //lstProfitandlossEventtypeCommission.Sum(item => item.NetProfitandLoss);
+                    lstProfitandlossEventtype.Add(objProfitandLossCommission);
+
+                    if (lstProfitandlossEventtype.Count > 0)
+                    {
+                        if (request.chkfancy == true)
+                        {
+                            lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType.Contains("Fancy")).ToList();
+                        }
+                        if (request.chkByMarketCricket == true)
+                        {
+                            lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType == ("Cricket") || item.EventType == ("Fancy")).ToList();
+                        }
+
+
+                        //ViewBag.NetProfitorLoss1 = lstProfitandlossEventtype.Where(item => item.EventType != "Commission").Sum(item => item.NetProfitandLoss).ToString("N0");
+
+                    }
+
+                    lstProfitandLossAll = lstProfitandlossEventtype;
+                }
+                else
+                {
+                    try
+                    {
+
+                        List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
+
+                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(request.userid.Value, request.DateFrom, request.DateTo, _passwordSettingsService.PasswordForValidate));
+
+                        if (lstProfitandlossEventtype.Count > 0)
+                        {
+                            if (request.chkfancy == true)
+                            {
+                                lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType.Contains("Fancy")).ToList();
+                            }
+                            if (request.chkByMarketCricket == true)
+                            {
+                                lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.Eventtype1 == ("Cricket") || item.Eventtype1 == ("Fancy")).ToList();
+                            }
+                        }
+
+                        lstProfitandLossAll = lstProfitandlossEventtype;
+
+                    }
+
+                    catch (System.Exception ex)
+                    {
+
+                    }
+
+                    // GetDistinctMatchesfromResults();
+                }
+
+                return Ok(lstProfitandLossAll);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+            }
+        }
+        [Route("LedgerDetails")]
+        [HttpGet]
+        public async Task<IActionResult> LedgerDetails(string DateFrom, string DateTo, int UserID, bool isCredit)
+        {
+            try
+            {
+                DateFrom = ConvertDateFormat(DateFrom);
+                DateTo = ConvertDateFormat(DateTo);
+
+                List<UserAccounts> lstUserAccounts = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDatabyUserIDandDateRange(UserID, DateFrom, DateTo, isCredit, _passwordSettingsService.PasswordForValidate));
+                if (lstUserAccounts.Count > 0)
+                {
+                    UserAccounts objUseraccounts = new UserAccounts();
+                    objUseraccounts.AccountsTitle = "Opening Balance";
+                    objUseraccounts.Debit = lstUserAccounts[0].OpeningBalance.ToString("F2");
+                    objUseraccounts.Credit = "0.00";
+                    objUseraccounts.CreatedDate = lstUserAccounts[0].CreatedDate;
+                    objUseraccounts.OpeningBalance = lstUserAccounts[0].OpeningBalance;
+                    lstUserAccounts.Insert(0, objUseraccounts);
+                    for (int i = 0; i <= lstUserAccounts.Count - 1; i++)
+                    {
+                        if (i + 1 < lstUserAccounts.Count)
+                        {
+                            if (lstUserAccounts[i + 1].Debit == "" || lstUserAccounts[i + 1].Debit == "0.00")
+                            {
+                                lstUserAccounts[i + 1].OpeningBalance = lstUserAccounts[i].OpeningBalance - Convert.ToDecimal(lstUserAccounts[i + 1].Credit);
+                                lstUserAccounts[i + 1].Credit = (-1 * Convert.ToDecimal(lstUserAccounts[i + 1].Credit)).ToString();
+                                lstUserAccounts[i + 1].Debit = "0.00";
+                            }
+                            else
+                            {
+                                lstUserAccounts[i + 1].OpeningBalance = lstUserAccounts[i].OpeningBalance + Convert.ToDecimal(lstUserAccounts[i + 1].Debit);
+                                lstUserAccounts[i + 1].Credit = "0.00";
+                            }
+                        }
+                    }
+                }
+                var NetProfitorLoss = objUsersServiceCleint.GetProfitorLossbyUserID(UserID, isCredit, _passwordSettingsService.PasswordForValidate);
+                return Ok(new
+                {
+                    useraccount = lstUserAccounts,
+                    netpl = NetProfitorLoss
+                });
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+
+        public void Getdataforfancybysession(string DateFrom, string DateTo, bool chkfancy, int userid)
+        {
+            try
+            {
+                List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
+
+                lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRangeFancywithMArketName(userid, DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+
+                if (lstProfitandlossEventtype.Count > 0)
+                {
+                    if (chkfancy == true)
+                    {
+                        lstProfitandlossEventtype = lstProfitandlossEventtype.Where(item => item.EventType.Contains("Fancy")).ToList();
+                    }
+                    lstProfitandlossEventtype = lstProfitandlossEventtype.OrderBy(o => o.EventID).ThenBy(o => o.EventType).ToList();
+                    lstProfitandLossAll = lstProfitandlossEventtype;
+                }
+            }
+            catch (System.Exception ex)
+            {
+
+            }
+        }
+        public string ConvertDateFormat(string datetoconvert)
+        {
+            string[] datearr = datetoconvert.Split('-');
+            datetoconvert = datearr[2].ToString() + "-" + datearr[1].ToString() + "-" + datearr[0].ToString();
+            return datetoconvert;
+        }
+
+        [Route("GetSoccerMarkets")]
+        [HttpGet]
+        public async Task<List<string>> GetSoccerMarkets(string eventId)
+        {
+            var soccerGoalMarket =
+                await objUsersServiceCleint.GetSoccergoalbyeventIdAsync(73, eventId);
+
+            return soccerGoalMarket
+                .Where(x => !string.IsNullOrWhiteSpace(x.MarketCatalogueID))
+                .Select(x => x.MarketCatalogueID)
+                .Distinct()
+                .ToList();
+        }
+        [Route("GetRelatedEvent")]
+        [HttpGet]
+        public async Task<List<InPlayMatches>> GetRelatedEvent(string eventtype, string marketbookID)
+        {
+            var results = await objUsersServiceCleint.GetInPlayMatcheswithRunners1Async(73);
+
+            var lstInPlayMatches =
+                JsonConvert.DeserializeObject<List<InPlayMatches>>(results) ?? new List<InPlayMatches>();
+
+            return lstInPlayMatches
+                .Where(x => x.EventTypeName == eventtype)
+                .GroupBy(x => x.MarketCatalogueID)
+                .Select(g => g.First())
+                .Where(x => x.MarketCatalogueID != marketbookID)
+                .OrderBy(x => x.EventOpenDate)
+                .ToList();
+        }
+
+        public class ProfitLossRequest
+        {
+            public string DateFrom { get; set; }
+            public string DateTo { get; set; }
+            public bool? chkseassion { get; set; }
+            public bool? chkfancy { get; set; }
+            public bool? chkByMarket { get; set; }
+            public bool? chkByMarketCricket { get; set; }
+            public int? userid { get; set; }
+        }
     }
 }

@@ -17,15 +17,16 @@ namespace GTExCore.Component
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private BettingServiceClient objBettingClient = new BettingServiceClient();
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
-        UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
+        UserBetsUpdateUnmatcedBets _objUserbets;
         private readonly IPasswordSettingsService _passwordSettingsService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         BettingServiceReference.MarketBook FigureMarket = new BettingServiceReference.MarketBook();
         List<BettingServiceReference.Runner> lstRunners = new List<BettingServiceReference.Runner>();
-        public FigureMarketViewComponent(IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+        public FigureMarketViewComponent(IPasswordSettingsService passwordSettingsService, UserBetsUpdateUnmatcedBets objUserbets, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _passwordSettingsService = passwordSettingsService;
+            _objUserbets = objUserbets;
         }
 
         public async Task<IViewComponentResult> InvokeAsync(string EventID)
@@ -58,7 +59,7 @@ namespace GTExCore.Component
                     {
                         LastloadedLinMarkets1.Add(ConvertJsontoMarketObjectBFNewSourceFigure(bfobject.MarketCatalogueIDk__BackingField, bfobject.MarketCatalogueNamek__BackingField, "Cricket", bfobject.BettingAllowedk__BackingField));
                         MarketBookFigure = LastloadedLinMarkets1;
-                        UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+                        
                         if (MarketBookFigure != null)
                         {
                             MarketBookFigure[0].MarketBookName = MarketBookFigure[0].MarketBookName;
@@ -71,7 +72,7 @@ namespace GTExCore.Component
                                 lstUserBets = lstUserBets.Where(item2 => item2.isMatched == true && item2.MarketBookID == MarketBookFigure[0].MarketId).ToList();
                                 if (lstUserBets.Count > 0)
                                 {
-                                    MarketBookFigure[0].DebitCredit = objUserBets.ceckProfitandLossFig(MarketBookFigure[0], lstUserBets);
+                                    MarketBookFigure[0].DebitCredit = _objUserbets.ceckProfitandLossFig(MarketBookFigure[0], lstUserBets);
                                     foreach (var runner in MarketBookFigure[0].Runners)
                                     {
                                         runner.ProfitandLoss = Convert.ToInt64(MarketBookFigure[0].DebitCredit.Where(item2 => item2.SelectionID == runner.SelectionId).Sum(item2 => item2.Debit) - MarketBookFigure[0].DebitCredit.Where(item2 => item2.SelectionID == runner.SelectionId).Sum(item2 => item2.Credit));

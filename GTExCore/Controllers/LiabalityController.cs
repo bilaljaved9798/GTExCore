@@ -17,7 +17,7 @@ namespace GTExCore.Controllers
     {
         AccessRightsbyUserType objAccessrightsbyUserType;
         BettingServiceClient BettingServiceClient = new BettingServiceClient();
-        UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+        UserBetsUpdateUnmatcedBets _objUserBets;
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
         private readonly IRazorViewEngine _viewEngine;
         private readonly ITempDataProvider _tempDataProvider;
@@ -25,12 +25,13 @@ namespace GTExCore.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPasswordSettingsService _passwordSettingsService;
 
-        public LiabalityController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+        public LiabalityController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, UserBetsUpdateUnmatcedBets objUserBets, IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _viewEngine = viewEngine;
             _tempDataProvider = tempDataProvider;
             _serviceProvider = serviceProvider;
+            _objUserBets = objUserBets;
             _passwordSettingsService = passwordSettingsService;
         }
         public IActionResult Index()
@@ -46,7 +47,7 @@ namespace GTExCore.Controllers
                 if (LoggedinUserDetail.GetUserTypeID() == 3)
                 {
                     var lstUserBets = JsonConvert.DeserializeObject<List<Models.UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-                    lstLibalitybymrakets = objUserBets.GetLiabalityofCurrentUserbyMarkets(LoggedinUserDetail.GetUserID(), lstUserBets);
+                    lstLibalitybymrakets = _objUserBets.GetLiabalityofCurrentUserbyMarkets(LoggedinUserDetail.GetUserID(), lstUserBets);
                     decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                     objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
                     return PartialView("LiabalitybyMarket", lstLibalitybymrakets);
@@ -57,8 +58,8 @@ namespace GTExCore.Controllers
                     {
                         string userbets = objUsersServiceCleint.GetUserBetsbyAgentID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate);
                         var lstUserBet = JsonConvert.DeserializeObject<List<UserBetsforAgent>>(userbets);
-                        UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                        lstLibalitybymrakets = objUserBets.GetLiabalityofCurrentAgentbyMarkets(lstUserBet);
+               
+                        lstLibalitybymrakets = _objUserBets.GetLiabalityofCurrentAgentbyMarkets(lstUserBet);
                         decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                         objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
                         return PartialView("LiabalitybyMarket", lstLibalitybymrakets);
@@ -69,8 +70,8 @@ namespace GTExCore.Controllers
                         {
                             string userbets = objUsersServiceCleint.GetUserbetsForAdmin(_passwordSettingsService.PasswordForValidate);
                             List<UserBetsForAdmin> lstUserBet = JsonConvert.DeserializeObject<List<UserBetsForAdmin>>(userbets);
-                            UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                            lstLibalitybymrakets = objUserBets.GetLiabalityofAdminbyMarkets(lstUserBet);
+                         
+                            lstLibalitybymrakets = _objUserBets.GetLiabalityofAdminbyMarkets(lstUserBet);
                             decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                             objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
                             return PartialView("LiabalitybyMarket", lstLibalitybymrakets);
@@ -81,8 +82,8 @@ namespace GTExCore.Controllers
                             {
                                 string userbets = objUsersServiceCleint.GetUserBetsbySuperID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate);
                                 List<UserBetsforSuper> lstUserBet = JsonConvert.DeserializeObject<List<UserBetsforSuper>>(userbets);
-                                UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                                lstLibalitybymrakets = objUserBets.GetLiabalityofSuperbyMarkets(lstUserBet);
+                         
+                                lstLibalitybymrakets = _objUserBets.GetLiabalityofSuperbyMarkets(lstUserBet);
                                 decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                                 objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
                                 return PartialView("LiabalitybyMarket", lstLibalitybymrakets);
@@ -107,15 +108,15 @@ namespace GTExCore.Controllers
         public ActionResult LoadLiabalitybyMarketall()
         {
             objAccessrightsbyUserType = new AccessRightsbyUserType();
-            UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+            
             try
             {
                 List<LiabalitybyMarket> lstLibalitybymrakets = new List<LiabalitybyMarket>();
                 if (LoggedinUserDetail.GetUserTypeID() == 3)
                 {
                     var lstUserBets = JsonConvert.DeserializeObject<List<Models.UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-                    UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                    lstLibalitybymrakets = objUserBets.GetLiabalityofCurrentUserbyMarkets(LoggedinUserDetail.GetUserID(), lstUserBets);
+                    
+                    lstLibalitybymrakets = _objUserBets.GetLiabalityofCurrentUserbyMarkets(LoggedinUserDetail.GetUserID(), lstUserBets);
                     decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                     objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
                     return View(objAccessrightsbyUserType);
@@ -128,8 +129,8 @@ namespace GTExCore.Controllers
 
                         string userbets = objUsersServiceCleint.GetUserBetsbyAgentID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate);
                         var lstUserBet = JsonConvert.DeserializeObject<List<UserBetsforAgent>>(userbets);
-                        UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                        lstLibalitybymrakets = objUserBets.GetLiabalityofCurrentAgentbyMarkets(lstUserBet);
+                        
+                        lstLibalitybymrakets = _objUserBets.GetLiabalityofCurrentAgentbyMarkets(lstUserBet);
                         decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                         objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
                         return View(objAccessrightsbyUserType);
@@ -140,8 +141,8 @@ namespace GTExCore.Controllers
                         {
                             string userbets = objUsersServiceCleint.GetUserbetsForAdmin(_passwordSettingsService.PasswordForValidate);
                             List<UserBetsForAdmin> lstUserBet = JsonConvert.DeserializeObject<List<UserBetsForAdmin>>(userbets);
-                            UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                            lstLibalitybymrakets = objUserBets.GetLiabalityofAdminbyMarkets(lstUserBet);
+                            
+                            lstLibalitybymrakets = _objUserBets.GetLiabalityofAdminbyMarkets(lstUserBet);
                             decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                             objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
 
@@ -153,8 +154,8 @@ namespace GTExCore.Controllers
                             {
                                 string userbets = objUsersServiceCleint.GetUserBetsbySuperID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate);
                                 List<UserBetsforSuper> lstUserBet = JsonConvert.DeserializeObject<List<UserBetsforSuper>>(userbets);
-                                UserBetsUpdateUnmatcedBets objUserbet = new UserBetsUpdateUnmatcedBets();
-                                lstLibalitybymrakets = objUserBets.GetLiabalityofSuperbyMarkets(lstUserBet);
+                                
+                                lstLibalitybymrakets = _objUserBets.GetLiabalityofSuperbyMarkets(lstUserBet);
                                 decimal liab = Convert.ToDecimal(lstLibalitybymrakets.Sum(item => Convert.ToDecimal((item.Liabality))));
                                 objAccessrightsbyUserType.CurrentLiabality = "Liab: " + liab.ToString("F2");
 

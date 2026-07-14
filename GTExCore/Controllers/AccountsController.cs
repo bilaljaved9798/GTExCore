@@ -18,7 +18,7 @@ namespace GTExCore.Controllers
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         private BettingServiceClient objBettingClient = new BettingServiceClient();
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
-        private UserBetsUpdateUnmatcedBets _userBetsUpdateUnmatcedBets = new UserBetsUpdateUnmatcedBets();
+        private UserBetsUpdateUnmatcedBets _objUserBets;
         private readonly IRazorViewEngine _viewEngine;
         private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;

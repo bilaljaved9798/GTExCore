@@ -9,12 +9,13 @@ namespace GTExCore.Controllers
 	{
 		UserServicesClient objUsersServiceCleint = new UserServicesClient();
 		BettingServiceReference.MarketBook MarketBook = new BettingServiceReference.MarketBook();
-		UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
+		UserBetsUpdateUnmatcedBets _objUserbets;
 		private readonly IPasswordSettingsService _passwordSettingsService;
 		private readonly IHttpContextAccessor _httpContextAccessor;
-		public FigureController(IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+		public FigureController(IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor, UserBetsUpdateUnmatcedBets objUserbets)
 		{
 			_httpContextAccessor = httpContextAccessor;
+			_objUserbets = objUserbets;
 			_passwordSettingsService = passwordSettingsService;
 		}
 		public IActionResult Index()

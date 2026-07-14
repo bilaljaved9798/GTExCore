@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using GTCore.Models;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Xml.Serialization;
+using UserServiceReference;
 
 namespace Census.API.Common
 {
@@ -32,7 +35,7 @@ namespace Census.API.Common
 
             return AccessURL;
         }
-       
+
         public static string EncryptString(string plainText)
         {
 

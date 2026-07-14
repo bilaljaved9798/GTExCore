@@ -19,18 +19,19 @@ namespace Census.API.Controllers
 		private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 		private BettingServiceClient objBettingClient = new BettingServiceClient();
 		UserServicesClient objUsersServiceCleint = new UserServicesClient();
-		UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
+		UserBetsUpdateUnmatcedBets _objUserbets;
 		private readonly IRazorViewEngine _viewEngine;
 		private readonly ITempDataProvider _tempDataProvider;
 		private readonly IServiceProvider _serviceProvider;
 		private readonly IPasswordSettingsService _passwordSettingsService;
 		private readonly IHttpContextAccessor _httpContextAccessor;
-		public Fancy2MarketController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IConfiguration configuration, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+		public Fancy2MarketController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, UserBetsUpdateUnmatcedBets objUserbets, IServiceProvider serviceProvider, IConfiguration configuration, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
 		{
 			_httpContextAccessor = httpContextAccessor;
 			_viewEngine = viewEngine;
 			_tempDataProvider = tempDataProvider;
 			_serviceProvider = serviceProvider;
+			_objUserbets = objUserbets;
 			_passwordSettingsService = passwordSettingsService;
 		}
 
@@ -109,7 +110,7 @@ namespace Census.API.Controllers
 						List<UserBetsforAgent> lstUserBets = JsonConvert.DeserializeObject<List<UserBetsforAgent>>(objUsersServiceCleint.GetUserbetsbyUserIDandAgentID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
 						if (lstUserBets.Count != 0)
 						{
-							currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<UserBets>());
+							currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<UserBets>());
 						}
 					}
 
@@ -119,7 +120,7 @@ namespace Census.API.Controllers
 						lstUserBets = lstUserBets.Where(item => item.SelectionID == runner.SelectionId).ToList();
 						if (lstUserBets.Count != 0)
 						{
-							currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
+							currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
 						}
 					}
 					if (LoggedinUserDetail.GetUserTypeID() == 9)
@@ -128,7 +129,7 @@ namespace Census.API.Controllers
 						lstUserBets = lstUserBets.Where(item => item.SelectionID == runner.SelectionId).ToList();
 						if (lstUserBets.Count != 0)
 						{
-							currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<UserBets>());
+							currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<UserBets>());
 						}
 					}
 					if (LoggedinUserDetail.GetUserTypeID() == 9)
@@ -138,7 +139,7 @@ namespace Census.API.Controllers
 							lstUserBets = lstUserBets.Where(item => item.SelectionID == runner.SelectionId).ToList();
 							if (lstUserBets.Count != 0)
 							{
-								currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, lstUserBets, new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
+								currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, lstUserBets, new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
 							}
 						}
 					}
@@ -230,7 +231,7 @@ namespace Census.API.Controllers
 								List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
+									currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
 								}
 							}
 
@@ -239,7 +240,7 @@ namespace Census.API.Controllers
 								List<UserBetsforAgent> lstUserBets = JsonConvert.DeserializeObject<List<UserBetsforAgent>>(objUsersServiceCleint.GetUserbetsbyUserIDandAgentID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<UserBets>());
+									currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<UserBets>());
 								}
 							}
 
@@ -249,7 +250,7 @@ namespace Census.API.Controllers
 								lstUserBets = lstUserBets.Where(item => item.SelectionID == runner.SelectionId).ToList();
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
+									currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
 								}
 							}
 							if (LoggedinUserDetail.GetUserTypeID() == 9)
@@ -258,7 +259,7 @@ namespace Census.API.Controllers
 								lstUserBets = lstUserBets.Where(item => item.SelectionID == runner.SelectionId).ToList();
 								if (lstUserBets.Count != 0)
 								{
-									currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<UserBets>());
+									currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<UserBets>());
 								}
 							}
 							if (LoggedinUserDetail.GetUserTypeID() == 9)
@@ -268,7 +269,7 @@ namespace Census.API.Controllers
 									lstUserBets = lstUserBets.Where(item => item.SelectionID == runner.SelectionId).ToList();
 									if (lstUserBets.Count != 0)
 									{
-										currentmarketsfancyPL = objUserbets.GetBookPositionINNew(runner.SelectionId, lstUserBets, new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
+										currentmarketsfancyPL = _objUserbets.GetBookPositionINNew(runner.SelectionId, lstUserBets, new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<UserBets>());
 									}
 								}
 							}

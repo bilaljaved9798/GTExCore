@@ -38,7 +38,7 @@ namespace Census.API.Controllers
         private readonly ITempDataProvider _tempDataProvider;
         private readonly IServiceProvider _serviceProvider;
         private readonly IPasswordSettingsService _passwordSettingsService;
-        UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+        UserBetsUpdateUnmatcedBets _objUserBets;
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
         public static wsnew ws1 = new wsnew();
         public static wsnew ws2 = new wsnew();
@@ -100,7 +100,7 @@ namespace Census.API.Controllers
         {
             try
             {
-                UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+                
                 if (LoggedinUserDetail.GetUserTypeID() != 1)
                 {
                     objUsersServiceCleint.UpdateAllMarketClosedbyUserID(LoggedinUserDetail.GetUserID());
@@ -263,7 +263,7 @@ namespace Census.API.Controllers
                             var objMarketbook = marketbooks.Where(item2 => item2.MarketId == item).FirstOrDefault();
                             if (objMarketbook != null)
                             {
-                                objMarketbook.DebitCredit = objUserBets.ceckProfitandLoss(objMarketbook, lstUserBets);
+                                objMarketbook.DebitCredit = _objUserBets.ceckProfitandLoss(objMarketbook, lstUserBets);
 
                                 foreach (var runner in objMarketbook.Runners)
                                 {
@@ -506,7 +506,7 @@ namespace Census.API.Controllers
                         {
                             var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
                             List<UserBets> lstUserBets = lstUserBet.Where(item2 => item2.isMatched == true && item2.MarketBookID == marketbooks[0].MarketId).ToList();
-                            marketbooks[0].DebitCredit = objUserBets.ceckProfitandLoss(marketbooks[0], lstUserBets);
+                            marketbooks[0].DebitCredit = _objUserBets.ceckProfitandLoss(marketbooks[0], lstUserBets);
                             if (marketbooks[0].MarketBookName.Contains("To Be Placed"))
                             {
                                 foreach (var runner in marketbooks[0].Runners)
@@ -1625,7 +1625,7 @@ namespace Census.API.Controllers
             try
             {
                 List<string> data = new List<string>();
-                UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+                
                 LoggedinUserDetail.CheckifUserLogin();
                 var Soccergoalmarket = objUsersServiceCleint.GetSoccergoalbyeventId(LoggedinUserDetail.GetUserID(), EventID);
 
@@ -1703,7 +1703,7 @@ namespace Census.API.Controllers
                                             }
                                             var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
                                             List<UserBets> lstUserBets = lstUserBet.Where(x => x.isMatched == true && x.MarketBookID == item2.MarketId).ToList();
-                                            item2.DebitCredit = objUserBets.ceckProfitandLoss(item2, lstUserBets);
+                                            item2.DebitCredit = _objUserBets.ceckProfitandLoss(item2, lstUserBets);
                                             runneritem.ProfitandLoss = Convert.ToInt64(item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Debit) - item2.DebitCredit.Where(item5 => item5.SelectionID == runneritem.SelectionId).Sum(item5 => item5.Credit));
 
                                         }
@@ -1734,7 +1734,7 @@ namespace Census.API.Controllers
             try
             {
                 List<string> data = new List<string>();
-                UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+                
                 LoggedinUserDetail.CheckifUserLogin();
                 var Soccergoalmarket = objUsersServiceCleint.GetSoccergoalbyeventId(LoggedinUserDetail.GetUserID(), EventID);
                 var tasks = new List<Task>();
@@ -1832,7 +1832,7 @@ namespace Census.API.Controllers
 
                         // 7️⃣ Calculate Profit/Loss ONCE per market
                         marketBook.DebitCredit =
-                            objUserBets.ceckProfitandLoss(marketBook, marketBets);
+                            _objUserBets.ceckProfitandLoss(marketBook, marketBets);
 
                         // Group debit/credit by SelectionID
                         var pnlBySelection = marketBook.DebitCredit
@@ -1887,8 +1887,7 @@ namespace Census.API.Controllers
         {
             try
             {
-                UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
-
+                
                 //  return RenderRazorViewToString("MarketBook", marketbooks1);
                 LoggedinUserDetail.CheckifUserLogin();
                 if (ID != "" && LoggedinUserDetail.GetUserTypeID() != 1)

@@ -28,7 +28,7 @@ namespace GTExCore.Controllers
         private static readonly ILog log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         AccessRightsbyUserType objAccessrightsbyUserType;
         BettingServiceClient BettingServiceClient = new BettingServiceClient();
-        UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+        UserBetsUpdateUnmatcedBets _objUserbets;
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
         AccountsServiceClient objAccountsService = new AccountsServiceClient();
         private readonly IRazorViewEngine _viewEngine;
@@ -37,7 +37,7 @@ namespace GTExCore.Controllers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IPasswordSettingsService _passwordSettingsService;
         List<ProfitandLossEventType> lstProfitandLossAll = new List<ProfitandLossEventType>();
-        public DashBoardController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+        public DashBoardController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider,IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _viewEngine = viewEngine;
@@ -813,10 +813,7 @@ namespace GTExCore.Controllers
                     model.TodayHorseRacing = new List<TodayHorseRacing>();
 
                     model.ModalContent = new List<string>();
-                    string modalli1 = "Dummy text";
-                    string modalli2 = "Dummy text";
-                    model.ModalContent.Add(modalli1);
-                    model.ModalContent.Add(modalli2);
+              
 
                     return PartialView("AllInPayMatches", model);
                 }
@@ -832,8 +829,6 @@ namespace GTExCore.Controllers
                     ViewBag.backgrod = "#1D9BF0 !important";
                     ViewBag.color = "white";
                     
-
-
                     var model = new DefaultPageModel();
 
                     model.WelcomeMessage = "Please enjoy the non-stop intriguing betting experience only on www.gt-exch.com. Thanks";
@@ -870,9 +865,8 @@ namespace GTExCore.Controllers
                 ViewBag.color = "white";
 
                 LoggedinUserDetail.CheckifUserLogin();
-                UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
                 List<UserBetsforAgent> lstUserBets = JsonConvert.DeserializeObject<List<UserBetsforAgent>>(objUsersServiceCleint.GetUserBetsbyAgentID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-                BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<Models.UserBets>());
+                BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = _objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), lstUserBets, new List<Models.UserBets>());
                 if (CurrentMarketProfitandloss.RunnersForindianFancy != null)
                 {
                     var lstCurrentMarketBets = lstUserBets.Where(item => item.MarketBookID == marektbookID && item.isMatched == true).ToList();
@@ -895,9 +889,8 @@ namespace GTExCore.Controllers
                     ViewBag.color = "white";
 
                     //LoggedinUserDetail.CheckifUserLogin();
-                    UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
                     List<UserBetsforSuper> lstUserBets = JsonConvert.DeserializeObject<List<UserBetsforSuper>>(objUsersServiceCleint.GetUserBetsbySuperID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-                    BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<Models.UserBets>());
+                    BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = _objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), lstUserBets, new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), new List<Models.UserBets>());
 
                     if (CurrentMarketProfitandloss.RunnersForindianFancy != null)
                     {
@@ -921,9 +914,8 @@ namespace GTExCore.Controllers
                         ViewBag.color = "white";
 
                         LoggedinUserDetail.CheckifUserLogin();
-                        UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
                         List<UserBetsforSamiadmin> lstUserBets = JsonConvert.DeserializeObject<List<UserBetsforSamiadmin>>(objUsersServiceCleint.GetUserBetsbySamiAdmin(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
-                        BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<Models.UserBets>());
+                        BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = _objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), lstUserBets, new List<UserBetsforAgent>(), new List<Models.UserBets>());
 
                         if (CurrentMarketProfitandloss.RunnersForindianFancy != null)
                         {
@@ -942,11 +934,10 @@ namespace GTExCore.Controllers
                     else
                     {
                         LoggedinUserDetail.CheckifUserLogin();
-                        UserBetsUpdateUnmatcedBets objUserbets = new UserBetsUpdateUnmatcedBets();
                         //List<UserBets> lstUserBets = _httpContextAccessor.HttpContext.Session.GetObject<List<UserBets>>("userbet");
                         List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
 
-                        BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
+                        BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = _objUserbets.GetBookPositionIN(marektbookID, selectionID, new List<UserBetsForAdmin>(), new List<UserBetsforSuper>(), new List<UserBetsforSamiadmin>(), new List<UserBetsforAgent>(), lstUserBets);
                         if (CurrentMarketProfitandloss.RunnersForindianFancy != null)
                         {
                             var lstCurrentMarketBets = lstUserBets.Where(item => item.MarketBookID == marektbookID && item.isMatched == true).ToList();
@@ -991,8 +982,8 @@ namespace GTExCore.Controllers
                     List<UserBets> lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(LoggedinUserDetail.GetUserID(), _passwordSettingsService.PasswordForValidate));
                     List<UserBets> lstUserBetsF = lstUserBets.Where(x => x.location != "9").ToList();
                     List<UserBets> lstUserBetsfncy = lstUserBets.Where(x => x.location == "9").ToList();
-                    laboddmarket = objUserBets.GetLiabalityofCurrentUser(LoggedinUserDetail.GetUserID(), lstUserBetsF);
-                    othermarket = objUserBets.GetLiabalityofCurrentUserfancy(LoggedinUserDetail.GetUserID(), lstUserBetsfncy);
+                    laboddmarket = _objUserbets.GetLiabalityofCurrentUser(LoggedinUserDetail.GetUserID(), lstUserBetsF);
+                    othermarket = _objUserbets.GetLiabalityofCurrentUserfancy(LoggedinUserDetail.GetUserID(), lstUserBetsfncy);
                     CurrentLiabality = (laboddmarket + othermarket).ToString("F2");
                     ViewBag.CurrentLiabality = CurrentLiabality;
                     LoggedinUserDetail.CurrentAvailableBalance = CurrentAccountBalance + Convert.ToDouble(CurrentLiabality);

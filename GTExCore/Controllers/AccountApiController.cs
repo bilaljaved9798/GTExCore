@@ -81,11 +81,14 @@ namespace GTExCore.Controllers
                 user = new
                 {
                     result.ID,
+                    result.UserName,
                     result.UserTypeID,
                     result.PoundRate,
                     result.AccountBalance,
                     result.IsCom,
-                    result.isFancyMarketAllowed
+                    result.isFancyMarketAllowed,
+                    result
+
                 }
             });
         }
