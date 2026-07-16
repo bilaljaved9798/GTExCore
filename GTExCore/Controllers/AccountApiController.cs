@@ -1,6 +1,8 @@
 ﻿using BettingServiceReference;
 using GTCore.Models;
 using GTExCore.Common;
+using GTExCore.HelperClass;
+using GTExCore.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -93,6 +95,6 @@ namespace GTExCore.Controllers
             });
         }
 
-
+       
     }
 }

@@ -67,7 +67,7 @@ namespace GTExCore.Controllers
                     g.ToList()
                     )
                    );
-                    foreach (var runner in objRoot.session)
+                    foreach (var runner in objRoot?.session)
                     {
                         // Get correct PL for this runner
                         var pl = plLookup.TryGetValue(runner.SelectionId, out var value)

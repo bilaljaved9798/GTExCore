@@ -373,6 +373,46 @@ namespace GTExCore.Controllers
                 .ToList();
         }
 
+        [Route("UpdateBetSlipKeys")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateBetSlipKeys([FromBody] BetSlipKeys betSlipKeys)
+        {
+            // Null check for betSlipKeys to avoid runtime errors
+            if (betSlipKeys == null)
+            {
+                return BadRequest();
+            }
+
+           await objUsersServiceCleint.UpdateBetSlipKeysAsync(
+                betSlipKeys.UserID,
+                betSlipKeys.SimpleBtn1,
+                betSlipKeys.SimpleBtn2,
+                betSlipKeys.SimpleBtn3,
+                betSlipKeys.SimpleBtn4,
+                betSlipKeys.SimpleBtn5,
+                betSlipKeys.SimpleBtn6,
+                betSlipKeys.SimpleBtn7,
+                betSlipKeys.SimpleBtn8,
+                betSlipKeys.SimpleBtn9,
+                betSlipKeys.SimpleBtn10,
+                betSlipKeys.SimpleBtn11,
+                betSlipKeys.SimpleBtn12,
+                betSlipKeys.MutipleBtn1,
+                betSlipKeys.MutipleBtn2,
+                betSlipKeys.MutipleBtn3,
+                betSlipKeys.MutipleBtn4,
+                betSlipKeys.MutipleBtn5,
+                betSlipKeys.MutipleBtn6,
+                betSlipKeys.MutipleBtn7,
+                betSlipKeys.MutipleBtn8,
+                betSlipKeys.MutipleBtn9,
+                betSlipKeys.MutipleBtn10,
+                betSlipKeys.MutipleBtn11,
+                betSlipKeys.MutipleBtn12
+            );
+
+            return Ok();
+        }
         public class ProfitLossRequest
         {
             public string DateFrom { get; set; }
