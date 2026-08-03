@@ -61,22 +61,12 @@ namespace GTExCore.Controllers
 
         [Route("GetDefaultPageData")]
         [HttpGet]
-        public async Task<IActionResult> GetDefaultPageData(int userid)
+        public async Task<IActionResult> GetDefaultPageData()
         {
             try
             {
-                if (userid == 1)
-                {
-                    userid = 73;
-                }
-                //var results = objUsersServiceCleint.GetInPlayMatcheswithRunners1(userid);
-                //List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(results);
-                //List<string> lstIds = lstInPlayMatches.Where(item => item.EventTypeName == "Cricket").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList();
-                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Soccer").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
-                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Tennis").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
-                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Horse Racing").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
-                //lstIds.AddRange(lstInPlayMatches.Where(item => item.EventTypeName == "Greyhound Racing").Distinct().Select(item => item.MarketCatalogueID).Distinct().ToList());
-                var results = objUsersServiceCleint.GetInPlayMatcheswithRunners1(userid);
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
+                var results = objUsersServiceCleint.GetInPlayMatcheswithRunners1(userId);
                 List<InPlayMatches> lstInPlayMatches = JsonConvert.DeserializeObject<List<InPlayMatches>>(results);
 
                 List<BettingServiceReference.MarketBook> marketBooks = lstInPlayMatches
@@ -126,11 +116,12 @@ namespace GTExCore.Controllers
 
         [Route("InPlayMatches")]
         [HttpGet]
-        public async Task<IActionResult> InPlayMatches(int userid, int mainSportsCategory)
+        public async Task<IActionResult> InPlayMatches( int mainSportsCategory)
         {
             try
             {
-                List<TodayHorseRacing> lstTodayHorseRacing = JsonConvert.DeserializeObject<List<TodayHorseRacing>>(await objUsersServiceCleint.GetTodayHorseRacingAsync(userid, mainSportsCategory.ToString()));
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
+                List<TodayHorseRacing> lstTodayHorseRacing = JsonConvert.DeserializeObject<List<TodayHorseRacing>>(await objUsersServiceCleint.GetTodayHorseRacingAsync(userId, mainSportsCategory.ToString()));
                 return Ok(new { page = lstTodayHorseRacing });
             }
             catch (Exception ex)
@@ -140,9 +131,9 @@ namespace GTExCore.Controllers
         }
         [Route("GetBalnceDetails")]
         [HttpGet]
-        public async Task<IActionResult> GetBalnceDetails(int userId)
+        public async Task<IActionResult> GetBalnceDetails()
         {
-
+            int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
             double CurrentAccountBalance = 0;
             string CurrentLiabality = "";
             try
@@ -186,12 +177,13 @@ namespace GTExCore.Controllers
         {
             try
             {
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
                 //string DateFrom = ConvertDateFormat(request.DateFrom);
                 //string DateTo = ConvertDateFormat(request.DateTo);
 
                 if (request.chkfancy == true && request.chkseassion == true)
                 {
-                    Getdataforfancybysession(request.DateFrom, request.DateTo, request.chkfancy.Value, request.userid.Value);
+                    Getdataforfancybysession(request.DateFrom, request.DateTo, request.chkfancy.Value);
                 }
 
                 if (request.chkByMarket == false)
@@ -229,7 +221,7 @@ namespace GTExCore.Controllers
 
                         List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
 
-                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(request.userid.Value, request.DateFrom, request.DateTo, _passwordSettingsService.PasswordForValidate));
+                        lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRange(userId, request.DateFrom, request.DateTo, _passwordSettingsService.PasswordForValidate));
 
                         if (lstProfitandlossEventtype.Count > 0)
                         {
@@ -264,13 +256,13 @@ namespace GTExCore.Controllers
         }
         [Route("LedgerDetails")]
         [HttpGet]
-        public async Task<IActionResult> LedgerDetails(string DateFrom, string DateTo, int UserID, bool isCredit)
+        public async Task<IActionResult> LedgerDetails(string DateFrom, string DateTo, bool isCredit)
         {
             try
             {
+                int UserID = LoggedinUserDetailAPI.GetUserId(HttpContext);
                 DateFrom = ConvertDateFormat(DateFrom);
                 DateTo = ConvertDateFormat(DateTo);
-
                 List<UserAccounts> lstUserAccounts = JsonConvert.DeserializeObject<List<UserAccounts>>(objUsersServiceCleint.GetAccountsDatabyUserIDandDateRange(UserID, DateFrom, DateTo, isCredit, _passwordSettingsService.PasswordForValidate));
                 if (lstUserAccounts.Count > 0)
                 {
@@ -312,13 +304,14 @@ namespace GTExCore.Controllers
             }
         }
 
-        public void Getdataforfancybysession(string DateFrom, string DateTo, bool chkfancy, int userid)
+        public void Getdataforfancybysession(string DateFrom, string DateTo, bool chkfancy)
         {
             try
             {
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
                 List<ProfitandLossEventType> lstProfitandlossEventtype = new List<ProfitandLossEventType>();
 
-                lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRangeFancywithMArketName(userid, DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
+                lstProfitandlossEventtype = JsonConvert.DeserializeObject<List<ProfitandLossEventType>>(objUsersServiceCleint.GetAccountsDatabyEventNameuserIDandDateRangeFancywithMArketName(userId, DateFrom, DateTo, _passwordSettingsService.PasswordForValidate));
 
                 if (lstProfitandlossEventtype.Count > 0)
                 {
@@ -383,33 +376,33 @@ namespace GTExCore.Controllers
                 return BadRequest();
             }
 
-           await objUsersServiceCleint.UpdateBetSlipKeysAsync(
-                betSlipKeys.UserID,
-                betSlipKeys.SimpleBtn1,
-                betSlipKeys.SimpleBtn2,
-                betSlipKeys.SimpleBtn3,
-                betSlipKeys.SimpleBtn4,
-                betSlipKeys.SimpleBtn5,
-                betSlipKeys.SimpleBtn6,
-                betSlipKeys.SimpleBtn7,
-                betSlipKeys.SimpleBtn8,
-                betSlipKeys.SimpleBtn9,
-                betSlipKeys.SimpleBtn10,
-                betSlipKeys.SimpleBtn11,
-                betSlipKeys.SimpleBtn12,
-                betSlipKeys.MutipleBtn1,
-                betSlipKeys.MutipleBtn2,
-                betSlipKeys.MutipleBtn3,
-                betSlipKeys.MutipleBtn4,
-                betSlipKeys.MutipleBtn5,
-                betSlipKeys.MutipleBtn6,
-                betSlipKeys.MutipleBtn7,
-                betSlipKeys.MutipleBtn8,
-                betSlipKeys.MutipleBtn9,
-                betSlipKeys.MutipleBtn10,
-                betSlipKeys.MutipleBtn11,
-                betSlipKeys.MutipleBtn12
-            );
+            await objUsersServiceCleint.UpdateBetSlipKeysAsync(
+                 betSlipKeys.UserID,
+                 betSlipKeys.SimpleBtn1,
+                 betSlipKeys.SimpleBtn2,
+                 betSlipKeys.SimpleBtn3,
+                 betSlipKeys.SimpleBtn4,
+                 betSlipKeys.SimpleBtn5,
+                 betSlipKeys.SimpleBtn6,
+                 betSlipKeys.SimpleBtn7,
+                 betSlipKeys.SimpleBtn8,
+                 betSlipKeys.SimpleBtn9,
+                 betSlipKeys.SimpleBtn10,
+                 betSlipKeys.SimpleBtn11,
+                 betSlipKeys.SimpleBtn12,
+                 betSlipKeys.MutipleBtn1,
+                 betSlipKeys.MutipleBtn2,
+                 betSlipKeys.MutipleBtn3,
+                 betSlipKeys.MutipleBtn4,
+                 betSlipKeys.MutipleBtn5,
+                 betSlipKeys.MutipleBtn6,
+                 betSlipKeys.MutipleBtn7,
+                 betSlipKeys.MutipleBtn8,
+                 betSlipKeys.MutipleBtn9,
+                 betSlipKeys.MutipleBtn10,
+                 betSlipKeys.MutipleBtn11,
+                 betSlipKeys.MutipleBtn12
+             );
 
             return Ok();
         }

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text;
@@ -36,23 +37,28 @@ namespace GTExCore.Controllers
         List<UserBetsforSuper> superList = new List<UserBetsforSuper>();
         List<UserBetsforSamiadmin> samiList = new List<UserBetsforSamiadmin>();
         List<UserBetsforAgent> agentList = new List<UserBetsforAgent>();
-        public Fancy2MarketAPIController(IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IConfiguration configuration, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
+        private readonly UserBetCacheService _betCache;
+        public Fancy2MarketAPIController(IRazorViewEngine viewEngine, UserBetCacheService betCache, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IConfiguration configuration, IPasswordSettingsService passwordSettingsService, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _viewEngine = viewEngine;
             _tempDataProvider = tempDataProvider;
             _serviceProvider = serviceProvider;
             _passwordSettingsService = passwordSettingsService;
+            _betCache = betCache;
         }
 
         [Route("LoadFancyMarketIN")]
         [HttpGet]
-        public async Task<IActionResult> LoadFancyMarketIN(string EventID, string MarketBookID, int UserId)
+        public async Task<IActionResult> LoadFancyMarketIN(string EventID, string MarketBookID)
         {
             try
             {
+                int UserId = LoggedinUserDetailAPI.GetUserId(HttpContext);
                 AllMarketRoot objRoot = JsonConvert.DeserializeObject<AllMarketRoot>(await objBettingClient.GetRunnersForFancyAsync(EventID, MarketBookID));
-                List<Models.UserBets> lstUserBets = JsonConvert.DeserializeObject<List<Models.UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(UserId, _passwordSettingsService.PasswordForValidate));
+                var lstUserBets = _betCache.GetUserBets(UserId);
+                //List<Models.UserBets> lstUserBets = JsonConvert.DeserializeObject<List<Models.UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(UserId, _passwordSettingsService.PasswordForValidate));
+                lstUserBets = lstUserBets.Where(x => x.MarketBookID == EventID && x.location == "9" && x.isMatched == true).ToList();
                 if (lstUserBets.Any(x => x.location == "9"))
                 {
                     var plLookup = lstUserBets.GroupBy(b => b.SelectionID)

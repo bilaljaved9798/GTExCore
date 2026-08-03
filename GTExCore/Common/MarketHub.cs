@@ -11,7 +11,7 @@
         {
             _marketApiController = service;
         }
-        public async Task SubscribeMarket(string id, string sheetname, string category, int userId)
+        public async Task SubscribeMarket(string id, string sheetname, string category)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, id);
 
@@ -20,7 +20,7 @@
             {
                 while (true)
                 {
-                    var data = await _marketApiController.MarketBookData(id, sheetname, category, userId);
+                    var data = await _marketApiController.MarketBookData(id, sheetname, category);
 
                     await Clients.Group(id).SendAsync("ReceiveMarketUpdate", data);
 

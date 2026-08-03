@@ -2,6 +2,8 @@
 using Global.API;
 using GTExCore.HelperClass;
 using GTExCore.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.SignalR;
@@ -34,9 +36,8 @@ namespace GTExCore.Common
             var httpContext =
                 Context.GetHttpContext();
 
-            var userId =
-                httpContext.Request.Query["userId"]
-                .ToString();
+            var userId = httpContext?.Request.Query["userId"].ToString();
+                
 
             if (!string.IsNullOrEmpty(userId))
             {
@@ -70,7 +71,7 @@ namespace GTExCore.Common
         // ============================================
         public async Task GetUserBets(int userId)
         {
-            var bets = _betCache.GetUserBets(userId);
+            var bets = _betCache.GetUserBets1(userId);
 
             await Clients.Caller.SendAsync(
                 "ReceiveUserBets",
@@ -91,6 +92,10 @@ namespace GTExCore.Common
                     "ReceiveUserBets",
                     bets
                 );
+        }
+        public async Task JoinUserGroup(int userId)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, $"User_{userId}");
         }
     }
 }

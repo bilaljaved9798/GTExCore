@@ -86,10 +86,11 @@ namespace GTExCore.Controllers
 
         [Route("MarketBookData")]
         [HttpGet]
-        public async Task<string> MarketBookData(string ID, string sheetname, string MainSportsCategory, int userId)
+        public async Task<string> MarketBookData(string ID, string sheetname, string MainSportsCategory)
         {
             try
             {
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
                 DateTime marketopendate = DateTime.Now;
                 List<string> lstIDs = new List<string>();
                 lstIDs.Add(ID);
@@ -120,8 +121,9 @@ namespace GTExCore.Controllers
             await objUsersServiceCleint.SetMarketBookOpenbyUSerAsync(73, ID);
             return true;
         }
-        public async Task<bool> CheckForAllowedBettingOverAll(string categoryname, string marketbookname, int userId)
+        public async Task<bool> CheckForAllowedBettingOverAll(string categoryname, string marketbookname)
         {
+            int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
             AllowedMarketWeb AllowedMarketsForUser = JsonConvert.DeserializeObject<AllowedMarketWeb>(await objUsersServiceCleint.GetAllowedMarketsbyUserIDAsync(userId));
             bool AllowedBet = false;
 
@@ -281,10 +283,11 @@ namespace GTExCore.Controllers
 
         [Route("GetOtherSoccer")]
         [HttpGet]
-        public async Task<string> GetOtherSoccer(string eventId, int userId)
+        public async Task<string> GetOtherSoccer(string eventId)
         {
             try
             {
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
                 List<string> data = new List<string>();
                 var Soccergoalmarket = await objUsersServiceCleint.GetSoccergoalbyeventIdAsync(userId, eventId);
                 if (Soccergoalmarket != null)
@@ -361,7 +364,7 @@ namespace GTExCore.Controllers
                             }
                         }
                     }
-                    return JsonConvert.SerializeObject(marketbooks.Take(2));
+                    return JsonConvert.SerializeObject(marketbooks);
                 }
                 else
                 {
@@ -376,9 +379,10 @@ namespace GTExCore.Controllers
 
         [Route("showcompleteduserbetsFancyIN")]
         [HttpGet]
-        public async Task<string> showcompleteduserbetsFancyIN(string marektbookID, string selectionID, int userID)
+        public async Task<string> showcompleteduserbetsFancyIN(string marektbookID, string selectionID)
         {
-            var lstUserBets = _betCache.GetUserBets(userID);
+            int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
+            var lstUserBets = _betCache.GetUserBets(userId);
             BettingServiceReference.MarketBookForindianFancy CurrentMarketProfitandloss = _objUserBets.GetBookPositionINAPI(marektbookID, selectionID, lstUserBets);
             if (CurrentMarketProfitandloss.RunnersForindianFancy != null)
             {
@@ -393,7 +397,6 @@ namespace GTExCore.Controllers
             }
             return JsonConvert.SerializeObject(CurrentMarketProfitandloss); 
         }
-
     }
 
 }

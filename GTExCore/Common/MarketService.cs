@@ -24,15 +24,13 @@ namespace GTExCore.Common
         public async Task<object> GetMarketDataAsync(
         string marketId)
         {
-            // Move code from MarketApiController.MarketBookData()
-            // into here
-
+        
             List<string> lstIDs = new List<string>();
             lstIDs.Add(marketId);
             DateTime dt = new DateTime();
             var marketbook = await objBettingClient.GetMarketDatabyIDAsync(lstIDs.ToArray(), "", dt, "", _passwordSettingsService.PasswordForValidate);
             marketbook[0].BettingAllowed = objUserServiceClient.GetBettingAllowedbyMarketIDandUserID(160, marketId);//await CheckForAllowedBettingOverAll(MainSportsCategory, sheetname, userId);
-            var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(160, _passwordSettingsService.PasswordForValidate));
+            //var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(160, _passwordSettingsService.PasswordForValidate));
             var lstUserBets1 = _betCache.GetUserBets(160);
             List<UserBets> lstUserBets = lstUserBets1.Where(item => item.isMatched == true && item.location != "9").ToList();
             var lstMarketIDS = lstUserBets.Select(item => item.MarketBookID).Distinct().ToArray();

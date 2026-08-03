@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
 using System.Text;
 using System.Text.Json;
 
@@ -113,8 +114,11 @@ builder.Services.AddSingleton<IUserIdProvider, CustomUserIdProvider>();
 //builder.Services.AddHostedService<MarketWorker>();
 builder.Services.AddScoped<UserBetCacheService>();
 builder.Services.AddSignalR();
-
-
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+    });
 var app = builder.Build();
 app.MapHub<BetHub>("/bethub");
 app.MapHub<MarketHub>("/marketHub");

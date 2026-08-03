@@ -337,7 +337,7 @@ namespace Global.API
             //{
             int a, b;
 
-            List<UserBets> lstCurrentBets = CurrentUserBets.Where(item => item.SelectionID == selectionID && item.isMatched == true).ToList();
+            List<UserBets> lstCurrentBets = CurrentUserBets.Where(item => item.SelectionID == selectionID && item.isMatched == true && item.location=="9").ToList();
             if (lstCurrentBets.Count > 0)
             {
                 lstCurrentBets = lstCurrentBets.OrderBy(item => Convert.ToDouble(item.UserOdd)).ToList();
@@ -613,6 +613,132 @@ namespace Global.API
             return objmarketbookin;
         }
 
+        public MarketBookForindianFancy GetBookPositioninKJAPI(
+    string marketBookID,
+    List<UserBets> currentUserBets)
+        {
+            var result = new MarketBookForindianFancy
+            {
+                MarketId = marketBookID
+            };
+
+            var matchedBets = currentUserBets
+                .Where(x => x.MarketBookID == marketBookID && x.isMatched)
+                .OrderBy(x => Convert.ToDouble(x.UserOdd))
+                .ToList();
+
+            if (!matchedBets.Any())
+                return result;
+
+            var runners = new List<RunnerForIndianFancy>();
+            var debitCredits = new List<DebitCredit>();
+
+            var firstOdd = Convert.ToInt32(Convert.ToDouble(matchedBets.First().UserOdd));
+            var lastOdd = Convert.ToInt32(Convert.ToDouble(matchedBets.Last().UserOdd));
+
+            runners.Add(new RunnerForIndianFancy
+            {
+                SelectionId = (firstOdd - 1).ToString(),
+                StallDraw = matchedBets.First().SelectionID,
+                Handicap = -(Convert.ToDouble(matchedBets.First().UserOdd) - 1)
+            });
+
+            foreach (var bet in matchedBets)
+            {
+                if (runners.All(x => x.SelectionId != bet.UserOdd))
+                {
+                    runners.Add(new RunnerForIndianFancy
+                    {
+                        SelectionId = bet.UserOdd,
+                        StallDraw = bet.SelectionID,
+                        Handicap = -Convert.ToDouble(bet.UserOdd)
+                    });
+                }
+            }
+
+            runners.Add(new RunnerForIndianFancy
+            {
+                SelectionId = (lastOdd + 1).ToString(),
+                StallDraw = matchedBets.Last().SelectionID,
+                Handicap = -(Convert.ToDouble(matchedBets.Last().UserOdd) + 1)
+            });
+
+            result.RunnersForindianFancy = runners.ToArray();
+
+            foreach (var bet in matchedBets)
+            {
+                var amount = Convert.ToDecimal(bet.Amount);
+                var percentage = Convert.ToDecimal(Convert.ToDouble(bet.BetSize) / 100);
+
+                var runner = runners.First(x => x.SelectionId == bet.UserOdd);
+                var handicap = runner.Handicap ?? 0;
+
+                if (bet.BetType.Equals("back", StringComparison.OrdinalIgnoreCase))
+                {
+                    debitCredits.Add(new DebitCredit
+                    {
+                        SelectionID = bet.UserOdd,
+                        Debit = 0,
+                        Credit = amount
+                    });
+
+                    foreach (var r in runners.Where(x => x.SelectionId != bet.UserOdd))
+                    {
+                        debitCredits.Add(new DebitCredit
+                        {
+                            SelectionID = r.SelectionId,
+                            Debit = r.Handicap < handicap
+                                ? amount * percentage
+                                : 0,
+                            Credit = r.Handicap > handicap
+                                ? amount
+                                : 0
+                        });
+                    }
+                }
+                else
+                {
+                    debitCredits.Add(new DebitCredit
+                    {
+                        SelectionID = bet.UserOdd,
+                        Debit = amount,
+                        Credit = 0
+                    });
+
+                    foreach (var r in runners.Where(x => x.SelectionId != bet.UserOdd))
+                    {
+                        debitCredits.Add(new DebitCredit
+                        {
+                            SelectionID = r.SelectionId,
+                            Debit = r.Handicap > handicap
+                                ? amount
+                                : 0,
+                            Credit = r.Handicap < handicap
+                                ? amount * percentage
+                                : 0
+                        });
+                    }
+                }
+            }
+
+            result.DebitCredit = debitCredits.ToArray();
+
+            foreach (var runner in runners)
+            {
+                runner.ProfitandLoss =
+                    Convert.ToInt64(
+                        debitCredits
+                            .Where(x => x.SelectionID == runner.SelectionId)
+                            .Sum(x => x.Debit)
+                        -
+                        debitCredits
+                            .Where(x => x.SelectionID == runner.SelectionId)
+                            .Sum(x => x.Credit)
+                    );
+            }
+
+            return result;
+        }
         public MarketBookForindianFancy GetBookPositioninKJ(string marketBookID, List<UserBetsForAdmin> CurrentAdminBets, List<UserBetsforSuper> CurrentSuperBets, List<UserBetsforSamiadmin> CurrentSamiadminBets, List<UserBetsforAgent> CurrentAgentBets, List<UserBets> CurrentUserBets)
         {
 

@@ -89,61 +89,87 @@ namespace GTExCore.Controllers
                 return Ok(new List<UserBets>()); // safer than ""
             }
         }
-        [Route("InsertUserBet")]
-        [HttpPost]
-        public bool InsertUserBet([FromBody] BetRequestModel betRequest)
+        [Route("UserAllBets")]
+        [HttpGet]
+        public async Task<IActionResult> UserAllBets(int userid)
         {
             try
             {
-                if (betRequest.Clickedlocation == 8 || betRequest.Clickedlocation == 9)
+                var lstUserBets = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(userid, _passwordSettingsService.PasswordForValidate));
+
+                var lstAllUserBets = new List<UserBets>();
+
+
+                if (lstUserBets != null)
                 {
-                    if (betRequest.Clickedlocation == 9)
-                    {
-                        var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(betRequest.UserId);
-                        objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], betRequest.MarketbookName, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, betRequest.UserId, betRequest.Betslipsize, _passwordSettingsService.PasswordForValidate, betRequest.MarketbookID, betRequest.MarketbookName, true);
-                        _betCache.RemoveUserBets(betRequest.UserId);
-                        var latestBets = _betCache.GetUserBets(betRequest.UserId);
-                        _hubContext.Clients
-          .User(betRequest.UserId.ToString())
-          .SendAsync(
-              "ReceiveUserBets",
-              latestBets
-          );
-                        return true;
-                    }
-                    else
-                    {
-                        var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLayAsync(betRequest.UserId);
-                        objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], betRequest.Selectionname, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.Result.MaxOddBack), Convert.ToDecimal(objMaxOddBack.Result.MaxOddLay), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.Result.CheckforMaxOddLay), betRequest.Clickedlocation, betRequest.UserId, betRequest.Betslipsize, _passwordSettingsService.PasswordForValidate, betRequest.MarketbookID, betRequest.MarketbookName, true);
-                        _betCache.RemoveUserBets(betRequest.UserId);
-                        var latestBets = _betCache.GetUserBets(betRequest.UserId);
-                        _hubContext.Clients
-          .User(betRequest.UserId.ToString())
-          .SendAsync(
-              "ReceiveUserBets",
-              latestBets
-          );
-                        return true;
-                    }
+                    lstAllUserBets.AddRange(lstUserBets);
                 }
-                else
-                {
-                    var objMaxOddBack = objUsersServiceCleint.GetMaxOddBackandLay(betRequest.UserId);
-                    objUsersServiceCleint.InsertUserBetNewAsync(Convert.ToDecimal(betRequest.Odd), betRequest.SelectionID[0], betRequest.Selectionname, betRequest.BetType, betRequest.Amount, betRequest.Betslipamountlabel, Convert.ToDecimal(objMaxOddBack.MaxOddBack), Convert.ToDecimal(objMaxOddBack.MaxOddLay), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddBack), Convert.ToBoolean(objMaxOddBack.CheckforMaxOddLay), betRequest.Clickedlocation, betRequest.UserId, betRequest.Betslipsize, "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m", betRequest.MarketbookID, betRequest.MarketbookName, true);
-                    _betCache.RemoveUserBets(betRequest.UserId);
-                    var latestBets = _betCache.GetUserBets(betRequest.UserId);
-                    _hubContext.Clients
-          .User(betRequest.UserId.ToString())
-          .SendAsync(
-              "ReceiveUserBets",
-              latestBets
-          );
-                    return true;
-                }
+
+                // 👉 Remove duplicates + sort
+                lstAllUserBets = lstAllUserBets
+                    .GroupBy(x => x.ID)
+                    .Select(g => g.First())
+                    .OrderByDescending(x => x.ID)
+                    .ToList();
+
+
+                return Ok(lstAllUserBets);   // ✅ FIXED
             }
-            catch (System.Exception ex)
+            catch (Exception)
             {
-                return false;
+                return Ok(new List<UserBets>()); // safer than ""
+            }
+        }
+        [Route("InsertUserBet")]
+        [HttpPost]
+        [HttpPost]
+        public async Task<IActionResult> InsertUserBet([FromBody] BetRequestModel betRequest)
+        {
+            try
+            {
+                var maxOdd = await objUsersServiceCleint.GetMaxOddBackandLayAsync(betRequest.UserId);
+
+                string selectionName = betRequest.Clickedlocation == 9
+                    ? betRequest.MarketbookName
+                    : betRequest.Selectionname;
+
+                string password = betRequest.Clickedlocation == 8
+                    ? _passwordSettingsService.PasswordForValidate
+                    : "34RxqHH9EqoJn4ZHLTwN5ag3UfZuKcvFfSE7U5FNg0STZ/6yEjxEDfhuJ3wOcr0m";
+
+                await objUsersServiceCleint.InsertUserBetNewAsync(
+                    Convert.ToDecimal(betRequest.Odd),
+                    betRequest.SelectionID[0],
+                    selectionName,
+                    betRequest.BetType,
+                    betRequest.Amount,
+                    betRequest.Betslipamountlabel,
+                    Convert.ToDecimal(maxOdd.MaxOddBack),
+                    Convert.ToDecimal(maxOdd.MaxOddLay),
+                    Convert.ToBoolean(maxOdd.CheckforMaxOddBack),
+                    Convert.ToBoolean(maxOdd.CheckforMaxOddLay),
+                    betRequest.Clickedlocation,
+                    betRequest.UserId,
+                    betRequest.Betslipsize,
+                    password,
+                    betRequest.MarketbookID,
+                    betRequest.MarketbookName,
+                    true);
+
+                // Refresh cache
+                _betCache.RemoveUserBets(betRequest.UserId);
+                var latestBets = _betCache.GetUserBets(betRequest.UserId);
+
+                // Push latest bets to connected client
+                await _hubContext.Clients
+                    .Group($"User_{betRequest.UserId}")
+                    .SendAsync("ReceiveUserBets", latestBets);
+
+                return Ok(true);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
             }
         }
 
