@@ -1,87 +1,79 @@
-name: ASP.NET MVC CI-CD
+name: .NET 8 GTCore CI-CD
 
 on:
   push:
     branches:
       - master
-
   workflow_dispatch:
 
 jobs:
 
   # =========================
-  # CI - BUILD
+  # CI - BUILD & PUBLISH
   # =========================
   build:
-
     runs-on: windows-latest
 
     steps:
-
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
 
-    - name: Restore NuGet Packages
-      run: nuget restore GTExCore.sln
+    - name: Restore Dependencies
+      run: dotnet restore GTExCore.sln
 
-    - name: Build Solution
-      run: msbuild GTExCore.sln /p:Configuration=Release
+    - name: Build and Publish Artifacts
+      run: |
+        dotnet publish GTExCore/GTExCore.csproj -c Release -o "${{ github.workspace }}\publish"
 
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: publish-artifacts
+        path: "${{ github.workspace }}\publish"
 
   # =========================
   # CD - DEPLOY TO IIS
   # =========================
   deploy:
-
     needs: build
-
     runs-on: self-hosted
 
     steps:
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: publish-artifacts
+        path: "${{ github.workspace }}\publish"
 
-    - name: Checkout Code
-      uses: actions/checkout@v4
-
-    - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Restore NuGet Packages
-      run: nuget restore GTExCore.sln
-
-    - name: Publish Application
-      run: |
-        msbuild GTExCore\GTExCore.csproj `
-          /p:Configuration=Release `
-          /p:DeployOnBuild=true `
-          /p:WebPublishMethod=FileSystem `
-          /p:publishUrl="${{ github.workspace }}\publish"
-
-    # Stop IIS
+    # Stop IIS App Pool safely
     - name: Stop IIS App Pool
       shell: powershell
       run: |
         Import-Module WebAdministration
-        Stop-WebAppPool -Name "test"
+        if ((Get-WebAppPoolState -Name "GTCore").Value -ne "Stopped") {
+            Stop-WebAppPool -Name "GTCore"
+            Start-Sleep -Seconds 5
+        }
 
-    # Deploy files
-    - name: Deploy to IIS
+    # Deploy files using Robocopy
+    - name: Deploy to IIS Folder
       shell: powershell
       run: |
-        robocopy `
-          "${{ github.workspace }}\publish" `
-          "C:\inetpub\wwwroot\GTExCore" `
-          /MIR
-
+        # Robocopy exit codes 0-7 mean success/no error in mirroring
+        robocopy "${{ github.workspace }}\publish" "C:\inetpub\wwwroot\GTCore" /MIR /R:3 /W:5
         if ($LASTEXITCODE -ge 8) {
+            Write-Error "Robocopy failed with exit code $LASTEXITCODE"
             exit $LASTEXITCODE
         }
 
-    # Start IIS
+    # Start IIS App Pool
     - name: Start IIS App Pool
       shell: powershell
       run: |
         Import-Module WebAdministration
-        Start-WebAppPool -Name "test"
+        Start-WebAppPool -Name "GTCore"
