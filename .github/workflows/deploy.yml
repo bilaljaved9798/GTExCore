@@ -1,0 +1,87 @@
+name: ASP.NET MVC CI-CD
+
+on:
+  push:
+    branches:
+      - master
+
+  workflow_dispatch:
+
+jobs:
+
+  # =========================
+  # CI - BUILD
+  # =========================
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Restore NuGet Packages
+      run: nuget restore GTExCore.sln
+
+    - name: Build Solution
+      run: msbuild GTExCore.sln /p:Configuration=Release
+
+
+  # =========================
+  # CD - DEPLOY TO IIS
+  # =========================
+  deploy:
+
+    needs: build
+
+    runs-on: self-hosted
+
+    steps:
+
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+
+    - name: Restore NuGet Packages
+      run: nuget restore GTExCore.sln
+
+    - name: Publish Application
+      run: |
+        msbuild GTExCore\GTExCore.csproj `
+          /p:Configuration=Release `
+          /p:DeployOnBuild=true `
+          /p:WebPublishMethod=FileSystem `
+          /p:publishUrl="${{ github.workspace }}\publish"
+
+    # Stop IIS
+    - name: Stop IIS App Pool
+      shell: powershell
+      run: |
+        Import-Module WebAdministration
+        Stop-WebAppPool -Name "test"
+
+    # Deploy files
+    - name: Deploy to IIS
+      shell: powershell
+      run: |
+        robocopy `
+          "${{ github.workspace }}\publish" `
+          "C:\inetpub\wwwroot\GTExCore" `
+          /MIR
+
+        if ($LASTEXITCODE -ge 8) {
+            exit $LASTEXITCODE
+        }
+
+    # Start IIS
+    - name: Start IIS App Pool
+      shell: powershell
+      run: |
+        Import-Module WebAdministration
+        Start-WebAppPool -Name "test"
