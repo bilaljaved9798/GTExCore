@@ -99,6 +99,7 @@ namespace GTExCore.Controllers
                     var market = new BettingServiceReference.MarketBook();
                     return JsonConvert.SerializeObject(market);
                 }
+
                 else
                 {
                     var market = new BettingServiceReference.MarketBook();
