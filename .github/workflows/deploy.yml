@@ -34,7 +34,9 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: publish-artifacts
-        path: "${{ github.workspace }}\publish"
+        path: '${{ github.workspace }}\publish'
+ 
+
 
   # =========================
   # CD - DEPLOY TO IIS
@@ -48,7 +50,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
         name: publish-artifacts
-        path: "${{ github.workspace }}\publish"
+        path: '${{ github.workspace }}\publish'
 
     # Stop IIS App Pool safely
     - name: Stop IIS App Pool
