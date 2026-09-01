@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.SignalR;
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using UserServiceReference;
 
@@ -31,33 +33,22 @@ namespace GTExCore.Controllers
         UserServicesClient objUserServiceClient = new UserServicesClient();
         UserBetsUpdateUnmatcedBets _objUserBets;
         UserServicesClient objUsersServiceCleint = new UserServicesClient();
-        public static wsnew ws1 = new wsnew();
-        public static wsnew ws2 = new wsnew();
-        public static wsnew ws4 = new wsnew();
-        public static wsnew ws7 = new wsnew();
-        public static wsnew ws0 = new wsnew();
-        public static wsnew ws4339 = new wsnew();
-        public static wsnew wsFancy = new wsnew();
+       
+        private readonly IHubContext<BetHub> _hubContext;
+        private readonly UserBetCacheService _betCache;
 
-        private wsnew wsBFMatch = new wsnew();
-        ToWinTheTossApiController(BettingServiceClient objBettingClient, IHttpContextAccessor httpContextAccessor, IConfiguration configuration, IRazorViewEngine viewEngine, ITempDataProvider tempDataProvider, IServiceProvider serviceProvider, IPasswordSettingsService passwordSettingsService, UserServicesClient objUserServiceClient, UserBetsUpdateUnmatcedBets objUserBets, UserServicesClient objUsersServiceCleint, wsnew wsBFMatch)
+        public ToWinTheTossApiController(IPasswordSettingsService passwordSettingsService, UserBetCacheService betCache, IHttpContextAccessor httpContextAccessor)
         {
-            this.objBettingClient = objBettingClient;
             _httpContextAccessor = httpContextAccessor;
-            _configuration = configuration;
-            _viewEngine = viewEngine;
-            _tempDataProvider = tempDataProvider;
-            _serviceProvider = serviceProvider;
             _passwordSettingsService = passwordSettingsService;
-            this.objUserServiceClient = objUserServiceClient;
-            _objUserBets = objUserBets;
-            this.objUsersServiceCleint = objUsersServiceCleint;
-            this.wsBFMatch = wsBFMatch;
+            _betCache = betCache;
         }
 
-        public async Task<string> CheckforToWintheTossMarket(string EventID, int userId)
+        [HttpGet("CheckforToWintheTossMarket")]
+        public async Task<string> CheckforToWintheTossMarket(string eventId)
         {
-            var wintethossmarket = await objUsersServiceCleint.GetToWintheTossbyeventIdAsync(userId, EventID);
+            int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
+            var wintethossmarket = await objUsersServiceCleint.GetToWintheTossbyeventIdAsync(userId, eventId);
             if (wintethossmarket != null)
             {
                 if (wintethossmarket.MarketCatalogueID != null)
@@ -65,8 +56,63 @@ namespace GTExCore.Controllers
                     return wintethossmarket.MarketCatalogueID;
                 }
             }
-            return "";
+            return null;
         }
-       
+
+        [HttpGet("WinTheToss")]
+        public async Task<string> WinTheToss(string ID)
+        {
+            try
+            {
+                int userId = LoggedinUserDetailAPI.GetUserId(HttpContext);
+                UserBetsUpdateUnmatcedBets objUserBets = new UserBetsUpdateUnmatcedBets();
+                await objUsersServiceCleint.SetMarketBookOpenbyUSerAsync(160,ID);
+
+                var results = JsonConvert.DeserializeObject<List<Models.MarketCatalgoue>>(await objUsersServiceCleint.GetMarketsOpenedbyUserAsync(userId));
+
+                if (results != null)
+                {
+                    results = results.Where(item => item.ID == ID).ToList();
+                    var marketbooks = new List<BettingServiceReference.MarketBook>();
+                    List<string> lstIDs = new List<string>();
+                    foreach (var item in results)
+                    {
+                        lstIDs = new List<string>();
+
+                        lstIDs.Add(item.ID);
+
+                        var marketbook = await objBettingClient.GetMarketDatabyIDAsync(lstIDs.ToArray(), item.Name, item.EventOpenDate, item.EventTypeName, _passwordSettingsService.PasswordForValidate);
+                        marketbook[0].BettingAllowed = objUserServiceClient.GetBettingAllowedbyMarketIDandUserID(userId, ID);//await CheckForAllowedBettingOverAll(MainSportsCategory, sheetname, userId);
+                        var lstUserBet = JsonConvert.DeserializeObject<List<UserBets>>(objUsersServiceCleint.GetUserbetsbyUserID(userId, _passwordSettingsService.PasswordForValidate));
+                        var lstUserBets1 = _betCache.GetUserBets(userId);
+                        List<UserBets> lstUserBets = lstUserBets1.Where(item => item.isMatched == true && item.location != "9").ToList();
+                        var lstMarketIDS = lstUserBets.Select(item => item.MarketBookID).Distinct().ToArray();
+                        //marketbook[0].DebitCredit = _objUserBets.ceckProfitandLoss(marketbook[0], lstUserBets);
+                        foreach (var runner in marketbook[0].Runners)
+                        {
+                            // Fix: 'marketbook12' is not defined. Assuming it should be 'marketbook'.
+                            //runner.ProfitandLoss = Convert.ToInt64(marketbook[0].DebitCredit.Where(dc => dc.SelectionID == runner.SelectionId).Sum(dc => dc.Debit) - marketbook[0].DebitCredit.Where(dc => dc.SelectionID == runner.SelectionId).Sum(dc => dc.Credit));
+                        }
+
+                        return JsonConvert.SerializeObject(marketbook[0]);
+                    }
+                    var market = new BettingServiceReference.MarketBook();
+                    return JsonConvert.SerializeObject(market);
+                }
+                else
+                {
+                    var market = new BettingServiceReference.MarketBook();
+                    return JsonConvert.SerializeObject(market);
+                }
+
+            }
+            catch (System.Exception ex)
+            {
+                var market = new BettingServiceReference.MarketBook();
+                return JsonConvert.SerializeObject(market);
+            }
+        }
+
+
     }
 }

@@ -32,6 +32,24 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+bin/
+obj/
+node_modules/
+.angular/
+.vs/
+.env
+appsettings.Production.json
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+bin/
+obj/
+
+# ASP.NET
+wwwroot/lib/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
