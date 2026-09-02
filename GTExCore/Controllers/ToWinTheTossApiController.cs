@@ -93,6 +93,8 @@ namespace GTExCore.Controllers
                             // Fix: 'marketbook12' is not defined. Assuming it should be 'marketbook'.
                             //runner.ProfitandLoss = Convert.ToInt64(marketbook[0].DebitCredit.Where(dc => dc.SelectionID == runner.SelectionId).Sum(dc => dc.Debit) - marketbook[0].DebitCredit.Where(dc => dc.SelectionID == runner.SelectionId).Sum(dc => dc.Credit));
                         }
+
+
                         return JsonConvert.SerializeObject(marketbook[0]);
                     }
                     var market = new BettingServiceReference.MarketBook();
