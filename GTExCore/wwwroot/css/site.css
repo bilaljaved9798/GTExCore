@@ -230,13 +230,11 @@ h9 {
 
     .buttonlove:hover {
         flex: 1 0 auto;
-        
         color: black;
         Background: white;
-        color:black;
+        color: black;
         text-align: center;
         border-top: 3px solid #f41e44;
-        
         border-left: 0px white solid !important;
     }
 
@@ -265,13 +263,10 @@ h9 {
     margin-top: 7px;
     float: left;
     font-size: 20px;
-    
-
 }
 
 .buttonlove1:hover {
     flex: 1 0 auto;
-   
     background-color: white;
     color: black;
     background-color: #068b7c;
@@ -283,10 +278,7 @@ h9 {
 
 
 .loveoflives {
-   
-   
     animation: blinker 4s linear infinite;
-  
 }
 
 
@@ -559,7 +551,6 @@ h9 {
     background: -o-linear-gradient(bottom, #9c9c9c, #fff);
     background: -webkit-gradient( linear, left bottom, left top, from(#9c9c9c), to(#fff) );
     background: linear-gradient(0deg, #9c9c9c, #fff);
-    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#9c9c9c', GradientType=0);
 }
 
 .time-football {
@@ -729,7 +720,6 @@ h9 {
     float: right;
     width: 189px;
     font: icon;
-    
     font-weight: normal;
     font-size: 12px;
 }
@@ -1186,7 +1176,6 @@ cta-8:hover {
     min-height: 88%;
     width: 100% !important;
     max-width: 100% !important;
-   
 }
 
 .mediaplayer {
@@ -1360,7 +1349,7 @@ cta-8:hover {
     font-weight: bold;
     text-decoration: none;
     font-size: 14px;*/
-  /*  text-transform: uppercase;*/
+    /*  text-transform: uppercase;*/
 }
 
 .suspended {
@@ -1556,7 +1545,7 @@ textarea {
     background: -webkit-linear-gradient(top, #fbd150 0%,#faff8e 63%,#faff8e 42%) !important;
     border: 1px solid white;
     background: linear-gradient(to bottom, #fbd150 0%,#faff8e 63%,#faff8e 42%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFC000', endColorstr='#feffe8',GradientType=0 );
+    
 }
 
 .divwithpadding {
@@ -1646,7 +1635,7 @@ textarea {
     padding: 5px 10px !important;
     color: white;
     text-shadow: 2px 2px #5f3f3f;
-   /* background: -webkit-linear-gradient(bottom,#35c483,#000000);*/
+    /* background: -webkit-linear-gradient(bottom,#35c483,#000000);*/
     font-size: 20px !important;
     font-weight: 500 !important;
     margin-top: -5px !important;
@@ -1729,7 +1718,8 @@ textarea {
         /* border: 1px red solid; */
         animation: marquee 10s linear infinite;
     }
-    }
+
+}
 
 
 .marqueediv {
@@ -1808,7 +1798,6 @@ textarea {
 .logoutlink {
     padding: 2px;
     border-top: 2px solid black;
-    
     text-align: center;
 }
 
@@ -1872,9 +1861,8 @@ textarea {
     width: 100%;
     top: 0;
     background-color: rgba(222, 212, 212, 0.75);
-    filter: alpha(opacity=60);
     opacity: 1;
-    -moz-opacity: 1;
+    opacity: 1;
     display: none;
 }
 
@@ -1890,9 +1878,8 @@ textarea {
     width: 150px;
     background-color: #ffffff08;
     border-radius: 10px;
-    filter: alpha(opacity=100);
     opacity: 1;
-    -moz-opacity: 1;
+    opacity: 1;
     text-align: center;
 }
 
@@ -2049,21 +2036,7 @@ a:hover {
         cursor: pointer;
     }
 
-        .acidjs-css3-treeview label[for]::before {
-            -webkit-transform: translatex(-24px);
-            -moz-transform: translatex(-24px);
-            -ms-transform: translatex(-24px);
-            -o-transform: translatex(-24px);
-            transform: translatex(-24px);
-        }
-
-        .acidjs-css3-treeview label span::before {
-            -webkit-transform: translatex(16px);
-            -moz-transform: translatex(16px);
-            -ms-transform: translatex(16px);
-            -o-transform: translatex(16px);
-            transform: translatex(16px);
-        }
+        
 
     .acidjs-css3-treeview input[type="checkbox"][id]:checked ~ label[for]::before {
         content: "\25bc";
@@ -2560,9 +2533,8 @@ audio {
     padding: 4px;
     margin: 2px;
     font-weight: bold;*/
-   /* box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);*/
+    /* box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);*/
     padding: 0px 0px;
-    
     font-size: 17px;
     width: 23.5%;
     height: 46px;
@@ -2752,21 +2724,18 @@ label {
     float: left;
     text-align: left;
     font-weight: bold;
-  
 }
 
 .Odd {
     width: auto;
     float: left;
     font-weight: bold;
-   
 }
 
 .Amount {
     width: 11%;
     float: left;
     font-weight: bold;
-    
 }
 
 .bets-items {
@@ -2827,14 +2796,12 @@ label {
 #userbets h4 {
     padding: 13px 11px;
     border-bottom: 5px solid #11a9cc;
-    
     margin: 0;
     color: white !important;
     font-family: fantasy;
-
     text-align: left;
     margin-bottom: 10px;
-   letter-spacing:1px;
+    letter-spacing: 1px;
     font-size: 20px;
 }
 
@@ -2960,7 +2927,7 @@ label {
     background: linear-gradient(to top, #00ff8a, #000000) !important;
     width: 100% !important;
     text-align: center;
-    border:1px solid black;
+    border: 1px solid black;
     font-size: 23px;
     font-weight: 500;
     padding: 10px !important;
@@ -3012,7 +2979,6 @@ label {
             background: -moz-linear-gradient(top, #45484d 0%, #000000 100%); /* FF3.6-15 */
             background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(to bottom, #45484d 0%,#000000 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
         }
 
         .marketbooksul li a:hover {
@@ -3080,7 +3046,6 @@ label {
     /* border: 1px solid; */
     background-color: #72bbef;
     color: black;
-   
 }
 
     .favoritebackprice label {
@@ -3965,8 +3930,6 @@ label {
 
 
 .backitem {
-    /*border-bottom: 1px solid black;*/
-   /* border-left: 1px solid black;*/
     border-right: 0px solid black;
     border-top: 0px solid black;
     margin: 0px 0px 0px 1px;
@@ -4015,9 +3978,9 @@ label {
 }
 
     .bookbutton:hover {
-        color:white;
+        color: white;
         background: -webkit-linear-gradient(bottom,#ff0000,#b40000) !important;
-     /*   box-shadow: 0 5px #666;*/
+        /*   box-shadow: 0 5px #666;*/
         transform: translateX(4px);
     }
 
@@ -4026,7 +3989,7 @@ label {
     padding-right: 05px;
     padding-bottom: 05px;
     padding-top: 05px;
-    background: #00ffdc0;
+    background: rgba(0, 0, 0, .3);
 }
 
 .allhorsercedefault {
@@ -4092,7 +4055,8 @@ a {
 .headingdivagent {
     position: relative;
     min-height: 35px;
-    background: linear-gradient(to top, #00ff8a, #000000) !important;-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
+    background: linear-gradient(to top, #00ff8a, #000000) !important;
+    -webkit-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
     -moz-box-shadow: 0 0 4px rgba(0, 0, 0, .3);
     box-shadow: 0 0 4px rgba(0, 0, 0, .3);
     color: White;
@@ -4382,7 +4346,6 @@ a {
     font-size: 24px !important;
     color: black;
     font-size: 24px;
-    -webkit-text-shadow: none;
     text-shadow: none;
     padding: 10px 0px;
     font-weight: 200;
@@ -4437,7 +4400,6 @@ a {
 
 
 .navbaraccounts {
-    background-color: linear-gradient(to bottom, #0e0e39 56%, #02020e 85%);
     padding: 0;
     margin: 0;
     border: none;
@@ -4466,7 +4428,6 @@ a {
         line-height: 36px;
         margin: 0;
         padding: 0 16px 0 7px !important;
-        -webkit-text-shadow: none !important;
         text-shadow: none !important;
         font-size: 13px;
         text-decoration: none;
@@ -4574,7 +4535,6 @@ a {
     padding: 10px;
     float: left;
     width: 100%;
-   
 }
 
 
@@ -4711,7 +4671,7 @@ a {
     float: left;
     width: 189px;
     font: icon;
-    vertical-align:middle;
+    vertical-align: middle;
     margin-left: -264px;
     font-weight: 100;
     font-size: 18px;
@@ -4826,8 +4786,7 @@ a {
 
 
     .iluf1 {
-    display:none
-    
+        display: none
     }
 
     .hideer {
@@ -4835,7 +4794,6 @@ a {
     }
 
     .loveoflives {
-        
         font-size: 12.5px;
         margin-top: 3%;
         float: right;
@@ -4851,7 +4809,7 @@ a {
         font-family: Quicksand, sans-serif;
         font-weight: 700;
     }
-    
+
 
     div.scrollmenu {
         margin-bottom: -44px;
@@ -4870,8 +4828,6 @@ a {
             text-shadow: 0px 1px #000000;
             background: linear-gradient(to top, #ffee9300, #beffea33) !important;
             border-bottom: 2px solid green;
-        
-        
         }
 
             div.scrollmenu a:hover {
@@ -5181,7 +5137,7 @@ a {
     .moleucule {
         font-size: 18px;
         margin-top: -6px;
-        display:none;
+        display: none;
     }
 
 
@@ -5456,7 +5412,7 @@ a {
         background: white;
         margin-left: 0px;
         float: left;
-        overflow-x:hidden;
+        overflow-x: hidden;
         margin-top: 0px;
     }
 
@@ -5564,7 +5520,6 @@ a {
 
     .innerbodycontent1 {
         margin-top: 47px;
-
     }
 
     .relatedtime {
@@ -5583,7 +5538,6 @@ a {
         font-weight: 500;
         width: 100%;
         margin-bottom: 1px;
-       
     }
 
     .bslipl {
@@ -5749,7 +5703,7 @@ a {
 
 
 
-         .inplaymatchmama a {
+    .inplaymatchmama a {
         padding: 5px 0px;
         margin-left: 4px;
         text-shadow: 0px 0.3px #000000;
@@ -5759,9 +5713,9 @@ a {
         color: black;
     }
 
-            .inplaymatchmama a:hover {
-                color: Red !important;
-            }
+        .inplaymatchmama a:hover {
+            color: Red !important;
+        }
 
 
 
@@ -5859,7 +5813,7 @@ a {
     .rule2 {
         padding: 5px 10px !important;
         color: white;
-      /*  background: -webkit-linear-gradient(bottom,#24e18a,#000000) !important;*/
+        /*  background: -webkit-linear-gradient(bottom,#24e18a,#000000) !important;*/
         font-size: 18px !important;
         font-weight: 500 !important;
         margin-top: -5px !important;
@@ -5990,7 +5944,7 @@ a {
         /*box-shadow: 0 8px 16px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.6);*/
         padding: 0px 0px;
         margin-top: 0px;
-       font-weight:bold;
+        font-weight: bold;
         font-size: 18px;
         width: 23.5%;
         height: 50px;
@@ -6027,7 +5981,7 @@ a {
         float: left;
         margin-right: 4px;
         width: 22.55%;
-        border-bottom:1px solid white;
+        border-bottom: 1px solid white;
     }
 
     .selectionprice {
@@ -6160,7 +6114,7 @@ a {
 
     #marketbook label, #betslipcontent label, #fancymarketbook label, #marketbooksoccer label, #Indianfancymarketbook1 label, #marketbookTWT label, #KJfancymarketbook label, #Figurefancymarketbook label, #SFigfancymarketbook label {
         margin-bottom: 0px;
-       /* text-shadow: 0.1px 0.3px #000000;*/
+        /* text-shadow: 0.1px 0.3px #000000;*/
         padding: 0px;
         width: 100%;
         font-size: 16px;
@@ -6206,7 +6160,7 @@ a {
         /*width: 50%;*/
         text-align: center;
         min-height: 45px;
-        border-top:1px solid white;
+        border-top: 1px solid white;
     }
 
     .layitem:nth-child(2), .layitem:nth-child(3) {
@@ -6301,7 +6255,6 @@ a {
         width: 27px;
         float: left;
         margin-left: -21px;
-     
         margin-top: 10px;
     }
 
@@ -6610,8 +6563,7 @@ a {
         background: -moz-linear-gradient(top, #fbd150 0%, #faff8e 63%, #faff8e 42%);
         background: -webkit-linear-gradient(top, #fbd150 0%,#faff8e 63%,#faff8e 42%);
         background: linear-gradient(to bottom, #fbd150 0%,#faff8e 63%,#faff8e 42%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#FFC000', endColorstr='#feffe8',GradientType=0 );
-    }
+            }
 
     .clothnumstalldrawimgemptynotshow {
         display: none;
