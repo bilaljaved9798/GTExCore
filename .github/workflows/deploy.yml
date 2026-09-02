@@ -8,74 +8,150 @@ on:
 
 jobs:
 
-  # =========================
+  # ==========================================================
   # CI - BUILD & PUBLISH
-  # =========================
+  # ==========================================================
   build:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
 
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Restore Dependencies
-      run: dotnet restore GTExCore.sln
+      - name: Setup .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Build and Publish Artifacts
-      run: |
-        dotnet publish GTExCore/GTExCore.csproj -c Release -o "${{ github.workspace }}\publish"
+      - name: Restore Dependencies
+        run: dotnet restore GTExCore.sln
 
-    - name: Upload Build Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: publish-artifacts
-        path: '${{ github.workspace }}\publish'
- 
+      - name: Build and Publish
+        run: |
+          dotnet publish GTExCore/GTExCore.csproj `
+            -c Release `
+            --no-restore `
+            -o "${{ github.workspace }}\publish"
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: publish-artifacts
+          path: '${{ github.workspace }}\publish'
 
 
-  # =========================
+  # ==========================================================
   # CD - DEPLOY TO IIS
-  # =========================
+  # ==========================================================
   deploy:
     needs: build
     runs-on: self-hosted
 
     steps:
-    - name: Download Build Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: publish-artifacts
-        path: '${{ github.workspace }}\publish'
 
-    # Stop IIS App Pool safely
-    - name: Stop IIS App Pool
-      shell: powershell
-      run: |
-        Import-Module WebAdministration
-        if ((Get-WebAppPoolState -Name "GTCore").Value -ne "Stopped") {
-            Stop-WebAppPool -Name "GTCore"
-            Start-Sleep -Seconds 5
-        }
+      # ------------------------------------------------------
+      # Download published application
+      # ------------------------------------------------------
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: publish-artifacts
+          path: '${{ github.workspace }}\publish'
 
-    # Deploy files using Robocopy
-    - name: Deploy to IIS Folder
-      shell: powershell
-      run: |
-        # Robocopy exit codes 0-7 mean success/no error in mirroring
-        robocopy "${{ github.workspace }}\publish" "C:\inetpub\wwwroot\GTCore" /MIR /R:3 /W:5
-        if ($LASTEXITCODE -ge 8) {
-            Write-Error "Robocopy failed with exit code $LASTEXITCODE"
-            exit $LASTEXITCODE
-        }
 
-    # Start IIS App Pool
-    - name: Start IIS App Pool
-      shell: powershell
-      run: |
-        Import-Module WebAdministration
-        Start-WebAppPool -Name "GTCore"
+      # ------------------------------------------------------
+      # Check IIS App Pool
+      # ------------------------------------------------------
+      - name: Check IIS App Pool
+        shell: powershell
+        run: |
+          Import-Module WebAdministration
+
+          Write-Host "Checking IIS App Pool: GTCore"
+
+          $pool = Get-WebAppPoolState -Name "GTCore"
+
+          Write-Host "Current App Pool State: $($pool.Value)"
+
+
+      # ------------------------------------------------------
+      # Stop IIS App Pool
+      # ------------------------------------------------------
+      - name: Stop IIS App Pool
+        shell: powershell
+        run: |
+          Import-Module WebAdministration
+
+          $state = (Get-WebAppPoolState -Name "GTCore").Value
+
+          if ($state -ne "Stopped") {
+              Write-Host "Stopping GTCore App Pool..."
+              Stop-WebAppPool -Name "GTCore"
+
+              Start-Sleep -Seconds 5
+          }
+          else {
+              Write-Host "GTCore App Pool is already stopped."
+          }
+
+
+      # ------------------------------------------------------
+      # Deploy application files
+      # ------------------------------------------------------
+      - name: Deploy to IIS
+        shell: powershell
+        run: |
+
+          $source = "${{ github.workspace }}\publish"
+          $destination = "C:\inetpub\wwwroot\GTCore"
+
+          Write-Host "Source: $source"
+          Write-Host "Destination: $destination"
+
+          if (!(Test-Path $destination)) {
+              Write-Host "Creating IIS directory..."
+              New-Item -ItemType Directory -Path $destination -Force
+          }
+
+          Write-Host "Deploying application..."
+
+          robocopy $source $destination /MIR /R:3 /W:5 /NFL /NDL
+
+          $exitCode = $LASTEXITCODE
+
+          Write-Host "Robocopy Exit Code: $exitCode"
+
+          if ($exitCode -ge 8) {
+              Write-Error "Deployment failed. Robocopy exit code: $exitCode"
+              exit $exitCode
+          }
+
+          Write-Host "Deployment completed successfully."
+
+
+      # ------------------------------------------------------
+      # Start IIS App Pool
+      # ------------------------------------------------------
+      - name: Start IIS App Pool
+        if: always()
+        shell: powershell
+        run: |
+          Import-Module WebAdministration
+
+          Write-Host "Starting GTCore App Pool..."
+
+          Start-WebAppPool -Name "GTCore"
+
+          Start-Sleep -Seconds 5
+
+          $state = (Get-WebAppPoolState -Name "GTCore").Value
+
+          Write-Host "GTCore App Pool State: $state"
+
+          if ($state -ne "Started") {
+              Write-Error "GTCore App Pool failed to start."
+              exit 1
+          }
+
+          Write-Host "GTCore App Pool started successfully."
