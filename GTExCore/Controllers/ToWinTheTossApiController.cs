@@ -95,9 +95,6 @@ namespace GTExCore.Controllers
                         }
                         return JsonConvert.SerializeObject(marketbook[0]);
                     }
-
-
-
                     var market = new BettingServiceReference.MarketBook();
                     return JsonConvert.SerializeObject(market);
                 }
